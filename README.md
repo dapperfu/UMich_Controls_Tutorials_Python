@@ -1,2 +1,3 @@
-# UMich_Controls_Tutorials_Python
-University of Michigan's Controls Tutorials redone in Python
+# UMich Controls Tutorials Python
+
+[University of Michigan's Controls Tutorials for Matlab & Simulink](http://ctms.engin.umich.edu/CTMS/index.php?aux=Home) redone in Python (where possible).
