@@ -1,5 +1,5 @@
 # Config
-VENV := _
+VENV := _controls_venv
 PROJ := python-controls
 # Environments to setup for this project
 # Available options: host python arduino mpc57xx renesas pi matlab simulink

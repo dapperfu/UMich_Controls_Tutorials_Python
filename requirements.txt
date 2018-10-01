@@ -8,3 +8,4 @@ git+https://github.com/jupyter/notebook.git
 git+https://github.com/jed-frey/python-control.git
 
 notebook
+sympy
