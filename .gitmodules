@@ -1,0 +1,3 @@
+[submodule "make_sandwich"]
+	path = make_sandwich
+	url = git@github.com:Functional-Safety-Technologies/make_sandwich.git
