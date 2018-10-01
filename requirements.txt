@@ -5,7 +5,8 @@
 -e ../python-control/
 git+https://github.com/jupyter/jupyter_console.git
 git+https://github.com/jupyter/notebook.git
-git+https://github.com/jed-frey/python-control.git
+git+https://github.com/jed-frey/jupyter_NotebookCleaners.git#egg=notebookcleaner
 
+git+https://github.com/jupyter/jupyter_console.git
 notebook
 sympy

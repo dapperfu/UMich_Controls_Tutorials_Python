@@ -1,0 +1,2 @@
+include versioneer.py
+include umich_controls_python/__version__.py
