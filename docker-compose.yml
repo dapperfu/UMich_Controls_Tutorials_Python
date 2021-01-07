@@ -1,0 +1,10 @@
+version: '3'
+services:
+  jupyter:
+    build:
+      context: .
+    image: jupyter/scipy-notebook:latest
+    ports:
+    - 8888:8888/tcp
+    volumes:
+    - .:/home/jovyan:rw
