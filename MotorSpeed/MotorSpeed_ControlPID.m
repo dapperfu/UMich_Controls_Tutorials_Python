@@ -1,29 +1,29 @@
 %% DC Motor Speed: PID Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|>
 %
-%% 
+%%
 % From the main problem, the dynamic equations in the Laplace domain and
 % the open-loop transfer function of the DC Motor are the following.
 %
 % $$ s(Js + b)\Theta(s) = KI(s) $$
 %
 % $$ (Ls + R)I(s) = V(s) - Ks\Theta(s) $$
-% 
+%
 % $$ P(s) = \frac{\dot{\Theta}(s)}{V(s)} = \frac{K}{(Js + b)(Ls + R) + K^2}  \qquad [\frac{rad/sec}{V}] $$
 %
 % The structure of the control system has the form shown in the figure
-% below. 
+% below.
 %
 % <<Content/MotorSpeed/Control/PID/figures/feedback_motors.png>>
 %
 % For the original problem setup and the derivation of the above equations,
-% please refer to the  
+% please refer to the
 % < ?example=MotorSpeed&section=SystemModeling
-% DC Motor Speed: System Modeling> page.  
+% DC Motor Speed: System Modeling> page.
 %
 % For a 1-rad/sec step reference, the design criteria are the following.
 %
@@ -33,7 +33,7 @@
 %
 % Now let's design a controller using the methods introduced in the
 % < ?example=Introduction&section=ControlPID
-% Introduction: PID Controller Design> page. 
+% Introduction: PID Controller Design> page.
 % Create a new < ?aux=Extras_Mfile
 % m-file> and type in the following commands.
 
@@ -55,15 +55,15 @@ P_motor = K/((J*s+b)*(L*s+R)+K^2);
 % Let's first try employing a proportional controller with a gain of 100,
 % that is, _C_(_s_) = 100. To determine the closed-loop transfer function, we
 % use the |feedback| command.  Add the following code to the end of your
-% m-file. 
+% m-file.
 
 Kp = 100;
 C = pid(Kp);
 sys_cl = feedback(C*P_motor,1);
-      
+
 %%
 % Now let's examine the closed-loop step response. Add the following
-% commands to the end of your m-file and run it in the command window. 
+% commands to the end of your m-file and run it in the command window.
 % You should generate the plot shown below. You can view some of the system's
 % characteristics by right-clicking on the figure and choosing
 % *Characteristics* from the resulting menu. In the figure below,
@@ -81,11 +81,11 @@ sys_cl = feedback(C*P_motor,1);
 %%
 %
 % <<Content/MotorSpeed/Control/PID/figures/sPID_control_01.png>>
-% 
+%
 %%
 % From the plot above we see that both the steady-state error and the
 % overshoot are too large. Recall from the
-% < ?example=Introduction&section=ControlPID Introduction: PID Controller Design> page 
+% < ?example=Introduction&section=ControlPID Introduction: PID Controller Design> page
 % that increasing the proportional gain _Kp_
 % will reduce the steady-state error. However, also recall that increasing
 % _Kp_ often results in increased overshoot, therefore, it appears that not
@@ -104,13 +104,13 @@ sys_cl = feedback(C*P_motor,1);
 % added to the controller.
 %
 %% PID control
-% Recall from the 
-% < ?example=Introduction&section=ControlPID Introduction: PID Controller Design> page 
+% Recall from the
+% < ?example=Introduction&section=ControlPID Introduction: PID Controller Design> page
 % adding an integral term will eliminate the steady-state error to a step reference and a
 % derivative term will often reduce the overshoot. Let's try a PID
 % controller with small _Ki_ and _Kd_. Modify your m-file so that the lines
 % defining your control are as follows. Running this new m-file gives you
-% the plot shown below.  
+% the plot shown below.
 
 Kp = 75;
 Ki = 1;
@@ -133,7 +133,7 @@ title('PID Control with Small Ki and Small Kd')
 % your m-file and change _Ki_ to 200 as in the following. Rerun the file and you
 % should get the plot shown below. Again the annotations are added by
 % right-clicking on the figure and choosing *Characteristics* from the
-% resulting menu. 
+% resulting menu.
 %%
 % <html>
 % </p><pre class="codeinput">
@@ -176,7 +176,7 @@ title('PID Control with Small Ki and Small Kd')
 %
 %%
 % As we had hoped, the increased _Kd_ reduced the resulting overshoot. Now
-% we know that if we use a PID controller with 
+% we know that if we use a PID controller with
 %
 % _Kp_ = 100,
 % _Ki_ = 200, and

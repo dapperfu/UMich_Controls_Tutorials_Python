@@ -8,7 +8,7 @@
 % download one of these models here, <Content/MotorPosition/Simulink/Control/Motor_Pos.mdl Motor_Pos.mdl>. In this
 % section, we will employ this model within Simulink to simulate and design
 % different approaches to control. Specifically, we will explore the design
-% of a digital control system.  
+% of a digital control system.
 %
 %% Open-loop response
 %
@@ -19,11 +19,11 @@
 %
 % * Remove the In and Out ports.
 % * Insert a Step block from the Simulink/Sources library and connect it
-% with a line to the Voltage input. 
+% with a line to the Voltage input.
 % * To view the output position, insert a Scope from the Simulink/Sinks
-% library and connect it to the Position output. 
+% library and connect it to the Position output.
 % * To provide an appropriate unit step input at t=0, double-click the Step
-% block and set the *Step time* to "0".  
+% block and set the *Step time* to "0".
 %
 % The system should now appear as in the following figure.
 %
@@ -36,18 +36,18 @@
 % the length for which the simulation is to run in the *Stop time* field.
 % We will enter "0.2" since 0.2 seconds will be long enough for the step
 % response to reach steady state. Also in the *Configuration Parameters*
-% dialog box, the numerical solver employed in the simulation can be specified. 
+% dialog box, the numerical solver employed in the simulation can be specified.
 % Go ahead and change the *Solver* field from the default |ode45
 % (Dormand-Prince)| to the |ode15s (stiff/NDF)| solver. Since the time
 % scales in this example are very small, this stiff system integration
-% method is more efficient than the default integration method.  
+% method is more efficient than the default integration method.
 %
 % <<Content/MotorPosition/Simulink/Control/figures/Picture1.png>>
 %
 %%
 % The physical parameters must now be set. Enter the following commands at
 % in the MATLAB command window.
-       
+
 J = 3.2284E-6;
 b = 3.5077E-6;
 K = 0.0274;
@@ -60,9 +60,9 @@ L = 2.75E-6;
 % scope and hit its autoscale button. You should see the following output
 % which goes unstable and obviously does not meet our design requirements.
 % Note that this response is consistent with the results we achieved from
-% the MATLAB command line in the 
+% the MATLAB command line in the
 % < ?example=MotorPosition&section=SystemAnalysis
-% DC Motor Position: System Analysis> page. 
+% DC Motor Position: System Analysis> page.
 %
 % <<Content/MotorPosition/Simulink/Control/figures/Picture2.png>>
 %
@@ -72,7 +72,7 @@ L = 2.75E-6;
 % sampled model can be performed from the MATLAB command line using the
 % command |dlinmod|, though it is preferrable to perform the extraction
 % from directly within Simulink as we will demonstrate here. We will use
-% the model from above.  
+% the model from above.
 %
 % The first thing that we need to do is to identify the inputs and outputs
 % of the model we wish to extract. First right-click on the signal
@@ -80,7 +80,7 @@ L = 2.75E-6;
 % *Linearization > Input Point* from the resulting menu. Similarly,
 % right-click on the signal representing the Position output and select
 % *Linearization > Output Point* from the resulting menu. The input and
-% output signals should now be identified on your model by arrow symbols 
+% output signals should now be identified on your model by arrow symbols
 % as shown in the figure below.
 %
 % <<Content/MotorPosition/Simulink/Control/figures/inputoutput.png>>
@@ -123,7 +123,7 @@ L = 2.75E-6;
 % an open-loop step response of the discrete-time transfer function in MATLAB.
 % Enter the following commands at the prompt of the MATLAB command window.
 % You should see the following plot which is in agreement with the output
-% from the continous Simulink model evaluated above.   
+% from the continous Simulink model evaluated above.
 %
 % <html>
 % </p><pre class="codeinput">
@@ -144,21 +144,21 @@ L = 2.75E-6;
 %
 %% Implementing digital control in Simulink
 %
-% In the 
+% In the
 % < ?example=MotorPosition&section=ControlDigital DC Motor Position: Digital Controller Design> page
-% a digital controller was designed with the following transfer function.  
+% a digital controller was designed with the following transfer function.
 %
 % $$ C(z) = 800\frac{(z - 0.95)(z - 0.80)^2}{(z + 0.98)(z - 0.6)(z - 1)} $$
 %
 % We can use this compensator to simulate the associated closed-loop
 % digital control system in Simulink. Starting from the Simulink model we
 % used above for extraction, delete the Input and Output ports and add
-% the following:  
-%  
+% the following:
+%
 % * Two Zero Order Hold blocks from the Simulink/Discrete library
 % * Discrete Zero Pole block from the Simulink/Discrete library
 % * Sum block from Simulink/Math Operations library
-%    
+%
 % Place one Zero Order Hold block on the input of the Motor_pos subsystem
 % which is a continuous model of the plant. This Zero Order Hold blocks converts a
 % discrete-time signal to a stepwise-constant continuous signal. The other
@@ -166,7 +166,7 @@ L = 2.75E-6;
 % serves to take discrete samples of the output signal of the plant. Edit
 % the Zero Order Hold blocks such that the *Sample time* fields are set to
 % "0.001" (this is fast compared to the desired step response in the MATLAB
-% tutorial).    
+% tutorial).
 %
 % Next edit the Discrete Zero Pole block to model the discrete controller
 % transfer function described above. Specifically, edit the *Zeros* field
@@ -176,7 +176,7 @@ L = 2.75E-6;
 %
 % Next, enter "|+-" to the *List of signs* field of the Sum block. The
 % character "|" serves as a spacer between input ports. Now we need to set
-% up the simulation to observe the motor's position for a step input.   
+% up the simulation to observe the motor's position for a step input.
 %
 % * Attach a Step block to the positve input of the Sum block and attach a
 % Scope block to the plant output.
@@ -206,7 +206,7 @@ L = 2.75E-6;
 % Now the simulation can finally be run. Recall that this can be
 % accomplished by pressing *Ctrl-T* or selecting *Start* from the
 % *Simulation* menu. When the simulation is finished, double-click on the
-% scope and hit its autoscale button. You should see the following output. 
+% scope and hit its autoscale button. You should see the following output.
 %
 % <<Content/MotorPosition/Simulink/Control/figures/Figure9a.png>>
 %
@@ -237,28 +237,28 @@ L = 2.75E-6;
 % required.
 %
 % If you have not done so already, save your Simulink model. You can also
-% download our version of this model here, <Content/MotorPosition/Simulink/Control/Motor_Pos_cl.mdl Motor_Pos_cl.mdl>.  
+% download our version of this model here, <Content/MotorPosition/Simulink/Control/Motor_Pos_cl.mdl Motor_Pos_cl.mdl>.
 %
 %% Converting a continuous-time model to discrete-time within Simulink
 %
 % In the above, we extracted a linear sampled model of our plant from
 % our Simulink model into the MATLAB workspace using the *Linear Analysis
-% Tool*. We also, in effect, discretized the plant for the purposes of 
+% Tool*. We also, in effect, discretized the plant for the purposes of
 % simulation using Zero Order Hold blocks within Simulink. In this section,
 % we will generate a discrete-time model of our plant without the use of
 % the Zero Order Hold blocks. This approach offers a wider array of
 % discretization techniques than can be achieved through Simulink blocks,
 % which are limited to Zero Order and First Order Hold. This is especially
-% useful in generating a digital controller from a continous design. 
+% useful in generating a digital controller from a continous design.
 %
 % So far we have chosen to employ the first principles simulink model
-% but we could have just as easily used the Simscape model or the LTI System 
-% model. One thing to be careful of, however, is that if you were to use the 
-% Simscape model of the plant in the above, the physical Simscape signals 
-% would need to be converted to dimensionless Simulink signals in order to 
+% but we could have just as easily used the Simscape model or the LTI System
+% model. One thing to be careful of, however, is that if you were to use the
+% Simscape model of the plant in the above, the physical Simscape signals
+% would need to be converted to dimensionless Simulink signals in order to
 % interface with the Simulink blocks we employed. This process is described in the
 % < ?example=MotorPosition&section=SimulinkModeling DC Motor Position: Simulink Modeling> page.
-% 
+%
 % In the following, we will discretize the LTI System model which can be
 % downloaded here, <Content/MotorPosition/Simulink/Control/Motor_Pos_LTI.mdl Motor_Pos_LTI.mdl>, or you can create it yourself as
 % < ?example=MotorPosition&section=SimulinkModeling DC Motor Position: Simulink Modeling>  page.
@@ -266,7 +266,7 @@ L = 2.75E-6;
 % Recall that the LTI System block imports a model from the MATLAB
 % workspace. Therefore, you need to enter the following commands at the
 % command line where it is presumed that values have already been entered
-% for the various physical parameters.    
+% for the various physical parameters.
 
 A = [0 1 0
      0 -b/J K/J
@@ -299,7 +299,7 @@ D = 0;
 % appear as follows.
 %
 % <<Content/MotorPosition/Simulink/Control/figures/Figure12a.png>>
-% 
+%
 % Simulate the model as we have done previously. The resulting position
 % response should appear as follows.
 %
@@ -309,5 +309,5 @@ D = 0;
 % sense since the first principles model and the LTI System block model
 % are equivalent and both Simulink models used a zero-order hold type
 % sampling to discretize the plant.
-% 
+%
 % You can download our version of this model here, <Content/MotorPosition/Simulink/Control/Motor_Pos_LTI_cl.mdl Motor_Pos_LTI_cl.mdl>.

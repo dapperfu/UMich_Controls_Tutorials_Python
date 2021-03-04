@@ -1,17 +1,17 @@
 %% Ball & Beam: System Modeling
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|>
 %
 %% Physical setup
 %
 % A ball is placed on a beam, see figure below, where it is allowed to roll
-% with 1 degree of freedom along the length of the beam. A lever arm is 
-% attached to the beam at one end and a servo gear at the other. As the 
-% servo gear turns by an angle $\theta$, the lever changes the angle of the 
-% beam by $\alpha$. When the angle is changed from the horizontal position, 
-% gravity causes the ball to roll along the beam. A controller will be 
+% with 1 degree of freedom along the length of the beam. A lever arm is
+% attached to the beam at one end and a servo gear at the other. As the
+% servo gear turns by an angle $\theta$, the lever changes the angle of the
+% beam by $\alpha$. When the angle is changed from the horizontal position,
+% gravity causes the ball to roll along the beam. A controller will be
 % designed for this system so that the ball's position can be manipulated.
 %
 % <<Content/BallBeam/System/Modeling/figures/bb2.png>>
@@ -19,25 +19,25 @@
 %% System parameters
 %
 % For this problem, we will assume that the ball rolls without slipping and
-% friction between the beam and ball is negligible. The constants and variables 
+% friction between the beam and ball is negligible. The constants and variables
 % for this example are defined as follows:
-% 
+%
 %  (m)      mass of the ball              0.11 kg
-%  
+%
 %  (R)      radius of the ball            0.015 m
-%  
+%
 %  (d)      lever arm offset              0.03 m
-%  
+%
 %  (g)      gravitational acceleration    9.8 m/s^2
-%   
+%
 %  (L)      length of the beam            1.0 m
 %
 %  (J)      ball's moment of inertia      9.99e-6 kg.m^2
-%  
-%  (r)      ball position coordinate	
-%  
-%  (alpha)  beam angle coordinate	
-%  
+%
+%  (r)      ball position coordinate
+%
+%  (alpha)  beam angle coordinate
+%
 %  (theta)  servo gear angle
 %
 %% Design criteria
@@ -47,7 +47,7 @@
 %
 %% System equations
 % The second derivative of the input angle $\alpha$ actually affects the second
-% derivative of $r$. However, we will ignore this contribution. The Lagrangian 
+% derivative of $r$. However, we will ignore this contribution. The Lagrangian
 % equation of motion for the ball is then given by the following:
 %
 % $$ 0 = \left(\frac{J}{R^2}+m\right) \ddot{r} + m g \sin{\alpha} - m r
@@ -55,8 +55,8 @@
 %
 % Linearization of this equation about the beam angle, $\alpha = 0$, gives us
 % the following linear approximation of the system:
-% 
-% $$ \left(\frac{J}{R^2}+m\right) \ddot{r} = - m g \alpha $$ 
+%
+% $$ \left(\frac{J}{R^2}+m\right) \ddot{r} = - m g \alpha $$
 %
 % The equation which relates the beam angle to the angle of the gear can be
 % approximated as linear by the equation below:
@@ -80,8 +80,8 @@
 % $$ P(s) = \frac{R(s)}{\Theta(s)} = -\frac{mgd}{L \left(\frac{J}{R^2}+m\right)}
 % \frac{1}{s^2} \qquad [ \frac{m}{rad} ]$$
 %
-% It should be noted that the above plant transfer function is a double 
-% integrator. As such it is marginally stable and will provide a challenging 
+% It should be noted that the above plant transfer function is a double
+% integrator. As such it is marginally stable and will provide a challenging
 % control problem.
 %
 % The transfer function can be implemented in MATLAB as follows:
@@ -102,8 +102,8 @@ P_ball = -m*g*d/L/(J/R^2+m)/s^2
 % *2. State-Space*
 %
 % The linearized system equations can also be represented in state-space
-% form. This can be done by selecting the ball's position ($r$) and velocity 
-% ($\dot{r}$) as the state variable and the gear angle ($\theta$) as the input. The 
+% form. This can be done by selecting the ball's position ($r$) and velocity
+% ($\dot{r}$) as the state variable and the gear angle ($\theta$) as the input. The
 % state-space representation is shown below:
 %
 % $$ \left[{\begin{array}{c} \dot{r} \\ \ddot{r} \end{array}}\right] =
@@ -113,8 +113,8 @@ P_ball = -m*g*d/L/(J/R^2+m)/s^2
 % \left(\frac{J}{R^2}+m\right)}\end{array}}\right] \Theta$$
 %
 % However, for our state-space example we will be using a slightly different
-% model. The same equation for the ball still applies but instead of controlling 
-% the position through the gear angle, $\theta$, we will control the torque of 
+% model. The same equation for the ball still applies but instead of controlling
+% the position through the gear angle, $\theta$, we will control the torque of
 % the beam. Below is the representation of this system:
 %
 % $$ \left[{\begin{array}{c} \dot{r} \\ \ddot{r} \\ \dot{\alpha} \\ \ddot{\alpha} \end{array}}\right] =

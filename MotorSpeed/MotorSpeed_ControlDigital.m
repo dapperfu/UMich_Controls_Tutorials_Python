@@ -1,7 +1,7 @@
 %% DC Motor Speed: Digital Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/c2d.html |c2d|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> ,
@@ -11,26 +11,26 @@
 % In this page, we will consider the digital version of the DC motor speed
 % control problem. A sampled-data DC motor model can be obtained from conversion
 % of the analog model, as we will describe. In this example we will
-% design a PID controller.  
+% design a PID controller.
 %
 % Thr continuous open-loop transfer function for an input of
-% armature voltage and an output of angular speed was derived previously as the following.  
+% armature voltage and an output of angular speed was derived previously as the following.
 %
 % $$ P(s) = \frac{\dot{\Theta}(s)}{V(s)} = \frac{K}{(Js + b)(Ls + R) + K^2}
 % \qquad [\frac{rad/sec}{V}] $$
 %
 %%
 % For the original problem setup and the derivation of the above equations,
-% please refer to the 
+% please refer to the
 % < ?example=MotorSpeed&section=SystemModeling
-% DC Motor Speed: System Modeling> page.  
+% DC Motor Speed: System Modeling> page.
 %
 % For a 1-rad/sec step reference, the design criteria are the following.
 %
 % * Settling time less than 2 seconds
 % * Overshoot less than 5%
 % * Steady-state error less than 1%
-% 
+%
 %% Creating a sampled-data model of the plant
 % The first step in the design of a digital control system is to generate
 % a sampled-data model of the plant. Therefore, it is necessary to choose a
@@ -38,14 +38,14 @@
 % sampling period, it is desired that the sampling frequency be fast
 % compared to the dynamics of the system in order that the sampled output
 % of the system captures the system's full behavior, that is, so that significant
-% inter-sample behavior isn't missed. 
+% inter-sample behavior isn't missed.
 %
 % Let's create a continuous-time model of the plant. Create a
 % new < ?aux=Extras_Mfile
 % m-file> and add the following MATLAB
 % code (refer to the main problem for the details of getting these
 % commands). Running the m-file within the MATLAB command window will
-% generate the output shown below. 
+% generate the output shown below.
 
 J = 0.01;
 b = 0.1;
@@ -59,19 +59,19 @@ zpk(P_motor)
 %%
 % The use of the |zpk| command above transforms the transfer function into
 % a form where the zeros, poles, and gain can be seen explicitly. Examining
-% the poles of the plant (or its frequency response), 
+% the poles of the plant (or its frequency response),
 % the dominant pole of the plant (sigma approximately equal to 2) corresponds to a settle
 % time of approximately 2 seconds (4 / _sigma_). Therefore, choosing a
 % sampling period of 0.05 seconds is significantly faster than the dynamics of the
 % plant. This sampling period is also fast compared to the speed that will
-% be achieved by the resultant closed-loop system.   
+% be achieved by the resultant closed-loop system.
 %
 % In this case, we will convert the given transfer function from the
 % continuous Laplace domain to the discrete z-domain. MATLAB can be used to
 % achieve this conversion through the use of the |c2d| command. The |c2d|
 % command requires three arguments: a system model, the sampling time
 % (|Ts|), and the type of hold circuit. In this example, we will assume a
-% zero-order hold (|zoh|) circuit. Refer to the 
+% zero-order hold (|zoh|) circuit. Refer to the
 % < ?example=Introduction&section=ControlDigital Introduction: Digital Controller Design> page
 % for further details. Adding the following commands to your m-file and
 % running in the MATLAB command window generates the sampled-data model
@@ -95,8 +95,8 @@ zpk(dP_motor)
 % The |stairs| command draws these discrete data points as a stairstep,
 % just like what would be produced by a zero-order hold circuit. Add the
 % following MATLAB code at the end of your previous m-file and rerun it.
-% You should generate the plot shown below. 
-       
+% You should generate the plot shown below.
+
 sys_cl = feedback(dP_motor,1);
 [y,t] = step(sys_cl,12);
 stairs(t,y);
@@ -131,8 +131,8 @@ title('Stairstep Response: Original')
 % resulting transfer function cannot be represented as a ratio of
 % polynomials. This makes it difficult to implement such a control
 % algorithm on a digital computer. Therefore, we will use an approximate
-% conversion. In particular, we are going to use the bilinear 
-% transformation shown below. 
+% conversion. In particular, we are going to use the bilinear
+% transformation shown below.
 %
 % $$ s = \frac{2}{T_s}.\frac{z-1}{z+1} $$
 %
@@ -145,7 +145,7 @@ title('Stairstep Response: Original')
 % , _Kp_ = 100, _Ki_ = 200 and _Kd_ = 10 were
 % found to satisfy all of the given design requirements. We will use these
 % gains again for this example. Now add the following MATLAB commands to your
-% previous m-file and rerun it in the MATLAB command window.  
+% previous m-file and rerun it in the MATLAB command window.
 
 Kp = 100;
 Ki = 200;
@@ -154,11 +154,11 @@ Kd = 10;
 C = Kp + Ki/s + Kd*s;
 dC = c2d(C,Ts,'tustin')
 
-%% 
+%%
 % Let's see if the performance of the closed-loop response with PID
 % compensator satisfies the given design requirements. Add the
 % following code to the end of your m-file and rerun it. You should get the
-% following closed-loop stairstep response.   
+% following closed-loop stairstep response.
 
 sys_cl = feedback(dC*dP_motor,1);
 [x2,t] = step(sys_cl,12);
@@ -172,7 +172,7 @@ title('Stairstep Response: with PID controller')
 % system is unstable. Therefore, something must be wrong with the
 % compensated system. We should take a look at the root locus of the
 % compensated system. Add the following MATLAB commands onto the end
-% of your m-file and rerun it. 
+% of your m-file and rerun it.
 
 rlocus(dC*dP_motor)
 axis([-1.5 1.5 -1 1])
@@ -196,7 +196,7 @@ z = tf('z',Ts);
 dC = dC/(z+0.82);
 rlocus(dC*dP_motor);
 axis([-1.5 1.5 -1 1])
-title('Root Locus of Compensated System');  
+title('Root Locus of Compensated System');
 
 %%
 % The new closed-loop system will have a pole near -0.82 instead of -1,
@@ -215,7 +215,7 @@ title('Root Locus of Compensated System');
 % you can then use to click on the point of interest on the root locus.
 % MATLAB will then return the appropriate gain |K| and all of the
 % corresponding closed-loop poles. This is useful in that it lists all of
-% the closed-loop poles, not just the point you clicked on. 
+% the closed-loop poles, not just the point you clicked on.
 %
 % We will choose a gain of 0.8 and examine the resulting closed-loop step
 % response by typing the following commands at the MATLAB command window.
@@ -227,7 +227,7 @@ xlabel('Time (seconds)')
 ylabel('Velocity (rad/s)')
 title('Stairstep Response: with Modified PID controller')
 
-%%  
+%%
 % The plot above shows that the settling time is less than 2 seconds and the
 % percent overshoot is around 2%. Additionally, the steady-state error is
 % zero. Therefore, this response satisfies all of the given design requirements.

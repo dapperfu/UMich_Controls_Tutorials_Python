@@ -1,10 +1,10 @@
 %% DC Motor Speed: Simulink Controller Design
 %
 %%
-% From the  
+% From the
 % < ?example=MotorSpeed&section=SimulinkModeling DC Motor Speed: Simulink Modeling> page
-% we generated two different DC motor models in Simulink. We will now employ 
-% these models within Simulink to simulate the system response and design 
+% we generated two different DC motor models in Simulink. We will now employ
+% these models within Simulink to simulate the system response and design
 % different approaches to control.
 %
 %% Extracting a linear model into MATLAB
@@ -13,7 +13,7 @@
 % employing the MATLAB command |linmod| or from directly within Simulink as
 % we will do here. We will specifically use the base Simulink model
 % developed from first principles shown below. You can download this model
-% <Content/MotorSpeed/Simulink/Control/Motor_Model.mdl here>, or you can refer to the 
+% <Content/MotorSpeed/Simulink/Control/Motor_Model.mdl here>, or you can refer to the
 % < ?example=MotorSpeed&section=SimulinkModeling
 % DC Motor Speed: Simulink Modeling> page to recreate the model yourself.
 %
@@ -34,7 +34,7 @@ L = 0.5;
 % *Linearization > Input Point* from the resulting menu. Similarly,
 % right-click on the signal representing the Speed output and select
 % *Linearization > Output Point* from the resulting menu. The input and
-% output signals should now be identified on your model by arrow symbols 
+% output signals should now be identified on your model by arrow symbols
 % as shown in the figure below.
 %
 % <<Content/MotorSpeed/Simulink/Control/figures/inputoutput.png>>
@@ -52,7 +52,7 @@ L = 0.5;
 %
 % <<Content/MotorSpeed/Simulink/Control/figures/linearize.png>>
 %
-% The open-loop step response above is consistent with the response generated in the  
+% The open-loop step response above is consistent with the response generated in the
 % < ?example=MotorSpeed&section=SystemAnalysis DC Motor Speed: System Analysis> page
 % The reason the responses match so closely is because this Simulink model
 % uses only linear components. Note that this process can be used
@@ -79,25 +79,25 @@ zpk(P_motor)
 %% Open-loop response
 % The open-loop step response can also be generated directly within
 % Simulink, without extracting any models to the MATLAB workspace. In order
-% to simulate the step response, the details of the simulation must 
+% to simulate the step response, the details of the simulation must
 % first be set. This can be accomplished by selecting *Configuration
 % Parameters* from the *Simulation* menu. Within the resulting menu, define
 % the length for which the simulation is to run in the *Stop time* field.
 % We will enter "3" since 3 seconds will be long enough for the step
 % response to reach steady state. Within this window you can also specify
 % various aspects of the numerical solver, but we will just use the default
-% values for this example.  
+% values for this example.
 %
 % Next we need to add an input signal and a means for displaying the output
 % of our simulation. This is done by doing the following:
 %
 % * Remove the In1 and Out1 blocks.
 % * Insert a Step block from the Simulink/Sources library and connect it
-% with a line to the Voltage input of the motor subsystem. 
+% with a line to the Voltage input of the motor subsystem.
 % * To view the Speed output, insert a Scope from the Simulink/Sinks
-% library and connect it to the Speed output of the motor subsystem. 
+% library and connect it to the Speed output of the motor subsystem.
 % * To provide a appropriate unit step input at t=0, double-click the Step
-% block and set the *Step time* to "0".  
+% block and set the *Step time* to "0".
 %
 % The final model should appear as shown in the following figure.
 %
@@ -116,35 +116,35 @@ zpk(P_motor)
 %
 %% Closed-loop response with lag compensator
 %
-% In the 
+% In the
 % < ?example=MotorSpeed&section=ControlRootLocus DC Motor Speed: Root Locus Controller Design> page
 % a lag compensator was designed with the
-% following transfer function.  
+% following transfer function.
 %
 % $$ C_{lag}(s) = 44\frac{s + 1}{s + 0.01} $$
 %
 % To generate the closed-loop step response with this compensator in
 % Simulink, we will begin with the "Motor_Model.mdl" file described above. We will
 % then put the lag compensator in series with the motor subsystem and will
-% feed back the motor's speed for comparison to a desired reference.   
+% feed back the motor's speed for comparison to a desired reference.
 %
-% More specifically, follow the steps given below: 
+% More specifically, follow the steps given below:
 %
-% * Remove the Input and Output ports of the model. 
+% * Remove the Input and Output ports of the model.
 % * Insert a Sum block from the Simulink/Math Operations library. Then
 % double-click on the block and enter "|+-" for its *List of signs* where
 % the symbol "|" serves as a spacer between ports of the block.
 % * Insert a Transfer Function block from the Simulink/Continuous library.
 % Then double-click on the block and edit the
 % *Numerator coefficients* field to "[44 44]" and the *Denominator
-% coefficients* field to "[1 0.01]". 
+% coefficients* field to "[1 0.01]".
 % * Insert a Step block from the Simulink/Sources library. Then
 % double-click on the block and set the *Step time* to "0".
 % * Insert a Scope block from the Simulink/Sinks library.
 %
 % Then connect and label the components as shown in the following figure
 %
-% <<Content/MotorSpeed/Simulink/Control/figures/Picture3.png>> 
+% <<Content/MotorSpeed/Simulink/Control/figures/Picture3.png>>
 %
 % You can download our version of the closed-loop system model here,
 % <Content/MotorSpeed/Simulink/Control/Motor_Model_lag.mdl Motor_Model_lag.mdl>.
@@ -160,10 +160,10 @@ zpk(P_motor)
 % < ?example=MotorSpeed&section=ControlRootLocus DC Motor Speed: Root Locus Controller Design> page
 % where the lag compensator was originally
 % designed. Note that while we used the physics-based Simulink model
-% developed in the 
+% developed in the
 % < ?example=MotorSpeed&section=SimulinkModeling DC Motor Speed: Simulink Modeling> page
-% for simulating the closed-loop system, we could have equivalently used 
-% the Simscape version of the DC motor model. 
+% for simulating the closed-loop system, we could have equivalently used
+% the Simscape version of the DC motor model.
 %
 %% Closed-loop response with lead compensator
 %
@@ -196,7 +196,7 @@ zpk(P_motor)
 % copy of this loop below the original blocks.
 % * Double-click on the Transfer Function block and edit the
 % *Numerator coefficients* field to "[160000 5.6e6]" and the *Denominator
-% coefficients* field to "[1 1035]". 
+% coefficients* field to "[1 1035]".
 % * Insert a Mux block from the Simulink\Signal Routing library and connect
 % the outputs of the two Motor subsystem blocks to the inputs of the Mux
 % and connect the output of the Mux to the Scope.
@@ -217,7 +217,7 @@ zpk(P_motor)
 % the one shown below. Comparing the two graphs, the purple response
 % belonging to the lead compensated system has a much smaller settle time
 % and slightly larger, but similar, overshoot as compared to the yellow
-% response produced by the lag compensated system. 
+% response produced by the lag compensated system.
 %
 % <<Content/MotorSpeed/Simulink/Control/figures/Picture10.png>>
 %

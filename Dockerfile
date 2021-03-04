@@ -14,7 +14,7 @@ USER $NB_USER
 RUN conda install --yes \
     -c conda-forge \
     slycot \
-    control \ 
+    control \
     && jupyter labextension install @jupyter-widgets/jupyterlab-manager dask-labextension@2.0.2 \
     && conda clean -tipsy \
     && jupyter lab clean \

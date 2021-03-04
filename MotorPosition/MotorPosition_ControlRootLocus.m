@@ -1,21 +1,21 @@
 %% DC Motor Position: Root Locus Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/rlocus.html |rlocus|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/sgrid.html |sgrid|> ,
-% <http://www.mathworks.com/help/toolbox/control/ref/pole.html |pole|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/minreal.html |minreal|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/pole.html |pole|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/minreal.html |minreal|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|>
 %
-%% 
+%%
 % From the main problem, the open-loop transfer function of the DC Motor is
 % given as follows.
-% 
+%
 % $$ P(s) = \frac {\Theta (s)}{V(s)} = \frac{K}{s ( (Js + b)(Ls + R) + K^2 )} \qquad [ \frac{rad}{V}  ] $$
 %
-% The structure of the control system has the form shown in the figure below. 
+% The structure of the control system has the form shown in the figure below.
 %
 % <<Content/MotorPosition/Control/RootLocus/figures/feedback_motorp.png>>
 %
@@ -23,7 +23,7 @@
 % For the original problem setup and the derivation of the above equations,
 % please refer to the
 % < ?example=MotorPosition&section=SystemModeling
-% DC Motor Position: System Modeling> page. 
+% DC Motor Position: System Modeling> page.
 %
 % With a 1-radian step reference, the design criteria are the following.
 %
@@ -35,7 +35,7 @@
 %
 % Create a new < ?aux=Extras_Mfile
 % m-file> and type in the following commands (refer to main
-% problem for the details of getting these commands). 
+% problem for the details of getting these commands).
 
 J = 3.2284E-6;
 b = 3.5077E-6;
@@ -50,11 +50,11 @@ P_motor = K/(s*((J*s+b)*(L*s+R)+K^2));
 % from the root locus plot which depicts possible closed-loop pole
 % locations and is drawn from the open-loop transfer function.
 % Then by adding zeros and/or poles via the controller, the root locus
-% can be modified in order to achieve a desired closed-loop response. 
+% can be modified in order to achieve a desired closed-loop response.
 % Let's first view the
 % root locus for the plant. Add the following commands to the end of your
 % m-file and run it in the MATLAB command window to generate a plot like
-% the one shown below. 
+% the one shown below.
 %%
 rlocus(P_motor)
 title('Root Locus - P Control')
@@ -63,10 +63,10 @@ sigrid(100)
 
 %%
 % The commands |sgrid| and |sigrid| are < ?aux=Extras_Function
-% functions> that mark regions of the 
+% functions> that mark regions of the
 % complex plane corresponding to certain parameters. |sgrid| is a function in
 % the Control System Toolbox; however, to use < ?aux=Extras_sigrid
-% sigrid> you will have to download it 
+% sigrid> you will have to download it
 % <Content/MotorPosition/Control/RootLocus/sigrid.m here>. The variables in the |sgrid| command are the
 % damping ratio (_zeta_ = 0.5) and the natural frequency (_Wn_ = 0). The
 % variable in the |sigrid| command is the _sigma_ term. The _zeta_ and
@@ -74,13 +74,13 @@ sigrid(100)
 % of 0.040 seconds, respectively, for a canonical second-order system. Even
 % though our motor transfer function is third order, it will be explained
 % that these second-order based definitions will work well. No value is
-% given for _Wn_ since we have no requirement on rise time.  
+% given for _Wn_ since we have no requirement on rise time.
 %
-% From the above figure, the two open-loop poles near the origin cannot be 
+% From the above figure, the two open-loop poles near the origin cannot be
 % distinguished because the scale of the axes is set to show the third pole
 % which is much farther to the left than the other two poles. The MATLAB
 % command |pole| can be employed to determine the exact values of the
-% open-loop poles.  
+% open-loop poles.
 
 poles = pole(P_motor)
 
@@ -90,7 +90,7 @@ poles = pole(P_motor)
 % These large gains place two of the closed-loop poles in the right-half
 % complex _s_-plane where the system becomes unstable. Since we will not
 % use gains that will make the closed-loop system unstable, we can neglect
-% this pole by performing a model reduction. 
+% this pole by performing a model reduction.
 
 %% Model reduction
 % In general, the real part of a pole indicates how quickly the transient
@@ -101,11 +101,11 @@ poles = pole(P_motor)
 % the slower, more dominant poles. In the case of our motor position
 % example, the transient closed-loop response for small gains will not be
 % affected much by the open-loop pole at -1.45e6. The correct way to neglect this
-% pole in order to maintain its steady-state contribution is to keep the 
-% DC gain of the transfer function the same, as follows:     
+% pole in order to maintain its steady-state contribution is to keep the
+% DC gain of the transfer function the same, as follows:
 
 %%
-% 
+%
 % $$  H(s) = \frac{G(s)}{s/p + 1} \approx G(s) \textrm{ for } s \ll p $$
 %
 
@@ -114,7 +114,7 @@ poles = pole(P_motor)
 % identified using the MATLAB command |pole|. The two poles that dominate
 % are difficult to identify from above because of the scientific notation,
 % but they can be seen more clearly by recognizing that they are the first
-% and third elements of the resulting vector which we have named |poles|. 
+% and third elements of the resulting vector which we have named |poles|.
 
 poles(1), poles(3)
 
@@ -136,7 +136,7 @@ pole(rP_motor)
 %%
 % Now we can draw the root locus of the reduced system. Add the following
 % commands to the end of your m-file and run it in the command window.
-      
+
 rlocus(rP_motor)
 title('Root Locus - P Control')
 axis([ -300 100 -200 200])
@@ -150,14 +150,14 @@ sigrid(100)
 % enough to meet the settling time requirement (that is, they never move to
 % the left of the _sigma_ = 100 vertical line). Also, recall that we need
 % an integrator in the controller (not just in the system) to remove the
-% steady-state error due to a constant disturbance.   
+% steady-state error due to a constant disturbance.
 %
 %% Integral control
 % Now, let's try using integral control to remove the steady-state error
 % due to a constant disturbance. Modify your m-file such that it appears
 % like the following. Note that this adds a 1 / _s_ term to the forward path
 % of the system. Run this m-file and you will obtain a plot like the one
-% shown below. 
+% shown below.
 
 C = 1/s;
 rlocus(C*rP_motor)
@@ -194,10 +194,10 @@ sigrid(100)
 %% PID control
 %
 % In order to pull the root locus further to the left, to make it faster,
-% we need to place a second open-loop zero, resulting in a PID controller. 
+% we need to place a second open-loop zero, resulting in a PID controller.
 % After some experimentation, we place the two PID zeros at _s_ = -60 and
 % _s_ = -70. Change the lines defining the controller in your m-file to the
-% following. Re-run your m-file and you will generate a plot like the one shown below.  
+% following. Re-run your m-file and you will generate a plot like the one shown below.
 
 C = (s + 60)*(s + 70) / s;
 rlocus(C*rP_motor)
@@ -210,7 +210,7 @@ sigrid(100)
 % Now, we can see that two of the closed-loop poles can be placed well within
 % both the settling time and percent overshoot requirements. The third
 % closed-loop pole moves from the open-loop pole at _s_ = -59.2 to the
-% open-loop zero at _s_ = -60. This closed-loop pole nearly cancels with the zero 
+% open-loop zero at _s_ = -60. This closed-loop pole nearly cancels with the zero
 % (which remains in the closed-loop transfer function) because they are so
 % close together. Therefore, we can neglect its effect.  Let's reduce our
 % new model again by performing the zero-pole cancelation using the
@@ -232,7 +232,7 @@ sigrid(100)
 % effect of an additional zero (if there is no cancellation) is in general
 % to speed up the response and add overshoot. Therefore, we have to be
 % conservative in picking where on the root locus we want the closed-loop
-% poles to lie. 
+% poles to lie.
 
 %% Determining gain using rlocfind command
 %
@@ -245,18 +245,18 @@ sigrid(100)
 % |[k,poles] = rlocfind(rsys_ol)| in the MATLAB command window.
 %
 % Then go to the plot and select a point on the root locus on left side of
-% the loop, close to the real axis as shown below with the small |+| marks. 
+% the loop, close to the real axis as shown below with the small |+| marks.
 % This will ensure that the response will be nearly as fast as possible
 % with minimal overshoot. These pole locations indicate that the response
 % would have almost no overshoot if it were a canonical second-order
-% system. Recall, however, that the presence of the zero will add 
-% some overshoot.  
+% system. Recall, however, that the presence of the zero will add
+% some overshoot.
 %
 % <<Content/MotorPosition/Control/RootLocus/figures/Figure3.png>>
 %
 %%
 % After doing this, you should see the following output in the MATLAB
-% command window. 
+% command window.
 %%
 % <html>
 % </p><pre class="codeoutput">Select a point in the graphics window
@@ -281,7 +281,7 @@ sigrid(100)
 % </html>
 %%
 % Note that the values returned in your MATLAB command window may not be
-% exactly the same, but should at least have the same order of magnitude.  
+% exactly the same, but should at least have the same order of magnitude.
 % You can also get the step response plots for the reference and
 % disturbance with this specific controller and loop gain by executing the
 % following code in the command window. These commands should produce the
@@ -317,10 +317,10 @@ sigrid(100)
 %
 %%
 % From the above, you can see that in response to a step reference the
-% system has an overshoot of approximately 14%, a 
+% system has an overshoot of approximately 14%, a
 % settling time just under 0.04 seconds, and no steady-state error. Also,
 % the response to a step disturbance reaches a steady-state value of zero.
-% Therefore, all of the design requirements have been met. 
+% Therefore, all of the design requirements have been met.
 %
 % In this example we placed the zeros of our compensator in order to
 % reshape the root locus so that the closed-loop poles could be placed in

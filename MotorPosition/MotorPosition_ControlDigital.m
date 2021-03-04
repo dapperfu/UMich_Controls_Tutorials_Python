@@ -1,9 +1,9 @@
 %% DC Motor Position: Digital Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/c2d.html |c2d|> ,
-% <http://www.mathworks.com/help/toolbox/control/ref/minreal.html |minreal|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/minreal.html |minreal|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/zpk.html |zpk|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> ,
 % <http://www.mathworks.com/help/techdoc/ref/stairs.html |stairs|> ,
@@ -15,11 +15,11 @@
 % analog DC motor model, as we will describe. According to the
 % < ?example=MotorPosition&section=SystemModeling DC Motor Position: System Modeling> page,
 % the continuos open-loop transfer function for DC motor's position
-% in the Laplace domain is the following.   
+% in the Laplace domain is the following.
 %
 % $$ P(s) = \frac {\Theta(s)}{V(s)} =  \frac{K}{s ( (Js + b)(Ls + R) + K^2 )} \qquad  [ \frac{rad}{V} ] $$
 %
-% The structure of the control system has the form shown in the figure below. 
+% The structure of the control system has the form shown in the figure below.
 %
 % <<Content/MotorPosition/Control/Digital/figures/feedback_motorp.png>>
 %
@@ -39,7 +39,7 @@
 % sampling period, it is desired that the sampling frequency be fast
 % compared to the dynamics of the system in order that the sampled output
 % of the system captures the system's full behavior, that is, so that significant
-% inter-sample behavior isn't missed. 
+% inter-sample behavior isn't missed.
 %
 % Let's create a continuous-time model of the plant. Create a
 % new < ?aux=Extras_Mfile
@@ -60,7 +60,7 @@ zpk(P_motor)
 %%
 % The use of the |zpk| command above transforms the transfer function into
 % a form where the zeros, poles, and gain can be seen explicitly. Examining
-% the poles of the plant (or its frequency response), 
+% the poles of the plant (or its frequency response),
 % it is clear that the pole at -1.45e06 contributes very little to the
 % response of the plant. The gain crossover frequency of the plant is
 % approximately 5 Hz. Therefore, choosing a sampling period of 0.001 seconds
@@ -68,14 +68,14 @@ zpk(P_motor)
 % plant. This sampling period is also fast compared to the speed that will
 % be achieved by the resultant closed-loop system. A sample time of 0.001
 % seconds is specifically 1/100 of the required time
-% constant and 1/40 of the required settling time.   
+% constant and 1/40 of the required settling time.
 %
 % In this case, we will convert the given transfer function from the
 % continuous Laplace domain to the discrete z-domain. MATLAB can be used to
 % achieve this conversion through the use of the |c2d| command. The |c2d|
 % command requires three arguments: a system model, the sampling time
 % (|Ts|), and the type of hold circuit. In this example, we will assume a
-% zero-order hold (|zoh|) circuit. Refer to the 
+% zero-order hold (|zoh|) circuit. Refer to the
 % < ?example=Introduction&section=ControlDigital Introduction: Digital Controller Design> page
 % for further details. Adding the following commands to your m-file and
 % running in the MATLAB command window generates the sampled-data model
@@ -91,12 +91,12 @@ zpk(dP_motor)
 % accomplished by applying the |minreal| command with a tolerance of 0.001.
 % Cancellation of this pole and zero will reduce the order of our transfer
 % function and will help to avoid numerical difficulties in MATLAB.
-% Applying the |minreal| command, therefore, produces the following reduced order  
-% transfer function. Note the absence of the pole and zero near _z_ = 0.    
+% Applying the |minreal| command, therefore, produces the following reduced order
+% transfer function. Note the absence of the pole and zero near _z_ = 0.
 
 dP_motor = minreal(dP_motor,0.001);
 zpk(dP_motor)
-    
+
 %%
 % We would now like to analyze the closed-loop response of the system
 % without any additional compensation. First, we have to close the loop of
@@ -110,7 +110,7 @@ zpk(dP_motor)
 % The |stairs| command draws these discrete data points as a stairstep,
 % just like what would be produced by a zero-order hold circuit. Add the
 % following code at the end of your previous m-file and rerun it. You
-% should generate a plot like the one shown below. 
+% should generate a plot like the one shown below.
 
 sys_cl = feedback(dP_motor,1);
 [x1,t] = step(sys_cl,.5);
@@ -127,16 +127,16 @@ grid
 % poles of the system at desired locations. Adding poles and
 % zeros to the the original open-loop transfer function via the controller
 % allows us to reshape the root locus in order to place the closed-loop
-% poles at the desired locations. This approach can also   
+% poles at the desired locations. This approach can also
 % be used for discrete-time models. We will use the *SISO Design Tool* graphical user
 % interface (GUI) for designing our controller. Adding the command
 % |sisotool('rlocus',dP_motor)| to your m-file will open the *SISO Design Tool* when
-% run at the command line. 
+% run at the command line.
 %
 % Two windows will open initially with the *SISO Design for SISO Design
 % Task* window having the form shown in the figure below. This figure shows
 % the root locus of the transfer function |d_Pmotor| passed through the
-% |sisotool| function. This figure appears initially due to the 
+% |sisotool| function. This figure appears initially due to the
 % addition of the string |'rlocus'| to the function call. If the string
 % |'rlocus'| is omitted, the default initial window includes the open-loop
 % Bode plot in addition to the root locus plot.
@@ -147,16 +147,16 @@ grid
 % Recall from our previous controller designs that we have added an
 % integrator to our compensator in order to reject the effect of a constant
 % disturbance in steady state. We can add integral control through the
-% *SISO Design Tool* interface under the *Compensator Editor* tab of the  
+% *SISO Design Tool* interface under the *Compensator Editor* tab of the
 % *Control and Estimation Tools Manager* window. Specifically, an
 % integrator is added to our controller by right-clicking on the *Dynamics*
 % section of the window and selecting *Add Pole/Zero > Integrator* from the
 % resulting menu. The figure below illustrates what the *Control and
-% Estimation Tools Manager* window should look like.  
+% Estimation Tools Manager* window should look like.
 %
 % <<Content/MotorPosition/Control/Digital/figures/Picture2a.png>>
-% 
-%% 
+%
+%%
 % Integral control in the continuous-time domain is 1 / _s_. The SISO tool uses
 % a forward difference approximation for mapping from the s-plane to the
 % z-plane as described by _s_ = (_z_-1) / |Ts|, where |Ts| is the sample time
@@ -166,7 +166,7 @@ grid
 % pole at _z_ = 1.
 %
 % <<Content/MotorPosition/Control/Digital/figures/Picture2b.png>>
-% 
+%
 %%
 % The default format for compensators in the *SISO Design Tool* is *Time constant*
 % form. For the remainder of this problem, we will design the compensator
@@ -181,7 +181,7 @@ grid
 % closed-loop system. From the above, we can see that the after adding the
 % extra pole at 1, the root locus had three poles near 1. This caused the
 % root locus to move to the right (outside of the unit circle) indicating
-% that the closed-loop response will be more unstable. 
+% that the closed-loop response will be more unstable.
 %
 % Therefore, we will add a zero near 1, inside the unit circle, to cancel
 % one of the poles and pull the root locus in. We will specifically add a
@@ -193,12 +193,12 @@ grid
 % placed at 0.95. The root locus plot should now appear as shown below.
 %
 % <<Content/MotorPosition/Control/Digital/figures/Picture3b.png>>
-% 
+%
 %%
 % The addition of the integrator has helped with the requirement on
 % disturbance rejections, however, the above root locus indicates that the
 % closed-loop system cannot be made robustly stable through further tuning
-% of the loop gain. We also have not addressed our other design requirements.       
+% of the loop gain. We also have not addressed our other design requirements.
 % To help us in this regard, let's identify the region of the complex plane
 % where the closed-loop poles must be located.
 %
@@ -211,7 +211,7 @@ grid
 % requirements. These regions assume a canonical second-order system, which
 % we do not have currently, but the regions can still help guide our
 % design.
-% 
+%
 % <<Content/MotorPosition/Control/Digital/figures/Picture4a.png>>
 %
 %%
@@ -223,7 +223,7 @@ grid
 % described above for the integrator and the real zero. It is desirable to
 % cancel this zero since it will add overshoot to the step response. The
 % addition of this pole will result in two of the branches of the root
-% locus going off to the right and outside of the unit circle. 
+% locus going off to the right and outside of the unit circle.
 %
 % We will attempt to pull these branches in by placing two additional zeros
 % near the desired closed-loop pole locations. These zeros can be added via
@@ -240,9 +240,9 @@ grid
 % the controller causal, we need to add an additional pole. Using a
 % graphical approach again, we can add a real pole by choosing an |x| from
 % the tool bar at the top of the *SISO Design for SISO Design Task* window.
-% Through trial and eror we arrive at a pole location of 0.6. The  
+% Through trial and eror we arrive at a pole location of 0.6. The
 % resulting root locus is shown below.
-% 
+%
 % <<Content/MotorPosition/Control/Digital/figures/Picture4b.png>>
 %
 %%
@@ -254,7 +254,7 @@ grid
 % response so that we can observe the effect of the gain changes on the
 % actual step response, without having to rely on a second-order
 % idealization.
-% 
+%
 % The closed-loop step response plot is opened from the *Control and
 % Estimation Tools Manager* window under the *Analysis Plots* tab as shown
 % below. In this tab, select |Step| from the drop-down window for *Plot 1* under the
@@ -263,7 +263,7 @@ grid
 % which corresponds to a plot for the *Closed Loop r to y*. Finally, click
 % the *Show Analysis Plots* button to produce the closed-loop step
 % response.
-% 
+%
 % <<Content/MotorPosition/Control/Digital/figures/Picture5a.png>>
 %
 %%
@@ -273,7 +273,7 @@ grid
 % *Design Requirements* from the right-click menu of the step response plot
 % and choosing the overshoot to be 16% and the settling time to be 0.040 seconds.
 % Note that you will need to choose a rise time of less than 0.040 seconds,
-% even though we have no such requirement. 
+% even though we have no such requirement.
 %
 % We will now modify the loop gain to meet the overshoot requirement. Using
 % a graphical tuning approach, grab one of the pink boxes on the root locus
@@ -285,7 +285,7 @@ grid
 % while achieving a settling time of approximately 0.02 seconds. Furthermore, the
 % steady-state error goes to zero when there is no disturbance present. The
 % resulting step response plot is shown below.
-% 
+%
 % <<Content/MotorPosition/Control/Digital/figures/Picture5b.png>>
 %
 %%

@@ -1,7 +1,7 @@
 %% DC Motor Speed: State-Space Methods for Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/order.html ||>order> ,
 % <http://www.mathworks.com/help/techdoc/ref/rank.html |rank|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/ctrb.html |ctrb|> ,
@@ -13,16 +13,16 @@
 % given below.
 %%
 %
-% $$\frac{d}{dt}\left [\begin{array}{c} \dot{\theta} \\ \ \\ i \end{array} \right] = 
+% $$\frac{d}{dt}\left [\begin{array}{c} \dot{\theta} \\ \ \\ i \end{array} \right] =
 % \left [\begin{array}{cc} -\frac{b}{J} & \frac{K}{J} \\ \ \\ -\frac{K}{L} &
-% -\frac{R}{L} \end{array} \right] \left [\begin{array}{c} \dot{\theta} \\ \ \\ i \end{array} \right]  + 
+% -\frac{R}{L} \end{array} \right] \left [\begin{array}{c} \dot{\theta} \\ \ \\ i \end{array} \right]  +
 % \left [\begin{array}{c} 0 \\ \ \\ \frac{1}{L} \end{array} \right] V$$
 %
 % $$ y = [ \begin{array}{cc}1 & 0\end{array}] \left [ \begin{array}{c} \dot{\theta} \\ \ \\ i
 % \end{array} \right] $$
 %
 %%
-% For the original problem setup and the derivation of the above equations, please refer to the 
+% For the original problem setup and the derivation of the above equations, please refer to the
 % < ?example=MotorSpeed&section=SystemModeling
 % DC Motor Speed: System Modeling> page. These state-space equations have
 % the standard form shown below where the state vector *x* = [ _theta_dot_
@@ -41,7 +41,7 @@
 %
 % Now let's design a controller using the methods introduced in the
 % < ?example=Introduction&section=ControlStateSpace
-% Introduction: State-Space Methods for Controller Design> page. 
+% Introduction: State-Space Methods for Controller Design> page.
 % Create a new < ?aux=Extras_Mfile
 % m-file> and type in the following commands.
 
@@ -57,15 +57,15 @@ B = [0
 C = [1   0];
 D = 0;
 sys = ss(A,B,C,D);
-    
+
 %% Designing the full-state feedback controller
 %
-% Since both of the state variables in our problem are easy to measure 
+% Since both of the state variables in our problem are easy to measure
 % (simply add an ammeter for current and a tachometer for the speed),
 % we can design a full-state feedback controller for the system without
 % worrying about having to add an observer. The control law for a
 % full-state feedback system has the form _u_ = _r_ - _Kc_ *x* and the associated
-% schematic is shown below.  
+% schematic is shown below.
 %
 % <<Content/MotorSpeed/Control/StateSpace/figures/statefeedback_motors.png>>
 %
@@ -74,7 +74,7 @@ sys = ss(A,B,C,D);
 % the determinant of _sI_ - (_A_ - _B*Kc_) where _s_ is the Laplace variable.
 % Since the matrices _A_ and _B*Kc_ are both 2x2 matrices, there should be
 % 2 poles for the system. This fact can be verified with the MATLAB command
-% |order|. If the given system is controllable, then by designing a 
+% |order|. If the given system is controllable, then by designing a
 % full-state feedback controller we can move these two poles anywhere
 % we'd like.  Whether the given system is controllable or not can be
 % determined by checking the rank of the controllability matrix [ _B_ _AB_
@@ -107,7 +107,7 @@ Kc = place(A,B,[p1 p2])
 %%
 % Referring back to the state-space equations at the top of the page, we
 % see that substituting the state-feedback law _u_ = _r_ - _Kc_ *x* for _u_
-% leads to the following expression.     
+% leads to the following expression.
 %
 % $$ \dot{{\bf x}} = (A - BK_c){\bf x} + Br $$
 %
@@ -146,19 +146,19 @@ Nbar = rscale(sys,Kc)
 
 %%
 % Note that the function |rscale.m| is not a standard function in MATLAB.
-% You will have to download it and place it 
+% You will have to download it and place it
 % in your current directory. Click < ?aux=Extras_Function
-% here> for further information. Now you can plot the step response by adding the above 
-% and following lines of code to your m-file and re-running at the command line.   
+% here> for further information. Now you can plot the step response by adding the above
+% and following lines of code to your m-file and re-running at the command line.
 
 t = 0:0.01:10;
 step(sys_cl*Nbar,t)
 grid
 title('Step Response with State-Feedback Controller and Precompensator')
 
-%% 
+%%
 % This time, the steady-state error is much less than 1%, and all the other
-% design criteria have been met as well. 
+% design criteria have been met as well.
 %
 % Note that the precompensator _Nbar_ employed above is calculated based on
 % the model of the plant and further that the precompensator is located
@@ -169,7 +169,7 @@ title('Step Response with State-Feedback Controller and Precompensator')
 % in the presence of model uncertainty and step disturbances. For an example of how
 % to implement integral control in the state space setting, see the
 % < ?example=MotorPosition&section=ControlStateSpace
-% DC Motor Position: State-Space Methods for Controller Design> example. 
+% DC Motor Position: State-Space Methods for Controller Design> example.
 % The tradeoff with using integral control is that the
 % error must first develop before it can be corrected for, therefore, the
 % system may be slow to respond. The precompensator on the other hand is

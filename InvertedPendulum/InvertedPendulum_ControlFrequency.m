@@ -1,8 +1,8 @@
 %% Inverted Pendulum: Frequency Domain Methods for Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/zpkdata.html |zpkdata|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/zpkdata.html |zpkdata|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/sisotool.html |sisotool|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/impulse.html |impulse|>
@@ -12,14 +12,14 @@
 % system using a frequency response design method. In the design process we will assume a
 % single-input, single-output plant as described by the following transfer
 % function. Otherwise stated, we will attempt to control the pendulum's
-% angle without regard for the cart's position. 
-% 
+% angle without regard for the cart's position.
+%
 % $$P_{pend}(s) = \frac{\Phi(s)}{U(s)}=\frac{\frac{ml}{q}s}{s^3+\frac{b(I+ml^2)}{q}s^2-\frac{(M+m)mgl}{q}s-\frac{bmgl}{q}} \qquad [ \frac{rad}{N}]$$
-% 
+%
 % where,
-% 
+%
 % $$q = (M+m)(I+ml^2) - (ml)^2$$
-% 
+%
 % The controller we are designing will specifically attempt to maintain the
 % pendulum vertically upward when the cart is subjected to a 1-Nsec
 % impulse. Under these conditions, the design criteria are:
@@ -29,17 +29,17 @@
 %
 %%
 % For the original problem setup and the derivation of the above transfer function,
-% please consult the < ?example=InvertedPendulum&section=SystemModeling 
-% Inverted Pendulum: System Modeling> page. 
+% please consult the < ?example=InvertedPendulum&section=SystemModeling
+% Inverted Pendulum: System Modeling> page.
 %
 % *Note:* Applying a frequency response design approach is relatively
-% challenging in the case of this example because 
+% challenging in the case of this example because
 % the open-loop system is unstable. That is, the open-loop transfer
 % function has a pole in the right-half complex plane. For this reason, attempting
-% this example is not recommended if you are just attempting to learn the basics 
+% this example is not recommended if you are just attempting to learn the basics
 % of applying frequency response techniques.  This problem is better suited for
 % more advanced students who wish to learn about some nuances of the
-% frequency response design approach. 
+% frequency response design approach.
 %
 %% System structure
 %
@@ -70,7 +70,7 @@
 % plant within MATLAB. Create a new
 % < ?aux=Extras_Mfile m-file> and type in
 % the following commands to create the plant model (refer to the main
-% problem for the details of getting these commands). 
+% problem for the details of getting these commands).
 
 M = 0.5;
 m = 0.2;
@@ -86,7 +86,7 @@ P_pend = (m*l*s/q)/(s^3 + (b*(I + m*l^2))*s^2/q - ((M + m)*m*g*l)*s/q - b*m*g*l/
 % As mentioned above, this system is unstable without control. We can
 % prove this to ourselves by employing the MATLAB command |zpkdata|.
 % In this case, |zpkdata| returns the zeros and poles for the transfer
-% function. The added parameter |'v'| returns the outputs in the form of 
+% function. The added parameter |'v'| returns the outputs in the form of
 % vectors instead of cell arrays and can only be employed with
 % single-input, single-output models. Entering the following code in the
 % MATLAB command window generates the output shown below.
@@ -97,7 +97,7 @@ P_pend = (m*l*s/q)/(s^3 + (b*(I + m*l^2))*s^2/q - ((M + m)*m*g*l)*s/q - b*m*g*l/
 % We will now examine the response of the closed-loop system
 % without compensation before we begin to design our controller. In this
 % example we will employ the *SISO Design Tool* for examining the various
-% analysis plots rather than employing individual commands such as |bode|, 
+% analysis plots rather than employing individual commands such as |bode|,
 % |nyquist|, and |impulse|. The *SISO Design Tool* is an interactive tool
 % with graphical user interface (GUI) which can be launched by the MATLAB
 % command |sisotool| as shown below.
@@ -110,7 +110,7 @@ P_pend = (m*l*s/q)/(s^3 + (b*(I + m*l^2))*s^2/q - ((M + m)*m*g*l)*s/q - b*m*g*l/
 %
 % The additional parameter |'bode'| opens the *SISO Design for SISO Design
 % Task* window with the bode plot of the system $\mathrm{P_{pend}}(s)$ (which was
-% passed to the function) as shown below. 
+% passed to the function) as shown below.
 %
 % <<Content/InvertedPendulum/Control/Frequency/figures/Figure1.png>>
 %
@@ -141,7 +141,7 @@ P_pend = (m*l*s/q)/(s^3 + (b*(I + m*l^2))*s^2/q - ((M + m)*m*g*l)*s/q - b*m*g*l/
 % we are employing currently. The open-loop Bode plot of our system is already
 % open, but if it weren't, or if we wished to change the type of plot we
 % are employing for design, we could open a new plot from under the *Graphical
-% Tuning* tab of the *Control and Estimation Tools Manager* window as shown below.  
+% Tuning* tab of the *Control and Estimation Tools Manager* window as shown below.
 %
 % <<Content/InvertedPendulum/Control/Frequency/figures/Figure17.png>>
 %
@@ -164,7 +164,7 @@ P_pend = (m*l*s/q)/(s^3 + (b*(I + m*l^2))*s^2/q - ((M + m)*m*g*l)*s/q - b*m*g*l/
 % In order to generate additional plots to better understand the
 % closed-loop performance of the system, click on the *Analysis Plots* tab
 % in the *Control and Estimation Tools Manager* window. The *SISO Design
-% Tool* allows the user to view up to six plots at the same time 
+% Tool* allows the user to view up to six plots at the same time
 % for analysis.  These plots can be viewed for a number of options, such as
 % open-loop and closed-loop. We will view the Nyquist plot for the
 % open-loop system and the impulse response of the closed-loop system by
@@ -204,7 +204,7 @@ P_pend = (m*l*s/q)/(s^3 + (b*(I + m*l^2))*s^2/q - ((M + m)*m*g*l)*s/q - b*m*g*l/
 % of the point -1 ($N$ = 0). Therefore, $Z$ = 0 + 1 = 1 and the closed-loop
 % system has 1 pole in the right-half plane indicating that it is
 % indeed unstable.
-% 
+%
 %% Closed-loop response with compensation
 % Since the closed-loop system is unstable without compensation, we need to
 % use our controller to stabilize the system and meet the given
@@ -234,14 +234,14 @@ P_pend = (m*l*s/q)/(s^3 + (b*(I + m*l^2))*s^2/q - ((M + m)*m*g*l)*s/q - b*m*g*l/
 % Design Tool*. However, the open-loop transfer function is unchanged by
 % whether the controller is in the forward or feedback path, therefore, we
 % can still use the plots of the open-loop system for analysis and design.
-% The resulting bode plot that is generated is shown below and reflects 
+% The resulting bode plot that is generated is shown below and reflects
 % the low frequency behavior we would expect.
 %
 % <<Content/InvertedPendulum/Control/Frequency/figures/Figure11b.png>>
 %
 % Even with the addition of this integrator, the closed-loop system is
 % still unstable. We can attempt to better understand
-% the instability (and how to resolve it) by looking more 
+% the instability (and how to resolve it) by looking more
 % closely at the Nyquist plot. We can generate this analysis plot in the
 % same manner we did previously. Instead, we can also generate this plot
 % by selecting *Open-Loop Nyquist* from the *Analysis* menu accessed from
@@ -255,7 +255,7 @@ P_pend = (m*l*s/q)/(s^3 + (b*(I + m*l^2))*s^2/q - ((M + m)*m*g*l)*s/q - b*m*g*l/
 % poles in the right-half plane ($Z = P + N = 1 + 1 = 2$). Hence, the
 % closed-loop system is still unstable. We need to add phase in order to
 % get a counterclockwise encirclement. We will do this by adding a zero to
-% our controller. For starters, we will place this zero at -1 and view the 
+% our controller. For starters, we will place this zero at -1 and view the
 % resulting plots. This action can be achieved graphically by
 % right-clicking on the Bode plot as we did previously. Instead, we will
 % add the zero from the *Compensator Editor* tab of the *Control and
@@ -364,31 +364,31 @@ title('Response of Pendulum Position to an Impulse Disturbance under Closed-loop
 %
 %% What happens to the cart's position?
 % At the beginning of this page, a block diagram for the inverted pendulum
-% system was given. The diagram was not entirely complete. The block 
+% system was given. The diagram was not entirely complete. The block
 % representing the response of the cart's position $x$ was not included
 % because that variable is not being controlled. It is interesting though,
 % to see what is happening to the cart's position when the controller for
 % the pendulum's angle $\phi$ is in place. To see this we need to consider
 % the full system block diagram as shown in the following figure.
-% 
+%
 % <<Content/InvertedPendulum/Control/Frequency/figures/feedback_pend3.png>>
-% 
+%
 % Rearranging, we get the following block diagram.
-% 
+%
 % <<Content/InvertedPendulum/Control/Frequency/figures/feedback_pend4.png>>
-% 
+%
 % In the above, the block $C(s)$ is the controller designed for maintaining
 % the pendulum vertical. The closed-loop transfer function $T_2(s)$ from an input force applied
 % to the cart to an output of cart position is, therefore, given by the
-% following. 
+% following.
 %
 % $$ T_2(s) = \frac{X(s)}{F(s)} = \frac{P_{cart}(s)}{1 + P_{pend}(s)C(s)}$$
 %
 %%
-% Referring to the < ?example=InvertedPendulum&section=SystemModeling 
+% Referring to the < ?example=InvertedPendulum&section=SystemModeling
 % Inverted Pendulum: System Modeling> page, the transfer function for
-% $\mathrm{P_{cart}}(s)$ is defined as follows. 
-% 
+% $\mathrm{P_{cart}}(s)$ is defined as follows.
+%
 % $$P_{cart}(s) = \frac{X(s)}{U(s)} = \frac{ \frac{ (I+ml^2)s^2 - gml } {q}
 % }{s^4+\frac{b(I+ml^2)}{q}s^3-\frac{(M+m)mgl}{q}s^2-\frac{bmgl}{q}s}
 % \qquad [ \frac{m}{N}] $$

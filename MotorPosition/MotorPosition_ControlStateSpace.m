@@ -1,21 +1,21 @@
 %% DC Motor Position: State-Space Methods for Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/order.html |order|> ,
 % <http://www.mathworks.com/help/techdoc/ref/det.html |det|> ,
-% <http://www.mathworks.com/help/toolbox/control/ref/ctrb.html |ctrb|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/place.html |place|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> 
+% <http://www.mathworks.com/help/toolbox/control/ref/ctrb.html |ctrb|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/place.html |place|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|>
 %
 %%
 % From the main problem, the dynamic equations in state-space form are
 % given below.
 %%
 %
-% $$  \frac{d}{dt}\left[\begin{array}{c} \theta \\ \ \\ \dot{\theta} \\ \ \\ i \end{array} \right] = 
+% $$  \frac{d}{dt}\left[\begin{array}{c} \theta \\ \ \\ \dot{\theta} \\ \ \\ i \end{array} \right] =
 % \left [\begin{array}{ccc} 0 & 1 & 0 \\ \ \\ 0 & -\frac{b}{J} & \frac{K}{J} \\ \ \\
-% 0 & -\frac{K}{L} & -\frac{R}{L} \end{array} \right] \left [\begin{array}{c} \theta \\ \ \\ \dot{\theta} \\ \ \\ i \end{array} \right]  + 
+% 0 & -\frac{K}{L} & -\frac{R}{L} \end{array} \right] \left [\begin{array}{c} \theta \\ \ \\ \dot{\theta} \\ \ \\ i \end{array} \right]  +
 % \left [\begin{array}{c} 0 \\ \ \\ 0 \\ \ \\ \frac{1}{L} \end{array} \right] V$$
 %
 % $$  y = [ \begin{array}{ccc}1 & \ 0 & \ 0 \end{array}] \left [\begin{array}{c} \theta \\ \ \\ \dot{\theta} \\ \ \\ i
@@ -32,7 +32,7 @@
 % For the original problem setup and the derivation of the above equations,
 % please refer to the
 % < ?example=MotorPosition&section=SystemModeling
-% DC Motor Position: System Modeling> page  
+% DC Motor Position: System Modeling> page
 %
 %%
 % With a 1-radian step reference, the design criteria are the following.
@@ -44,7 +44,7 @@
 %%
 % First create a new < ?aux=Extras_Mfile
 % m-file> and type in the following commands (refer to main
-% problem for the details of getting these commands). 
+% problem for the details of getting these commands).
 
 J = 3.2284E-6;
 b = 3.5077E-6;
@@ -59,7 +59,7 @@ B = [0 ; 0 ; 1/L];
 C = [1  0  0];
 D = 0;
 motor_ss = ss(A,B,C,D);
-    
+
 %% Designing the full state-feedback controller
 %
 % Since all of the state variables in our problem are very easy to measure
@@ -67,7 +67,7 @@ motor_ss = ss(A,B,C,D);
 % potentiometer for position), we can design a full-state feedback
 % controller for the system without worrying about having to add an
 % observer. The control law for a full-state feedback system has the form
-% _u_ = _r_ - _Kc_ *x*. The associated block diagram is given below. 
+% _u_ = _r_ - _Kc_ *x*. The associated block diagram is given below.
 %
 % <<Content/MotorPosition/Control/StateSpace/figures/statefeedback_motorp.png>>
 %
@@ -76,10 +76,10 @@ motor_ss = ss(A,B,C,D);
 % the determinant of _sI_-(_A-B*Kc_) where _s_ is the Laplace variable. Since
 % the matrices _A_ and _B*Kc_ are both 3x3 matrices, there should be 3 poles
 % for the system. This fact can be verified with the MATLAB command
-% |order|. If the given system is controllable, then by designing a 
+% |order|. If the given system is controllable, then by designing a
 % full state-feedback controller we can move these three poles anywhere
 % we'd like.  Whether the given system is controllable or not can be
-% determined by checking the rank of the controllability matrix [ _B_ _AB_ 
+% determined by checking the rank of the controllability matrix [ _B_ _AB_
 % _A^2B_ ...]. The MATLAB command |ctrb| constructs the controllability matrix
 % given _A_ and _B_. Additionally, the command |rank| determines the rank
 % of a given matrix, though it can be numerically unreliable. Therefore, we
@@ -105,17 +105,17 @@ determinant = det(ctrb(A,B))
 % command |place| since it is numerically better conditioned than |acker|.
 % However, if we wished to place a pole with multiplicity greater than the
 % rank of the matrix _B_, then we would have to use the command |acker|.
-% Add the following code to the end of your m-file.  
+% Add the following code to the end of your m-file.
 
 p1 = -100+100i;
 p2 = -100-100i;
 p3 = -200;
 Kc = place(A,B,[p1, p2, p3])
 
-%%      
+%%
 % Referring back to the equations and schematic at the top of the page, we
 % see that employing a state-feedback law _u_ = _r_ - _Kc_ *x*, the state-space
-% equations become the following.  
+% equations become the following.
 %
 % $$   \dot{{\bf x}} = (A - BK_c){\bf x} + Br $$
 %
@@ -158,27 +158,27 @@ step(dist_cl,t)
 % with the plant it can remove the steady-state error due to a step reference. If
 % the integrator comes before the injection of the disturbance, it will
 % also cancel a step disturbance input in steady state. This changes our control
-% structure so that it now resembles the block diagram shown in the following figure.   
+% structure so that it now resembles the block diagram shown in the following figure.
 %
 % <<Content/MotorPosition/Control/StateSpace/figures/statefeedback_w_int.png>>
 %
-%% 
+%%
 % We can model the addition of this integrator by augmenting our state
 % equations with an extra state for the integral of the error which we will
-% identify with the variable _w_. This adds an 
+% identify with the variable _w_. This adds an
 % extra state equation, where the derivative of this state is then just the
 % error, _e = y - r_ where _y = theta_. This equation will be placed at the
 % bottom of our matrices. The reference _r_, therefore, now appears as an
-% additional input to our system. The output of the system remains the same.  
+% additional input to our system. The output of the system remains the same.
 %
-% $$ \frac{d}{dt}\left[\begin{array}{c} \theta \\ \ \\ \dot{\theta} \\ \ \\ i \\ \ \\ w \end{array}  \right] = 
+% $$ \frac{d}{dt}\left[\begin{array}{c} \theta \\ \ \\ \dot{\theta} \\ \ \\ i \\ \ \\ w \end{array}  \right] =
 % \left[ \begin{array}{cccc} 0 & 1 & 0 & 0 \\ \ \\ 0 & -\frac{b}{J} &
-% \frac{K}{J} & 0 \\ \ \\ 0 & -\frac{K}{L} & -\frac{R}{L} & 0 \\ \ \\ 1 & 0 & 0 & 0 \end{array} \right] \left  
+% \frac{K}{J} & 0 \\ \ \\ 0 & -\frac{K}{L} & -\frac{R}{L} & 0 \\ \ \\ 1 & 0 & 0 & 0 \end{array} \right] \left
 % [\begin{array}{c} \theta \\ \ \\ \dot{\theta} \\ \ \\ i \\ \ \\ w
 % \end{array} \right] $$
 %
 % $$ + \left[ \begin{array}{c} 0 \\ \ \\ 0 \\ \ \\ \frac{1}{L} \\ \ \\ 0
-% \end{array} \right] V 
+% \end{array} \right] V
 % + \left[ \begin{array}{c} 0 \\ \ \\ 0 \\ \ \\ 0 \\ \ \\ -1 \end{array} \right] r $$
 %
 % $$  y = [ \begin{array}{cccc} 1 & \ 0 & \ 0 & \ 0 \end{array}] \left
@@ -191,11 +191,11 @@ step(dist_cl,t)
 % closed. We will refer to the system matrices in this equation
 % that are augmented with the additional integrator state as _Aa_, _Ba_, _Ca_, and
 % _Da_. The vector multiplying the reference input _r_ will be referred to as
-% _Br_. We will refer to the state vector of the augmented system as *xa*.  
+% _Br_. We will refer to the state vector of the augmented system as *xa*.
 % Note that the reference, _r_, does not affect the states (except the
 % integrator state) or the output of the plant. This is expected since
 % there is no path from the reference to the plant input, _u_, without
-% implementing the state-feedback gain matrix _Kc_.        
+% implementing the state-feedback gain matrix _Kc_.
 %
 %%
 % In order to find the closed-loop equations, we have to look at how the
@@ -215,7 +215,7 @@ step(dist_cl,t)
 % in the steady-state error being reduced to zero. Now we must redesign our
 % controller to account for the augmented state vector. Since we need to
 % place each pole of the system, we will place the pole associated with the
-% additional integrator state at -300, which will be faster than the other poles.     
+% additional integrator state at -300, which will be faster than the other poles.
 %
 % Add the following lines to your m-file which reflect the closed-loop
 % equations presented above. Note that since the closed-loop
@@ -239,9 +239,9 @@ t = 0:0.001:.05;
 sys_cl = ss(Aa-Ba*Ka,Br,Ca,Da);
 step(sys_cl,t)
 
-%%      
+%%
 % To observe the disturbance response, we use a similar approach to that
-% used without the integral action.  
+% used without the integral action.
 
 dist_cl = ss(Aa-Ba*Ka,[0 ; 1/J ; 0; 0],Ca,Da);
 step(dist_cl,t)

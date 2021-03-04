@@ -17,7 +17,7 @@
 % the aircraft pitch angle $\theta$.
 %%
 % For the original problem setup and the derivation of the above transfer function please refer to the
-% < ?example=AircraftPitch&section=SystemModeling Aircraft Pitch: System Modeling> page 
+% < ?example=AircraftPitch&section=SystemModeling Aircraft Pitch: System Modeling> page
 %
 % For a step reference of 0.2 radians, the design criteria are the
 % following.
@@ -25,7 +25,7 @@
 % * Overshoot less than 10%
 % * Rise time less than 2 seconds
 % * Settling time less than 10 seconds
-% * Steady-state error less than 2% 
+% * Steady-state error less than 2%
 %
 %% Open-loop response
 % Let's first begin by examining the behavior of the open-loop plant.
@@ -33,7 +33,7 @@
 % m-file>, and enter the following commands. Note the scaling of the step response
 % by 0.2 to account for the fact that the input is a step of 0.2 radians
 % (11 degrees). Running this m-file in the MATLAB command window should
-% give you the step response plot shown below.   
+% give you the step response plot shown below.
 
 t = [0:0.01:10];
 s = tf('s');
@@ -48,7 +48,7 @@ grid
 % Examination of the above plot indicates that the open-loop system is
 % unstable for a step input, that is, its output grows unbounded when given
 % a step input. This is due to the fact that the transfer function has a
-% pole at the origin. 
+% pole at the origin.
 %% Closed-loop response
 % Let's now close the loop on our plant and see if that stabilizes the
 % system. Consider the following unity feedback architecture for our
@@ -66,7 +66,7 @@ sys_cl = feedback(P_pitch,1)
 % Examining the poles of this transfer function using the |pole| command as
 % shown below, it can be seen that this closed-loop system is indeed stable
 % since all of the poles have negative real part.
- 
+
 pole(sys_cl)
 
 %%
@@ -111,7 +111,7 @@ title('Closed-loop Step Response')
 % Bode plot of the open-loop system.
 %% Lead compensator
 % A type of compensator that can accomplish both of our goals is a lead
-% compensator. Referring to the < ?aux=Extras_Leadlag Lead and Lag Compensators> 
+% compensator. Referring to the < ?aux=Extras_Leadlag Lead and Lag Compensators>
 % page, a lead compensator adds positive phase to the
 % system. Additional positive phase increases the phase margin, thus,
 % increasing the damping. The lead compensator also generally increases the
@@ -119,9 +119,9 @@ title('Closed-loop Step Response')
 % thereby, increasing the gain crossover frequency and overall speed of the
 % system. Therefore, the settling time should decrease as a result of the
 % addition of a lead compensator. The general form of the transfer function of a
-% lead compensator is the following. 
+% lead compensator is the following.
 %
-% $$ C(s)=K \frac{Ts + 1}{\alpha Ts+1} \ \ \ (\alpha < 1) $$ 
+% $$ C(s)=K \frac{Ts + 1}{\alpha Ts+1} \ \ \ (\alpha < 1) $$
 %
 % We thus need to find $\alpha$, _T_ and _K_. Typically, the gain _K_ is
 % set to satisfy requirements on steady-state error. Since our system is
@@ -180,11 +180,11 @@ title('Closed-loop Step Response with K = 10')
 % more than 50 degrees of phase lead to account for the fact that the gain
 % crossover frequency will increase to a point where the system has more
 % phase lag. We will somewhat arbitrarily add 5 degrees and aim for a
-% total bump in phase of 50+5 = 55 degrees. 
+% total bump in phase of 50+5 = 55 degrees.
 %
-% We can then use this number to solve the above relationship for $\alpha$ as shown below. 
+% We can then use this number to solve the above relationship for $\alpha$ as shown below.
 %
-% $$ \alpha = \frac{1 - \sin(55^{\circ})}{1 + \sin(55^{\circ})} \approx 0.10 $$ 
+% $$ \alpha = \frac{1 - \sin(55^{\circ})}{1 + \sin(55^{\circ})} \approx 0.10 $$
 %
 % From the above, we can calculate that $\alpha$ must be less than
 % approximately 0.10. For this value of $\alpha$, the following
@@ -193,7 +193,7 @@ title('Closed-loop Step Response with K = 10')
 % maximum bump in phase.
 %
 % $$ 20 \log \left( \frac{1}{\sqrt{\alpha}} \right) \approx 20 \log \left( \frac{1}{\sqrt{0.10}} \right) \approx 10 dB $$
-% 
+%
 % Examining the Bode plot shown above, the magnitude of the uncompensated
 % system equals -10 dB at approximately 6.1 rad/sec. Therefore, the
 % addition of our lead compensator will move the gain crossover frequency
@@ -208,7 +208,7 @@ title('Closed-loop Step Response with K = 10')
 % now have a first attempt at our lead compensator. Adding the following
 % lines to your m-file and running at the command line will generate the
 % plot shown below demonstrating the effect of your lead compensator on the
-% system's frequency response. 
+% system's frequency response.
 
 K = 10;
 alpha = 0.10;
@@ -232,7 +232,7 @@ title('Closed-loop Step Response with K = 10, alpha = 0.10, and T = 0.52')
 % Examination of the above demonstrates that we are close to
 % meeting our requirements. Using the MATLAB command |stepinfo| as shown
 % below we can see precisely the characteristics of the closed-loop step
-% response.  
+% response.
 
 stepinfo(0.2*sys_cl)
 
@@ -254,7 +254,7 @@ title('Closed-loop Step Response with K = 10, \alpha = 0.04, and T = 0.55')
 %%
 % Examination of the above step response demonstrates that the requirements
 % are now met. Using the |stepinfo| command again more clearly demonstrates
-% that the requirements are met. 
+% that the requirements are met.
 
 stepinfo(0.2*sys_cl)
 

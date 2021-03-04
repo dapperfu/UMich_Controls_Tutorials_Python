@@ -4,27 +4,27 @@
 % A common actuator in control systems is the DC motor. It directly
 % provides rotary motion and, coupled with wheels or drums and cables, can
 % provide translational motion. The electric circuit of the armature and
-% the free-body diagram of the rotor are shown in the following figure: 
+% the free-body diagram of the rotor are shown in the following figure:
 %
 % <<Content/MotorSpeed/Simulink/Modeling/figures/motor.png>>
 %
 %%
 % For this example, we will assume that the input of the system is the
-% voltage source (_V_) applied to the motor's armature, while the output is the 
+% voltage source (_V_) applied to the motor's armature, while the output is the
 % rotational speed of the shaft d(_theta_)/dt. The rotor and shaft are
 % assumed to be rigid. We further assume a viscous
 % friction model, that is, the friction torque is proportional to shaft
-% angular velocity. 
+% angular velocity.
 %
 % The physical parameters for our example are:
 %
-%  (J)     moment of inertia of the rotor     0.01 kg.m^2 
-% 
-%  (b)     motor viscous friction constant    0.1 N.m.s 
+%  (J)     moment of inertia of the rotor     0.01 kg.m^2
 %
-%  (Ke)    electromotive force constant       0.01 V/rad/sec 
+%  (b)     motor viscous friction constant    0.1 N.m.s
 %
-%  (Kt)    motor torque constant              0.01 N.m/Amp 
+%  (Ke)    electromotive force constant       0.01 V/rad/sec
+%
+%  (Kt)    motor torque constant              0.01 N.m/Amp
 %
 %  (R)     electric resistance                1 Ohm
 %
@@ -53,7 +53,7 @@
 % inertia and integrating the acceleration to give velocity. Also,
 % Kirchoff's laws will be applied to the armature circuit. First, we will
 % model the integrals of the rotational acceleration and of the rate of
-% change of the armature current.   
+% change of the armature current.
 %
 % $$ \int \frac{d^2{\theta}}{dt^2} \ dt = \frac{d{\theta}}{dt} $$
 %
@@ -63,22 +63,22 @@
 % window. Then follow the steps listed below.
 %
 % * Insert an Integrator block from the Simulink/Continuous library and draw
-% lines to and from its input and output terminals. 
+% lines to and from its input and output terminals.
 % * Label the input line "d2/dt2(theta)" and the output line "d/dt(theta)"
 % as shown below. To add such a label, double-click in the empty space just
-% below the line.  
+% below the line.
 % * Insert another Integrator block above the previous one and draw lines
-% to and from its input and output terminals. 
-% * Label the input line "d/dt(i)" and the output line "i". 
+% to and from its input and output terminals.
+% * Label the input line "d/dt(i)" and the output line "i".
 %
 % <<Content/MotorSpeed/Simulink/Modeling/figures/Picture1.png>>
 %
 %%
 % Next, we will apply Newton's law and Kirchoff's law to the motor system
-% to generate the following equations:   
+% to generate the following equations:
 %
 % $$ J \frac{d^2 \theta}{dt^2} = T - b \frac{d{\theta}}{dt} \Longrightarrow
-% \frac{d^2 \theta}{dt^2} = \frac{1}{J}(K_{t}i - b \frac{d{\theta}}{dt})  $$ 
+% \frac{d^2 \theta}{dt^2} = \frac{1}{J}(K_{t}i - b \frac{d{\theta}}{dt})  $$
 %
 % $$ L \frac{di}{dt} = -Ri + V-e \Longrightarrow \frac{di}{dt} =
 % \frac{1}{L}(-Ri + V-K_{e} \frac{d{\theta}}{dt})  $$
@@ -90,69 +90,69 @@
 % steps given below.
 %
 % * Insert two Gain blocks from the Simulink/Math Operations library, one
-% attached to each of the integrators. 
+% attached to each of the integrators.
 % * Edit the Gain block corresponding to angular acceleration by
-% double-clicking it and changing its value to "1/J". 
+% double-clicking it and changing its value to "1/J".
 % * Change the label of this Gain block to "Inertia" by clicking on the
-% word "Gain" underneath the block. 
+% word "Gain" underneath the block.
 % * Similarly, edit the other Gain's value to "1/L" and its label to
-% "Inductance". 
+% "Inductance".
 % * Insert two Add blocks from the Simulink/Math Operations library, one
-% attached by a line to each of the Gain blocks. 
+% attached by a line to each of the Gain blocks.
 % * Edit the signs of the Add block corresponding to rotation to "+-" since
-% one term is positive and one is negative. 
+% one term is positive and one is negative.
 % * Edit the signs of the other Add block to "-+-" to represent the signs
-% of the terms in the electrical equation.  
+% of the terms in the electrical equation.
 %
 % <<Content/MotorSpeed/Simulink/Modeling/figures/Picture2.png>>
 %
 %%
 % Now, we will add in the torques which are represented in the rotational
-% equation. First, we will add in the damping torque. 
+% equation. First, we will add in the damping torque.
 %
 % * Insert a Gain block below the "Inertia" block. Next right-click on the
 % block and select *Format > Flip Block* from the resulting menu to flip
 % the block from left to right. You can also flip a selected block by
-% holding down *Ctrl-I*.    
+% holding down *Ctrl-I*.
 % * Set the Gain value to "b" and rename this block to "Damping".
 % * Tap a line (hold *Ctrl* while drawing or right-click on the line) off the
 % rotational Integrator's output and connect it to the input of the
-% "Damping" block.  
+% "Damping" block.
 % * Draw a line from the "Damping" block output to the negative input of the
-% rotational Add block. 
+% rotational Add block.
 %
 % Next, we will add in the torque from the armature.
 %
 % * Insert a Gain block attached to the positive input of the rotational
-% Add block with a line. 
+% Add block with a line.
 % * Edit its value to "K" to represent the motor constant and Label it
-% "Kt". 
+% "Kt".
 % * Continue drawing the line leading from the current Integrator and
-% connect it to the "Kt" block.  
+% connect it to the "Kt" block.
 %
 % <<Content/MotorSpeed/Simulink/Modeling/figures/Picture3.png>>
 %
 %%
 % Now, we will add in the voltage terms which are represented in the
 % electrical equation. First, we will add in the voltage drop across the
-% armature resistance.  
+% armature resistance.
 %
 % * Insert a Gain block above the "Inductance" block and flip it from left
-% to right. 
+% to right.
 % * Set the Gain value to "R" and rename this block to "Resistance".
 % * Tap a line off the current Integrator's output and connect it to the
-% input of the "Resistance" block.  
+% input of the "Resistance" block.
 % * Draw a line from the "Resistance" block's output to the upper negative input
-% of the current equation Add block.  
+% of the current equation Add block.
 %
 % Next, we will add in the back emf from the motor.
 %
 % * Insert a Gain block attached to the other negative input of the current
-% Add block with a line. 
+% Add block with a line.
 % * Edit it's value to "K" to represent the motor back emf constant and Label it "Ke".
-% * Tap a line off the rotational Integrator's output and connect it to the "Ke" block. 
+% * Tap a line off the rotational Integrator's output and connect it to the "Ke" block.
 % * Add In1 and Out1 blocks from the Simulink/Ports & Subsystems library
-% and respectively label them "Voltage" and "Speed". 
+% and respectively label them "Voltage" and "Speed".
 %
 % The final design should look like the example shown in the figure below.
 %
@@ -166,7 +166,7 @@
 % system here, <Content/MotorSpeed/Simulink/Modeling/Motor_Model.mdl Motor_Model.mdl>. We use this model in
 % the
 % < ?example=MotorSpeed&section=SimulinkControl
-% DC Motor Speed: Simulink Controller Design> section.  
+% DC Motor Speed: Simulink Controller Design> section.
 %
 % <<Content/MotorSpeed/Simulink/Modeling/figures/Picture44.png>>
 %
@@ -177,7 +177,7 @@
 % The blocks in the Simscape library represent actual physical components;
 % therefore, complex multi-domain models can be built without the need to
 % build mathematical equations from physical principles as was done above
-% by applying Newton's laws and Kirchoff's laws. 
+% by applying Newton's laws and Kirchoff's laws.
 %
 % Open a new Simulink model and insert the following blocks to represent
 % the electrical and mechanical elements of the DC motor.
@@ -192,19 +192,19 @@
 % ports 1 and 2 from the |Left| and the location of ports 3 and 4
 % from the |Right|.
 %
-% Connect and label the components as shown in the following figure. You 
+% Connect and label the components as shown in the following figure. You
 % can rotate a block in a similar manner to the way you flipped blocks,
 % that is, by right-clicking on the block then selecting *Rotate Block*
-% from the *Format* menu.  
+% from the *Format* menu.
 %
 % <<Content/MotorSpeed/Simulink/Modeling/figures/Picture6.png>>
 %
 %%
 % Complete the design of the DC motor Simscape model by assigning values to the
-% physical parameters of each of the blocks to match our assumed values. 
+% physical parameters of each of the blocks to match our assumed values.
 % To assign the necessary values, double-click on the Resistor, Inductor,
 % Inertia, Rotational Damper, and Rotational Electromechanical Converter
-% blocks and enter the following parameters and associated units: 
+% blocks and enter the following parameters and associated units:
 %
 %  Resistance                   = R [Ohm]
 %
@@ -222,7 +222,7 @@
 % employ a more complicated friction model, for instance to add Coulomb
 % friction to the model, then you may use the Rotational Friction block
 % from the Simscape/Foundation Library/Mechanical/Rotational Elements
-% library. 
+% library.
 %
 % Also note that in the above you generated a DC Motor model from the
 % individual mechanical and electrical aspects of the motor. The Simscape
@@ -240,7 +240,7 @@ R = 1;
 L = 0.5;
 
 %%
-% These values are the same ones listed in the physical setup section. 
+% These values are the same ones listed in the physical setup section.
 %
 % You can then save these components in a single subsystem. Select all of
 % the blocks and then choose *Create Subsystem* from the *Edit* menu. You
@@ -272,14 +272,14 @@ L = 0.5;
 % * Mechanical Rotational Reference block from the Simscape/Foundation
 % Library/Mechanical/Rotational Elements library
 % * Three Out1 blocks and one In1 block from the Simulink/Ports & Subsystems library
-% 
+%
 %%
 % The Ideal Rotational Motion Sensor block represents a device that
 % measures the difference in angular position and angular velocity between
 % two nodes. In this case, we employ the block to measure the position and
 % velocity of the motor shaft as compared to a fixed reference represented
 % by the Mechanical Rotational Reference block. You can leave the *Initial
-% angle* of the Rotational Motion Sensor block as the default 0 radians. 
+% angle* of the Rotational Motion Sensor block as the default 0 radians.
 %
 % The Current Sensor block represents another sensor, specifically it
 % measures the current drawn by the motor. The ground for the electrical
@@ -292,7 +292,7 @@ L = 0.5;
 % The PS-Simulink blocks convert physical signals to Simulink
 % output signals, while the Simulink-PS block conversely converts a
 % Simulink input signal to a physical signal. These blocks can be employed
-% to convert the Simscape signals, which represent physical 
+% to convert the Simscape signals, which represent physical
 % quantities with units, to Simulink signals, which don't explicitly have
 % units attached to them. These blocks, in essence, can perform a units
 % conversion between the physical signals and the Simulink signals. In our
@@ -302,7 +302,7 @@ L = 0.5;
 % while the Simulink blockset is employed to model the controller.
 %
 % The Solver Configuration block is employed for defining the details of
-% the numerical solver employed in running the Simscape simulation. 
+% the numerical solver employed in running the Simscape simulation.
 % We will use the default settings for this block.
 %
 % Next, connect and label the components so that they appear as in
@@ -316,21 +316,21 @@ L = 0.5;
 % three outputs. Select all of the blocks and then choose *Create
 % Subsystem* from the *Edit* menu. Also label the subsystem and signals as
 % shown in the following figure.
-% 
+%
 % <<Content/MotorSpeed/Simulink/Modeling/figures/Picture7a.png>>
 %
 %%
 % You can download the complete model file here,
 % <Content/MotorSpeed/Simulink/Modeling/Motor_Model_Simscape.mdl Motor_Model_Simscape.mdl>,
 % but note that you will need the Simscape addition to Simulink in order to
-% run the file.  
+% run the file.
 %
 % Note that the two models generated above will behave
 % equivalently as long as they are built using the same parameter values.
 % The difference between them is then only the ease with which they are
 % built and interfaced with, and how transparent they are in presenting
-% information to the user. 
+% information to the user.
 %
 % If you would like to actually run the models developed above and use
-% them to simulate and develop control algorithms, you may continue on to the 
+% them to simulate and develop control algorithms, you may continue on to the
 % < ?example=MotorSpeed&section=SimulinkControl DC Motor Speed: Simulink Control> page.

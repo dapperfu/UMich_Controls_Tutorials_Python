@@ -1,16 +1,16 @@
 %% Cruise Control: System Modeling
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|>
 %
 %% Physical setup
 %
-% Automatic *cruise control* is an excellent example of a feedback control 
-% system found in many modern vehicles. The purpose of the cruise control 
-% system is to maintain a constant vehicle speed despite external *disturbances*, 
-% such as changes in wind or road grade. This is accomplished by 
-% measuring the vehicle speed, comparing it to the desired or *reference* speed, 
+% Automatic *cruise control* is an excellent example of a feedback control
+% system found in many modern vehicles. The purpose of the cruise control
+% system is to maintain a constant vehicle speed despite external *disturbances*,
+% such as changes in wind or road grade. This is accomplished by
+% measuring the vehicle speed, comparing it to the desired or *reference* speed,
 % and automatically adjusting the throttle according to a *control law*.
 %
 % <<Content/CruiseControl/System/Modeling/figures/cruise_control_schematic.png>>
@@ -20,10 +20,10 @@
 % control force, u. The force u represents the force generated at the
 % road/tire interface. For this simplified model we will assume that we can
 % control this force directly and will neglect the dynamics of the
-% powertrain, tires, etc., that go into generating the force. The resistive 
-% forces, bv, due to rolling resistance and wind 
-% drag, are assumed to vary linearly with the vehicle velocity, v, and act 
-% in the direction opposite the vehicle's motion.  
+% powertrain, tires, etc., that go into generating the force. The resistive
+% forces, bv, due to rolling resistance and wind
+% drag, are assumed to vary linearly with the vehicle velocity, v, and act
+% in the direction opposite the vehicle's motion.
 %% System equations
 %
 % With these assumptions we are left with a
@@ -32,20 +32,20 @@
 % arrive at the following system equation:
 %
 % $$
-% m \dot{v} + b v = u 
+% m \dot{v} + b v = u
 % $$
 %
-% Since we are interested in controlling the speed of the vehicle, the output 
+% Since we are interested in controlling the speed of the vehicle, the output
 % equation is chosen as follows
 %
-% $$ 
+% $$
 % y = v
 % $$
 %
 %% System parameters
 %
 % For this example, let's assume that the parameters of the system are:
-%  
+%
 %  (m)   vehicle mass          1000 kg
 %
 %  (b)   damping coefficient   50 N.s/m

@@ -4,7 +4,7 @@
 % control system using the state-space model.
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|>
 %
 %% State-space equations
@@ -15,7 +15,7 @@
 % $$y=[1][v] \ $$
 %
 % where
-% 
+%
 %  (m)   vehicle mass            1000 kg
 %
 %  (b)   damping coefficient     50 N.s/m
@@ -29,7 +29,7 @@
 % * Overshoot < 10%
 % * Steady-state error < 2%
 %
-% To see the original problem setup, see the 
+% To see the original problem setup, see the
 % < ?example=CruiseControl&section=SystemModeling Cruise Control: System Modeling>
 % page.
 %
@@ -41,25 +41,25 @@
 % $$ \frac{Y(s)}{U(s)} = \frac{1}{m s + b} \ $$
 %
 % where
-% 
+%
 % * K = state-feedback gain matrix
-% * u = r-K.v = control input 
+% * u = r-K.v = control input
 %
 % Recall from the < ?example=Introduction&section=ControlStateSpace
 % State-Space Tutorial> page, we can use a "pole placement" technique to
-% obtain the desired output. Poles of a closed-loop  
-% system can be found from the characteristic equation: the determinant of the 
-% [sI-(A-B*K)] matrix. If the poles the system can be placed in the desired location by 
-% designing an appropriate control matrix (K), then the desired output can be obtained. 
-% In this tutorial, poles will be chosen first, then we will use MATLAB to find the 
+% obtain the desired output. Poles of a closed-loop
+% system can be found from the characteristic equation: the determinant of the
+% [sI-(A-B*K)] matrix. If the poles the system can be placed in the desired location by
+% designing an appropriate control matrix (K), then the desired output can be obtained.
+% In this tutorial, poles will be chosen first, then we will use MATLAB to find the
 % corresponding control matrix (K).
 %
 % Now, we need to determine where to place poles for our system. Since our
-% [sI-(A-B*K)] matrix is 1x1, we have only one pole to place. Let the pole 
-% be at -1.5 (arbitrary). Just as in the State-Space Tutorial, the MATLAB 
-% command |place| will be used to find the control matrix K. Create 
+% [sI-(A-B*K)] matrix is 1x1, we have only one pole to place. Let the pole
+% be at -1.5 (arbitrary). Just as in the State-Space Tutorial, the MATLAB
+% command |place| will be used to find the control matrix K. Create
 % a new < ?aux=Extras_Mfile m-file> and enter the following commands.
-% Running the m-file in the MATLAB command window should give you the 
+% Running the m-file in the MATLAB command window should give you the
 % control matrix and step response shown below.
 
 m = 1000;
@@ -89,10 +89,10 @@ axis([0 10 0 0.35])
 %% Reference input
 % Once again from the < ?example=Introduction&section=ControlStateSpace
 % State-Space Tutorial> page, a scaling factor called Nbar
-% (the schematic is shown below) can be used to eliminate the steady-state 
-% error. We can use the < ?aux=Extras_rscale rscale> function to compute the scaling factor. 
+% (the schematic is shown below) can be used to eliminate the steady-state
+% error. We can use the < ?aux=Extras_rscale rscale> function to compute the scaling factor.
 % Download it here, <Content/CruiseControl/Control/StateSpace/rscale.m rscale.m>.
-% The input is already multiplied by 500, and we want the steady-state speed to 
+% The input is already multiplied by 500, and we want the steady-state speed to
 % be 10 m/sec, so we need to account for these factors as well.
 %
 % <<Content/CruiseControl/Control/StateSpace/figures/statefeedback_w_pre_cruise.png>>
@@ -107,5 +107,5 @@ lsim(sys_cl,u,t,x0);
 axis([0 10 0 11])
 %%
 % As you can see, the steady-state error has been eliminated. The rise time
-% is less than 5 seconds and the overshoot is, in fact, zero. All the design 
+% is less than 5 seconds and the overshoot is, in fact, zero. All the design
 % requirements are satisfied.

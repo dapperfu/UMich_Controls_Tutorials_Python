@@ -1,12 +1,12 @@
 %% Inverted Pendulum: Root Locus Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |tf|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/rlocus.html |rlocus|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |tf|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/rlocus.html |rlocus|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/pole.html |pole|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/zero.html |zero|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/zpk.html |zpk|> ,
-% <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> ,  
+% <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/impulse.html |impulse|>
 %
 %%
@@ -15,13 +15,13 @@
 % assume a single-input, single-output plant as described by the following
 % transfer function. Otherwise stated, we will attempt to control the
 % pendulum's angle without regard for the cart's position.
-% 
+%
 % $$P_{pend}(s) = \frac{\Phi(s)}{U(s)}=\frac{\frac{ml}{q}s}{s^3+\frac{b(I+ml^2)}{q}s^2-\frac{(M+m)mgl}{q}s-\frac{bmgl}{q}} \qquad [ \frac{rad}{N}]$$
-% 
+%
 % where,
-% 
+%
 % $$q = (M+m)(I+ml^2) - (ml)^2$$
-% 
+%
 % More specifically, the controller will attempt to maintain the pendulum
 % vertically upward when the cart is subjected to a 1-Nsec impulse. Under
 % these conditions, the design criteria are:
@@ -31,9 +31,9 @@
 %
 %%
 % For the original problem setup and the derivation of the above transfer function,
-% please consult the < ?example=InvertedPendulum&section=SystemModeling 
-% Inverted Pendulum: System Modeling> page. 
-% 
+% please consult the < ?example=InvertedPendulum&section=SystemModeling
+% Inverted Pendulum: System Modeling> page.
+%
 %% System structure
 %
 % The structure of the controller for this problem is a little different
@@ -63,7 +63,7 @@
 % plant within MATLAB. Create a new
 % < ?aux=Extras_Mfile m-file> and type in
 % the following commands to create the plant model (refer to the main
-% problem for the details of getting these commands). 
+% problem for the details of getting these commands).
 
 M = 0.5;
 m = 0.2;
@@ -76,7 +76,7 @@ s = tf('s');
 P_pend = (m*l*s/q)/(s^3 + (b*(I + m*l^2))*s^2/q - ((M + m)*m*g*l)*s/q - b*m*g*l/q);
 
 %% Root locus design
-% 
+%
 % We will now begin to design a controller for our system employing a root
 % locus design method. We can use the MATLAB command |rlocus| for
 % generating the root locus plots. Adding the following commands to your m-file
@@ -120,7 +120,7 @@ poles = pole(C*P_pend)
 %%
 % As you can see, there are four poles and only one zero. This means that
 % the root locus will have three asymptotes: one along the real axis in the negative
-% direction, and the other two at 120 degree angles to this one. 
+% direction, and the other two at 120 degree angles to this one.
 %
 % This configuration is also unsatisfactory because we still have branches
 % of the root locus that are entirely in the right-half complex plane. In general,
@@ -140,7 +140,7 @@ poles = pole(C*P_pend)
 % Based on the above, the farthest we can pull the asymptotes to the left
 % in the complex plane is approximately -0.1 for a negligibly small zero.
 % Recall that 2% settling time can be estimated from the following
-% equation.  
+% equation.
 %
 % $$ T_s = \frac{4}{\sigma} $$
 %
@@ -183,19 +183,19 @@ title('Root Locus with PID Controller')
 % axis will increase the system's damping (small $\beta$).
 %
 % To find the gain corresponding to a specific point on the root locus, we
-% can use the |rlocfind| command. Specifically, enter the command 
+% can use the |rlocfind| command. Specifically, enter the command
 % |[k,poles] = rlocfind(C*P_pend)| in the MATLAB command window.
 %
 % Then go to the plot and select a point on the root locus on left side of
-% the loop, close to the real axis as shown below with the small |+| marks. 
+% the loop, close to the real axis as shown below with the small |+| marks.
 % Selecting these poles will ensure that the system settles sufficiently
-% fast and, hopefully, that it has sufficient damping. 
+% fast and, hopefully, that it has sufficient damping.
 %
 % <<Content/InvertedPendulum/Control/RootLocus/figures/Figure1.png>>
 %
 %%
 % After doing this, you should see an output like the following in the MATLAB
-% command window. 
+% command window.
 %%
 % <html>
 % </p><pre class="codeoutput">Select a point in the graphics window
@@ -212,8 +212,8 @@ title('Root Locus with PID Controller')
 % </p>
 % poles =
 % </p>
-%        0          
-% -85.1333          
+%        0
+% -85.1333
 %  -3.5232 + 0.7086i
 %  -3.5232 - 0.7086i
 % </pre>
@@ -234,35 +234,35 @@ title('Response of Pendulum Angle to an Impulse Disturbance under PID Control');
 
 %%
 % Examination of the above demonstrates that all of the given requirements
-% are met. 
+% are met.
 %
 %% What happens to the cart's position?
 % At the beginning of this page, a block diagram for the inverted pendulum
-% system was given. The diagram was not entirely complete. The block 
+% system was given. The diagram was not entirely complete. The block
 % representing the response of the cart's position $x$ was not included
 % because that variable is not being controlled. It is interesting though,
 % to see what is happening to the cart's position when the controller for
 % the pendulum's angle is in place. To see this we need to consider
 % the full system block diagram as shown in the following figure.
-% 
+%
 % <<Content/InvertedPendulum/Control/RootLocus/figures/feedback_pend3.png>>
-% 
+%
 % Rearranging, we get the following block diagram.
-% 
+%
 % <<Content/InvertedPendulum/Control/RootLocus/figures/feedback_pend4.png>>
-% 
+%
 % In the above, the block $C(s)$ is the controller designed for maintaining
 % the pendulum vertical. The closed-loop transfer function $T_2(s)$ from an input force applied
 % to the cart to an output of cart position is, therefore, given by the
-% following. 
+% following.
 %
 % $$ T_2(s) = \frac{X(s)}{F(s)} = \frac{P_{cart}(s)}{1 + P_{pend}(s)C(s)}$$
 %
 %%
-% Referring to the < ?example=InvertedPendulum&section=SystemModeling 
+% Referring to the < ?example=InvertedPendulum&section=SystemModeling
 % Inverted Pendulum: System Modeling> page, the transfer function for
-% $\mathrm{P_{cart}}(s)$ is defined as follows. 
-% 
+% $\mathrm{P_{cart}}(s)$ is defined as follows.
+%
 % $$P_{cart}(s) = \frac{X(s)}{U(s)} = \frac{ \frac{ (I+ml^2)s^2 - gml } {q}
 % }{s^4+\frac{b(I+ml^2)}{q}s^3-\frac{(M+m)mgl}{q}s^2-\frac{bmgl}{q}s}
 % \qquad [ \frac{m}{N}] $$

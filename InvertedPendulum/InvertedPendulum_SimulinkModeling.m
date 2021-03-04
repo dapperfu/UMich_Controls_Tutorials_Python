@@ -17,41 +17,41 @@
 % move in the vertical plane shown in the figure below. For this system,
 % the control input is the force $F$ that moves the cart horizontally and
 % the outputs are the angular position of the pendulum $\theta$ and the
-% horizontal position of the cart $x$. 
+% horizontal position of the cart $x$.
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/pendulum.png>>
-% 
+%
 %%
 % For this example, let's assume the following quantities:
-% 
+%
 %  (M)       mass of the cart                         0.5 kg
-% 
+%
 %  (m)       mass of the pendulum                     0.2 kg
-% 
+%
 %  (b)       coefficient of friction for cart         0.1 N/m/sec
-% 
+%
 %  (l)       length to pendulum center of mass        0.3 m
-% 
+%
 %  (I)       mass moment of inertia of the pendulum   0.006 kg.m^2
-% 
-%  (F)       force applied to the cart	
-% 
-%  (x)       cart position coordinate	
-% 
-%  (theta)   pendulum angle from vertical (down)	
+%
+%  (F)       force applied to the cart
+%
+%  (x)       cart position coordinate
+%
+%  (theta)   pendulum angle from vertical (down)
 %
 % Below are the two free-body diagrams of the system.
-% 
+%
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/pendulum2.png>>
-% 
+%
 % This system is challenging to model in Simulink because of the physical
-% constraint (the pin joint) between the cart and pendulum which reduces 
+% constraint (the pin joint) between the cart and pendulum which reduces
 % the degrees of freedom in the system. Both the cart and the pendulum have
 % one degree of freedom ($x$ and $\theta$, respectively). We will generate
 % the differential equations for these degrees of freedom from first
 % principles employing Newton's second law ($F = ma$) as shown below.
 %
-% $$\ddot{x} = \frac{1}{M}\sum_{cart}F_x 
+% $$\ddot{x} = \frac{1}{M}\sum_{cart}F_x
 % = \frac{1}{M}(F - N - b\dot{x}) $$
 %
 % $$\ddot{\theta} = \frac{1}{I}\sum_{pend}\tau
@@ -62,14 +62,14 @@
 % between the cart and the pendulum in order to fully model the system's
 % dynamics. The inclusion of these forces requires modeling the $x$- and
 % $y$-components of the the translation of the pendulum's center of mass in
-% addition to its rotational dynamics. In the 
+% addition to its rotational dynamics. In the
 % < ?example=InvertedPendulum&section=SystemModeling
 % Inverted Pendulum: System Modeling> tutorial, the interaction forces $N$
-% and $P$ were solved for algebraically. 
-% 
+% and $P$ were solved for algebraically.
+%
 % In general, we would like to exploit the modeling power of Simulink to
 % take care of the algebra for us. Therefore, we will model the additional
-% $x$- and $y$-component equations for the pendulum as shown below.  
+% $x$- and $y$-component equations for the pendulum as shown below.
 %
 % $$m\ddot{x}_p = \sum_{pend}F_x = N$$
 %
@@ -99,33 +99,33 @@
 %
 % $$\dot{y}_p = l\dot{\theta}\sin\theta$$
 %
-% $$\ddot{y}_p = l\dot{\theta}^2\cos\theta 
+% $$\ddot{y}_p = l\dot{\theta}^2\cos\theta
 % + l\ddot{\theta}\sin\theta $$
 %
 %%
-% These expressions can then be substituted into the expressions for $N$ 
+% These expressions can then be substituted into the expressions for $N$
 % and $P$ from above as follows.
 %
 % $$ N = m(\ddot{x} - l\dot{\theta}^2\sin\theta
 %  + l\ddot{\theta}\cos\theta) $$
 %
-% $$ P = m( l\dot{\theta}^2\cos\theta 
+% $$ P = m( l\dot{\theta}^2\cos\theta
 % + l\ddot{\theta}\sin\theta) + g $$
 %
 % We can now represent these equations within Simulink. Simulink can work
-% directly with nonlinear equations, so it is unnecessary 
-% to linearize these equations as was done in the 
+% directly with nonlinear equations, so it is unnecessary
+% to linearize these equations as was done in the
 % < ?example=InvertedPendulum&section=SystemModeling
-% Inverted Pendulum: System Modeling> page. 
+% Inverted Pendulum: System Modeling> page.
 %
 %% Building the nonlinear model with Simulink
 %
 % We can build the inverted pendulum model in Simulink employing the
 % equations derived above by following the steps given below.
-% 
+%
 % * Begin by typing |simulink| into the MATLAB command window to open the
 % Simulink environment. Then open a new model window in Simulink by
-% choosing *New > Model* from the *File* menu at the top of the open *Simulink Library Browser* window 
+% choosing *New > Model* from the *File* menu at the top of the open *Simulink Library Browser* window
 % or by pressing *Ctrl-N*.
 % * Insert four Fcn Blocks from the Simulink/User-Defined Functions library. We
 % will build the equations for $\dot{x_d}$, $\dot{\theta}$, $P$, and $N$ employing these
@@ -133,22 +133,22 @@
 % * Change the label of each Fcn block to match its associated function.
 % * Insert four Integrator blocks from the Simulink/Continuous library. The
 % output of each Integrator block is going to be a state variable of the
-% system: $x$, $\dot{x}$, $\theta$, and $\dot{\theta}$. 
+% system: $x$, $\dot{x}$, $\theta$, and $\dot{\theta}$.
 % * Double-click on each Integrator block to add the *State Name:* of the associated
 % state variable. See the following figure for an example. Also change the
 % *Initial condition:* for $\theta$ (pendulum angle) to "pi" to represent
-% that the pendulum begins pointing straight up.   
+% that the pendulum begins pointing straight up.
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/pend_model1.png>>
 %
 % * Insert four Multiplexer (Mux) blocks from the Simulink/Signal Routing
-% library, one for each Fcn block. 
+% library, one for each Fcn block.
 % * Insert two Out1 blocks and one In1 block from the Simulink/Sinks and
 % Simulink/Sources libraries, respectively. Then double-click on the labels
 % for the blocks to change their names. The two outputs are for the
-% "Position" of the cart and the "Angle" of the pendulum, while the one input 
+% "Position" of the cart and the "Angle" of the pendulum, while the one input
 % is for the "Force" applied to the cart.
-% * Connect each output of the Mux blocks to the input of the corresponding Fcn block. 
+% * Connect each output of the Mux blocks to the input of the corresponding Fcn block.
 % * Connect the output of the $\dot{x_d}$ and $\dot{\theta}$ Fcn blocks to two
 % consecutive integrators to generate the cart's position and the pendulum's angle. Your current
 % model should now appear as follows.
@@ -159,7 +159,7 @@
 % Now we will enter each of the four equations (1), (2), (13), and (14) into a Fcn
 % block. Let's start with equation (1) which is repeated below.
 %
-% $$\ddot{x} = \frac{1}{M}\sum_{cart}F_x 
+% $$\ddot{x} = \frac{1}{M}\sum_{cart}F_x
 % = \frac{1}{M}(F - N - b\dot{x}) $$
 %
 % * This equation requires three inputs: $u(1) = F$, $u(2) = N$, and $u(3) = \dot{x}$. Double-click on
@@ -185,9 +185,9 @@
 % $$ N = m(\ddot{x} - l\dot{\theta}^2\sin\theta
 %  + l\ddot{\theta}\cos\theta) $$
 %
-% $$ P = m( l\dot{\theta}^2\cos\theta 
+% $$ P = m( l\dot{\theta}^2\cos\theta
 % + l\ddot{\theta}\sin\theta + g) $$
-% 
+%
 % When all of these steps are completed, the resulting model should appear
 % as follows.
 %
@@ -197,7 +197,7 @@
 % In order to save all of these components as a single subsystem block,
 % first select all of the blocks, then select *Create Subsystem* from the
 % *Edit* menu. Your model should appear as follows. You can also download the
-% file for this system here, <Content/InvertedPendulum/Simulink/Modeling/Pend_Model.mdl Pend_Model.mdl>. 
+% file for this system here, <Content/InvertedPendulum/Simulink/Modeling/Pend_Model.mdl Pend_Model.mdl>.
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/pend_model.png>>
 %
@@ -208,14 +208,14 @@
 % The blocks in the Simscape library represent actual physical components;
 % therefore, complex multi-body dynamic models can be built without the need to
 % build mathematical equations from physical principles as was done above
-% by applying Newton's laws. 
+% by applying Newton's laws.
 %
 % Open a new Simulink model and follow the steps below to create the
 % inverted pendulum model in Simscape. In order to orient oneself, we will
 % assume a coordinate system where the cart moves in the $x$-direction
 % (positive to the right) and the positive $y$-direction is directed up.
 % Following standard convention, the positive $z$-direction is then pointed
-% out of the plane of motion. 
+% out of the plane of motion.
 %
 % * Insert a Body block from the Simscape/SimMechanics/Mechanical/Bodies
 % library to represent the cart. Following the system parameters given at
@@ -232,7 +232,7 @@
 % motion of the system and hence will create additional ports to define the
 % four corners of the cart (2-dimensional only) with respect to its center
 % of gravity (|CG|). The following figure shows a possible definition of
-% the cart body. 
+% the cart body.
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/body1.png>>
 %
@@ -260,7 +260,7 @@
 % corresponding to the cart to the base port (|B|) of the joint and
 % the Body block corresponding to the pendulum to the follower port (|F|) of
 % the joint. Double-click on the Revolute block and set the *Number of sensor
-% / actuator ports:* to "2". 
+% / actuator ports:* to "2".
 % * Then add a Joint Initial Condition block and a Joint Sensor block from
 % the Simscape/SimMechanics/Sensors & Actuators library and connect these
 % blocks to the Revolute block. Double-click on the Joint Initial Condition
@@ -295,7 +295,7 @@
 % this case the default direction (negative $y$-direction) and magnitude ("9.81")
 % for units of |m/s^2| are correct. This block also allows us to define the
 % parameters for visualization and the numerical solver. The default
-% parameters are fine for this example. 
+% parameters are fine for this example.
 % * Next add two Joint Actuator blocks and one Joint Sensor block from
 % Simscape/SimMechanics/Sensors & Actuators library. The Joint Actuator
 % blocks will be employed for generating the external applied force and the
@@ -313,7 +313,7 @@
 % the frictional force. Double-click on the Joint Sensor block and check
 % the box for *Velocity* while leaving the box for *Position* checked. The
 % default metric units do not need to be changed. Also uncheck the box for
-% *Output selected parameters as one signal*.  
+% *Output selected parameters as one signal*.
 % * Add a Gain block from the Simulink/Math Operations library to represent
 % the viscous friction coefficient $b$. Set the Gain to "0.1" as defined at
 % the top of this page and connect the input to the velocity output of the
@@ -325,18 +325,18 @@
 % input.
 % * Finally, connect and label the components as shown in the following figure. You
 % can rotate a block in a similar manner to the way you flipped blocks, that is, by
-% right-clicking on the block then selecting *Rotate Block* from the *Format* menu. 
+% right-clicking on the block then selecting *Rotate Block* from the *Format* menu.
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/pend.png>>
 %
 % You can also save this model as a single subsystem block as described in
 % the previous section. You can change the color of the subsystem by
 % right-clicking on the block and choosing *Background Color* from the
-% resulting menu. You can download the complete model file here,  
-% <Content/InvertedPendulum/Simulink/Modeling/Pend_Model_Simscape.mdl Pend_Model_Simscape.mdl>, but note that you will need the 
+% resulting menu. You can download the complete model file here,
+% <Content/InvertedPendulum/Simulink/Modeling/Pend_Model_Simscape.mdl Pend_Model_Simscape.mdl>, but note that you will need the
 % Simscape addition to Simulink in order to run the file. We use this model
 % in the  < ?example=InvertedPendulum&section=SimulinkControl
-% Inverted Pendulum: Simulink Controller Design> page.   
+% Inverted Pendulum: Simulink Controller Design> page.
 %
 %% Generating the open-loop response
 % We will now simulate the response of the inverted pendulum system to an
@@ -362,7 +362,7 @@
 % * Add a Scope block from the Simulink/Sinks library.
 % * In order display two inputs on the scope, double-click on the Scope block, choose the
 % *Parameters* icon, and change the *Number of axes:* to "2".
-% 
+%
 % Connect the blocks and label the signals connected to the Scope block as shown.
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/pendopenloop.png>>
@@ -378,7 +378,7 @@
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/visualize.png>>
 %
-% Now, start the simulation (select *Start* from the *Simulation* menu or 
+% Now, start the simulation (select *Start* from the *Simulation* menu or
 % enter *Ctrl-T*). As the simulation runs, an animation of the inverted
 % pendulum like the one shown below will visualize the system's resulting
 % motion.
@@ -386,7 +386,7 @@
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/visualize2.png>>
 %
 % Then open the Scope and click the *Autoscale* button. You will see the
-% following output for the pendulum angle and the cart position.  
+% following output for the pendulum angle and the cart position.
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/scope.png>>
 %
@@ -413,11 +413,11 @@
 % simulation model. We will accomplish this from within Simulink.
 %
 % * To begin, open either of the Simulink models generated above,
-% Pend_Model.mdl or Pend_Model_Simscape.mdl. 
+% Pend_Model.mdl or Pend_Model_Simscape.mdl.
 % * If you generated your simulation model using variables, it is necessary
 % to define the physical constants in the MATLAB workspace before
 % performing the linearization. This can be accomplished by entering the
-% following commands in the MATLAB command window. 
+% following commands in the MATLAB command window.
 
 M = 0.5;
 m = 0.2;
@@ -429,7 +429,7 @@ l = 0.3;
 %%
 % * Next choose from the menus at the top of the model window *Tools >
 % Control Design > Linear Analysis*. This will cause the *Linear Analysis
-% Tool* window to open.  
+% Tool* window to open.
 % * In order to perform our linearization, we need to first identify the
 % inputs and outputs for the model and the operating point that we wish to
 % perform the linearization about. First right-click on the signal
@@ -439,7 +439,7 @@ l = 0.3;
 % angle and cart position) and select *Linearization Points > Output Point*
 % from the resulting menu in each case. The resulting inputs and outputs
 % should now be identified on your model by arrow symbols as shown in the
-% figure below. 
+% figure below.
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/linearize3.png>>
 %
@@ -450,7 +450,7 @@ l = 0.3;
 % will create the operating point |op_trim1|.
 % * Since we wish to examine the impulse response of this system, return to
 % the *EXACT LINEARIZATION* tab and choose |New Impulse| from the *Plot
-% Result:* drop-down menu near the top window as shown in the figure below. 
+% Result:* drop-down menu near the top window as shown in the figure below.
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/linearize4.png>>
 %
@@ -458,18 +458,18 @@ l = 0.3;
 % and click the *Linearize* button indicated by the green triangle. This
 % automatically generates an impulse response plot and the linearized model
 % |linsys1|.
-% * In order to compare the results to those plots generated in the 
+% * In order to compare the results to those plots generated in the
 % < ?example=InvertedPendulum&section=SystemAnalysis
 % Inverted Pendulum: System Analysis> page, it is necessary to change the
 % $x$-axis scaling. This can be achieved from by choosing *Properties* from
 % the right-click menu. The resulting window should then appear as follows,
 % where the top plot is response of the pendulum angle and the bottom plot
-% is the response of the cart position. 
+% is the response of the cart position.
 %
 % <<Content/InvertedPendulum/Simulink/Modeling/figures/linearize5.png>>
 %
 % These plots are very similar, though not exactly the same, as those
-% generated in the 
+% generated in the
 % < ?example=InvertedPendulum&section=SystemAnalysis
 % Inverted Pendulum: System Analysis> page.
 %

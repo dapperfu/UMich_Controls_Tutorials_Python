@@ -1,23 +1,23 @@
 %% DC Motor Speed: System Analysis
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/ltiview.html |ltiview|>
 %
 %%
 % From the main problem, the dynamic equations in the Laplace domain and
 % the open-loop transfer function of the DC Motor are the following.
-% 
+%
 % $$ s(Js + b)\Theta(s) = KI(s) $$
 %
 % $$ (Ls + R)I(s) = V(s) - Ks\Theta(s) $$
-% 
+%
 % $$  P(s) = \frac{\dot{\Theta}(s)}{V(s)} = \frac{K}{(Js + b)(Ls + R) + K^2}  \qquad  [ \frac{rad/sec}{V} ] $$
 %
 %%
-% For the original problem setup and the derivation of the above equations, please refer to the 
+% For the original problem setup and the derivation of the above equations, please refer to the
 % < ?example=MotorSpeed&section=SystemModeling
-% DC Motor Speed: System Modeling> page. 
+% DC Motor Speed: System Modeling> page.
 %
 % For a 1-rad/sec step reference, the design criteria are the following.
 %
@@ -28,7 +28,7 @@
 %% Open-loop response
 % First create a new < ?aux=Extras_Mfile
 % m-file> and type in the following commands (refer to the main problem for
-% the details of getting these commands).   
+% the details of getting these commands).
 
 J = 0.01;
 b = 0.1;
@@ -37,16 +37,16 @@ R = 1;
 L = 0.5;
 s = tf('s');
 P_motor = K/((J*s+b)*(L*s+R)+K^2);
-    
+
 %%
 % Now let's see how the original open-loop system performs. Add the
-% following |ltiview| command onto the end of the m-file and run it in the 
+% following |ltiview| command onto the end of the m-file and run it in the
 % MATLAB command window. The string |'step'| passed to the function
 % specifies to generate a unit step response plot for the system
 % |P_motor|. The range of numbers |0:0.1:5| specify that the step response
 % plot should include data points for times from 0 to 5 seconds in steps of
 % 0.1 seconds. The resulting plot is shown in the figure below, where you can view
-% some of the system's characteristics by right clicking on the 
+% some of the system's characteristics by right clicking on the
 % figure and choosing from the *Characteristics* menu such performance aspects
 % as *Settling Time* and *Steady State*.
 %%
@@ -63,18 +63,18 @@ P_motor = K/((J*s+b)*(L*s+R)+K^2);
 % can only achieve a maximum speed of 0.1 rad/sec, ten times smaller than
 % our desired speed. Also, it takes the motor 2.07 seconds to reach its
 % steady-state speed; this does not satisfy our 2 second settling time
-% criterion.    
+% criterion.
 %
 %% LTI model characteristics
 % Since our open-loop transfer function has the form of a canonical
-% second-order system, we should be able to accurately predict the step 
+% second-order system, we should be able to accurately predict the step
 % response characteristics observed above based on the transfer function's
-% pole locations. You can graphically see the 
+% pole locations. You can graphically see the
 % location of the poles (and zeros) of the |P_motor| system from within
 % the *LTI Viewer* by right-clicking on the plot area and selecting *Plot
 % Types > Pole/Zero* from the resulting menu. Performing this action will
 % change the *LTI Viewer* to the following map where the blue |x|'s
-% identify the locations of poles. 
+% identify the locations of poles.
 %
 % <<Content/MotorSpeed/System/Analysis/figures/MotorSpeed_SystemAnalysis_Picture2.png>>
 %
@@ -85,7 +85,7 @@ P_motor = K/((J*s+b)*(L*s+R)+K^2);
 % already seen. Futhermore, since the one pole is 5 times more negative than the
 % other, the slower of the two poles will dominate the dynamics. That is,
 % the pole at _s_ = -2 primarily determines the speed of response of the
-% system and the system behaves similarly to a first-order system. 
+% system and the system behaves similarly to a first-order system.
 %
 % Let's see just how closely a first-order model approximates our original
 % motor model. Enter the following command at the MATLAB command line to
@@ -112,9 +112,9 @@ rP_motor = 0.1/(0.5*s+1)
 % From the above, we can see that a first-order approximation of our motor
 % system is relatively accurate. The primary difference can be seen at t =
 % 0 where a second order system will have a derivative of zero, but our
-% first-order model will not. 
+% first-order model will not.
 %
-% With a first-order system, the settling time is equal to 
+% With a first-order system, the settling time is equal to
 %
 % $$ T_s = 4 \tau $$
 %

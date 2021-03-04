@@ -1,40 +1,40 @@
 %% DC Motor Speed: Frequency Domain Methods for Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/bode.html |bode|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/margin.html ||>margin> ,
-% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|>
 %
 %%
 % From the main problem, the dynamic equations in the Laplace domain and
 % the open-loop transfer function of the DC Motor are the following.
-% 
+%
 % $$ s(Js + b)\Theta(s) = KI(s) $$
 %
 % $$ (Ls + R)I(s) = V(s) - Ks\Theta(s) $$
-% 
+%
 % $$ P(s) = \frac{\dot{\Theta}(s)}{V(s)} = \frac{K}{(Js + b)(Ls + R) + K^2}  \qquad [\frac{rad/sec}{V}] $$
 %
 % The structure of the control system has the form shown in the figure
-% below. 
+% below.
 %
 % <<Content/MotorSpeed/Control/Frequency/figures/feedback_motors.png>>
 %
-% For the original problem setup and the derivation of the above equations, please refer to the 
+% For the original problem setup and the derivation of the above equations, please refer to the
 % < ?example=MotorSpeed&section=SystemModeling
-% DC Motor Speed: System Modeling> page  
+% DC Motor Speed: System Modeling> page
 %
 % For a 1-rad/sec step reference, the design criteria are the following.
 %
 % * Settling time less than 2 seconds
 % * Overshoot less than 5%
 % * Steady-state error less than 1%
-% 
+%
 % Now let's design a controller using the methods introduced in the
 % < ?example=Introduction&section=ControlFrequency
-% Introduction: Frequency Domain Methods for Controller Design> page. 
+% Introduction: Frequency Domain Methods for Controller Design> page.
 % Create a new < ?aux=Extras_Mfile
 % m-file> and type in the following commands.
 
@@ -45,17 +45,17 @@ R = 1;
 L = 0.5;
 s = tf('s');
 P_motor = K/((J*s+b)*(L*s+R)+K^2);
-    
+
 %% Drawing the original Bode plot
 % The main idea of frequency-based design is to use the Bode plot of the
 % open-loop transfer function to estimate the closed-loop response. Adding
 % a controller to the system changes the open-loop Bode plot, thereby
 % changing the closed-loop response. It is our goal to design the controller to shape the
 % open-loop Bode plot in such a way that the closed-loop system behaves in
-% a desired manner. Let's first draw the Bode plot for 
+% a desired manner. Let's first draw the Bode plot for
 % the original open-loop plant transfer function. Add the following code to
-% the end of your m-file and run it in the MATLAB command window.  
-% You should generate the Bode plot shown below.    
+% the end of your m-file and run it in the MATLAB command window.
+% You should generate the Bode plot shown below.
 
 bode(P_motor)
 grid
@@ -69,7 +69,7 @@ title('Bode Plot of the Original Plant')
 % because the magnitude plot is below 0 dB at all frequencies. This
 % indicates that the system will have trouble tracking various reference
 % signals without excessive error. Therefore, we would like to increase the
-% gain of the system while still achieving enough phase margin. 
+% gain of the system while still achieving enough phase margin.
 %
 % A phase margin of 60 degrees is generally sufficient for stability
 % margin. From the above Bode plot, this phase margin is achieved for a
@@ -140,10 +140,10 @@ margin(C*P_motor);
 % decade or more below the current gain crossover frequency of 10 rad/sec,
 % the phase lag contributed by the compensator shouldn't adversely affect
 % performance much. A Bode plot of the lag compensator can be generated
-% employing the following commands. 
+% employing the following commands.
 
 C = 45*(s + 1)/(s + 0.01);
-bode(C) 
+bode(C)
 grid
 title('Bode Plot of the Lag Compensator')
 

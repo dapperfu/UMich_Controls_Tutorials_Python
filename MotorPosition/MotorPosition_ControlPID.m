@@ -1,25 +1,25 @@
 %% DC Motor Position: PID Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|>
 %
-%% 
+%%
 % From the main problem, the open-loop transfer function of the DC Motor is
 % given as follows.
-% 
+%
 % $$ P(s) = \frac {\Theta (s)}{V(s)} = \frac{K}{s ( (Js + b)(Ls + R) + K^2 )} \qquad [ \frac{rad}{V}  ] $$
 %
-% The structure of the control system has the form shown in the figure below. 
+% The structure of the control system has the form shown in the figure below.
 %
 % <<Content/MotorPosition/Control/PID/figures/feedback_motorp.png>>
 %
 %%
 % For the original problem setup and the derivation of the above equations,
-% please refer to the  
+% please refer to the
 % < ?example=MotorPosition&section=SystemModeling
-% DC Motor Position: System Modeling> page. 
+% DC Motor Position: System Modeling> page.
 %
 % For a 1-radian step reference, the design criteria are the following.
 %
@@ -30,7 +30,7 @@
 % Now let's design a PID controller and add it into the system. First
 % create a new < ?aux=Extras_Mfile
 % m-file> and type in the following commands (refer to main
-% problem for the details of getting these commands). 
+% problem for the details of getting these commands).
 
 J = 3.2284E-6;
 b = 3.5077E-6;
@@ -53,7 +53,7 @@ P_motor = K/(s*((J*s+b)*(L*s+R)+K^2));
 % proportional gain, can be built using a |for| loop. The
 % closed-loop transfer functions can be generated using the
 % |feedback| command. Add the following code to the end of your m-file and
-% run it in the MATLAB command window: 
+% run it in the MATLAB command window:
 
 Kp = 1;
 for i = 1:3
@@ -83,7 +83,7 @@ legend('K_p = 1',  'K_p = 11',  'K_p = 21')
 % controller _C_(_s_) is considered to be in the feedback path. Refer back
 % to the block diagram at the top of this page to see the structure of the
 % system. Add the following to the end of your m-file and run it in the
-% command window. You should generate the plot shown in the figure below.  
+% command window. You should generate the plot shown in the figure below.
 
 dist_cl = feedback(P_motor,C);
 step(dist_cl(:,:,1), dist_cl(:,:,2), dist_cl(:,:,3), t)
@@ -110,7 +110,7 @@ legend('K_p = 1', 'K_p = 11','K_p = 21')
 % < ?example=MotorPosition&section=SystemModeling
 % DC Motor Position: System Modeling> page that adding an integral term
 % will eliminate the steady-state error and a derivative term can reduce
-% the overshoot and settling time. 
+% the overshoot and settling time.
 %
 %% PI control
 % Let's first try a PI controller to get rid of the steady-state error due
@@ -148,14 +148,14 @@ legend('K_i = 100',  'K_i = 300',  'K_i = 500')
 % The integral control has reduced the steady-state error to zero, even
 % when a step disturbance is present; that was the goal for adding the
 % integral term. For the response to the step reference, all of the
-% reponses look similar with the amount of oscillation increasing slightly 
+% reponses look similar with the amount of oscillation increasing slightly
 % as _Ki_ is made larger. However, the response due to the disturbance
 % changes significantly as the integral gain _Ki_ is changed. Specifically,
 % the larger the value of _Ki_ employed, the faster the error decays to
 % zero. We will choose _Ki_ = 500 because the error due to the disturbance
 % decays to zero quickly, even though the response to the reference has a
 % longer settling time and more overshoot. We will attempt to reduce the
-% settling time and overshoot by adding a derivative term to the controller. 
+% settling time and overshoot by adding a derivative term to the controller.
 %% PID control
 % Adding a derivative term to the controller means that we now have all
 % three terms of the PID controller. We will investigate derivative gains
@@ -181,7 +181,7 @@ legend('K_d = 0.05', 'K_d = 0.15', 'K_d = 0.25')
 
 %%
 % Let's see what happened to the step disturbance response, change the
-% following commands in your m-file and re-run at the command line. 
+% following commands in your m-file and re-run at the command line.
 
 dist_cl = feedback(P_motor,C);
 t = 0:0.001:0.2;
@@ -202,7 +202,7 @@ stepinfo(sys_cl(:,:,2))
 % From the above, we see that the response to a step reference has a settling time
 % of roughly 34ms (< 40 ms), overshoot of 12% (< 16%), and no
 % steady-state error. Additionally, the step disturbance response also has
-% no steady-state error. So now we know that if we use a PID controller with   
+% no steady-state error. So now we know that if we use a PID controller with
 %
 % _Kp_ = 21, _Ki_ = 500, and _Kd_ = 0.15,
 %

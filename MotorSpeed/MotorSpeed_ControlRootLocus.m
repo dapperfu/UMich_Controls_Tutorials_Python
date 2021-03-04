@@ -7,28 +7,28 @@
 %%
 % From the main problem, the dynamic equations in the Laplace domain and
 % the open-loop transfer function of the DC Motor are the following.
-% 
+%
 % $$ s(Js + b)\Theta(s) = KI(s) $$
 %
 % $$ (Ls + R)I(s) = V(s) - Ks\Theta(s) $$
-% 
+%
 % $$ P(s) = \frac{\dot{\Theta}(s)}{V(s)} = \frac{K}{(Js + b)(Ls + R) + K^2}  \qquad [\frac{rad/sec}{V}] $$
 %
 % The structure of the control system has the form shown in the figure
-% below. 
+% below.
 %
 % <<Content/MotorSpeed/Control/RootLocus/figures/MotorSpeed_ControlRootLocus_feedback_motors.png>>
 %
 %%
-% For the original problem setup and the derivation of the above equations, please refer to the 
-% < ?example=MotorSpeed&section=SystemModeling DC Motor Speed: System Modeling> page. 
+% For the original problem setup and the derivation of the above equations, please refer to the
+% < ?example=MotorSpeed&section=SystemModeling DC Motor Speed: System Modeling> page.
 %
 % For a 1-rad/sec step reference, the design criteria are the following.
 %
 % * Settling time less than 2 seconds
 % * Overshoot less than 5%
 % * Steady-state error less than 1%
-% 
+%
 % Now let's design a controller using the methods introduced in the
 % < ?example=Introduction&section=ControlRootLocus Introduction: Root Locus Controller Design> page.
 % Create a new < ?aux=Extras_Mfile
@@ -41,20 +41,20 @@ R = 1;
 L = 0.5;
 s = tf('s');
 P_motor = K/((J*s+b)*(L*s+R)+K^2);
-    
+
 %% Drawing the open-loop root locus
 % The main idea of root locus design is to predict the closed-loop response
 % from the root locus plot which depicts possible closed-loop pole
 % locations and is drawn from the open-loop transfer function.
 % Then by adding zeros and/or poles via the controller, the root locus
-% can be modified in order to achieve a desired closed-loop response.  
+% can be modified in order to achieve a desired closed-loop response.
 %
 % We will use for our design the *SISO Design Tool* graphical user
 % interface. This tool allows the you to graphically tune the controller
 % via the root locus plot. Let's first view the root locus for the
 % uncompenstated plant. This is accomplished by adding the command
 % |sisotool('rlocus', P_motor)| to the end of your m-file and running the
-% file at the command line. 
+% file at the command line.
 %
 % Two windows will initially open, one is the *SISO Design Task* which
 % will open with the root locus of the uncompensated plant, and the other
@@ -98,7 +98,7 @@ P_motor = K/((J*s+b)*(L*s+R)+K^2);
 % the root locus are symmetric and pass through the unshaded region.
 % Furthermore, since the closed-loop system has two poles with no zeros,
 % placing the closed-loop poles in the shown region will guarantee
-% satisfaction of our transient response requirements. 
+% satisfaction of our transient response requirements.
 %
 % You can select a specific pair of closed-loop poles from the resulting
 % figure in order to determine the corresponding loop gain that places the
@@ -124,11 +124,11 @@ P_motor = K/((J*s+b)*(L*s+R)+K^2);
 % figure. You can also identify some characteristics of the step response.
 % Specifically, right-click on the figure and under *Characteristics* choose
 % *Settling Time*. Then repeat for *Steady State*. Your figure will appear
-% as shown below. 
+% as shown below.
 %
 % <<Content/MotorSpeed/Control/RootLocus/figures/MotorSpeed_ControlRootLocus_Picture4.png>>
 %
-%%      
+%%
 % From inspection of the above, one can see that there is no overshoot and
 % the settling time is less than one second, therefore, the overshoot and
 % settling time requirements are satisfied. However, we can also observe
@@ -153,9 +153,9 @@ P_motor = K/((J*s+b)*(L*s+R)+K^2);
 %
 %%
 % We can use the *SISO Design Tool* to design our lag compensator. To make the
-% *SISO Design Tool* have a compensator parameterization corresponding to the  
-% one shown above, click on the *Edit* menu at the top of the 
-% *Control and Estimation Tools Manager* window and choose *SISO Tool Preferences*. 
+% *SISO Design Tool* have a compensator parameterization corresponding to the
+% one shown above, click on the *Edit* menu at the top of the
+% *Control and Estimation Tools Manager* window and choose *SISO Tool Preferences*.
 % Then From the *Options* tab, select a *Zero/pole/gain* parameterization
 % as shown below.
 %
@@ -163,7 +163,7 @@ P_motor = K/((J*s+b)*(L*s+R)+K^2);
 %
 %%
 % You can then add the lag compensator from under the *Compensator Editor*
-% tab of the *Control and Estimation Tools Manager* window. Specifically, 
+% tab of the *Control and Estimation Tools Manager* window. Specifically,
 % right-click in the *Dynamics* section of the window and select *Add
 % Pole/Zero > Lag*. Then enter the *Real Zero* and *Real Pole* locations as
 % shown in the following figure.
@@ -182,7 +182,7 @@ P_motor = K/((J*s+b)*(L*s+R)+K^2);
 % transient requirements. Let's attempt to place two of the closed-loop poles in
 % our desired region near the boundary of the overshoot requirement. For
 % example, a loop gain of approximately 20 will place the poles at the
-% positions shown in the figure below. 
+% positions shown in the figure below.
 %
 % <<Content/MotorSpeed/Control/RootLocus/figures/MotorSpeed_ControlRootLocus_Picture6.png>>
 %
@@ -206,7 +206,7 @@ P_motor = K/((J*s+b)*(L*s+R)+K^2);
 % third pole which is well damped and tends to dominate the response
 % because it is "slower" than the other poles. What this means is that we can
 % further increase the loop gain such that the conjugate poles
-% move beyond the diagonal lines while still meeting the overshoot requirement.  
+% move beyond the diagonal lines while still meeting the overshoot requirement.
 %
 % You can now return to the root locus plot and graphically move the
 % conjugate poles farther away from the real axis; this corresponds to

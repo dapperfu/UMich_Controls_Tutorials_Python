@@ -1,16 +1,16 @@
 %% DC Motor Position: Frequency Domain Methods for Controller Design
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/sisotool.html |sisotool|> 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/sisotool.html |sisotool|>
 %
-%% 
+%%
 % From the main problem, the open-loop transfer function of the DC Motor is
 % given as follows.
-% 
+%
 % $$ P(s) = \frac {\Theta (s)}{V(s)} = \frac{K}{s ( (Js + b)(Ls + R) + K^2 )} \qquad [ \frac{rad}{V}  ] $$
 %
-% The structure of the control system has the form shown in the figure below. 
+% The structure of the control system has the form shown in the figure below.
 %
 % <<Content/MotorPosition/Control/Frequency/figures/feedback_motorp.png>>
 %
@@ -18,7 +18,7 @@
 % For the original problem setup and the derivation of the above equations,
 % please refer to the
 % < ?example=MotorPosition&section=SystemModeling
-% DC Motor Position: System Modeling> page. 
+% DC Motor Position: System Modeling> page.
 %
 % With a 1-radian step reference, the design criteria are the following.
 %
@@ -28,7 +28,7 @@
 %%
 % First create a new < ?aux=Extras_Mfile
 % m-file> and type in the following commands (refer to main
-% problem for the details of getting these commands). 
+% problem for the details of getting these commands).
 
 J = 3.2284E-6;
 b = 3.5077E-6;
@@ -38,7 +38,7 @@ L = 2.75E-6;
 s = tf('s');
 P_motor = K/(s*((J*s+b)*(L*s+R)+K^2));
 
-%% Drawing the uncompensated system's Bode plot 
+%% Drawing the uncompensated system's Bode plot
 % The main idea of frequency-based design is to use the Bode plot of the
 % open-loop transfer function to estimate the system's closed-loop response. Adding
 % a controller to the system changes the open-loop Bode plot, thereby
@@ -73,14 +73,14 @@ P_motor = K/(s*((J*s+b)*(L*s+R)+K^2));
 % architecture we are assuming, as shown in the schematic at the top
 % of this page. Placing an integral compensator in this position will achieve the
 % goal of zero steady-state error in the presence of a step disturbance input.
-% 
+%
 % The form of our controller is then modified under the *Compensator
 % Editor* tab of the *Control and Estimation Tools Manager* window.
 % Specifically, an integrator is added to our controller by
 % right-clicking in the *Dynamics* section of the window and selecting *Add
 % Pole/Zero > Integrator* from the resulting menu. The figure below
 % illustrates what the *Control and Estimation Tools Manager* window should
-% look like.  
+% look like.
 %
 % <<Content/MotorPosition/Control/Frequency/figures/Picture3a.png>>
 %
@@ -117,12 +117,12 @@ Wbw = (4/(0.04*zeta))*sqrt((1 - 2*zeta^2) + sqrt(4*zeta^4 - 4*zeta^2+2))
 % 110 degrees of phase and 80 dB of gain at a frequency of 250 rad/sec in
 % order to move the gain crossover frequency to 250 rad/sec and provide 50
 % degrees of phase margin. The magnitude plot will then also lie between -6
-% and -7.5 dB at a frequency greater than 250 rad/sec. 
+% and -7.5 dB at a frequency greater than 250 rad/sec.
 %
 % From the Bode phase plot we can see that there is a pole near -60
 % as indicated by the blue |x| on the Bode plot near the frequency 60
 % rad/sec (as well as the change in the magnitude and phase plots). We will,
-% therefore, begin to modify our compensator by adding a zero at 
+% therefore, begin to modify our compensator by adding a zero at
 % _s_ = -60 in order to flatten out the phase curve. A real zero can be added
 % again by right-clicking in the *Dynamics* section of the *Compensator
 % Editor* tab of the *Control and Estimation Tools Manager* window. The
@@ -184,7 +184,7 @@ pole = -1/(a*T)
 % multiplying the compensator at the top of the *Edit Compensator* tab and
 % pressing *Enter*. The resulting Bode plot is shown below. As indicated on
 % the plot, the phase margin is 49.8 degrees and the gain crossover frequency
-% is 236 rad/sec which are close to our goals of 50 degrees and 250 rad/sec. 
+% is 236 rad/sec which are close to our goals of 50 degrees and 250 rad/sec.
 %
 % <<Content/MotorPosition/Control/Frequency/figures/Picture7a.png>>
 %
@@ -205,7 +205,7 @@ pole = -1/(a*T)
 % under *Characteristics*.
 %
 % <<Content/MotorPosition/Control/Frequency/figures/Picture7c.png>>
-%  
+%
 %%
 % From the above figure, it can be seen that the overshoot is too large and
 % the settling time is better than expected. This is attributable to the
@@ -249,7 +249,7 @@ pole = -1/(a*T)
 %
 % Throughout the tuning, the Bode diagram and step response plot changed
 % according to the changes being made to the compensator. Your final plots
-% should be similar to the two shown below. 
+% should be similar to the two shown below.
 %
 % <<Content/MotorPosition/Control/Frequency/figures/Picture10a.png>>
 %

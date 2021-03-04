@@ -1,10 +1,10 @@
 %% DC Motor Position: System Analysis
 %
 % Key MATLAB commands used in this tutorial are:
-% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/isstable.html |isstable|> , 
-% <http://www.mathworks.com/help/toolbox/control/ref/pole.html |pole|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/isstable.html |isstable|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/pole.html |pole|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/pzmap.html |pzmap|> ,
 % <http://www.mathworks.com/help/toolbox/control/ref/damp.html |damp|>
@@ -12,17 +12,17 @@
 %%
 % From the main problem, the dynamic equations in the Laplace domain and
 % the open-loop transfer function of the DC Motor are the following.
-% 
+%
 % $$ s(Js + b)\Theta(s) = KI(s) $$
 %
 % $$ (Ls + R)I(s) = V(s) - Ks\Theta(s) $$
-% 
+%
 % $$ P(s) = \frac {\Theta(s)}{V(s)} = \frac{K}{s ( (Js + b)(Ls + R) + K^2 )} \qquad [ \frac{rad}{V} ] $$
 %
 %%
 % For the original problem setup and the derivation of the above equations,
 % please refer to the
-% < ?example=MotorPosition&section=SystemModeling DC Motor Position: System Modeling> page. 
+% < ?example=MotorPosition&section=SystemModeling DC Motor Position: System Modeling> page.
 %
 % For a 1-radian step reference, the design criteria are given are the
 % following.
@@ -34,7 +34,7 @@
 %% Open-loop response
 % First create a new < ?aux=Extras_Mfile
 % m-file> and type in the following commands (refer to the main problem for
-% the details of getting these commands).   
+% the details of getting these commands).
 
 J = 3.2284E-6;
 b = 3.5077E-6;
@@ -43,13 +43,13 @@ R = 4;
 L = 2.75E-6;
 s = tf('s');
 P_motor = K/(s*((J*s+b)*(L*s+R)+K^2));
-    
+
 %%
 % Now let's see how the uncompensated open-loop system performs.
 % Specifically, we will use the MATLAB command |step| to analyze the
 % open-loop step response. Add the following commands onto the end of the
 % m-file and run it in the MATLAB command window and you will get the
-% associated plot shown below. 
+% associated plot shown below.
 
 t = 0:0.001:0.2;
 step(P_motor,t)
