@@ -14,7 +14,7 @@ USER $NB_USER
 RUN conda install --yes \
     -c conda-forge \
     slycot \
-    control \
+    control
 
 # requirements.txt
 COPY requirements.txt /tmp/
