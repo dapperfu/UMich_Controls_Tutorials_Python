@@ -2,6 +2,7 @@ version: '3'
 services:
   jupyter:
     build:
+      dockerfile: Dockerfile-compose
       context: .
     image: jupyter/scipy-notebook:latest
     ports:
