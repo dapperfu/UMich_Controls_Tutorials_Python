@@ -5,5 +5,10 @@
 ## Introduction
 
 - System Analysis
- - [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_SystemAnalysis.ipynb)
- - [![nbviewer](https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_SystemAnalysis.ipynb)
+  - [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_SystemAnalysis.ipynb)
+  - [![nbviewer](https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_SystemAnalysis.ipynb)
+
+
+| Section                       | mybinder.org                                                                                                                                                                         | nbviewer.org                                                                                                                                                                                                                                  |
+|-------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Introduction: System Analysis | [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_SystemAnalysis.ipynb) | [![nbviewer](https://raw.githubusercontent.com/jupyter/design/master/logos/Badges/nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_SystemAnalysis.ipynb) |
