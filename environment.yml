@@ -3,9 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python
-  - numpy
   - slycot
   - control
-  - pip:
-    - seaborn
-    - matplotlib
+  - seaborn
+  - matplotlib
