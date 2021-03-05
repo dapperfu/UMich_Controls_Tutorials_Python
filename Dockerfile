@@ -15,16 +15,6 @@ RUN conda install --yes \
     -c conda-forge \
     slycot \
     control \
-    && jupyter labextension install @jupyter-widgets/jupyterlab-manager dask-labextension@2.0.2 \
-    && conda clean -tipsy \
-    && jupyter lab clean \
-    && jlpm cache clean \
-    && npm cache clean --force \
-    && find /opt/conda/ -type f,l -name '*.a' -delete \
-    && find /opt/conda/ -type f,l -name '*.pyc' -delete \
-    && find /opt/conda/ -type f,l -name '*.js.map' -delete \
-    && find /opt/conda/lib/python*/site-packages/bokeh/server/static -type f,l -name '*.js' -not -name '*.min.js' -delete \
-    && rm -rf /opt/conda/pkgs
 
 # requirements.txt
 COPY requirements.txt /tmp/
