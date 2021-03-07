@@ -1,3 +1,6 @@
+# Ignore forked notebooks
+**/*-Copy*.ipynb
+
 
 # Docker Compose Environment
 .ipython/
