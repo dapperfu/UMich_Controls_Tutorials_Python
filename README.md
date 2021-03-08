@@ -9,23 +9,23 @@ Based entirely on [Controls Tutorials for MATLAB & Simulink](https://ctms.engin.
 
 | Section | mybinder.org| nbviewer.org|
 | - | - | - |
-| ControlRootLocus | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlRootLocus.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlRootLocus.ipynb) |
-| SystemAnalysis | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_SystemAnalysis.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_SystemAnalysis.ipynb) |
-| ControlStateSpace | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlStateSpace.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlStateSpace.ipynb) |
-| ControlFrequency | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlFrequency.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlFrequency.ipynb) |
-| ControlDigital | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlDigital.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlDigital.ipynb) |
-| ControlPID | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlPID.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlPID.ipynb) |
-| SystemModeling | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_SystemModeling.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_SystemModeling.ipynb) |
+| System Modeling | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_SystemModeling.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_SystemModeling.ipynb) |
+| System Analysis | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_SystemAnalysis.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_SystemAnalysis.ipynb) |
+| Control: PID | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlPID.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlPID.ipynb) |
+| Control: Root Locus | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlRootLocus.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlRootLocus.ipynb) |
+| Control: Frequency | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlFrequency.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlFrequency.ipynb) |
+| Control: State Space | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlStateSpace.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlStateSpace.ipynb) |
+| Control: Digital | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlDigital.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlDigital.ipynb) |
 
 # Copyright
 
-The Control Tutorials for Python are licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/). This means that the contents of this website may be copied and adapted for other uses as long as the user provides credit to the original authors (Attribution) and distributes their materials under the same license as we use here (ShareAlike). 
+The Control Tutorials for Python are licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/). This means that the contents of this website may be copied and adapted for other uses as long as the user provides credit to the original authors (Attribution) and distributes their materials under the same license as we use here (ShareAlike).
 
 The Controls Tutorial for Python is based on the Controls Tutorials for Matlab & Simuink.
 
 ### Works in progress.
 
-Pull requests welcome. These are tutorials that have not been completed but have been downloaded/converted.
+Pull requests welcome. These are tutorials that have not been completed but have been downloaded & converted to Jupyter Notebooks.
 
 # CruiseControl
 | Section | mybinder.org| nbviewer.org|
@@ -81,3 +81,12 @@ Pull requests welcome. These are tutorials that have not been completed but have
 | SystemModeling | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=BallBeam%2FBallBeam_SystemModeling.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/BallBeam/BallBeam_SystemModeling.ipynb) |
 | ControlPID | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=BallBeam%2FBallBeam_ControlPID.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/BallBeam/BallBeam_ControlPID.ipynb) |
 | SystemAnalysis | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=BallBeam%2FBallBeam_SystemAnalysis.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/BallBeam/BallBeam_SystemAnalysis.ipynb) |
+
+## Usage
+
+1. Clone this repository.
+
+
+2. use `environment.yml` to setup an Anaconda environment.
+1. Run `docker-compose up` and use a Docker environment.
+1.
