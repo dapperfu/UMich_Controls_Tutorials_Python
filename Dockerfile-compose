@@ -1,9 +1,0 @@
-FROM jupyter/scipy-notebook:latest
-
-USER $NB_USER
-
-# Conda Install
-RUN conda install --yes \
-    -c conda-forge \
-    slycot \
-    control
