@@ -1,6 +1,6 @@
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: master
+    rev: v4.3.0
     hooks:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
@@ -8,29 +8,29 @@ repos:
     -   id: debug-statements
     -   id: requirements-txt-fixer
 -   repo: https://github.com/psf/black
-    rev: master
+    rev: 22.10.0
     hooks:
     -   id: black
         args: [--target-version=py37]
 -   repo: https://github.com/asottile/reorder_python_imports
-    rev: master
+    rev: v3.9.0
     hooks:
     -   id: reorder-python-imports
         args: [--py37-plus]
 -   repo: https://github.com/asottile/pyupgrade
-    rev: master
+    rev: v3.2.0
     hooks:
     -   id: pyupgrade
         args: [--py37-plus]
 - repo: https://github.com/nbQA-dev/nbQA
-  rev: 0.5.9
+  rev: 1.5.3
   hooks:
     - id: nbqa-black
-      additional_dependencies: [black==20.8b1]
-      args: [--nbqa-mutate]
+      additional_dependencies: [black==22.3.0]
+      args: []
     - id: nbqa-pyupgrade
       additional_dependencies: [pyupgrade==2.10.0]
-      args: [--nbqa-mutate, --py36-plus]
+      args: [--py37-plus]
     - id: nbqa-isort
       additional_dependencies: [isort==5.7.0]
-      args: [--nbqa-mutate]
+      args: [--float-to-top]
