@@ -7,30 +7,16 @@ repos:
     -   id: check-yaml
     -   id: debug-statements
     -   id: requirements-txt-fixer
--   repo: https://github.com/psf/black
-    rev: 22.10.0
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
     hooks:
-    -   id: black
-        args: [--target-version=py37]
--   repo: https://github.com/asottile/reorder_python_imports
-    rev: v3.9.0
-    hooks:
-    -   id: reorder-python-imports
-        args: [--py37-plus]
--   repo: https://github.com/asottile/pyupgrade
-    rev: v3.2.0
-    hooks:
-    -   id: pyupgrade
-        args: [--py37-plus]
+    -   id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+    -   id: ruff-format
 - repo: https://github.com/nbQA-dev/nbQA
-  rev: 1.5.3
+  rev: 1.9.0
   hooks:
-    - id: nbqa-black
-      additional_dependencies: [black==22.3.0]
-      args: []
-    - id: nbqa-pyupgrade
-      additional_dependencies: [pyupgrade==2.10.0]
-      args: [--py37-plus]
-    - id: nbqa-isort
-      additional_dependencies: [isort==5.7.0]
-      args: [--float-to-top]
+    - id: nbqa-ruff
+      additional_dependencies: [ruff]
+    - id: nbqa-ruff-format
+      additional_dependencies: [ruff]

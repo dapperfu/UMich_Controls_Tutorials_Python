@@ -2,8 +2,14 @@ name: binder-environment
 channels:
   - conda-forge
 dependencies:
-  - python
+  - python>=3.10
+  - pip
   - slycot
-  - control
-  - seaborn
+  - numpy
+  - scipy
   - matplotlib
+  - seaborn
+  - ipywidgets
+  - pip:
+    - control
+    - jupyter
