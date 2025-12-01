@@ -1,0 +1,1157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: 	section: 	aux: Activities_RCcircuitA	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "";
+			var section = "";
+			var aux = "Activities_RCcircuitA";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?aux=Index_Activities";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Time-response Identification of an RC Circuit</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#2b6844455f5944477f5e5f4459424a4758664a5f474a497842465e474245406b4c464a424705484446">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?aux=Index_Activities">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SystemModeling"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SystemModeling"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SystemModeling"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SystemModeling"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SystemModeling"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SystemModeling"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SystemModeling"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SystemModeling"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+      <h1>Activity 1 Part (a): Time-Response Identification of a Resistor&#8211;Capacitor (RC) Circuit</h1>
+      <!--introduction-->
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC2.jpg" alt=""> </p>
+      <p><b>Key Topics</b>: Modeling Electrical Systems, First-Order Systems, System Identification
+      </p>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Equipment needed</a></li>
+            <li><a href="#2">Purpose</a></li>
+            <li><a href="#3">Modeling from first principles</a></li>
+            <li><a href="#4">System identification experiment</a></li>
+            <li><a href="#8">Model validation - forced response</a></li>
+            <li><a href="#9">Model validation - free response</a></li>
+            <li><a href="#10">Extensions</a></li>
+         </ul>
+      </div>
+      <h2>Equipment needed<a name="1"></a></h2>
+      <div>
+         <ul>
+            <li>Arduino board (e.g. Uno, Mega 2560, etc.)</li>
+            <li>USB cable</li>
+            <li>Breadboard</li>
+            <li>Electronic components (resistor and capacitor)</li>
+            <li>Ohmmeter, Capacitance meter (optional)</li>
+            <li>Jumper wires</li>
+         </ul>
+      </div>
+      <p>The system we will be employing in this activity is a simple electrical circuit consisting of a resistor (R) and a capacitor
+         (C) in series. The Arduino board will be used for generating the input to this RC circuit and for measuring the output of
+         the circuit. Specifically, the input to the circuit will be a 5-Volt step, generated from one of the board's <i>Digital Outputs</i>, applied across the resistor and capacitor. The output of the circuit will be the voltage across the capacitor which will
+         be read via one of the board's <i>Analog Inputs</i>. This data is then fed to Simulink for visualization and for comparison to our resulting simulation model output.
+      </p>
+      <h2>Purpose<a name="2"></a></h2>
+      <p>The purpose of this activity is to demonstrate how to model a simple electrical system. Specifically, a first principles approach
+         based on the underlying physics of the circuit and a blackbox approach based on recorded data will be employed. The associated
+         experiment is employed to demonstrate the blackbox approach, as well as to demonstrate the accuracy of the resulting models.
+         This activity also provides a physical example of the common class of first-order systems.
+      </p>
+      <h2>Modeling from first principles<a name="3"></a></h2>
+      <p>First we will employ our understanding of the underlying physics of the RC circuit to derive the structure of the system model.
+         We will term this process "modeling from first principles." In this example we employ the following variables.
+      </p><pre>(R)      resistance of the resistor</pre><pre>(C)      capacitance of the capacitor</pre><pre>(ei)     input voltage</pre><pre>(eo)     output voltage</pre><p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC.png" alt=""> </p>
+      <p>To begin, we assume a direction for the current and then apply <i>Kirchhoff&#8217;s Voltage Law</i> (loop law). Current flows from a higher potential to a lower potential, therefore, the direction of the current will be clockwise
+         in this case (shown below).
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC2.png" alt=""> </p>
+      <p>The loop law states that the sum of voltages around a closed loop must equal zero. Thus, the loop law produces the following
+         governing equation for the circuit.
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq62101.png" alt="$$ e_i - iR - \frac{1}{C}\int i\ dt = 0 $$"></p>
+      <p>An alternative to the intregro-differential equation model of a dynamic system is the <i>transfer function</i>. The transfer function captures the input/output behavior of a system and is derived by first taking the Laplace transform
+         of a given integro-differential equation, while assuming zero initial conditions (<img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq04420.png" alt="$i(0) = 0$">).
+      </p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq33027.png" alt="$$ E_i(s) - I(s)R - \frac{1}{Cs}I(s) = 0 $$"></p>
+      <p>Next we must perform some algebra to re-arrange the above into the form of its output divided by its input. In this case,
+         our input is <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq03987.png" alt="$E_i(s)$"> and our output is <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq26114.png" alt="$E_o(s)$">. Therefore, we must eliminate the current <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq54751.png" alt="$I(s)$"> from the above since it is neither an input nor an output, and we must introduce the output <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq26114.png" alt="$E_o(s)$"> into the above equation. Solving the above equation for <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq54751.png" alt="$I(s)$"> we arrive at the following.
+      </p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq81233.png" alt="$$ I(s) = \frac{E_i(s)}{R+\frac{1}{Cs}} $$"></p>
+      <p>Then we can recognize that the output voltage (across the capacitor) is <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq53263.png" alt="$e_o = (1/C)\int i\ dt$">. Taking the Laplace transform and again solving for <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq54751.png" alt="$I(s)$">, we arrive at the following.
+      </p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq02605.png" alt="$$ I(s) = \frac{E_o(s)}{\frac{1}{Cs}} $$"></p>
+      <p>Setting the two previous equations equal to one another, we can eliminate <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq54751.png" alt="$I(s)$">.
+      </p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq03954.png" alt="$$ \frac{E_i(s)}{R+\frac{1}{Cs}} = \frac{E_o(s)}{\frac{1}{Cs}} $$"></p>
+      <p>Then re-arranging into the desired form of output divided by input, we produce the resulting transfer function model.</p>
+      <p><span class="eqn_num">(6)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq89462.png" alt="$$ G(s) = \frac{E_o(s)}{E_i(s)} = \frac{\frac{1}{Cs}}{R+\frac{1}{Cs}} $$"></p>
+      <p>Recognizing the above as a first-order system, we can manipulate the transfer function so that it has the standard form shown
+         below.
+      </p>
+      <p><span class="eqn_num">(7)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq97867.png" alt="$$ G(s) =  \frac{1}{RCs+1} =  \frac{K}{\tau s+1} $$"></p>
+      <p>In this form we can see by inspection how the parameters of the circuit affect its response. Specifically, the values of the
+         resistor and capacitor affect the circuit's speed of response as indicated by their influence on the circuit's time constant,
+         <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq62457.png" alt="$\tau = RC$">. The circuit components, however, cannot influence the circuit's steady-state performance as indicated by the fact that the
+         DC gain <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq14888.png" alt="$K$"> always equals 1.
+      </p>
+      <h2>System identification experiment<a name="4"></a></h2>
+      <p>In this experiment we will record the output voltage of the RC circuit for a step in input voltage. Based on the resulting
+         time response of the output voltage, we will fit a model to the data. This approach is sometimes referred to as blackbox modeling
+         or data-driven modeling. After we have generated such a model, we will compare it to the first-principles derived model we
+         created previously.
+      </p>
+      <p><b>Hardware setup</b></p>
+      <p>Our simple RC circuit can be implemented on a breadboard and connected to the Arduino board as shown. One thing to note is
+         that if you employ an electrolytic capacitor, its orientation matters. Specifically, if your capacitor has legs of different
+         lengths and one leg is marked by a negative sign, then you have an electrolytic capacitor. Orient an electrolytic capacitor
+         so that the leg marked by the negative sign connects to the lower potential part of the circuit (ground in this case). The
+         Arduino board is employed to receive the input command from Simulink and to apply the input voltage to the circuit (via a
+         Digital Output). The board also acquires the output voltage data from the circuit (via an Analog Input) and communicates the
+         data to Simulink.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/arduinoRC.png" alt=""> </p>
+      <p>In this experiment, the values of the resistor and capacitor are chosen such that the circuit's time response is slow enough
+         that the Arduino/Simulink setup can sample the circuit at a fast enough rate to give a clear picture of the circuit's output.
+         If the sampling rate is at least 10 times faster than the circuit's time constant, we will be able to get a clear picture
+         of the response. In this experiment, we chose <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq19999.png" alt="$R = 10\ k\Omega$"> and <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq02105.png" alt="$C = 100\ \mu F$"> to produce a circuit with time constant <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq36577.png" alt="$\tau = RC = 1$"> second. This is a low power application so most resistors and capacitors available will work fine, just make sure that the
+         capacitor is rated for at least 5 Volts.
+      </p>
+      <p><b>Software setup</b></p>
+      <p>In this experiment, we will employ Simulink to read the data from the board and to plot the data in real time. In particular,
+         we will employ the IO package from the MathWorks. For details on how to use the IO package, refer to the following <a href="?aux=Activities_IOpack">link</a>. The Simulink model we will use is shown below and can be downloaded <a href="Content/Activities/RCpulse.slx">here</a>, where you may need to change the port to which the Arduino board is connected (the port is COM5 in this case).
+      </p>
+      <p>As shown below, the input voltage command is generated by a Pulse Generator block. This block is chosen because of its generality,
+         though for this experiment we could have used a Step block. The Pulse Generator block generates values of 0 or 1 which are
+         then fed to an Arduino Digital Write block. Since we are using channel 8 for the digital output, we double-click on the Arduino
+         Digital Write block to set the <b>Pin</b> to <tt>8</tt> from the drop-down menu. An input of 0 to the Digital Write block causes an output of 0 Volts to be generated at the corresponding
+         pin, while an input of 1 to the Digital Write block generates an output of 5 Volts. This scaling is captured by the Gain block
+         that is included prior to the Scope block. In this model the Pulse Generator block is set to output 0 for the first 5 seconds
+         of the run in order to discharge the capacitor completely (in case it had built up charge) before stepping to 1 for the last
+         5 seconds of the run.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RCpulse.png" alt=""> </p>
+      <p>The Arduino Analog Read block reads the output voltage data via the Analog Input A0 on the board. Double-clicking on the block
+         allows us to set the <b>Pin</b> to <tt>0</tt> from the drop-down menu. We also will set the <b>Sample Time</b> to "0.1". This is 10 times faster than the circuit's time constant and hence is sufficiently fast. The other blocks in the
+         model can also be set to have a <b>Sample Time</b> of "0.1" (or left as "-1"). In the downloadable model, the sample time is set to the variable <i>Ts</i> which needs to be defined in the MATLAB workspace by typing <tt>Ts = 0.1</tt> before the model can be run. The Gain block on the Analog Input is included to convert the data into units of Volts (by multiplying
+         the data by 5/1023). This conversion can be understood by recognizing that the Arduino Board employs a 10-bit analog-to-digital
+         converter, which means (for the default) that an Analog Input channel reads a voltage between 0 and 5 V and slices that range
+         into <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq33745.png" alt="$2^{10} = 1024$"> pieces. Therefore, 0 corresponds to 0 V and 1023 corresponds to 5 V.
+      </p>
+      <p>The given Simulink model then plots the commanded input voltage and recorded output voltage on a scope and also writes the
+         output data, as an array, to the MATLAB workspace for further analysis. The Arduino Digital Write block, the Arduino Analog
+         Read block, the Arduino IO Setup block, and the Real-Time Pacer block are all part of the IO package. The remaining blocks
+         are part of the standard Simulink library, specifically, they can be found under the Math, Sources, and Sinks libraries.
+      </p>
+      <p>Once the Simulink model has been created, it can then be run to collect the input voltage and output voltage data. Executing
+         the following code at the MATLAB command line will generate the graph shown below. Note that we plot only the last five seconds
+         of the run, thereby excluding any discharging of the capacitor that may have taken place.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         plot(0:0.1:5,ei(51:101),'r--');
+         hold on
+         plot(0:0.1:5,eo_act(51:101),'b*-');
+         xlabel(<span class="string">'time (seconds)'</span>)
+         ylabel(<span class="string">'voltage (Volts)'</span>)
+         title(<span class="string">'RC Circuit Step Response'</span>)
+         legend(<span class="string">'input','experimental output','Location','SouthEast'</span>)
+         axis([0 5 0 5.1]</span>)
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC_output_1.png" alt=""> </p>
+      <p><b>Parameter identification</b></p>
+      <p>Based on the on the above figure, we can fit a model to the recorded data. Recognizing that the observed data has the shape
+         of a first-order step response, we will assume the following standard first-order model for the circuit (happens to match
+         our first-principles model).
+      </p>
+      <p><span class="eqn_num">(8)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq28395.png" alt="$$ G(s) =  \frac{E_o(s)}{E_i(s)} = \frac{K}{\tau s+1} $$"></p>
+      <p>We can then identify the system parameters <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq14888.png" alt="$K$"> and <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq89224.png" alt="$\tau$"> from the recorded response data. Specifically, the steady-state value of the response indicates that the DC gain is <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq71279.png" alt="$K = e_{o,ss}/e_{i,ss} \approx 1$">. Note, we verified with a Voltmeter that the output voltage generated via the Digital Output was very close to 5 Volts. Recalling
+         that by definition the time constant <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq89224.png" alt="$\tau$"> represents the time it takes the system's response to reach <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq58950.png" alt="$1 - e^{-1} \approx 63.2\%$"> of its total change, <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq89224.png" alt="$\tau$"> can be calculated from the following where 63.2 percent of 5 is approximately 3.16.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         plot(0:0.1:5,eo_act(51:101),'b*-');
+         xlabel(<span class="string">'time (seconds)'</span>)
+         ylabel(<span class="string">'voltage (Volts)'</span>)
+         title(<span class="string">'RC Circuit Step Response'</span>)
+         legend(<span class="string">'experimental output','Location','SouthEast'</span>)
+         axis([0 5 0 5]</span>)
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC_output_1_points.png" alt=""> </p>
+      <p>Since the step input occurs at approximately 0.10 seconds and the output reaches 3.16 Volts at approximately 1.16 seconds,
+         the time constant can be identified as <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq06664.png" alt="$\tau \approx 1.16 - 0.10 = 1.06$"> seconds. In reality, we only have data at intervals of 0.1 seconds, but using a datatip in the MATLAB plot allows us to interpolate
+         between the samples. Using a smaller sample period would allow us to improve the accuracy of our identification of the system
+         parameters. In conclusion, our resulting blackbox model is the following.
+      </p>
+      <p><span class="eqn_num">(9)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq91636.png" alt="$$ G(s) =  \frac{E_o(s)}{E_i(s)} = \frac{1}{1.06 s+1} $$"></p>
+      <h2>Model validation - forced response<a name="8"></a></h2>
+      <p>In the this section we will validate the two circuit models we have derived, the first-principles model and the blackbox model,
+         by comparing the step responses predicted by the models to actual data recorded from the circuit.
+      </p>
+      <p>Recall the model that we derived from first principles earlier.</p>
+      <p><span class="eqn_num">(10)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq62101.png" alt="$$ e_i - iR - \frac{1}{C}\int i\ dt = 0 $$"></p>
+      <p>We will generate a Simulink model of this governing equation by first solving the equation for its highest-order "derivative."</p>
+      <p><span class="eqn_num">(11)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq39101.png" alt="$$ i = \frac{1}{R}(e_i - \frac{1}{C}\int i\ dt) $$"></p>
+      <p>This equation is then represented in Simulink as shown below by the highlighted blocks (where <tt>R</tt> and <tt>C</tt> are variables). We have inserted these blocks into the existing Simulink model so that we may directly compare the simulated
+         output voltage to the actual recorded output voltage. The Unit Delay block is added so that the timing of the simulated input
+         voltage better matches the timing of the input voltage generated by the Arduino board. The To Workspace blocks are set to
+         have <i>Array</i> outputs.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC_fp.png" alt=""> </p>
+      <p>We could have also represented the first-principles model as a transfer function, but then we wouldn't be able to directly
+         include initial conditions (an initial charge on the capacitor). The charge on the capacitor is the output of the Integrator
+         block and its initial condition is set by double-clicking on the Integrator block. In the downloadable version of the model
+         the initial condition is set to the variable "q_init" as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC4_2_1.png" alt=""> </p>
+      <p>In order to make our Simulink model cleaner, we can create a subsystem for our first-principles model. Specifically, we can
+         select the blocks highlighted in the above figure and then right-click. From the resulting menu we then choose <b>Create Subsystem from Selection</b>. We can also change the color of the block by choosing <b>Format &gt; Background Color &gt; Light Blue</b> from the resulting menu. Labeling the subsystem as "RC Circuit Model" gives us the Simulink model shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC_fp2.png" alt=""> </p>
+      <p>Going a step further, we can also create a mask for this subsystem by right-clicking on its block and selecting <b>Mask &gt; Create Mask...</b> from the resulting menu.  The creation of a mask for the subsystem allows us to specify the subsystem's parameters (<tt>R</tt>, <tt>C</tt>, and <tt>q_init</tt>) from within Simulink without delving into specific blocks.  Specifically, right-click on the RC Circuit Model and select
+         <b>Mask &gt; Edit Mask...</b>. Under the panel <b>Icon &amp; Ports</b>, type the following commands in the <b>Icon drawing commands</b> window as shown.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC4_3.png" alt=""> </p>
+      <p>Next, click on panel <b>Parameters &amp; Dialog</b> tab and select or drag the <tt>Edit</tt> icon in the left palette to add parameters to the <b>Dialog box</b> shown below. For the first parameter, enter "Resistance" under the <b>Prompt</b> column and "R" under the <b>Name</b> column. Repeat this process two more times for the "Capacitance" and the "Initial charge on capacitor" as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC4_4.png" alt=""> </p>
+      <p>This window is then closed and the settings saved by clicking the <b>OK</b> button. If you double-click on RC Circuit Model again, you will find that the mask with desired parameters has been generated.
+         The values of <tt>R</tt>, <tt>C</tt>, and <tt>q_int</tt> are set to match the parameters of our physical system. For this experiment, recall that we are employing a <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq68849.png" alt="$10 k\Omega$"> resistor, a <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq23177.png" alt="$100 \mu F$"> capacitor, and we are observing the step response when when the capacitor is initially discharged.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC5.png" alt=""> </p>
+      <p>Running this model, we can then compare the simulated output voltage <tt>eo_sim</tt> to the actual experimental output voltage <tt>eo_act</tt>. Recall that the Pulse Generator block is set to output 0 for the first 5 seconds of the run in order to discharge the capacitor
+         completely before stepping to 1. Entering the following code in the MATLAB command window will generate the figure shown below.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         plot(0:0.1:5,eo_act(51:101),'b*-');
+         hold on
+         plot(0:0.1:5,eo_sim(51:101),'r--');
+         xlabel(<span class="string">'time (seconds)'</span>)
+         ylabel(<span class="string">'voltage (Volts)'</span>)
+         title(<span class="string">'RC Circuit Step Response'</span>)
+         legend(<span class="string">'experiment','model (first principles)','Location','SouthEast'</span>)
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC_output_2.png" alt=""> </p>
+      <p>The above figure shows pretty good, though not exact, agreement between the output voltage predicted by our first-principles
+         model and the physical circuit. We will discuss the accuracy of this model momentarily, but let's first investigate the performance
+         of our blackbox model.
+      </p>
+      <p>Recall that in the <b>System identification experiment</b> section we estimated the system parameters as <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq28662.png" alt="$K = 1$"> and <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq76393.png" alt="$\tau = 1.06$"> leading to the following blackbox model.
+      </p>
+      <p><span class="eqn_num">(12)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq91636.png" alt="$$ G(s) =  \frac{E_o(s)}{E_i(s)} = \frac{1}{1.06 s+1} $$"></p>
+      <p>We can generate the blackbox model in Simulink using the Transfer Function block. Double-clicking on the Transfer Function
+         block we can set <b>Numerator coefficients</b> equal to the variable "K" and the <b>Denominator coefficients</b> equal to "[tau 1]" where <i>tau</i> is also a variable, the time constant.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC_bb2.png" alt=""> </p>
+      <p>We can then create a subsystem with a mask for this blackbox model in the same manner we did for the first-principles model.
+         The resulting Simulink model is shown below and can be downloaded <a href="Content/Activities/RCpulseSIM.slx">here</a>. Remember to set the parameters for the blackbox subsystem parameters <i>K</i> and <i>tau</i>.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/rcSIM.png" alt=""> </p>
+      <p>Recall in the above that our first principles model did not exactly predict the output generated by the actual physical circuit.
+         One factor contributing to this difference could be that the components (the resistor and capacitor) have actual values that
+         differ from their nominal labels. We can improve our model by measuring the actual resistance and capacitance using an Ohmmeter
+         and a capacitance meter, respectively.
+      </p>
+      <p>In this experiment, the actual R is measured to be 9840 <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq17683.png" alt="$\Omega$">, compared with the label of <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq21984.png" alt="$10\ k\Omega$">, while the actual C is measured to be <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq01853.png" alt="$103.4\times 10^{-6}\mu F$">, compared with the label <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq02796.png" alt="$100\times 10^{-6}\mu F$">. Entering these values into the mask of our first principles model in Simulink, we can then re-run our simulation. Executing
+         the following MATLAB commands then generates the figure below showing the agreement between the two models and the experimental
+         data.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         plot(0:0.1:5,eo_act(51:101),'b*-');
+         hold on
+         plot(0:0.1:5,eo_fp(51:101),'r--');
+         plot(0:0.1:5,eo_bb(51:101),'k--');
+         xlabel(<span class="string">'time (seconds)'</span>)
+         ylabel(<span class="string">'voltage (Volts)'</span>)
+         title(<span class="string">'RC Circuit Step Response'</span>)
+         legend(<span class="string">'experiment','model (first principles)','model (blackbox)','Location','SouthEast'</span>)
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC_output_3.png" alt=""> </p>
+      <p>Examining the above, the blackbox model matches the data extremely well, while the addition of more accurate estimates of
+         <i>R</i> and <i>C</i> did not improve the agreement with the first-principles model significantly. It is hypothesized that the error in the first
+         principles model is likely due to the unmodeled resistance and capacitance of the input and output channels connected to the
+         circuit. Such loading effects could be captured by the blackbox model since the true response appears to fit the form of a
+         first-order model well.
+      </p>
+      <p>It is generally the case that a blackbox model will be quite accurate when it is applied to the same situation (input, environmental
+         conditions, etc.) from which it was derived. A blackbox model can, however, break down if it is applied under different conditions.
+         This is in particular true if the model doesn't accurately capture the underlying structure of the system. We will, therefore,
+         test our models under different conditions in the next section. In this case since we know that the structure of our first-principles
+         model matches the structure of our blackbox model (both first order) and since the resistance and capacitance likely won't
+         change much (at least over a short time period), our blackbox model should still perform well. A primary advantage of employing
+         a blackbox model, aside from its accuracy, is that one does not need to understand the underlying system well in order to
+         derive a model for it.
+      </p>
+      <h2>Model validation - free response<a name="9"></a></h2>
+      <p>In the previous section we examined how well our models predicted the RC circuit's step response. That case examined the system's
+         response for a forcing input of a 5-Volt step in input voltage and zero initial conditions (no initial charge on the capacitor).
+         In this section we will investigate how well the models predict the RC circuit's free response. This case will assume no forcing
+         input, <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq51129.png" alt="$e_i = 0$">, and an initial charge on the capacitor. This process will illustrate how to deal with initial conditions in our models.
+      </p>
+      <p>To begin, we will solve for the theoretical free response we will expect from the RC circuit. Specifically, we will solve
+         the governing equation we derived from first principles using the Laplace transform. This governing equation is repeated below.
+      </p>
+      <p><span class="eqn_num">(13)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq62101.png" alt="$$ e_i - iR - \frac{1}{C}\int i\ dt = 0 $$"></p>
+      <p>The above is an integro-differential equation in terms of the current through the circuit <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq28128.png" alt="$i$">. We will re-write the above as a differential equation in terms of charge on the capacitor <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq50913.png" alt="$q$"> using the following definitions.
+      </p>
+      <p><span class="eqn_num">(14)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq22130.png" alt="$$i = \dot q$$"></p>
+      <p><span class="eqn_num">(15)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq58014.png" alt="$$\int i\ dt = q$$"></p>
+      <p>Therefore, the governing equation in terms of <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq50913.png" alt="$q$"> is the following.
+      </p>
+      <p><span class="eqn_num">(16)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq51937.png" alt="$$ e_i - \dot q R - \frac{1}{C} q = 0 $$"></p>
+      <p>Recalling that for this case <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq51129.png" alt="$e_i = 0$">, we can rearrange the differential equation as follows.
+      </p>
+      <p><span class="eqn_num">(17)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq60039.png" alt="$$ \dot q + \frac{1}{RC} q = 0 $$"></p>
+      <p>Then taking taking the Laplace transform.</p>
+      <p><span class="eqn_num">(18)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq71856.png" alt="$$ sQ(s) - q(0) + \frac{1}{RC} Q(s) =  0$$"></p>
+      <p>Recalling that a capacitor's capacitance is defined as the amount of charge it can hold for a given potential difference,
+         <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq18350.png" alt="$C = q/e$">, we can express the initial charge on the capacitor in terms of the initial voltage across the capacitor (the initial output
+         voltage).
+      </p>
+      <p><span class="eqn_num">(19)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq50817.png" alt="$q(0) = Ce_o(0)$"></p>
+      <p>Substituting for <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq92927.png" alt="$q(0)$"> and solving the equation for <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq28946.png" alt="$Q(s)$"> gives the following.
+      </p>
+      <p><span class="eqn_num">(20)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq12040.png" alt="$$ Q(s) = \frac{RC^2e_0(0)}{RCs+1} = \frac{Ce_o(0)}{s+\frac{1}{RC}}$$"></p>
+      <p>Applying inverse Laplace transform, we then have the time response of the charge on the capacitor.</p>
+      <p><span class="eqn_num">(21)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq48364.png" alt="$$q(t) = Ce_o(0) e^{-t/RC},\ t \geq 0$$"></p>
+      <p>Again using the definition of capacitance, we then have the output response of the RC circuit for some initial charge and
+         no forcing input voltage.
+      </p>
+      <p><span class="eqn_num">(22)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq22003.png" alt="$$e_o(t) = \frac{1}{C}q(t) = e_o(0) e^{-t/RC},\ t \geq 0$$"></p>
+      <p>The above equation represents the theoretical free response expected from the RC circuit based on the first-principles model
+         we derived. We would like to compare the prediction of the first-principles model with that of the blackbox model and the
+         performance of the actual physical circuit. One challenge is that the blackbox model is in the form of a transfer function
+         which does not address initial conditions. This can be addressed by running the existing Simulink model from zero initial
+         conditions and then bringing the models and physical circuit to the desired initial state (level of capacitor charge). For
+         our existing Simulink model with Pulse Generator input, we could run the model for 15 seconds where for the first 5 seconds
+         the input is 0 to discharge the capacitor completely, for the next 5 seconds the input is 1 in order to charge the capacitor
+         completely (<img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq78127.png" alt="$e_o = 5$"> Volts), and the final 5 seconds represents the free response as the input drops back to 0. You can change the simulation
+         run time in the toolbar of the window of your Simulink model, or via the drop-down menu <b>Simulation &gt; Model Configuration Parameters</b> under the <b>Solver</b> menu. Running the existing model under these conditions and executing the following MATLAB commands will generate the figure
+         shown below.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         plot(0:0.1:5,eo_act(101:151),'b*-');
+         hold on
+         plot(0:0.1:5,eo_fp(101:151),'r--');
+         plot(0:0.1:5,eo_bb(101:151),'k--');
+         xlabel(<span class="string">'time (seconds)'</span>)
+         ylabel(<span class="string">'voltage (Volts)'</span>)
+         title(<span class="string">'RC Circuit Free Response'</span>)
+         legend(<span class="string">'experiment','model (first principles)','model (blackbox)'</span>)
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC_output_4.png" alt=""> </p>
+      <p>Examining the above, the blackbox model still provides better agreement with the recorded output voltage from the physical
+         RC circuit than does the first-principles model. Recall that this difference is attributed to the fact that the first-principles
+         model does not capture the effects of the input and output channel. The results from the blackbox model, however, do not seem
+         to agree with the experimental data in this case as well as it did with the step response experiment. This difference is anticipated
+         since the blackbox model was derived based on an identical step response experiment, rather than for the conditions of this
+         free response experiment. That being said, the blackbox model still agrees with the physical data very well. This is attributable
+         to the fact that the physical RC circuit is simple, approximately linear, and relatively time invariant.
+      </p>
+      <p>As mentioned previously, the blackbox model is represented as a transfer function which does not explicitly allow the inclusion
+         of initial conditions. An alternative viewpoint for the blackbox model is to consider it as a linearization about some nominal
+         operating point of the true (nonlinear) physical system. In that manner the input and output can be considered as the deviation
+         of <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq81966.png" alt="$e_i$"> and <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq10130.png" alt="$e_o$"> from their initial conditions. That is
+      </p>
+      <p><span class="eqn_num">(23)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq65404.png" alt="$$ G(s) =  \frac{\Delta E_o(s)}{\Delta E_i(s)} = \frac{1}{1.06 s+1} $$"></p>
+      <p>where <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq97633.png" alt="$\Delta e_o(t) = e_o(t) - e_o(0)$"> and <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitA_eq56253.png" alt="$\Delta e_i(t) = e_i(t) - e_i(0)$">. Thinking of the blackbox model in this manner ensures that the initial conditions are always zero and hence can be modeled
+         by a transfer function. With this in mind, the blackbox model can be represented in Simulink in the following manner.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC_bb3.png" alt=""> </p>
+      <h2>Extensions<a name="10"></a></h2>
+      <p>An interesting change that can be made to this experiment is to replace the fixed resistor with a variable resistor (a trimmer
+         potentiometer) to observe directly how the circuit's response changes with resistance. This can also be done with a variable
+         capacitor, or by even swapping the resistor and capacitor with fixed components of different values.
+      </p>
+      <p>In <a href="?aux=Activities_RCcircuitB">Part (b)</a> of this activity, the frequency response characteristics of the RC circuit are investigated.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 8.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Activity 1 Part (a): Time-Response Identification of a Resistor–Capacitor (RC) Circuit 
+%
+% <<Content/Activities/figures/RC2.jpg>>
+%
+% *Key Topics*: Modeling Electrical Systems,  
+% First-Order Systems, System Identification
+%
+%% Equipment needed
+%
+% * Arduino board (e.g. Uno, Mega 2560, etc.)
+% * USB cable
+% * Breadboard
+% * Electronic components (resistor and capacitor)
+% * Ohmmeter, Capacitance meter (optional)
+% * Jumper wires
+%
+% The system we will be employing in this activity is a simple electrical
+% circuit consisting of a resistor (R) and a capacitor (C) in series. The Arduino
+% board will be used for generating the input to this RC circuit and for
+% measuring the output of the circuit. Specifically, the input to the
+% circuit will be a 5-Volt step, generated from one of the
+% board's _Digital Outputs_, applied across the resistor and 
+% capacitor. The output of the circuit will be the voltage across the
+% capacitor which will be read via one of the board's _Analog Inputs_.
+% This data is then fed to Simulink for visualization and for comparison to
+% our resulting simulation model output. 
+%
+%% Purpose
+%
+% The purpose of this activity is to demonstrate how to model a simple
+% electrical system. Specifically, a first principles approach based on the
+% underlying physics of the circuit and a blackbox approach based on
+% recorded data will be employed. The associated experiment is employed to
+% demonstrate the blackbox approach, as well as to demonstrate the accuracy
+% of the resulting models. This activity also provides a physical example
+% of the common class of first-order systems.
+%
+%% Modeling from first principles
+%
+% First we will employ our understanding of the underlying physics of the
+% RC circuit to derive the structure of the system model. We
+% will term this process "modeling from first principles." In this example
+% we employ the following variables.
+%
+%  (R)      resistance of the resistor                       
+% 
+%  (C)      capacitance of the capacitor    
+% 
+%  (ei)     input voltage
+% 
+%  (eo)     output voltage
+%
+% <<Content/Activities/figures/RC.png>>
+%
+% To begin, we assume a direction for the current 
+% and then apply _Kirchhoff’s Voltage Law_ (loop law). Current flows from a
+% higher potential to a lower potential, therefore, the direction of the
+% current will be clockwise in this case (shown below). 
+%
+% <<Content/Activities/figures/RC2.png>>
+%
+% The loop law states that the sum of voltages around a closed loop must
+% equal zero. Thus, the loop law produces the following governing
+% equation for the circuit.
+%
+% $$ e_i - iR - \frac{1}{C}\int i\ dt = 0 $$
+%
+% An alternative to the intregro-differential equation model of a dynamic system is
+% the _transfer function_. The transfer function captures the input/output
+% behavior of a system and is derived by first taking the Laplace transform
+% of a given integro-differential equation, while assuming zero initial conditions
+% ($i(0) = 0$).
+%
+% $$ E_i(s) - I(s)R - \frac{1}{Cs}I(s) = 0 $$
+% 
+% Next we must perform some algebra to re-arrange the above into the form
+% of its output divided by its input. In this case, our input is $E_i(s)$
+% and our output is $E_o(s)$. Therefore, we must eliminate the current $I(s)$
+% from the above since it is neither an input nor an output, and we must
+% introduce the output $E_o(s)$ into the above equation. Solving
+% the above equation for $I(s)$ we arrive at the following.
+%
+% $$ I(s) = \frac{E_i(s)}{R+\frac{1}{Cs}} $$
+%
+% Then we can recognize that the output voltage
+% (across the capacitor) is $e_o = (1/C)\int i\ dt$. Taking the Laplace
+% transform and again solving for $I(s)$, we arrive at the following.
+%
+% $$ I(s) = \frac{E_o(s)}{\frac{1}{Cs}} $$
+%
+% Setting the two previous equations equal to one another, we can eliminate
+% $I(s)$.
+%
+% $$ \frac{E_i(s)}{R+\frac{1}{Cs}} = \frac{E_o(s)}{\frac{1}{Cs}} $$
+%
+% Then re-arranging into the desired form of output divided by input, we
+% produce the resulting transfer function model.
+%
+% $$ G(s) = \frac{E_o(s)}{E_i(s)} = \frac{\frac{1}{Cs}}{R+\frac{1}{Cs}} $$
+%
+% Recognizing the above as a first-order system, we can manipulate the
+% transfer function so that it has the standard form shown
+% below.
+%
+% $$ G(s) =  \frac{1}{RCs+1} =  \frac{K}{\tau s+1} $$
+%
+% In this form we can see by inspection how the parameters of the circuit
+% affect its response. Specifically, the values of the resistor and
+% capacitor affect the circuit's speed of response as indicated by their
+% influence on the circuit's time constant, $\tau = RC$. The circuit
+% components, however, cannot influence the circuit's steady-state
+% performance as indicated by the fact that the DC gain $K$ always equals
+% 1.
+%% System identification experiment
+% 
+% In this experiment we will record the output voltage of the
+% RC circuit for a step in input voltage. Based on the resulting time
+% response of the output voltage, we will fit a model 
+% to the data. This approach is sometimes referred to as blackbox modeling or
+% data-driven modeling. After we have generated such a model, we will
+% compare it to the first-principles derived model we created previously.
+%
+%%
+% *Hardware setup*
+%
+% Our simple RC circuit can be implemented on a breadboard and connected to
+% the Arduino board as shown. One thing to note is that if you employ an
+% electrolytic capacitor, its orientation matters. Specifically, if your
+% capacitor has legs of different lengths and one leg is marked by a
+% negative sign, then you have an electrolytic capacitor. Orient an
+% electrolytic capacitor so that the leg marked by the negative sign
+% connects to the lower potential part of the circuit (ground in this
+% case). The Arduino board is employed to receive the
+% input command from Simulink and to apply the input voltage to the
+% circuit (via a Digital Output). The board also acquires the  
+% output voltage data from the circuit (via an Analog Input) and
+% communicates the data to Simulink. 
+%
+% <<Content/Activities/figures/arduinoRC.png>> 
+%
+% In this experiment, the values of the resistor and capacitor are chosen
+% such that the circuit's time response is slow enough that the
+% Arduino/Simulink setup can sample the circuit at a fast enough rate to
+% give a clear picture of the circuit's output. If the sampling rate is
+% at least 10 times faster than the circuit's time constant, we will be
+% able to get a clear picture of the response. In this experiment, we chose
+% $R = 10\ k\Omega$ and $C = 100\ \mu F$ to produce a circuit with time
+% constant $\tau = RC = 1$ second. This is a low power application so most
+% resistors and capacitors available will work fine, just make sure that
+% the capacitor is rated for at least 5 Volts.
+%
+%% 
+% *Software setup*
+%
+% In this experiment, we will employ Simulink to read the data from
+% the board and to plot the data in real time. In particular, we
+% will employ the IO package from the MathWorks. For details on how to
+% use the IO package, refer to the following < ?aux=Activities_IOpack
+% link>. The Simulink model we will use is shown below and can be
+% downloaded <Content/Activities/RCpulse.slx here>, where you may need to change the port
+% to which the Arduino board is connected (the port is COM5 in this case). 
+%
+% As shown below, the input voltage command is generated by a Pulse
+% Generator block. This block is chosen because of its generality, though
+% for this experiment we could have used a Step block. The Pulse Generator
+% block generates values of 0 or 1 which are then fed to an Arduino Digital
+% Write block. Since we are using channel 8 for the digital output, we
+% double-click on the Arduino Digital Write block to set the *Pin* to |8|
+% from the drop-down menu. An 
+% input of 0 to the Digital Write block causes an output of 0 Volts to be
+% generated at the corresponding pin, while an input of 1 to the Digital
+% Write block generates an output of 5 Volts. This scaling is captured by
+% the Gain block that is included prior to the Scope block. In this model 
+% the Pulse Generator block is set to output 0 for the first 5 seconds of
+% the run in order to discharge the capacitor completely (in case it had
+% built up charge) before stepping to 1 for the last 5 seconds of the run.
+%
+% <<Content/Activities/figures/RCpulse.png>>
+%
+% The Arduino Analog Read block reads the output voltage data 
+% via the Analog Input A0 on the board. Double-clicking on the block allows
+% us to set the *Pin* to |0| from the drop-down menu. We also will set the
+% *Sample Time* to "0.1". This is 10 times faster than the circuit's time
+% constant and hence is sufficiently fast. The other blocks in the model
+% can also be set to have a *Sample Time* of "0.1" (or left as "-1"). In
+% the downloadable model, the sample time is set to the variable _Ts_ which
+% needs to be defined in the MATLAB workspace by typing |Ts = 0.1| before
+% the model can be run. The Gain block on the Analog Input is included to
+% convert the data into units of Volts (by multiplying the data by 5/1023).
+% This conversion can be understood by recognizing that the Arduino Board
+% employs a 10-bit analog-to-digital converter, which means (for the
+% default) that an Analog Input channel reads a voltage 
+% between 0 and 5 V and slices that range into $2^{10} = 1024$ pieces.
+% Therefore, 0 corresponds to 0 V and 1023 corresponds to 5 V.
+%
+% The given Simulink model then plots the commanded input voltage and
+% recorded output voltage on a scope and also
+% writes the output data, as an array, to the MATLAB workspace for further
+% analysis. The Arduino Digital Write block, the Arduino Analog Read block,
+% the Arduino IO Setup block, and the Real-Time Pacer block are all part of
+% the IO package. The remaining blocks are part of the standard Simulink
+% library, specifically, they can be found under the Math, Sources, and
+% Sinks libraries.   
+%
+% Once the Simulink model has been created, it can then be run to collect
+% the input voltage and output voltage data. Executing the following code
+% at the MATLAB command line will generate the graph shown below. Note that
+% we plot only the last five seconds of the run, thereby excluding any
+% discharging of the capacitor that may have taken place.
+%
+% <html>
+% </p><pre class="codeinput">
+% plot(0:0.1:5,ei(51:101),'rREPLACE_WITH_DASH_DASH');
+% hold on
+% plot(0:0.1:5,eo_act(51:101),'b*-');
+% xlabel(<span class="string">'time (seconds)'</span>)
+% ylabel(<span class="string">'voltage (Volts)'</span>)
+% title(<span class="string">'RC Circuit Step Response'</span>)
+% legend(<span class="string">'input','experimental output','Location','SouthEast'</span>)
+% axis([0 5 0 5.1]</span>)
+% </pre>
+% </html>
+%
+% <<Content/Activities/figures/RC_output_1.png>> 
+%
+%%
+% *Parameter identification*
+%
+% Based on the on the above figure, we can fit a model to the recorded
+% data. Recognizing that the observed data has the shape of a
+% first-order step response, we will assume the following standard
+% first-order model for the circuit (happens to match our first-principles
+% model).  
+%
+% $$ G(s) =  \frac{E_o(s)}{E_i(s)} = \frac{K}{\tau s+1} $$
+%
+% We can then identify the system parameters $K$ and $\tau$ from the
+% recorded response data. Specifically, the steady-state value of the
+% response indicates that the DC gain is $K = e_{o,ss}/e_{i,ss} \approx
+% 1$. Note, we verified with a Voltmeter that the output voltage generated
+% via the Digital Output was very close to 5 Volts. Recalling that by
+% definition the time constant $\tau$ represents the time it takes the  
+% system's response to reach $1 - e^{-1} \approx 63.2\%$ of its total
+% change, $\tau$ can be calculated from the following where 63.2 percent of
+% 5 is approximately 3.16. 
+%
+% <html>
+% </p><pre class="codeinput">
+% plot(0:0.1:5,eo_act(51:101),'b*-');
+% xlabel(<span class="string">'time (seconds)'</span>)
+% ylabel(<span class="string">'voltage (Volts)'</span>)
+% title(<span class="string">'RC Circuit Step Response'</span>)
+% legend(<span class="string">'experimental output','Location','SouthEast'</span>)
+% axis([0 5 0 5]</span>)
+% </pre>
+% </html>
+%
+% <<Content/Activities/figures/RC_output_1_points.png>> 
+%
+% Since the step input occurs at approximately 0.10 seconds and the output
+% reaches 3.16 Volts at approximately 1.16 seconds, the time constant can be
+% identified as $\tau \approx 1.16 - 0.10 = 1.06$ seconds. In reality, we
+% only have data at intervals of 0.1 seconds, but using a datatip in the
+% MATLAB plot allows us to interpolate between the samples. Using a smaller
+% sample period would allow us to improve the accuracy of our
+% identification of the system parameters. In conclusion, our resulting
+% blackbox model is the following. 
+%
+% $$ G(s) =  \frac{E_o(s)}{E_i(s)} = \frac{1}{1.06 s+1} $$
+%
+%% Model validation - forced response
+%
+% In the this section we will validate the two circuit models we
+% have derived, the first-principles model and the blackbox model, by
+% comparing the step responses predicted by the models to actual data
+% recorded from the circuit.
+%
+% Recall the model that we derived from first principles earlier.
+%
+% $$ e_i - iR - \frac{1}{C}\int i\ dt = 0 $$
+%
+% We will generate a Simulink model of this governing equation by first
+% solving the equation for its highest-order "derivative."  
+%
+% $$ i = \frac{1}{R}(e_i - \frac{1}{C}\int i\ dt) $$
+%
+% This equation is then represented in Simulink as shown below by the
+% highlighted blocks (where |R| and |C| are variables). We have inserted
+% these blocks into the existing Simulink model so that we may directly
+% compare the simulated output voltage to the actual recorded output
+% voltage. The Unit Delay block is added so that the timing of the
+% simulated input voltage better matches the timing of the input voltage
+% generated by the Arduino board. The To Workspace blocks are set to have
+% _Array_ outputs.   
+%
+% <<Content/Activities/figures/RC_fp.png>>
+%
+% We could have also represented the first-principles model as a transfer
+% function, but then we wouldn't be able to directly include initial
+% conditions (an initial charge on the capacitor). The charge on the
+% capacitor is the output of the Integrator block and its initial condition
+% is set by double-clicking on the Integrator block. In the downloadable
+% version of the model the initial condition is set to the variable
+% "q_init" as shown below.
+%
+% <<Content/Activities/figures/RC4_2_1.png>>
+%
+% In order to make our Simulink model cleaner, we can create a subsystem
+% for our first-principles model. Specifically, we can select the blocks
+% highlighted in the above figure and then right-click. From the resulting
+% menu we then choose *Create Subsystem from Selection*. We
+% can also change the color of the block by choosing *Format > Background
+% Color > Light Blue* from the resulting menu. Labeling the subsystem as "RC
+% Circuit Model" gives us the Simulink model shown below. 
+%
+% <<Content/Activities/figures/RC_fp2.png>>
+%
+% Going a step further, we can also create a mask for this subsystem by
+% right-clicking on its block and selecting *Mask > Create Mask...* from the
+% resulting menu.  The creation of a mask for the subsystem allows us to
+% specify the subsystem's parameters (|R|, |C|, and |q_init|) from within
+% Simulink without delving into specific blocks.  Specifically, right-click
+% on the RC Circuit Model and select *Mask > Edit Mask...*. Under the panel
+% *Icon & Ports*, type the following commands in the *Icon drawing commands*
+% window as shown.
+%
+% <<Content/Activities/figures/RC4_3.png>>
+%
+% Next, click on panel *Parameters & Dialog* tab and select or drag the
+% |Edit| icon in the left palette to add parameters to the *Dialog box*
+% shown below. For the first parameter, enter "Resistance" under the
+% *Prompt* column and "R" under the *Name* column. Repeat this process two
+% more times for the "Capacitance" and the "Initial charge on capacitor" as
+% shown below. 
+%
+% <<Content/Activities/figures/RC4_4.png>>
+%
+% This window is then closed and the settings saved by clicking the *OK*
+% button. If you double-click on RC Circuit Model again, you will find
+% that the mask with desired parameters has been generated. The values of
+% |R|, |C|, and |q_int| are set to match the parameters of our physical
+% system. For this experiment, recall that we are employing a $10 k\Omega$
+% resistor, a $100 \mu F$ capacitor, and we are observing the step response
+% when when the capacitor is initially discharged.
+%
+% <<Content/Activities/figures/RC5.png>>
+%
+% Running this model, we can then compare the simulated output
+% voltage |eo_sim| to the actual experimental output voltage
+% |eo_act|. Recall that the Pulse Generator block is set to output 0 for
+% the first 5 seconds of the run in order to discharge the capacitor
+% completely before stepping to 1. Entering the following code in the
+% MATLAB command window will generate the figure shown below.
+%
+% <html>
+% </p><pre class="codeinput">
+% plot(0:0.1:5,eo_act(51:101),'b*-');
+% hold on
+% plot(0:0.1:5,eo_sim(51:101),'rREPLACE_WITH_DASH_DASH');
+% xlabel(<span class="string">'time (seconds)'</span>)
+% ylabel(<span class="string">'voltage (Volts)'</span>)
+% title(<span class="string">'RC Circuit Step Response'</span>)
+% legend(<span class="string">'experiment','model (first principles)','Location','SouthEast'</span>)
+% </pre>
+% </html>
+%
+% <<Content/Activities/figures/RC_output_2.png>>
+%
+% The above figure shows pretty good, though not exact, agreement between
+% the output voltage predicted by our first-principles model and the
+% physical circuit. We will discuss the accuracy of this model momentarily,
+% but let's first investigate the performance of our blackbox model. 
+%
+% Recall that in the *System identification experiment* section we estimated 
+% the system parameters as $K = 1$ and $\tau = 1.06$ leading to the
+% following blackbox model.
+%
+% $$ G(s) =  \frac{E_o(s)}{E_i(s)} = \frac{1}{1.06 s+1} $$
+%
+% We can generate the blackbox model in Simulink using the Transfer
+% Function block. Double-clicking on the Transfer Function block we can set
+% *Numerator coefficients* equal to the variable "K" and the *Denominator
+% coefficients* equal to "[tau 1]" where _tau_ is also a variable, the time
+% constant. 
+%
+% <<Content/Activities/figures/RC_bb2.png>>
+%
+% We can then create a subsystem with a mask for this blackbox
+% model in the same manner we did for the first-principles model. The
+% resulting Simulink model is shown below and can be downloaded
+% <Content/Activities/RCpulseSIM.slx here>. Remember to set the parameters for the blackbox
+% subsystem parameters _K_ and _tau_. 
+% 
+% <<Content/Activities/figures/rcSIM.png>>
+%
+% Recall in the above that our first principles model did not exactly
+% predict the output generated by the actual physical circuit. One factor
+% contributing to this difference could be that the components (the
+% resistor and capacitor) have actual values that differ from their nominal
+% labels. We can improve our model by measuring the actual resistance and
+% capacitance using an Ohmmeter and a capacitance meter, respectively. 
+%
+% In this experiment, the actual R is measured to be 9840 $\Omega$, 
+% compared with the label of $10\ k\Omega$, while the actual C is measured
+% to be $103.4\times 10^{-6}\mu F$, compared with the label
+% $100\times 10^{-6}\mu F$. Entering these values into the mask of our
+% first principles model in Simulink, we can then re-run our simulation.
+% Executing the following MATLAB commands then generates the figure below
+% showing the agreement between the two models and the experimental data.
+%
+% <html>
+% </p><pre class="codeinput">
+% plot(0:0.1:5,eo_act(51:101),'b*-');
+% hold on
+% plot(0:0.1:5,eo_fp(51:101),'rREPLACE_WITH_DASH_DASH');
+% plot(0:0.1:5,eo_bb(51:101),'kREPLACE_WITH_DASH_DASH');
+% xlabel(<span class="string">'time (seconds)'</span>)
+% ylabel(<span class="string">'voltage (Volts)'</span>)
+% title(<span class="string">'RC Circuit Step Response'</span>)
+% legend(<span class="string">'experiment','model (first principles)','model (blackbox)','Location','SouthEast'</span>)
+% </pre>
+% </html>
+%
+% <<Content/Activities/figures/RC_output_3.png>>
+%
+% Examining the above, the blackbox model matches the data extremely well,
+% while the addition of more accurate estimates of _R_ and _C_ did not
+% improve the agreement with the first-principles model significantly.
+% It is hypothesized that the error in the first principles model is likely
+% due to the unmodeled resistance and capacitance of the input and output
+% channels connected to the circuit. Such loading effects could be captured
+% by the blackbox model since the true response appears to fit the form of a
+% first-order model well.
+%
+% It is generally the case that a blackbox model will be quite accurate
+% when it is applied to the same situation (input, environmental
+% conditions, etc.) from which it was derived. A blackbox model can,
+% however, break down if it is applied under different conditions. This is
+% in particular true if the model doesn't accurately capture the underlying
+% structure of the system. We will, therefore, test our models under
+% different conditions in the next section. In this case since we know that the
+% structure of our first-principles model matches the structure of our
+% blackbox model (both first order) and since the resistance and
+% capacitance likely won't change much (at least over a short time period),
+% our blackbox model should still perform well. A primary advantage of
+% employing a blackbox model, aside from its accuracy, is that one does not
+% need to understand the underlying system well in order to derive a model
+% for it.
+%
+%% Model validation - free response
+%
+% In the previous section we examined how well our models predicted the
+% RC circuit's step response. That case examined the system's response for
+% a forcing input of a 5-Volt step in input voltage and zero initial
+% conditions (no initial charge on the capacitor). In this section we will
+% investigate how well the models predict the RC circuit's free response.
+% This case will assume no forcing input, $e_i = 0$, and an initial charge
+% on the capacitor. This process will illustrate how to deal with initial
+% conditions in our models.
+%
+% To begin, we will solve for the theoretical free response we will expect
+% from the RC circuit. Specifically, we will solve the governing equation
+% we derived from first principles using the Laplace transform. This
+% governing equation is repeated below.
+%
+% $$ e_i - iR - \frac{1}{C}\int i\ dt = 0 $$
+%
+% The above is an integro-differential equation in terms of the current
+% through the circuit $i$. We will re-write the above as a differential
+% equation in terms of charge on the capacitor $q$ using the following
+% definitions.
+%
+% $$i = \dot q$$
+%
+% $$\int i\ dt = q$$
+% 
+% Therefore, the governing equation in terms of $q$ is the following.
+%
+% $$ e_i - \dot q R - \frac{1}{C} q = 0 $$
+%
+% Recalling that for this case $e_i = 0$, we can rearrange the differential
+% equation as follows.
+%
+% $$ \dot q + \frac{1}{RC} q = 0 $$
+%
+% Then taking taking the Laplace transform.
+%
+% $$ sQ(s) - q(0) + \frac{1}{RC} Q(s) =  0$$
+%
+% Recalling that a capacitor's capacitance is defined as the amount of
+% charge it can hold for a given potential difference, $C = q/e$, we can
+% express the initial charge on the capacitor in terms of the initial
+% voltage across the capacitor (the initial output voltage).
+%
+% $q(0) = Ce_o(0)$
+%
+% Substituting for $q(0)$ and solving the
+% equation for $Q(s)$ gives the following.
+%
+% $$ Q(s) = \frac{RC^2e_0(0)}{RCs+1} = \frac{Ce_o(0)}{s+\frac{1}{RC}}$$
+%
+% Applying inverse Laplace transform, we then have the time response of the
+% charge on the capacitor.
+%
+% $$q(t) = Ce_o(0) e^{-t/RC},\ t \geq 0$$
+%
+% Again using the definition of capacitance, we then have the output
+% response of the RC circuit for some initial charge and no forcing input
+% voltage.
+%
+% $$e_o(t) = \frac{1}{C}q(t) = e_o(0) e^{-t/RC},\ t \geq 0$$
+%
+% The above equation represents the theoretical free response expected from
+% the RC circuit based on the first-principles model we derived. We would
+% like to compare the prediction of the first-principles model with that of
+% the blackbox model and the performance of the actual physical circuit.
+% One challenge is that the blackbox model is in the form of a transfer
+% function which does not address initial conditions. This can be
+% addressed by running the existing Simulink model from zero initial
+% conditions and then bringing the models and physical circuit to the desired
+% initial state (level of capacitor charge). For our existing Simulink
+% model with Pulse Generator input, we could run the model for 15 seconds
+% where for the first 5 seconds the input is 0 to discharge the capacitor
+% completely, for the next 5 seconds the input is 1 in order to charge the
+% capacitor completely ($e_o = 5$ Volts), and the final 5 seconds
+% represents the free response as the input drops back to 0. You can change
+% the simulation run time in the toolbar of the window of your Simulink
+% model, or via the drop-down menu *Simulation > Model Configuration
+% Parameters* under the *Solver* menu. Running the
+% existing model under these conditions and executing the following MATLAB
+% commands will generate the figure shown below.
+%
+% <html>
+% </p><pre class="codeinput">
+% plot(0:0.1:5,eo_act(101:151),'b*-');
+% hold on
+% plot(0:0.1:5,eo_fp(101:151),'rREPLACE_WITH_DASH_DASH');
+% plot(0:0.1:5,eo_bb(101:151),'kREPLACE_WITH_DASH_DASH');
+% xlabel(<span class="string">'time (seconds)'</span>)
+% ylabel(<span class="string">'voltage (Volts)'</span>)
+% title(<span class="string">'RC Circuit Free Response'</span>)
+% legend(<span class="string">'experiment','model (first principles)','model (blackbox)'</span>)
+% </pre>
+% </html>
+%
+% <<Content/Activities/figures/RC_output_4.png>>
+%
+% Examining the above, the blackbox model still provides better agreement
+% with the recorded output voltage from the physical RC circuit than does the
+% first-principles model. Recall that this difference is attributed to the
+% fact that the first-principles model does not capture the effects of the
+% input and output channel. The results from the blackbox model, however,
+% do not seem to agree with the experimental data in this case as well as
+% it did with the step response experiment. This difference is anticipated
+% since the blackbox model was derived based on an identical step response
+% experiment, rather than for the conditions of this free response
+% experiment. That being said, the blackbox model still agrees with the
+% physical data very well. This is attributable to the fact that the
+% physical RC circuit is simple, approximately linear, and relatively time
+% invariant. 
+%
+% As mentioned previously, the blackbox model is represented as a transfer
+% function which does not explicitly allow the inclusion of initial
+% conditions. An alternative viewpoint for the blackbox model is to
+% consider it as a linearization about some nominal operating point of the
+% true (nonlinear) physical system. In that manner the input and output can
+% be considered as the deviation of $e_i$ and $e_o$ from their initial
+% conditions. That is
+%
+% $$ G(s) =  \frac{\Delta E_o(s)}{\Delta E_i(s)} = \frac{1}{1.06 s+1} $$
+% 
+% where $\Delta e_o(t) = e_o(t) - e_o(0)$ and $\Delta e_i(t) = e_i(t) -
+% e_i(0)$. Thinking of the blackbox model in this manner ensures that the
+% initial conditions are always zero and hence can be modeled by a
+% transfer function. With this in mind, the blackbox model can be
+% represented in Simulink in the following manner.
+%
+% <<Content/Activities/figures/RC_bb3.png>>
+%
+%% Extensions
+%
+% An interesting change that can be made to this experiment is to replace
+% the fixed resistor with a variable resistor (a trimmer potentiometer) to
+% observe directly how the circuit's response changes with resistance.
+% This can also be done with a variable capacitor, or by even swapping the
+% resistor and capacitor with fixed components of different values.
+%
+% In < ?aux=Activities_RCcircuitB Part (b)> of this activity, the frequency
+% response characteristics of the RC circuit are investigated.
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Introduction&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Introduction&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Introduction&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Introduction&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Introduction&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Introduction&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Introduction&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Introduction&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Introduction&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Introduction&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

@@ -1,0 +1,490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: Suspension	section: ControlStateSpace	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "Suspension";
+			var section = "ControlStateSpace";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=Suspension&section=ControlDigital";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Suspension: State-Space Methods for Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#f8bb97968c8a9794ac8d8c978a9199948bb5998c94999aab91958d94919693b89f95999194d69b9795">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=Suspension&section=ControlDigital">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlStateSpace"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlStateSpace"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlStateSpace"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlStateSpace"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlStateSpace"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlStateSpace"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlStateSpace"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlStateSpace"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Suspension: State-Space Controller Design</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/ss.html"><tt>ss</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a></p>
+      </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?example=Introduction&section=ControlStateSpace">State Space Intro</a></li>
+        <li><a href="?aux=Animations_Invgui">LQR Animation 1</a></li>
+		<li><a href="?aux=Animations_Pitchgui">LQR Animation 2</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/videos/state-space-models-part-2-control-design-100816.html">MATLAB State FB Video</a></li>
+		<li><a href="https://www.youtube.com/watch?v=X3TOZLJCWiY">State Space Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#2">Designing the full state-feedback controller</a></li>
+            <li><a href="#8">Plotting the closed-loop response</a></li>
+         </ul>
+      </div>
+      <p>From the main problem, the dynamic equations in state-space form are the following where Y1 = X1 - X2.</p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/Suspension/Control/StateSpace/html/Suspension_ControlStateSpace_eq03560461639558871530.png" alt="$$&#xA;\left[ \begin{array}{c} \dot{X_1} \\ \ddot{X_1} \\ \dot{Y_1} \\ \ddot{Y_1} \end{array} \right] =&#xA;\left[ \begin{array}{cccc}&#xA;0 &amp; 1 &amp; 0 &amp; 0 \\&#xA;\frac{-b_1 b_2}{M_1 M_2} &amp; 0 &amp; \left[ \frac{b_1}{M_1} \left( \frac{b_1}{M_1}+\frac{b_1}{M_2}+\frac{b_2}{M_2} \right)-\frac{K_1}{M_1} \right] &amp; \frac{-b_1}{M_1} \\&#xA;\frac{b_2}{M_2} &amp; 0 &amp; -\left( \frac{b_1}{M_1}+\frac{b_1}{M_2}+\frac{b_2}{M_2} \right) &amp; 1 \\&#xA;\frac{K_2}{M_2} &amp; 0 &amp; -\left( \frac{K_1}{M_1}+\frac{K_1}{M_2}+\frac{K_2}{M_2} \right) &amp; 0&#xA;\end{array} \right]&#xA;\left[ \begin{array}{c} X_1 \\ \dot{X_1} \\ Y_1 \\ \dot{Y_1} \end{array} \right] +&#xA;$$"></p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/Suspension/Control/StateSpace/html/Suspension_ControlStateSpace_eq11214314320263348466.png" alt="$$&#xA;\left[ \begin{array}{cc}&#xA;0 &amp; 0 \\&#xA;\frac{1}{M_1} &amp; \frac{b_1 b_2}{M_1 M_2} \\&#xA;0 &amp; \frac{-b_2}{M_2} \\&#xA;\left( \frac{1}{M_2}+\frac{1}{M_2} \right) &amp; \frac{-K_2}{M_2}&#xA;\end{array} \right]&#xA;\left[ \begin{array}{c} U \\ W \end{array} \right]&#xA;$$"></p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/Suspension/Control/StateSpace/html/Suspension_ControlStateSpace_eq16950519132394094273.png" alt="$$&#xA;Y = \left[ \begin{array}{cccc} 0 &amp; 0 &amp; 1 &amp; 0 \end{array} \right]&#xA;\left[ \begin{array}{c} X_1 \\ \dot{X_1} \\ Y_1 \\ \dot{Y_1} \end{array} \right] +&#xA;\left[ \begin{array}{cc} 0 &amp; 0 \end{array} \right] \left[&#xA;\begin{array}{c} U \\ W \end{array} \right]&#xA;$$"></p>
+      <p>For the original problem and the derivation of the above equations and schematic, please refer to the <a href="?example=Suspension&amp;section=SystemModeling">Suspension: System Modeling</a> page.
+      </p>
+      <p>We want to design a feedback controller so that when the road disturbance (W) is simulated by a unit step input, the output
+         (X1-X2) has a settling time less than 5 seconds and an overshoot less than 5%. For example, when the bus runs onto a 10 cm
+         high step, the bus body will oscillate within a range of +/- 5 mm and will stop oscillating within 5 seconds.
+      </p>
+      <p>The system model can be represented in MATLAB by creating a new <a href="?aux=Extras_Mfile">m-file</a> and entering the following commands (refer to main problem for the details of getting those commands). We need to define
+         the A, B, C, D matrices by entering the following into the m-file:
+      </p><pre class="codeinput">m1 = 2500;
+m2 = 320;
+k1 = 80000;
+k2 = 500000;
+b1 = 350;
+b2 = 15020;
+
+A=[0                 1   0                                              0
+  -(b1*b2)/(m1*m2)   0   ((b1/m1)*((b1/m1)+(b1/m2)+(b2/m2)))-(k1/m1)   -(b1/m1)
+   b2/m2             0  -((b1/m1)+(b1/m2)+(b2/m2))                      1
+   k2/m2             0  -((k1/m1)+(k1/m2)+(k2/m2))                      0];
+B=[0                 0
+   1/m1              (b1*b2)/(m1*m2)
+   0                -(b2/m2)
+   (1/m1)+(1/m2)    -(k2/m2)];
+C=[0 0 1 0];
+D=[0 0];
+sys=ss(A,B,C,D);
+</pre><h2>Designing the full state-feedback controller<a name="2"></a></h2>
+      <p>First, let's design a full state-feedback controller for the system. Assuming for now that all the states can be measured
+         (this assumption is probably not true but is sufficient for this problem), the schematic of the system is shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/StateSpace/figures/statefeedback_susp.png" alt=""> </p>
+      <p>The characteristic polynomial for this closed-loop system is the determinant of (sI-(A-B[1,0]'K)). Note that it's not sI-(A-BK)
+         because the controller K can only control the force input u but not the road disturbance W. Recall that our B matrix is a
+         4 x 2 matrix, and we only need the first column of B to control U.
+      </p>
+      <p>For this example, we have to use integral action to achieve zero steady-state error, so we add an extra state which is int(X1-X2)
+         = int(Y1). In reality the bus will eventually reach an equilibrium that yields a zero steady-state error. The new states are
+         X1, X1_dot, Y1, Y1_dot, and Y2. Also the state-space matrices, A, B, and C, become the following after the addition of the
+         new state.
+      </p><pre class="codeinput">Aa=[0                 1   0                                              0         0
+   -(b1*b2)/(m1*m2)   0   ((b1/m1)*((b1/m1)+(b1/m2)+(b2/m2)))-(k1/m1)   -(b1/m1)   0
+    b2/m2             0  -((b1/m1)+(b1/m2)+(b2/m2))                      1         0
+    k2/m2             0  -((k1/m1)+(k1/m2)+(k2/m2))                      0         0
+    0                 0   1                                              0         0];
+Ba=[0                 0
+    1/m1              (b1*b2)/(m1*m2)
+    0                -(b2/m2)
+    (1/m1)+(1/m2)    -(k2/m2)
+    0                 0];
+Ca=[0 0 1 0 0];
+Da=[0 0];
+sys=ss(Aa,Ba,Ca,Da);
+</pre><p>Actually, there is a shortcut for MATLAB to achieve the same result.</p><pre class="codeinput">Aa = [[A,[0 0 0 0]'];[C, 0]];
+Ba = [B;[0 0]];
+Ca = [C,0];
+Da = D;
+sys=ss(Aa,Ba,Ca,Da);
+</pre><p>Add the above MATLAB code into the m-file. In this case, we treat the problem like a PID controller design. The integral control
+         is obtained from the new state. The proportional control is obtained from a gain on Y1 or X1-X2. The direct derivative control
+         of the output isn't possible, since derivative of Y1 or X1-X2 isn't a state. Instead we use the derivative of X1, which is
+         available for feedback. (While X1 maybe hard to measure, X1_dot could be obtained by integrating the output of an accelerometer
+         mounted on the bus.) It is similar to adding more damping to the velocity of the oscillation of the bus suspension. Add the
+         following MATLAB code for controller K in the m-file:
+      </p><pre class="codeinput">K = [0 2.3e6 5e8 0 8e6]
+</pre><pre class="codeoutput">K =
+           0     2300000   500000000           0     8000000
+</pre><p>We arrived at this value of the K, matrix by trial and error, adjusting the gain for derivative of X1, Y1 and integral of
+         Y1, as previously mentioned.
+      </p>
+      <h2>Plotting the closed-loop response<a name="8"></a></h2>
+      <p>Looking at the schematic above again, we see that after adding the K matrix into the system, the state-space equations become:</p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/Suspension/Control/StateSpace/html/Suspension_ControlStateSpace_eq04802839274899610405.png" alt="$$&#xA;\dot{{\bf x}} = \left(A-B \left[ \begin{array}{c} 1 \\ 0 \end{array} \right] K&#xA;\right) {\bf x} + B \left[ \begin{array}{c} U \\ W \end{array} \right]&#xA;$$"></p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/Suspension/Control/StateSpace/html/Suspension_ControlStateSpace_eq02676841756392649004.png" alt="$$&#xA;y = C{\bf x}&#xA;$$"></p>
+      <p>We can now obtain the closed-loop response by simply adding the following code into the m-file. Note that we need to multiply
+         B matrix by 0.1 to simulate the 0.1-m high step disturbance.
+      </p><pre class="codeinput">t = 0:0.01:2;
+sys_cl = ss(Aa-Ba(:,1)*K,-0.1*Ba,Ca,Da);
+step(sys_cl*[0;1],t)
+title(<span class="string">'Closed-Loop Response to a 0.1-m Step'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/StateSpace/html/Suspension_ControlStateSpace_01.png" alt=""> <p>From the plot we see that the percent overshoot and settling time requirements are satisfied. Moreover the steady-state error
+         approaches zero as well. Therefore, we will conclude that the response is satisfactory. Feel free to play around with the
+         gain for matrix K.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Suspension: State-Space Controller Design
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|>
+%
+%%
+% From the main problem, the dynamic equations in state-space form are the
+% following where Y1 = X1 - X2.
+%
+% $$
+% \left[ \begin{array}{c} \dot{X_1} \\ \ddot{X_1} \\ \dot{Y_1} \\ \ddot{Y_1} \end{array} \right] = 
+% \left[ \begin{array}{cccc} 
+% 0 & 1 & 0 & 0 \\ 
+% \frac{-b_1 b_2}{M_1 M_2} & 0 & \left[ \frac{b_1}{M_1} \left( \frac{b_1}{M_1}+\frac{b_1}{M_2}+\frac{b_2}{M_2} \right)-\frac{K_1}{M_1} \right] & \frac{-b_1}{M_1} \\ 
+% \frac{b_2}{M_2} & 0 & -\left( \frac{b_1}{M_1}+\frac{b_1}{M_2}+\frac{b_2}{M_2} \right) & 1 \\ 
+% \frac{K_2}{M_2} & 0 & -\left( \frac{K_1}{M_1}+\frac{K_1}{M_2}+\frac{K_2}{M_2} \right) & 0
+% \end{array} \right]
+% \left[ \begin{array}{c} X_1 \\ \dot{X_1} \\ Y_1 \\ \dot{Y_1} \end{array} \right] +
+% $$
+% 
+% $$
+% \left[ \begin{array}{cc} 
+% 0 & 0 \\
+% \frac{1}{M_1} & \frac{b_1 b_2}{M_1 M_2} \\
+% 0 & \frac{-b_2}{M_2} \\
+% \left( \frac{1}{M_2}+\frac{1}{M_2} \right) & \frac{-K_2}{M_2}
+% \end{array} \right]
+% \left[ \begin{array}{c} U \\ W \end{array} \right]
+% $$ 
+%
+% $$
+% Y = \left[ \begin{array}{cccc} 0 & 0 & 1 & 0 \end{array} \right]
+% \left[ \begin{array}{c} X_1 \\ \dot{X_1} \\ Y_1 \\ \dot{Y_1} \end{array} \right] +
+% \left[ \begin{array}{cc} 0 & 0 \end{array} \right] \left[
+% \begin{array}{c} U \\ W \end{array} \right]
+% $$
+%
+% For the original problem and the derivation of the above equations and
+% schematic, please refer to the 
+% < ?example=Suspension&section=SystemModeling Suspension: System Modeling> page.  
+%
+% We want to design a feedback controller so that when the road disturbance
+% (W) is simulated by a unit step input, the output (X1-X2) has a settling 
+% time less than 5 seconds and an overshoot less than 5%. For example, when 
+% the bus runs onto a 10 cm high step, the bus body will oscillate within a 
+% range of +/- 5 mm and will stop oscillating within 5 seconds.
+%
+% The system model can be represented in MATLAB by creating a new < ?aux=Extras_Mfile
+% m-file> and entering the following commands (refer to main problem for the details 
+% of getting those commands). We need to define the A, B, C, D matrices by 
+% entering the following into the m-file: 
+
+m1 = 2500;
+m2 = 320;
+k1 = 80000;
+k2 = 500000;
+b1 = 350;
+b2 = 15020;
+
+A=[0                 1   0                                              0
+  -(b1*b2)/(m1*m2)   0   ((b1/m1)*((b1/m1)+(b1/m2)+(b2/m2)))-(k1/m1)   -(b1/m1)   
+   b2/m2             0  -((b1/m1)+(b1/m2)+(b2/m2))                      1
+   k2/m2             0  -((k1/m1)+(k1/m2)+(k2/m2))                      0];
+B=[0                 0
+   1/m1              (b1*b2)/(m1*m2)
+   0                -(b2/m2)
+   (1/m1)+(1/m2)    -(k2/m2)];
+C=[0 0 1 0];
+D=[0 0];
+sys=ss(A,B,C,D);
+
+%% Designing the full state-feedback controller
+%
+% First, let's design a full state-feedback controller for the system.
+% Assuming for now that all the states can be measured (this assumption is 
+% probably not true but is sufficient for this problem), the schematic of the 
+% system is shown below.
+%
+% <<Content/Suspension/Control/StateSpace/figures/statefeedback_susp.png>>
+%
+% The characteristic polynomial for this closed-loop system is the
+% determinant of (sI-(A-B[1,0]'K)). Note that it's not sI-(A-BK) because 
+% the controller K can only control the force input u but not the road 
+% disturbance W. Recall that our B matrix is a 4 x 2 matrix, and we only 
+% need the first column of B to control U.
+%
+% For this example, we have to use integral action to achieve zero
+% steady-state error, so we add an extra state which is int(X1-X2) =
+% int(Y1). In reality the bus will eventually reach an equilibrium that
+% yields a zero steady-state error. The new states are X1, X1_dot, Y1, Y1_dot, and
+% Y2. Also the state-space matrices, A, B, and C, become the following
+% after the addition of the new state.
+%
+%%
+
+Aa=[0                 1   0                                              0         0
+   -(b1*b2)/(m1*m2)   0   ((b1/m1)*((b1/m1)+(b1/m2)+(b2/m2)))-(k1/m1)   -(b1/m1)   0
+    b2/m2             0  -((b1/m1)+(b1/m2)+(b2/m2))                      1         0
+    k2/m2             0  -((k1/m1)+(k1/m2)+(k2/m2))                      0         0
+    0                 0   1                                              0         0];
+Ba=[0                 0
+    1/m1              (b1*b2)/(m1*m2)
+    0                -(b2/m2)
+    (1/m1)+(1/m2)    -(k2/m2)
+    0                 0];
+Ca=[0 0 1 0 0];
+Da=[0 0];   
+sys=ss(Aa,Ba,Ca,Da);
+
+%%
+% Actually, there is a shortcut for MATLAB to achieve the same result. 
+%
+%%
+
+Aa = [[A,[0 0 0 0]'];[C, 0]];
+Ba = [B;[0 0]];
+Ca = [C,0];
+Da = D;
+sys=ss(Aa,Ba,Ca,Da);
+
+%%
+% Add the above MATLAB code into the m-file. In this case, we treat the
+% problem like a PID controller design. The integral control is obtained from 
+% the new state. The proportional control is obtained from a gain on Y1 or 
+% X1-X2. The direct derivative control of the output isn't possible, since 
+% derivative of Y1 or X1-X2 isn't a state. Instead we use the derivative of 
+% X1, which is available for feedback. (While X1 maybe hard to measure,
+% X1_dot could be obtained by integrating the output of an accelerometer
+% mounted on the bus.) It is similar to adding more damping to the velocity of the 
+% oscillation of the bus suspension. Add the following MATLAB code for controller K in 
+% the m-file: 
+
+K = [0 2.3e6 5e8 0 8e6]
+
+%%
+% We arrived at this value of the K, matrix by trial and error, adjusting
+% the gain for derivative of X1, Y1 and integral of Y1, as previously mentioned. 
+%
+%% Plotting the closed-loop response
+%
+% Looking at the schematic above again, we see that after adding the K
+% matrix into the system, the state-space equations become: 
+%
+% $$
+% \dot{{\bf x}} = \left(A-B \left[ \begin{array}{c} 1 \\ 0 \end{array} \right] K
+% \right) {\bf x} + B \left[ \begin{array}{c} U \\ W \end{array} \right]
+% $$
+%
+% $$ 
+% y = C{\bf x}
+% $$
+%
+% We can now obtain the closed-loop response by simply adding the following
+% code into the m-file. Note that we need to multiply B matrix by 0.1 to 
+% simulate the 0.1-m high step disturbance. 
+
+t = 0:0.01:2;
+sys_cl = ss(Aa-Ba(:,1)*K,-0.1*Ba,Ca,Da);
+step(sys_cl*[0;1],t)
+title('Closed-Loop Response to a 0.1-m Step')
+
+%%
+% From the plot we see that the percent overshoot and settling time
+% requirements are satisfied. Moreover the steady-state error approaches 
+% zero as well. Therefore, we will conclude that the response is satisfactory. 
+% Feel free to play around with the gain for matrix K.
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Suspension&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Suspension&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Suspension&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Suspension&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Suspension&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Suspension&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Suspension&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Suspension&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Suspension&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Suspension&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

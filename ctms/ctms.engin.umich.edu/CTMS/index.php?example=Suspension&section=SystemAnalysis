@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: Suspension	section: SystemAnalysis	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "Suspension";
+			var section = "SystemAnalysis";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=Suspension&section=ControlPID";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Suspension: System Analysis</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#b0f3dfdec4c2dfdce4c5c4dfc2d9d1dcc3fdd1c4dcd1d2e3d9ddc5dcd9dedbf0d7ddd1d9dc9ed3dfdd">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=Suspension&section=ControlPID">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SystemAnalysis"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SystemAnalysis"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SystemAnalysis"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SystemAnalysis"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SystemAnalysis"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SystemAnalysis"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SystemAnalysis"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SystemAnalysis"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+      <div class="introduction">
+      <h1>Suspension: System Analysis</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/ss.html"><tt>ss</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a></p>
+      </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+        <li><a href="?example=Introduction&section=SystemAnalysis">Intro to Sys Analysis</a></li>
+		<li><a href="?aux=Activities_RCcircuitA">Time Resp Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/academia/student_center/tutorials/source/controls/System_Analysis/player.html">Analysis in MATLAB Video</a></li>
+		<li><a href="https://www.youtube.com/watch?v=F4w0rslb04E">Time Resp Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">System model</a></li>
+            <li><a href="#2">System parameters</a></li>
+            <li><a href="#3">Design requirements</a></li>
+            <li><a href="#4">Open-loop step response</a></li>
+         </ul>
+      </div>
+      <h2>System model<a name="1"></a></h2>
+      <p>The state-space and transfer function models of the bus suspension problem were derived in the <a href="?example=Suspension&amp;section=SystemModeling">Suspension: System Modeling</a> page.
+      </p>
+      <h2>System parameters<a name="2"></a></h2><pre>(M1)    1/4 bus body mass                        2500 kg</pre><pre>(M2)    suspension mass                          320 kg</pre><pre>(K1)    spring constant of suspension system     80,000 N/m</pre><pre>(K2)    spring constant of wheel and tire        500,000 N/m</pre><pre>(b1)    damping constant of suspension system    350 N.s/m</pre><pre>(b2)    damping constant of wheel and tire       15,020 N.s/m</pre><pre>(U)     control force</pre><h2>Design requirements<a name="3"></a></h2>
+      <p>A good bus suspension system should have satisfactory road holding ability, while still providing comfort when riding over
+         bumps and holes in the road. When the bus is experiencing any road disturbance (i.e. pot holes, cracks, and uneven pavement),the
+         bus body should not have large oscillations, and the oscillations should dissipate quickly. Since the distance X1-W is very
+         difficult to measure, and the deformation of the tire (X2-W) is negligible, we will use the distance X1-X2 instead of X1-W
+         as the output in our problem. Keep in mind that this is an approximation.
+      </p>
+      <p>The road disturbance (W) in this problem will be simulated by a step input. This step could represent the bus coming out of
+         a pothole. We want to design a feedback controller so that the output (X1-X2) has an overshoot less than 5% and a settling
+         time shorter than 5 seconds. For example, when the bus runs onto a 10-cm step, the bus body will oscillate within a range
+         of +/- 5 mm and return to a smooth ride within 5 seconds.
+      </p>
+      <h2>Open-loop step response<a name="4"></a></h2>
+      <p>We can use MATLAB to display how the original open-loop system performs (without any feedback control). Add the following
+         commands into the m-file and run it in the MATLAB command window to see the response of unit step actuated force input, U(s).
+         Note that the step command will generate the unit step inputs for each input.
+      </p><pre class="codeinput">M1 = 2500;
+M2 = 320;
+K1 = 80000;
+K2 = 500000;
+b1 = 350;
+b2 = 15020;
+
+s = tf(<span class="string">'s'</span>);
+G1 = ((M1+M2)*s^2+b2*s+K2)/((M1*s^2+b1*s+K1)*(M2*s^2+(b1+b2)*s+(K1+K2))-(b1*s+K1)*(b1*s+K1));
+
+step(G1)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Suspension/System/Analysis/html/Suspension_SystemAnalysis_01.png" alt=""> <p>From this graph of the open-loop response for a unit step actuated force, we can see that the system is under-damped. People
+         sitting in the bus will feel very small amount of oscillation. Moreover, the bus takes an unacceptably long time to reach
+         the steady state (the settling time is very large). Now enter the following commands to see the response for a step disturbance
+         input, W(s), with magnitude 0.1 m.
+      </p><pre class="codeinput">G2 = (-M1*b2*s^3-M1*K2*s^2)/((M1*s^2+b1*s+K1)*(M2*s^2+(b1+b2)*s+(K1+K2))-(b1*s+K1)*(b1*s+K1));
+
+step(0.1*G2)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Suspension/System/Analysis/html/Suspension_SystemAnalysis_02.png" alt=""> <p>From this graph of the open-loop response for 10 cm step disturbance, we can see that when the bus passes a 10-cm bump on
+         the road, the bus body will oscillate for an unacceptably long time(~50 seconds) with an initial amplitude of 8 cm. People
+         sitting in the bus will not be comfortable with such an oscillation due to the large overshoot and long settling time.
+      </p>
+      <p>The solution to these problems is to add a feedback controller into the system to improve the performance. The schematic of
+         the closed-loop system is the following, which will be discussed in much more detail in the controller design sections.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/System/Analysis/figures/susp2.png" alt=""> </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Suspension: System Analysis
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|>
+%
+%% System model
+%
+% The state-space and transfer function models of the bus suspension problem 
+% were derived in the
+% < ?example=Suspension&section=SystemModeling Suspension: System Modeling> page.  
+%
+%% System parameters
+% 
+%  (M1)    1/4 bus body mass                        2500 kg
+%
+%  (M2)    suspension mass                          320 kg
+%  
+%  (K1)    spring constant of suspension system     80,000 N/m
+%
+%  (K2)    spring constant of wheel and tire        500,000 N/m
+%
+%  (b1)    damping constant of suspension system    350 N.s/m
+% 
+%  (b2)    damping constant of wheel and tire       15,020 N.s/m
+%
+%  (U)     control force
+%
+%% Design requirements
+%
+% A good bus suspension system should have satisfactory road holding ability, 
+% while still providing comfort when riding over bumps and holes in the road. 
+% When the bus is experiencing any road disturbance (i.e. pot holes, cracks, 
+% and uneven pavement),the bus body should not have large oscillations, and 
+% the oscillations should dissipate quickly. Since the distance X1-W is very 
+% difficult to measure, and the deformation of the tire (X2-W) is negligible, 
+% we will use the distance X1-X2 instead of X1-W as the output in our problem. 
+% Keep in mind that this is an approximation.
+%
+% The road disturbance (W) in this problem will be simulated by a step
+% input. This step could represent the bus coming out of a pothole. We want 
+% to design a feedback controller so that the output (X1-X2) has an overshoot 
+% less than 5% and a settling time shorter than 5 seconds. For example, when
+% the bus runs onto a 10-cm step, the bus body will oscillate within a 
+% range of +/- 5 mm and return to a smooth ride within 5 seconds.
+%
+%% Open-loop step response
+%
+% We can use MATLAB to display how the original open-loop system performs
+% (without any feedback control). Add the following commands into the m-file
+% and run it in the MATLAB command window to see the response of unit step 
+% actuated force input, U(s). Note that the step command will generate the unit 
+% step inputs for each input.
+%
+%%
+
+M1 = 2500;
+M2 = 320;
+K1 = 80000;
+K2 = 500000;
+b1 = 350;
+b2 = 15020;
+
+s = tf('s');
+G1 = ((M1+M2)*s^2+b2*s+K2)/((M1*s^2+b1*s+K1)*(M2*s^2+(b1+b2)*s+(K1+K2))-(b1*s+K1)*(b1*s+K1));
+
+step(G1)
+
+%%
+%
+% From this graph of the open-loop response for a unit step actuated force,
+% we can see that the system is under-damped. People sitting in the bus will 
+% feel very small amount of oscillation. Moreover, the bus takes an unacceptably long time to reach the 
+% steady state (the settling time is very large). Now enter the following
+% commands to see the response for a step disturbance input, W(s), with 
+% magnitude 0.1 m.
+% 
+%%
+
+G2 = (-M1*b2*s^3-M1*K2*s^2)/((M1*s^2+b1*s+K1)*(M2*s^2+(b1+b2)*s+(K1+K2))-(b1*s+K1)*(b1*s+K1));
+
+step(0.1*G2)
+
+%%
+%
+% From this graph of the open-loop response for 10 cm step disturbance, we can 
+% see that when the bus passes a 10-cm bump on the road, the bus body 
+% will oscillate for an unacceptably long time(~50 seconds) with an 
+% initial amplitude of 8 cm. People sitting in the bus will not be comfortable with 
+% such an oscillation due to the large overshoot and long settling time.
+%
+%%
+% The solution to these problems is to add a feedback controller into the 
+% system to improve the performance. The schematic of the closed-loop system 
+% is the following, which will be discussed in much more detail in the
+% controller design sections.
+%
+% <<Content/Suspension/System/Analysis/figures/susp2.png>>
+
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Suspension&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Suspension&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Suspension&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Suspension&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Suspension&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Suspension&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Suspension&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Suspension&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Suspension&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Suspension&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: Introduction	section: SimulinkSimscape	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "Introduction";
+			var section = "SimulinkSimscape";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=CruiseControl&section=SystemAnalysis";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Introduction: Simulink Simscape</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#bffcd0d1cbcdd0d3ebcacbd0cdd6ded3ccf2decbd3deddecd6d2cad3d6d1d4ffd8d2ded6d391dcd0d2">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=CruiseControl&section=SystemAnalysis">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SimulinkSimscape"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SimulinkSimscape"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SimulinkSimscape"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SimulinkSimscape"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SimulinkSimscape"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SimulinkSimscape"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SimulinkSimscape"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SimulinkSimscape"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Introduction: Simscape Modeling</h1>
+      <!--introduction-->
+      <p>In this section, we alternatively show how to build the Train System from the <a href="?example=Introduction&amp;section=SimulinkModeling">Introduction: Simulink Modeling</a> page using the physical modeling blocks of the Simscape extension to Simulink. The blocks in the Simscape library represent
+         actual physical components; therefore, complex multi-domain models can be built without the need to build mathematical equations
+         from physical principles as was done above by applying Newton's laws. Recall the following diagram of the train system:
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Simulink/Simscape/figures/train.png" alt=""> </p>
+	  </div>
+	  <div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+		<li><a href="?aux=Basics_Simulink">Simulink Basics</a></li>
+        <li><a href="?aux=Activities_RCcircuitA">Circuit Sim Activity</a></li>
+		<li><a href="?aux=Activities_Pendulum">Pendulum Sim Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/help/physmod/simscape/index.html">Simscape Intro</a></li>
+		<li><a href="https://www.mathworks.com/videos/physical-modeling-with-simscape-81950.html?s_tid=srchtitle">Simscape Intro Video</a></li>
+	  	<li><a href="https://www.mathworks.com/videos/multibody-simulation-with-simmechanics-81877.html">Simscape Multibody Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Physical setup</a></li>
+            <li><a href="#2">Create the model</a></li>
+            <li><a href="#3">Results</a></li>
+         </ul>
+      </div>
+      <h2>Physical setup<a name="1"></a></h2>
+      <p>As described in the previous page, the mass of the engine and the car are represented by M1 and M2, respectively.  The engine
+         and the car are connected by a coupling of stiffness k.  The Force F represents the force generated between the engine wheel
+         and the track and mu is the coefficient of rolling resistance.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Simulink/Simscape/figures/train2.png" alt=""> </p>
+      <p>The system parameters are as follows:</p><pre>(M1)    Engine Mass                  1 kg</pre><pre>(M2)    Car Mass                     0.5 kg</pre><pre>(k)     Spring Constant              1 N/m</pre><pre>(mu)    Friction Coefficient         0.02</pre><pre>(F)     Force                        1 N</pre><pre>(g)     Acceleration due to gravity  9.8 m/s^2</pre><p>Open a new Simscape model by typing <tt>ssc_new</tt> in the MATLAB command window. A new model, as shown below, opens with a few commonly used blocks already in the model.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Simulink/Simscape/figures/introduction_01.png" alt=""> </p>
+      <p>The elements of the model are:</p>
+      <div>
+         <ol>
+            <li>Solver configuration block</li>
+            <li>PS-Simulink and Simulink-PS blocks (shown as double arrows/double triangles)</li>
+            <li>Scope connected to PS-Simulink block</li>
+         </ol>
+      </div>
+      <p>The PS-Simulink and Simulink-PS blocks define the boundary between Simulink input/output models where the blocks are evaluated
+         sequentially and Simscape models where the equations are evaluated simultaneously.
+      </p>
+      <h2>Create the model<a name="2"></a></h2>
+      <p>To create the model, a number of blocks need to be added.</p>
+      <p><b>Tips for adding blocks:</b></p>
+      <div>
+         <ol>
+            <li>Use Quick Insert to add the blocks. Click in the diagram and type the name of the block.  A list of blocks will appear and
+               you can select the block you want from the list.
+            </li>
+            <li>After the block is entered, a prompt will appear for you to enter a parameter.</li>
+            <li>To rotate a block or flip blocks, right-click on the block and select the desired option from the <b>Rotate &amp; Flip</b> menu.
+            </li>
+            <li>To show the parameter below the block name, see <a href="https://www.mathworks.com/help/simulink/ug/block-properties-dialog-box.html#bvcdzkl-1">Set Block Annotation Properties</a> in the Simulink documentation.
+            </li>
+         </ol>
+      </div>
+      <p>Add the following blocks:</p>
+      <div>
+         <ul>
+            <li>2 Mass blocks (rename them "M1" and "M2")</li>
+            <li>1 Translational Spring block (rename this "spring")</li>
+            <li>1 Mechanical Translational Reference block</li>
+            <li>2 Translational Damper blocks (rename them "M1 friction" and "M2 friction")</li>
+         </ul>
+      </div>
+      <p>Assign the parameter values listed at the beginning of this page to each of these blocks. In this case, we use the Translational
+         Damper blocks to model the viscous friction in the system. Specifically, we assign the <b>Damping coefficient</b> of each block to be the friction coefficient multiplied by the normal force (mu*mass*g). If we desired a more sophisticated
+         friction model, we could use Translational Friction blocks instead. Connect the blocks as shown to develop the model and rename
+         the scope "Velocity".
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Simulink/Simscape/figures/introduction_02.png" alt=""> </p>
+      <p>Now add the following elements to the model:</p>
+      <div>
+         <ul>
+            <li>An Ideal Force Source block (rename it "Force Source")</li>
+            <li>A Signal Generator block (rename it "Force input")</li>
+            <li>A Translational Motion Sensor block</li>
+         </ul>
+      </div>
+      <p>In the Signal Generator block, choose the <b>Waveform</b> to be "square" with an <b>Amplitude</b> of "-1" and a <b>Frequency</b> of "0.001 Hz". To open the Configuration Parameters dialog, type <b>CTRL-E</b>. Then choose <b>Type</b> to be "Variable-step" and the <b>Solver</b> to be "auto". Also set the simulation <b>Stop time</b> to "1000".  Connect the blocks as shown below to finish the model.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Simulink/Simscape/figures/introduction_03.png" alt=""> </p>
+      <h2>Results<a name="3"></a></h2>
+      <p>Run the simulation (type <b>CTRL-T</b> or press the green arrow run button) and open the Scope to examine the velocity output. The force input was a square wave
+         with two steps, one positive and one negative. The Scope shows that the engine first went forward when the positive force
+         was applied, then in the opposite direction some time after the negative force was applied. The velocity output identically
+         matches the results of the Simulink model developed in the <a href="?example=Introduction&amp;section=SimulinkModeling">Introduction: Simulink Modeling</a> page.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Simulink/Simscape/figures/introduction_04.png" alt=""> </p>
+      <p>You can download the final Simscape model created here by right-clicking <a href="Content/Introduction/Simulink/Simscape/Intro_train_final.slx">here</a> and then selecting <b>Save link as ...</b>.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.7<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Introduction: Simscape Modeling
+%
+% In this section, we alternatively show how to build the Train System 
+% from the < ?example=Introduction&section=SimulinkModeling Introduction:
+% Simulink Modeling> page using the physical modeling blocks of the Simscape extension to 
+% Simulink. The blocks in the Simscape library represent actual physical 
+% components; therefore, complex multi-domain models can be built without 
+% the need to build mathematical equations from physical principles as 
+% was done above by applying Newton's laws. Recall the following diagram of
+% the train system:  
+% 
+% <<Content/Introduction/Simulink/Simscape/figures/train.png>>
+% 
+%% Physical setup
+%
+% As described in the previous page, the mass of the engine and the car
+% are represented by M1 and M2, respectively.  The engine and the car are
+% connected by a coupling of stiffness k.  The Force F represents the force
+% generated between the engine wheel and the track and mu is the
+% coefficient of rolling resistance.
+% 
+% <<Content/Introduction/Simulink/Simscape/figures/train2.png>>
+% 
+% The system parameters are as follows:                       
+%
+%  (M1)    Engine Mass                  1 kg
+%
+%  (M2)    Car Mass                     0.5 kg
+%
+%  (k)     Spring Constant              1 N/m
+% 
+%  (mu)    Friction Coefficient         0.02
+% 
+%  (F)     Force                        1 N
+% 
+%  (g)     Acceleration due to gravity  9.8 m/s^2
+% 
+% Open a new Simscape model by typing |ssc_new| in the MATLAB 
+% command window. A new model, as shown below, opens with a few commonly used blocks 
+% already in the model.
+%
+% <<Content/Introduction/Simulink/Simscape/figures/introduction_01.png>>
+% 
+% The elements of the model are:
+%
+% # Solver configuration block
+% # PS-Simulink and Simulink-PS blocks (shown as double arrows/double triangles)
+% # Scope connected to PS-Simulink block
+% 
+% The PS-Simulink and Simulink-PS blocks define the boundary between
+% Simulink input/output models where the blocks are evaluated sequentially
+% and Simscape models where the equations are evaluated simultaneously.
+%
+%% Create the model 
+% To create the model, a number of blocks need to be added. 
+%
+% *Tips for adding blocks:* 
+%
+% # Use Quick Insert to add the blocks. Click in the diagram and type the
+% name of the block.  A list of
+% blocks will appear and you can select the block you want from the list.
+% # After the block is entered, a prompt will appear for you to enter a
+% parameter.
+% # To rotate a block or flip blocks, right-click on the block and select
+% the desired option from the *Rotate & Flip* menu.
+% # To show the parameter below the block name, see
+% <https://www.mathworks.com/help/simulink/ug/block-properties-dialog-box.html#bvcdzkl-1
+% Set Block Annotation Properties> in the Simulink documentation.
+%
+% Add the following blocks:
+% 
+% * 2 Mass blocks (rename them "M1" and "M2")
+% * 1 Translational Spring block (rename this "spring")
+% * 1 Mechanical Translational Reference block
+% * 2 Translational Damper blocks (rename them "M1 friction" and "M2
+% friction")
+% 
+% Assign the parameter values listed at the beginning of this page to each
+% of these blocks. In this case, we use the Translational Damper blocks to
+% model the viscous friction in the system. Specifically, we assign the *Damping
+% coefficient* of each block to be the friction coefficient multiplied by
+% the normal force (mu*mass*g). If we desired a more sophisticated friction
+% model, we could use Translational Friction blocks instead. Connect the
+% blocks as shown to develop the model and rename the scope "Velocity".
+% 
+% <<Content/Introduction/Simulink/Simscape/figures/introduction_02.png>>
+%
+% Now add the following elements to the model:
+% 
+% * An Ideal Force Source block (rename it "Force Source")
+% * A Signal Generator block (rename it "Force input")
+% * A Translational Motion Sensor block
+% 
+% In the Signal Generator block, choose the *Waveform* to be "square" with
+% an *Amplitude* of "-1" and a *Frequency* of "0.001 
+% Hz". To open the Configuration Parameters dialog, type *CTRL-E*. Then choose *Type* to be  
+% "Variable-step" and the *Solver* to be "auto". Also set the simulation *Stop time* to 
+% "1000".  Connect the blocks as shown below to finish the model.  
+% 
+% <<Content/Introduction/Simulink/Simscape/figures/introduction_03.png>>
+% 
+%% Results
+%
+% Run the simulation (type *CTRL-T* or press the green arrow run button)
+% and open the Scope to examine the  
+% velocity output. The force input was a square wave with two steps, 
+% one positive and one negative. The Scope shows that the engine 
+% first went forward when the positive force was applied, then in the
+% opposite direction some time after the negative force was applied. 
+% The velocity output  
+% identically matches the results of the Simulink model developed in the < ?example=Introduction&section=SimulinkModeling Introduction:
+% Simulink Modeling> page.
+% 
+% <<Content/Introduction/Simulink/Simscape/figures/introduction_04.png>>
+% 
+%%
+% You can download the final Simscape model created here by right-clicking <Content/Introduction/Simulink/Simscape/Intro_train_final.slx here>
+% and then selecting *Save link as ...*.
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Introduction&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Introduction&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Introduction&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Introduction&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Introduction&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Introduction&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Introduction&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Introduction&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Introduction&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Introduction&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

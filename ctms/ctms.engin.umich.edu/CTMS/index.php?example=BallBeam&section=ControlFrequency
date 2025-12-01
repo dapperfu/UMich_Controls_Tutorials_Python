@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: BallBeam	section: ControlFrequency	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "BallBeam";
+			var section = "ControlFrequency";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=BallBeam&section=ControlStateSpace";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Ball & Beam: Frequency Domain Methods for Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#1d5e7273696f7271496869726f747c716e507c69717c7f4e747068717473765d7a707c7471337e7270">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=BallBeam&section=ControlStateSpace">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlFrequency"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlFrequency"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlFrequency"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlFrequency"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlFrequency"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlFrequency"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlFrequency"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlFrequency"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Ball &amp; Beam: Frequency Domain Methods for Controller Design</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a> , <a href="http://www.mathworks.com/help/ident/ref/bode.html"><tt>bode</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/feedback.html"><tt>feedback</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a></p>
+      </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?example=Introduction&section=ControlFrequency">Intro to Freq Resp</a></li>
+        <li><a href="?aux=Activities_BoostcircuitC">Freq Resp Activity</a></li>
+        <li><a href="?aux=Extras_Leadlag">Lead/Lag Freq Resp</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/videos/using-bode-plots-lead-lag-pid-controllers-4-of-5-77061.html">Bode MATLAB Video</a></li>
+		<li><a href="https://www.youtube.com/watch?v=bkBMvGlAaho">Freq Resp Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#2">Open-loop bode plot</a></li>
+            <li><a href="#5">Phase-lead controller</a></li>
+            <li><a href="#12">Adding more phase</a></li>
+         </ul>
+      </div>
+      <p>The open-loop transfer function of the plant for the ball and beam experiment is given below:</p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq13072232369255252367.png" alt="$$&#xA;P(s) = \frac{R(s)}{\Theta(s)} =&#xA;-\frac{mgd}{L\left(\frac{J}{R^2}+m\right)}\frac{1}{s^2} \qquad [ \frac{rad}{V}  ]&#xA;$$"></p>
+      <p>The design criteria for this problem are:</p>
+      <div>
+         <ul>
+            <li>Settling time less than 3 seconds</li>
+            <li>Overshoot less than 5%</li>
+         </ul>
+      </div>
+      <p>To see the derivation of the equations for this problem refer to the <a href="?example=BallBeam&amp;section=SystemModeling">Ball &amp; Beam: System Modeling</a> page.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Control/Frequency/figures/feedback_ball.png" alt=""> </p>
+      <h2>Open-loop bode plot<a name="2"></a></h2>
+      <p>The main idea of frequency based design is to use the Bode plot of the open-loop transfer function to estimate the closed-loop
+         response. Adding a controller to the system changes the open-loop Bode plot, therefore changing the closed-loop response.
+         Let's first draw the bode plot for the original open-loop transfer function. Create a new <a href="?aux=Extras_Mfile">m-file</a> with the following code and then run it in the MATLAB command window. You should get the following Bode plot:
+      </p><pre class="codeinput">m = 0.111;
+R = 0.015;
+g = -9.8;
+L = 1.0;
+d = 0.03;
+J = 9.99e-6;
+s = tf(<span class="string">'s'</span>);
+P_ball = -m*g*d/L/(J/R^2+m)/s^2;
+
+bode(P_ball)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_01.png" alt=""> <p>From this plot we see that the phase margin is zero. Since the phase margin is defined as the change in open-loop phase shift
+         necessary to make a closed-loop system unstable this means that our zero phase margin indicates our system is unstable. We
+         want to increase the phase margin and we can use a lead compensator controller to do this. For more information on Phase and
+         Gain margins please refer to the <a href="?example=Introduction&amp;section=ControlFrequency">Introduction: Frequency Domain Methods for Controller Design</a> page.
+      </p>
+      <h2>Phase-lead controller<a name="5"></a></h2>
+      <p>A first order phase-lead compensator has the form given below:</p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq05508974826923272617.png" alt="$$&#xA;C(s) = K \left( \frac{1+Ts}{1+aTs} \right)&#xA;$$"></p>
+      <p>The phase-lead compensator will add positive phase to our system over the frequency range <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq08500674947252300807.png" alt="$1/aT$"> and <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq11716189071021083010.png" alt="$1/T$">, which are called the corner frequencies. The maximum added phase for one lead compensator is 90 degrees. For our controller
+         design we need a percent overshoot of less than 5%, which corresponds to a <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq13496487163394900197.png" alt="$\zeta$"> of 0.7. Generally <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq06487789349570633182.png" alt="$100\zeta$"> will give you the minimum phase margin needed to obtain your desired overshoot. Therefore, we require a phase margin greater
+         than 70 degrees.
+      </p>
+      <p>To obtain <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq14047577632175690031.png" alt="$T$"> and <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq05508344529756732484.png" alt="$a$">, the following steps can be applied.
+      </p>
+      <p><b>1. Determine the positive phase needed:</b> We need at least 70 degrees from our controller.
+      </p>
+      <p><b>2. Determine the frequency where the phase should be added (center frequency):</b> In our case this is difficult to determine because the phase vs. frequency graph in the bode plot is a flat line. However,
+         we have a relation between bandwidth frequency (<img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq01099360185364493009.png" alt="$\omega_{bw}$"> ) and settling time which tells us that <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq01099360185364493009.png" alt="$\omega_{bw}$"> is approximately 1.92 rad/s. Therefore, we want a center frequency just before this. For now we will choose 1 rad/sec.
+      </p>
+      <p><b>3. Determine the constant <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq05508344529756732484.png" alt="$a$"> from the equation below:</b> this determines the required space between the zero and the pole for the maximum phase added.
+      </p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq13686894014191774465.png" alt="$$&#xA;a =\frac{1-\sin\phi}{1+\sin\phi}&#xA;$$"></p>
+      <p>where phi refers to the desired phase margin. For 70 degrees, <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq05508344529756732484.png" alt="$a$"> = 0.0311.
+      </p>
+      <p><b>4. Determine <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq14047577632175690031.png" alt="$T$"> and <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq14123885803924722780.png" alt="$aT$"> from the following equations:</b></p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq10783517273113762974.png" alt="$$&#xA;T = \frac{1}{w \sqrt{a}}&#xA;$$"></p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq04371317637864133322.png" alt="$$&#xA;aT = \frac{\sqrt{a}}{w}&#xA;$$"></p>
+      <p>For 70 degrees and center frequency <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq00125694759345388081.png" alt="$w$"> = 1, <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq14123885803924722780.png" alt="$aT$"> = 0.176 and <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq14047577632175690031.png" alt="$T$"> = 5.67.
+      </p>
+      <p>Now, we can add our lead controller to the system and view the bode plot. Remove the <tt>bode</tt> command from your m-file and add the following. You should get the following bode plot:
+      </p><pre class="codeinput">phi=70*pi/180;
+a=(1-sin(phi))/(1+sin(phi));
+w=1;
+T=1/(w*sqrt(a));
+K = 1;
+C = K*(1+T*s)/(1+a*T*s);
+
+bode(C*P_ball)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_02.png" alt=""> <p>You can see that our phase margin is now 70 degrees. Let's check the closed-loop response to a step input of 0.25 m. Add the
+         following to your m-file. You should get the following plot:
+      </p><pre class="codeinput">sys_cl = feedback(C*P_ball,1);
+t = 0:0.01:5;
+step(0.25*sys_cl,t)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_03.png" alt=""> <p>Although the system is now stable and the overshoot is only slightly over 5%, the settling time is not satisfactory. Increasing
+         the gain will increase the crossover frequency and make the response faster. With <img class="inline_eqn" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_eq03845174387838694102.png" alt="$K$"> = 5, your response should look like:
+      </p><pre class="codeinput">K = 5;
+C = K*(1+T*s)/(1+a*T*s);
+sys_cl = feedback(C*P_ball,1);
+
+bode(C*P_ball)
+step(0.25*sys_cl,t)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_04.png" alt=""> <p>The response is faster, however, the overshoot is much too high. Increasing the gain further will just make the overshoot
+         worse.
+      </p>
+      <h2>Adding more phase<a name="12"></a></h2>
+      <p>We can increase our phase-lead compensator to decrease the overshoot. Create an m-file and copy the following code from your
+         web-browser into it:
+      </p><pre class="codeinput">pm = 80;
+w  = 1;
+K  = 1;
+
+<span class="comment">%view compensated system bode plot</span>
+pmr = pm*pi/180;
+a = (1 - sin(pmr))/(1+sin(pmr));
+T = sqrt(a)/w;
+aT = 1/(w*sqrt(a));
+C = K*(1+aT*s)/(1+T*s);
+
+figure
+bode(C*P_ball)
+
+<span class="comment">%view step response</span>
+sys_cl = feedback(C*P_ball,1);
+t = 0:0.01:5;
+figure
+step(0.25*sys_cl,t)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_05.png" alt=""> <img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_06.png" alt=""> <p>The overshoot is fine but the settling time is just a bit long. Try different numbers and see what happens. Using the following
+         values the design criteria was met.
+      </p><pre class="codeinput">pm = 85;
+w  = 1.9;
+K  = 2;
+
+<span class="comment">%view compensated system bode plot</span>
+pmr = pm*pi/180;
+a = (1 - sin(pmr))/(1+sin(pmr));
+T = sqrt(a)/w;
+aT = 1/(w*sqrt(a));
+C = K*(1+aT*s)/(1+T*s);
+
+figure
+bode(C*P_ball)
+
+<span class="comment">%view step response</span>
+sys_cl = feedback(C*P_ball,1);
+t = 0:0.01:5;
+figure
+step(0.25*sys_cl,t)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_07.png" alt=""> <img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Control/Frequency/html/BallBeam_ControlFrequency_08.png" alt=""> <p>Note: A design problem does not necessarily have a unique answer. Using this method (or any other) may result in many different
+         compensators. For practice you may want to go back and change the added phase, gain, or center frequency.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Ball & Beam: Frequency Domain Methods for Controller Design
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
+% <http://www.mathworks.com/help/ident/ref/bode.html |bode|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|>
+%
+%% 
+% 
+% The open-loop transfer function of the plant for the ball and beam
+% experiment is given below:
+%
+% $$ 
+% P(s) = \frac{R(s)}{\Theta(s)} =
+% -\frac{mgd}{L\left(\frac{J}{R^2}+m\right)}\frac{1}{s^2} \qquad [ \frac{rad}{V}  ]
+% $$
+%
+% The design criteria for this problem are:
+%
+% * Settling time less than 3 seconds
+% * Overshoot less than 5% 
+%
+% To see the derivation of the equations for this problem refer to the 
+% < ?example=BallBeam&section=SystemModeling Ball & Beam: System Modeling> page.
+%
+% <<Content/BallBeam/Control/Frequency/figures/feedback_ball.png>>
+%
+%% Open-loop bode plot
+%
+% The main idea of frequency based design is to use the Bode plot of the
+% open-loop transfer function to estimate the closed-loop response. Adding 
+% a controller to the system changes the open-loop Bode plot, therefore 
+% changing the closed-loop response. Let's first draw the bode plot for the
+% original open-loop transfer function. Create a new < ?aux=Extras_Mfile
+% m-file> with the following code and then run it in the MATLAB command window. You should get the
+% following Bode plot:
+%
+%%
+
+m = 0.111;
+R = 0.015;
+g = -9.8;
+L = 1.0;
+d = 0.03;
+J = 9.99e-6;
+s = tf('s');
+P_ball = -m*g*d/L/(J/R^2+m)/s^2;
+
+bode(P_ball)
+
+%%
+%
+% From this plot we see that the phase margin is zero. Since the phase
+% margin is defined as the change in open-loop phase shift necessary to make 
+% a closed-loop system unstable this means that our zero phase margin indicates 
+% our system is unstable. We want to increase the phase margin and we can use 
+% a lead compensator controller to do this. For more information on Phase 
+% and Gain margins please refer to the 
+% < ?example=Introduction&section=ControlFrequency Introduction: Frequency Domain Methods for Controller Design> page.
+%
+%% Phase-lead controller
+%
+% A first order phase-lead compensator has the form given below:
+%
+% $$
+% C(s) = K \left( \frac{1+Ts}{1+aTs} \right)
+% $$
+%
+% The phase-lead compensator will add positive phase to our system over the
+% frequency range $1/aT$ and $1/T$, which are called the corner frequencies. The 
+% maximum added phase for one lead compensator is 90 degrees. For our 
+% controller design we need a percent overshoot of less than 5%, which 
+% corresponds to a $\zeta$ of 0.7. Generally $100\zeta$ will give you the minimum 
+% phase margin needed to obtain your desired overshoot. Therefore, we require 
+% a phase margin greater than 70 degrees.
+% 
+% To obtain $T$ and $a$, the following steps can be applied.
+%
+% *1. Determine the positive phase needed:*
+% We need at least 70 degrees from our controller.
+%
+% *2. Determine the frequency where the phase should be added (center frequency):*
+% In our case this is difficult to determine because the phase vs. frequency 
+% graph in the bode plot is a flat line. However, we have a relation between
+% bandwidth frequency ($\omega_{bw}$ ) and settling time which tells us that $\omega_{bw}$ is approximately 1.92 rad/s.
+% Therefore, we want a center frequency just before this. For now we will choose 1 rad/sec. 
+%
+% *3. Determine the constant $a$ from the equation below:*
+% this determines the required space between the zero and the pole for the
+% maximum phase added.
+%
+% $$
+% a =\frac{1-\sin\phi}{1+\sin\phi}
+% $$
+%
+% where phi refers to the desired phase margin. For 70 degrees, $a$ = 0.0311.
+%
+% *4. Determine $T$ and $aT$ from the following equations:*
+% 
+% $$
+% T = \frac{1}{w \sqrt{a}}
+% $$
+%
+% $$
+% aT = \frac{\sqrt{a}}{w}
+% $$
+%
+% For 70 degrees and center frequency $w$ = 1, $aT$ = 0.176 and $T$ = 5.67.
+%
+% Now, we can add our lead controller to the system and view the bode plot.
+% Remove the |bode| command from your m-file and add the following. You should 
+% get the following bode plot: 
+%
+%%
+
+phi=70*pi/180;
+a=(1-sin(phi))/(1+sin(phi));
+w=1;
+T=1/(w*sqrt(a));
+K = 1;
+C = K*(1+T*s)/(1+a*T*s);
+
+bode(C*P_ball)
+
+%%
+%
+% You can see that our phase margin is now 70 degrees. Let's check the
+% closed-loop response to a step input of 0.25 m. Add the following to your 
+% m-file. You should get the following plot:
+%
+%%
+
+sys_cl = feedback(C*P_ball,1);
+t = 0:0.01:5;
+step(0.25*sys_cl,t)
+
+%%
+%
+% Although the system is now stable and the overshoot is only slightly over
+% 5%, the settling time is not satisfactory. Increasing the gain will 
+% increase the crossover frequency and make the response faster. With $K$ = 5,
+% your response should look like:
+%
+%%
+
+K = 5;
+C = K*(1+T*s)/(1+a*T*s);
+sys_cl = feedback(C*P_ball,1);
+
+bode(C*P_ball)
+step(0.25*sys_cl,t)
+
+%%
+%
+% The response is faster, however, the overshoot is much too high.
+% Increasing the gain further will just make the overshoot worse.
+%
+%% Adding more phase
+%
+% We can increase our phase-lead compensator to decrease the overshoot. Create 
+% an m-file and copy the following code from your web-browser into it:
+%
+%%
+
+pm = 80;
+w  = 1;
+K  = 1;
+
+%view compensated system bode plot
+pmr = pm*pi/180;
+a = (1 - sin(pmr))/(1+sin(pmr));
+T = sqrt(a)/w;
+aT = 1/(w*sqrt(a));
+C = K*(1+aT*s)/(1+T*s);
+
+figure
+bode(C*P_ball)
+
+%view step response
+sys_cl = feedback(C*P_ball,1);
+t = 0:0.01:5;
+figure
+step(0.25*sys_cl,t)
+
+%%
+%
+% The overshoot is fine but the settling time is just a bit long. Try 
+% different numbers and see what happens. Using the following values the 
+% design criteria was met. 
+%
+%%
+
+pm = 85;
+w  = 1.9;
+K  = 2;
+
+%view compensated system bode plot
+pmr = pm*pi/180;
+a = (1 - sin(pmr))/(1+sin(pmr));
+T = sqrt(a)/w;
+aT = 1/(w*sqrt(a));
+C = K*(1+aT*s)/(1+T*s);
+
+figure
+bode(C*P_ball)
+
+%view step response
+sys_cl = feedback(C*P_ball,1);
+t = 0:0.01:5;
+figure
+step(0.25*sys_cl,t)
+
+%%
+%
+% Note: A design problem does not necessarily have a unique answer. Using
+% this method (or any other) may result in many different compensators. For 
+% practice you may want to go back and change the added phase, gain, or center
+% frequency.
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=BallBeam&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=BallBeam&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=BallBeam&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=BallBeam&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=BallBeam&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=BallBeam&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=BallBeam&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=BallBeam&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=BallBeam&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=BallBeam&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

@@ -1,0 +1,750 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: 	section: 	aux: Index_Activities	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "";
+			var section = "";
+			var aux = "Index_Activities";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?aux=Index_Tutorials";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Hardware-based Activities</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#9fdcf0f1ebedf0f3cbeaebf0edf6fef3ecd2feebf3fefdccf6f2eaf3f6f1f4dff8f2fef6f3b1fcf0f2">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?aux=Index_Tutorials">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SystemModeling"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SystemModeling"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SystemModeling"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SystemModeling"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SystemModeling"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SystemModeling"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SystemModeling"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SystemModeling"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+      <h1>Hardware-Based Activities</h1>
+      <!--introduction-->
+      <p>Below you will find an extensive list of hardware-based activities that instructors and individuals can employ to learn the
+         concepts behind the modeling, controller design, and controller implementation for dynamic systems. The activities as outlined
+         employ an Arduino board (Uno, Mega 2560, etc.) interfaced with a host computer running MATLAB/Simulink, though the essence
+         of the various activities can be achieved with alternative hardware and software platforms. Most of the activities employ
+         the <b>ArduinoIO</b> package, though you can also use the standard <b>Arduino Hardware Support Package</b>. Both packages are freely available with the standard MATLAB/Simulink license. Details on these packages and their installation
+         can be found by following the link below.
+      </p>
+      <p><a href="?aux=Activities_IOpack">- ArduinoIO Package Installation and Introduction</a></p>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">RC Circuit</a></li>
+            <li><a href="#2">LRC Circuit</a></li>
+            <li><a href="#3">Simple Pendulum</a></li>
+            <li><a href="#4">Lightbulb</a></li>
+            <li><a href="#5">Boost Converter Circuit</a></li>
+            <li><a href="#6">DC Motor</a></li>
+         </ul>
+      </div>
+      <h2>RC Circuit<a name="1"></a></h2>
+      <p><b>Overview:</b> These activities employ a simple electrical circuit consisting of only a resistor and a capacitor. This type of circuit is
+         a simple, but important, example of a dynamic system. The activities explore the modeling, analysis, and control of the circuit.
+         The Arduino board is employed for generating the input to the circuit (via a digital output) and for reading the output of
+         the circuit (via an analog input). The Arduino board also communicates the recorded data to Simulink for visualization and
+         analysis.
+      </p>
+      <p><b>Equipment:</b> Arduino board, breadboard, resistor, capacitor, jumper wires, ohmmeter (optional), capacitance meter (optional); for Activity
+         1C you will also need three potentiometers (10k, 50k, 500k), three operational amplifiers, one AA battery, and two 9V batteries
+      </p>
+      <p>
+         <a href="?aux=Activities_RCcircuitA"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/RC2.jpg" alt="Activity
+         1A Image Link displaying RC circuit"></a>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_RCcircuitA">Activity 1A: Time-Response Identification of a Resistor Capacitor (RC) Circuit </a></h3>
+         <h4>Topics covered: modeling electrical systems, first-order systems,
+         system identification</h4>
+         <p>The purpose of this activity is to demonstrate how to model a simple
+         electrical system. Specifically, a first principles approach based on the
+         underlying physics of the circuit and a blackbox approach based on
+         recorded data are employed. The associated experiment is employed to
+         demonstrate the blackbox approach, as well as to demonstrate the accuracy
+         of the resulting models. This activity also provides a physical example
+         of the common class of first-order systems.</p>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_RCcircuitB">Activity 1B: Frequency-Response Identification of a Resistor Capacitor (RC) Circuit</a></h3>
+         <h4>Topics covered: modeling electrical systems, first-order systems,
+         system identification, frequency response, bode plots</h4>
+         <p>In the previous activity we examined the time response of an RC circuit.
+         The purpose of this activity is rather to understand the frequency
+         response of the same circuit. Specifically, we experimentally construct
+         the magnitude plot portion of the Bode plot for
+         the RC circuit.</p>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_RCcircuitC">Activity 1C: Control of a
+         Resistor Capacitor (RC) Circuit</a></h3>
+         <h4>Topics covered: model-based design, root locus, PI control,
+         steady-state error, analog control</h4>
+         <p>In this activity we learn how to implement a controller
+         in order to modify a system's dynamic response. In particular, we
+         employ a system's root locus to help tune a feedback controller in the
+         presence of uncertainties in the model. This activity
+         also demonstrates how to implement a control law using analog
+         electronics.</p>
+         
+      </p>
+      <h2>LRC Circuit<a name="2"></a></h2>
+      <p><b>Overview:</b> These activities continue to explore the modeling and analysis of electrical circuits that was begun in Activity 1. Specifically,
+         an inductor is added to the circuits. The Arduino board is still employed for reading the circuit's output and for communicating
+         the data to the host computer, but now the input to the circuit is supplied by a battery via a pushbutton switch (or a transistor).
+      </p>
+      <p><b>Equipment:</b> Arduino board, breadboard, inductor, resistors, capacitors, jumper wires, switch (pushbutton), AA battery, transistor (optional),
+         operational amplifier (optional), ohmmeter (optional), capacitance meter (optional)
+      </p>
+      <p>
+         <a href="?aux=Activities_LRCcircuitA"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/LRC2.jpg" alt="Activity
+         2A Image Link displaying LRC circuit"></a>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_LRCcircuitA">Activity 2A: Time Response of an Inductor Resistor Capacitor (LRC) Circuit</a></h3>
+         <h4>Topics covered: modeling electrical systems,
+         underdamped second-order systems, system identification</h4>
+         <p>The purpose of this activity is to demonstrate how to model a simple
+         electrical system. Specifically, a first-principles approach based on the
+         underlying physics of the circuit is be employed. The associated
+         experiment is employed to determine the accuracy
+         of the resulting model and to demonstrate how the individual circuit
+         components affect the response. This activity also provides a physical
+         example of the common class of (underdamped) second-order systems.</p>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_LRCcircuitB">Activity 2B: Electrical Circuits in Series</a></h3>
+         <h4>Topics covered: modeling electrical systems, loading, higher-order
+         systems, filtering, isolation</h4>
+         <p>The purpose of this activity is to demonstrate how to model circuits in
+         series. In particular, the phenomenon of loading is investigated.
+         Also, how to predict the response of higher-order systems is
+         discussed.</p>
+         
+      </p>
+      <h2>Simple Pendulum<a name="3"></a></h2>
+      <p><b>Overview:</b> This activity employs a simple pendulum. A pendulum is an illustrative example of a mechanical system whose dynamics are
+         periodic and nonlinear. The Arduino board is simply used to record and transmit the pendulum's angular position as indicated
+         by a rotary potentiometer employed as a sensor.
+      </p>
+      <p><b>Equipment:</b> Arduino board, simple pendulum (slender metal bar with end weight), rotary potentiometer
+      </p>
+      <p>
+         <a href="?aux=Activities_Pendulum"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/pendulumHW.jpg" alt="Activity
+         3 Image Link displaying pendulum setup"></a>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_Pendulum">Activity 3: Modeling of a Simple Pendulum</a></h3>
+         <h4>Topics covered: modeling rotational mechanical systems, nonlinear systems,
+         underdamped second-order systems, sampling effects (aliasing,
+         quantization), system identification</h4>
+         <p>The purpose of this activity is
+         to demonstrate how to model a rotational mechanical system. Specifically,
+         the theory of modeling is discussed with an emphasis on which simplifying
+         assumptions are appropriate in this case. The associated experiment is
+         employed to demonstrate how to identify different aspects of a physical
+         system, as well as to demonstrate the accuracy of the resulting
+         model.</p>
+         
+      </p>
+      <h2>Lightbulb<a name="4"></a></h2>
+      <p><b>Overview:</b> In this activity we model a thermal system (a lightbulb) and implement different strategies for controlling the system's
+         temperature using an inexpensive temperature sensor for feedback. The Arduino board is used for generating the control input
+         to the system and for recording the system's output (its temperature). The control logic is developed in Simulink and is alternately
+         run on the host computer or embedded on the Arduino board.
+      </p>
+      <p><b>Equipment:</b> Arduino board, lightbulb, AC solid-state relay, temperature sensor
+      </p>
+      <p>
+         <a href="?aux=Activities_Lightbulb"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/lightbulbHW.png"
+         alt="Activity 4 Image Link displaying lightbulb setup"></a>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_Lightbulb">Activity 4: Temperature Control of a Lightbulb</a></h3>
+         <h4>Topics covered: blackbox modeling, first-order systems,
+         ON/OFF control, PI control, steady-state error, embedded control, autocode generation</h4>
+         <p> The purpose of this activity is to demonstrate how to
+         control switched systems. The lightbulb is
+         a binary system with only two states, on or off. The lightbulb is either
+         connected to the AC source or it is not; its intensity cannot be
+         modulated. In this experiment, we observe the resulting "chattering"
+         behavior of the lightbulb and investigate alternative methodologies for
+         reducing the frequency of this chatter, or smoothing the chatter, through
+         the use of deadbands, low-pass filters, and Pulse-Width Modulation. This
+         activity also provides exposure to Proportional (P) control,
+         Proportional-Integral (PI) control, and first-order systems.
+         
+      </p>
+      <h2>Boost Converter Circuit<a name="5"></a></h2>
+      <p><b>Overview:</b> These activities employ a type of DC-DC converter circuit called a boost converter circuit. A boost converter circuit takes
+         a DC voltage input (i.e. from a battery) and can be controlled to produce a higher level of DC voltage at its output. This
+         type of circuit has many important applications. The Arduino board is used for measuring the output of the circuit (via an
+         analog input) and for controlling the level of the circuit's output voltage (via a digital output). The control logic is developed
+         in Simulink and is alternately run on the host computer or embedded on the Arduino board.
+      </p>
+      <p><b>Equipment:</b> Arduino board, breadboard, AA battery, inductor, resistor, capacitor, diode, transistor (MOSFET), jumper wires
+      </p>
+      <p>
+         <a href="?aux=Activities_BoostcircuitA"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/boost.jpg" alt="Activity
+         5A Image Link displaying boost circuit setup"></a>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_BoostcircuitA">Activity 5A: Time-Response Analysis of a Boost Converter Circuit</a></h3>
+         <h4>Topics covered: modeling electrical systems, time-response analysis, system
+         identification, pulse-width modulation</h4>
+         <p>The purpose of this activity is to build intuition regarding the
+         operation of a boost converter circuit. The activity also demonstrates
+         two techniques for modeling and analyzing a simple electrical system.
+         The first approach models the circuit based on its underlying physics
+         and compares the predicted time response of the circuit to data taken
+         from a physical implementation of the circuit. The second approach
+         models the circuit based on experimentally obtained frequency response
+         data and can be found in Part (b) of the activity.</p>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_BoostcircuitB">Activity 5B: Frequency
+         Response Identification of a Boost Converter Circuit</a></h3>
+         <h4>Topics covered: frequency response analysis, system
+         identification, nonlinear systems, pulse-width modulation, bode
+         plots</h4>
+         <p> In this part of the activity we model the boost converter circuit
+         based on experimentally obtained frequency response data. This technique
+         provides intuition regarding frequency response analysis and demonstrates
+         a blackbox approach for generating an approximate (local) model of a
+         nonlinear system.</p>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_BoostcircuitC">Activity 5C: Feedback
+         Control of a Boost Converter Circuit</a></h3>
+         <h4>Topics covered: frequency response analysis, system identification, lead
+         compensation, embedded control, autocode generation</h4>
+         <p> The purpose of this activity is to demonstrate how to design a controller
+         using frequency response techniques based on an empirically derived, and
+         imperfect, plant model. Furthermore, this activity demonstrates how
+         embedded controllers are often designed and implemented in practice using
+         modern design and code generation tools. </p>
+         
+      </p>
+      <h2>DC Motor<a name="6"></a></h2>
+      <p><b>Overview:</b> These activities employ a simple DC motor which is a common and important type of actuator found in many industrial applications
+         and consumer products. In particular, the motor is modeled, analyzed, and controlled to achieve a desired speed response.
+         The motor's speed is estimated from the output of a quadrature encoder which is read via two digital inputs of the Arduino
+         board. The motor's speed is controlled using pulse-width modulation via one of the board's digital outputs. The logic for
+         estimating the motor's speed based on encoder counts and the logic for controlling the motor's speed is developed in Simulink.
+         Initially this logic is run on the host computer, but subsequently all of the logic is downloaded to the Arduino board.
+      </p>
+      <p><b>Equipment:</b> Arduino board, breadboard, DC motor with quadrature encoder, battery (ex: lantern battery), diode, transistor (MOSFET), jumper
+         wires
+      </p>
+      <p>
+         <a href="?aux=Activities_DCmotorA"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/motor2.jpg" alt="Activity
+         6B Image Link displaying second version of motor circuit setup"></a>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_DCmotorA">Activity 6A: Time-Reponse Analysis of a DC Motor</a></h3>
+         <h4>Topics covered: modeling electromechanical systems, time-response analysis, system
+         identification, reduced-order models, pulse-width modulation, filtering</h4>
+         <p> The purpose of this activity is to build intuition regarding the
+         operation of an armature-controlled DC motor. The activity also generates
+         a blackbox model for the motor based on its step response. This type of
+         model is compared to a physics-based model. The need and effects of
+         filtering are also explored.</p>
+         
+      </p>
+      <p>
+         <h3><a href="?aux=Activities_DCmotorB">Activity 6B: PI Speed Control of a DC Motor</a></h3>
+         <h4>Topics covered: pulse-width modulation, PI control, pole placement,
+         steady-state error, disturbance rejection, saturation, integrator
+         wind-up, embedded control</h4>
+         <p>The purpose of this activity is to build intuition regarding the design
+         and implementation of a PI controller for the speed control of a DC motor
+         in the presence of an array of real-world complications. Specifically, we
+         consider how to design the controller when we have an uncertain
+         plant model and are limited in the amount of control effort we can
+         supply. Furthermore, we analyze our system's performance in the
+         presence of unwanted exogenous inputs, which in this case is a
+         constant load disturbance. </p>
+         
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 8.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Hardware-Based Activities
+%
+% Below you will find an extensive list of hardware-based activities that
+% instructors and individuals can employ to learn the concepts behind the
+% modeling, controller design, and controller implementation for dynamic
+% systems. The activities as outlined employ an Arduino board (Uno, Mega
+% 2560, etc.) interfaced with a host computer running MATLAB/Simulink,
+% though the essence of the various activities can be achieved with
+% alternative hardware and software platforms. Most of the activities
+% employ the *ArduinoIO* package, though you can
+% also use the standard *Arduino Hardware Support Package*. Both packages
+% are freely available with the standard MATLAB/Simulink license. Details on
+% these packages and their installation can be found by following the link
+% below. 
+%
+% < ?aux=Activities_IOpack - ArduinoIO Package Installation and Introduction>
+%
+%% RC Circuit
+%
+% *Overview:* These activities employ a simple electrical circuit
+% consisting of only a resistor and a capacitor. This type of circuit is a
+% simple, but important, example of a dynamic system. The activities explore
+% the modeling, analysis, and control of the circuit. The Arduino board is
+% employed for generating the input to the circuit (via a digital output)
+% and for reading the output of the circuit (via an analog input). The
+% Arduino board also communicates the recorded data to Simulink for
+% visualization and analysis.  
+%
+% *Equipment:* Arduino board, breadboard, resistor, capacitor, jumper
+% wires, ohmmeter (optional), capacitance meter (optional); for Activity 1C
+% you will also need three potentiometers (10k, 50k, 500k), three
+% operational amplifiers, one AA battery, and two 9V batteries
+%
+% <html>
+%     <a href="?aux=Activities_RCcircuitA"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/RC2.jpg" alt="Activity 1A Image Link displaying RC circuit"></a>
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_RCcircuitA">Activity 1A: Time-Response Identification of a Resistor Capacitor (RC) Circuit </a></h3>
+% <h4>Topics covered: modeling electrical systems, first-order systems,
+% system identification</h4>
+% <p>The purpose of this activity is to demonstrate how to model a simple
+% electrical system. Specifically, a first principles approach based on the
+% underlying physics of the circuit and a blackbox approach based on
+% recorded data are employed. The associated experiment is employed to
+% demonstrate the blackbox approach, as well as to demonstrate the accuracy
+% of the resulting models. This activity also provides a physical example
+% of the common class of first-order systems.</p> 
+% </html>
+% 
+% <html>
+% <h3><a href="?aux=Activities_RCcircuitB">Activity 1B: Frequency-Response Identification of a Resistor Capacitor (RC) Circuit</a></h3>
+% <h4>Topics covered: modeling electrical systems, first-order systems,
+% system identification, frequency response, bode plots</h4>
+% <p>In the previous activity we examined the time response of an RC circuit.
+% The purpose of this activity is rather to understand the frequency
+% response of the same circuit. Specifically, we experimentally construct
+% the magnitude plot portion of the Bode plot for 
+% the RC circuit.</p>
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_RCcircuitC">Activity 1C: Control of a
+% Resistor Capacitor (RC) Circuit</a></h3> 
+% <h4>Topics covered: model-based design, root locus, PI control,
+% steady-state error, analog control</h4>
+% <p>In this activity we learn how to implement a controller
+% in order to modify a system's dynamic response. In particular, we
+% employ a system's root locus to help tune a feedback controller in the
+% presence of uncertainties in the model. This activity
+% also demonstrates how to implement a control law using analog
+% electronics.</p>
+% </html>
+%
+%% LRC Circuit
+%
+% *Overview:* These activities continue to explore the modeling and
+% analysis of electrical circuits that was begun in Activity 1.
+% Specifically, an inductor is added to the circuits. The Arduino board is
+% still employed for reading the circuit's output and for communicating the
+% data to the host computer, but now the input to the circuit is supplied
+% by a battery via a pushbutton switch (or a transistor).
+%
+% *Equipment:* Arduino board, breadboard, inductor, resistors, capacitors,
+% jumper wires, switch (pushbutton), AA battery, transistor (optional),
+% operational amplifier (optional), ohmmeter (optional), capacitance meter
+% (optional) 
+%
+% <html>
+%     <a href="?aux=Activities_LRCcircuitA"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/LRC2.jpg" alt="Activity 2A Image Link displaying LRC circuit"></a>
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_LRCcircuitA">Activity 2A: Time Response of an Inductor Resistor Capacitor (LRC) Circuit</a></h3>
+% <h4>Topics covered: modeling electrical systems,  
+% underdamped second-order systems, system identification</h4>
+% <p>The purpose of this activity is to demonstrate how to model a simple
+% electrical system. Specifically, a first-principles approach based on the
+% underlying physics of the circuit is be employed. The associated
+% experiment is employed to determine the accuracy
+% of the resulting model and to demonstrate how the individual circuit
+% components affect the response. This activity also provides a physical
+% example of the common class of (underdamped) second-order systems.</p>
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_LRCcircuitB">Activity 2B: Electrical Circuits in Series</a></h3>
+% <h4>Topics covered: modeling electrical systems, loading, higher-order
+% systems, filtering, isolation</h4>
+% <p>The purpose of this activity is to demonstrate how to model circuits in
+% series. In particular, the phenomenon of loading is investigated.
+% Also, how to predict the response of higher-order systems is
+% discussed.</p>
+% </html>
+%
+%% Simple Pendulum
+%
+% *Overview:* This activity employs a simple pendulum. A pendulum is an
+% illustrative example of a mechanical system whose dynamics are
+% periodic and nonlinear. The Arduino board is simply used to record and
+% transmit the pendulum's angular position as indicated by a rotary
+% potentiometer employed as a sensor.
+%
+% *Equipment:* Arduino board, simple pendulum (slender metal bar with end
+% weight), rotary potentiometer
+%
+% <html>
+%     <a href="?aux=Activities_Pendulum"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/pendulumHW.jpg" alt="Activity 3 Image Link displaying pendulum setup"></a>
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_Pendulum">Activity 3: Modeling of a Simple Pendulum</a></h3>
+% <h4>Topics covered: modeling rotational mechanical systems, nonlinear systems, 
+% underdamped second-order systems, sampling effects (aliasing,
+% quantization), system identification</h4> 
+% <p>The purpose of this activity is
+% to demonstrate how to model a rotational mechanical system. Specifically,
+% the theory of modeling is discussed with an emphasis on which simplifying
+% assumptions are appropriate in this case. The associated experiment is
+% employed to demonstrate how to identify different aspects of a physical
+% system, as well as to demonstrate the accuracy of the resulting
+% model.</p>
+% </html>
+%
+%% Lightbulb
+%
+% *Overview:* In this activity we model a thermal system (a lightbulb) and
+% implement different strategies for controlling the system's temperature
+% using an inexpensive temperature sensor for feedback. The Arduino board
+% is used for generating the control input to the system and for recording
+% the system's output (its temperature). The control logic is developed in
+% Simulink and is alternately run on the host computer or embedded on the
+% Arduino board.
+%
+% *Equipment:* Arduino board, lightbulb, AC solid-state relay, temperature sensor
+%
+% <html>
+%     <a href="?aux=Activities_Lightbulb"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/lightbulbHW.png" alt="Activity 4 Image Link displaying lightbulb setup"></a>
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_Lightbulb">Activity 4: Temperature Control of a Lightbulb</a></h3>
+% <h4>Topics covered: blackbox modeling, first-order systems, 
+% ON/OFF control, PI control, steady-state error, embedded control, autocode generation</h4>
+% <p> The purpose of this activity is to demonstrate how to
+% control switched systems. The lightbulb is
+% a binary system with only two states, on or off. The lightbulb is either
+% connected to the AC source or it is not; its intensity cannot be
+% modulated. In this experiment, we observe the resulting "chattering"
+% behavior of the lightbulb and investigate alternative methodologies for
+% reducing the frequency of this chatter, or smoothing the chatter, through
+% the use of deadbands, low-pass filters, and Pulse-Width Modulation. This
+% activity also provides exposure to Proportional (P) control,
+% Proportional-Integral (PI) control, and first-order systems.
+% </html>
+%
+%% Boost Converter Circuit
+%
+% *Overview:* These activities employ a type of DC-DC converter circuit
+% called a boost converter circuit. A boost converter circuit takes a DC
+% voltage input (i.e. from a battery) and can be controlled to produce a
+% higher level of DC voltage at its output. This type of circuit has many
+% important applications. The Arduino board is used for measuring the output of the
+% circuit (via an analog input) and for controlling the level of the
+% circuit's output voltage (via a digital output). The control logic is
+% developed in Simulink and is alternately run on the host 
+% computer or embedded on the Arduino board.
+%
+% *Equipment:* Arduino board, breadboard, AA battery, inductor, resistor,
+% capacitor, diode, transistor (MOSFET), jumper wires
+%
+% <html>
+%     <a href="?aux=Activities_BoostcircuitA"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/boost.jpg" alt="Activity 5A Image Link displaying boost circuit setup"></a>
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_BoostcircuitA">Activity 5A: Time-Response Analysis of a Boost Converter Circuit</a></h3>
+% <h4>Topics covered: modeling electrical systems, time-response analysis, system
+% identification, pulse-width modulation</h4>
+% <p>The purpose of this activity is to build intuition regarding the
+% operation of a boost converter circuit. The activity also demonstrates
+% two techniques for modeling and analyzing a simple electrical system. 
+% The first approach models the circuit based on its underlying physics
+% and compares the predicted time response of the circuit to data taken
+% from a physical implementation of the circuit. The second approach
+% models the circuit based on experimentally obtained frequency response
+% data and can be found in Part (b) of the activity.</p>
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_BoostcircuitB">Activity 5B: Frequency
+% Response Identification of a Boost Converter Circuit</a></h3> 
+% <h4>Topics covered: frequency response analysis, system
+% identification, nonlinear systems, pulse-width modulation, bode
+% plots</h4>
+% <p> In this part of the activity we model the boost converter circuit
+% based on experimentally obtained frequency response data. This technique
+% provides intuition regarding frequency response analysis and demonstrates
+% a blackbox approach for generating an approximate (local) model of a
+% nonlinear system.</p> 
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_BoostcircuitC">Activity 5C: Feedback
+% Control of a Boost Converter Circuit</a></h3> 
+% <h4>Topics covered: frequency response analysis, system identification, lead
+% compensation, embedded control, autocode generation</h4>
+% <p> The purpose of this activity is to demonstrate how to design a controller
+% using frequency response techniques based on an empirically derived, and
+% imperfect, plant model. Furthermore, this activity demonstrates how
+% embedded controllers are often designed and implemented in practice using
+% modern design and code generation tools. </p>
+% </html>
+%
+%% DC Motor
+%
+% *Overview:* These activities employ a simple DC motor which is a common
+% and important type of actuator found in many industrial applications and
+% consumer products. In particular, the motor is modeled, analyzed, and
+% controlled to achieve a desired speed response. The motor's speed is
+% estimated from the output of a quadrature encoder which is read via two
+% digital inputs of the Arduino board. The motor's speed is controlled
+% using pulse-width modulation via one of the board's digital outputs. The
+% logic for estimating the motor's speed based on encoder counts and the
+% logic for controlling the motor's speed is developed in Simulink.
+% Initially this logic is run on the host computer, but subsequently
+% all of the logic is downloaded to the Arduino board. 
+%
+% *Equipment:* Arduino board, breadboard, DC motor with quadrature encoder,
+% battery (ex: lantern battery), diode, transistor (MOSFET), jumper wires
+% 
+% <html>
+%     <a href="?aux=Activities_DCmotorA"><img class="figure" vspace="5" hspace="5" width="400" src="Content/Index/figures/motor2.jpg" alt="Activity 6B Image Link displaying second version of motor circuit setup"></a>
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_DCmotorA">Activity 6A: Time-Reponse Analysis of a DC Motor</a></h3>
+% <h4>Topics covered: modeling electromechanical systems, time-response analysis, system
+% identification, reduced-order models, pulse-width modulation, filtering</h4>
+% <p> The purpose of this activity is to build intuition regarding the
+% operation of an armature-controlled DC motor. The activity also generates
+% a blackbox model for the motor based on its step response. This type of
+% model is compared to a physics-based model. The need and effects of
+% filtering are also explored.</p>
+% </html>
+%
+% <html>
+% <h3><a href="?aux=Activities_DCmotorB">Activity 6B: PI Speed Control of a DC Motor</a></h3>
+% <h4>Topics covered: pulse-width modulation, PI control, pole placement,
+% steady-state error, disturbance rejection, saturation, integrator
+% wind-up, embedded control</h4>
+% <p>The purpose of this activity is to build intuition regarding the design
+% and implementation of a PI controller for the speed control of a DC motor
+% in the presence of an array of real-world complications. Specifically, we
+% consider how to design the controller when we have an uncertain
+% plant model and are limited in the amount of control effort we can
+% supply. Furthermore, we analyze our system's performance in the
+% presence of unwanted exogenous inputs, which in this case is a
+% constant load disturbance. </p>
+% </html>
+%
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Introduction&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Introduction&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Introduction&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Introduction&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Introduction&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Introduction&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Introduction&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Introduction&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Introduction&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Introduction&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

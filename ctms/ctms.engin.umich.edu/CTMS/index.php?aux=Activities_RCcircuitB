@@ -1,0 +1,1003 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: 	section: 	aux: Activities_RCcircuitB	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "";
+			var section = "";
+			var aux = "Activities_RCcircuitB";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?aux=Index_Activities";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Frequency-response Identification of an RC Circuit</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#63200c0d17110c0f3716170c110a020f102e02170f0201300a0e160f0a0d0823040e020a0f4d000c0e">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?aux=Index_Activities">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SystemModeling"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SystemModeling"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SystemModeling"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SystemModeling"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SystemModeling"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SystemModeling"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SystemModeling"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SystemModeling"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+      <h1>Activity 1 Part (b): Frequency-Response Identification of a Resistor&#8211;Capacitor (RC) Circuit</h1>
+      <!--introduction-->
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC2.jpg" alt=""> </p>
+      <p><b>Key Topics</b>: Modeling Electrical Systems, First-Order Systems, System Identification, Frequency Response, Bode Plots
+      </p>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Equipment needed</a></li>
+            <li><a href="#2">Purpose</a></li>
+            <li><a href="#3">Theoretical frequency response</a></li>
+            <li><a href="#6">System identification experiment</a></li>
+            <li><a href="#9">Data acquisition</a></li>
+            <li><a href="#13">Extensions</a></li>
+         </ul>
+      </div>
+      <h2>Equipment needed<a name="1"></a></h2>
+      <div>
+         <ul>
+            <li>Arduino board (e.g. Uno, Mega 2560, etc.)</li>
+            <li>Breadboard</li>
+            <li>Electronic components (resistor and capacitor)</li>
+            <li>Ohmmeter, Capacitance meter (optional)</li>
+            <li>Jumper wires</li>
+         </ul>
+      </div>
+      <p>Following up the <a href="?aux=Activities_RCcircuitA">Activity 1a</a>, we will employ the same Resistor&#8211;Capacitor (RC) Circuit in this experiment.  The hardware and software needed for this experiment
+         will also be the same as used previously. Specifically, the Arduino board will be used for generating the input to the circuit
+         and for measuring the output of the ciruit. The input to the circuit will be generated from one of the board's <i>Digital Outputs</i>, applied across the resistor and capacitor in series. The output of the circuit will be the voltage across the capacitor
+         which will be read via one of the board's <i>Analog Inputs</i>. This data is then fed to Simulink for visualization and for comparison to our theoretical predictions.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC.png" alt=""> </p>
+      <h2>Purpose<a name="2"></a></h2>
+      <p>In the previous activity we examined the time response of an RC circuit. The purpose of this activity is rather to understand
+         the frequency response of the same circuit. Specifically, we are going to experimentally construct the magnitude plot portion
+         of the Bode plot for the RC circuit. In this activity we will sweep through a range of frequencies, but we will employ square
+         wave inputs rather than sine wave inputs. In this regard, the magnitude response that we generate won't exactly correspond
+         to the standard definition of frequency response. The reason we will employ square wave inputs is to build intuition regarding
+         the meaning of the circuit's frequency response based on the understanding of the circuit's step response we gained in <a href="?aux=Activities_RCcircuitA">Activity 1a</a>.
+      </p>
+      <h2>Theoretical frequency response<a name="3"></a></h2>
+      <p>The idea behind frequency response analysis is to examine how a system responds to sinusoidally varying inputs of different
+         frequencies. If we have a linear system, as we do in this case, then a sinusoidal input of a particular frequency will generate
+         in steady-state a sinusoidal output of the same frequency. The output, however, may have a different amplitude than the input
+         and the output may be phase shifted as compared to the input. This idea is demonstrated below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/freq_resp.png" alt=""> </p>
+      <p>One can understand the above by considering that if our system is represented as the transfer function <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq82676.png" alt="$G(s)$">, then the output is simply the product of the transfer function and the input, <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq21571.png" alt="$Y(s) = G(s)R(s)$">. Therefore, the output can be separated (via a partial fraction expansion) into a component with the poles of the transfer
+         function (representing the system's natural response) and a component with the poles of the input signal. If the system is
+         stable, then the natural response will die out resulting in a steady-state output that has the same form (poles) as the input
+         signal.
+      </p>
+      <p>When we consider a system's frequency response, we are specifically interested in how the amplitude and phase of the steady-state
+         output compare to the sinusoidal input. One way to represent this amplitude (magnitude) data and this phase data is as a Bode
+         plot. A Bode plot consists of two graphs, one being the magnitude of the response (the ratio of the output amplitude to the
+         input amplitude, <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq89218.png" alt="$Y/R$">) versus frequency, and the other being the phase of the response versus frequency.
+      </p>
+      <p>Executing the following commands at the MATLAB command line will generate the theoretical Bode plot for our RC circuit (with
+         <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq68420.png" alt="$R = 10 k\Omega$">, <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq78965.png" alt="$C = 100 \mu F$">).
+      </p><pre class="codeinput">s = tf(<span class="string">'s'</span>);
+R = 10000;                                        <span class="comment">% resistance of resistor in RC circuit</span>
+C = 100*10^-6;                                    <span class="comment">% capacitance of capacitor in RC circuit</span>
+G = 1/(C*R*s+1);                                  <span class="comment">% RC circuit transfer function</span>
+bode(G)
+title(<span class="string">'RC Circuit Frequency Response (R = 10 kOhm, C = 100 uF)'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Activities/html/Activities_RCcircuitB_01.png" alt=""> <p>Examination of the above demonstrates that the RC circuit behaves like a low-pass filter (passes low frequencies and blocks
+         high frequencies). At low frequencies, the circuit has a magnitude response of zero decibels. Recall that in decibels the
+         magnitude is calculated as <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq46171.png" alt="$20 \log Y/R$">, therefore, a magnitude of 0 dB corresponds to the case that the output amplitude is equal to the input amplitude (the ratio
+         <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq89218.png" alt="$Y/R$"> equals 1). While at higher frequencies, the magnitude in dBs becomes more and more negative. This trend corresponds to the
+         amplitude ratio becoming closer to zero, that is, the output is attenuated to a greater degree as the input frequency is increased.
+         The trend observed in the phase plot is that the output lags behind the input to greater degree as the input frequency is
+         increased.
+      </p>
+      <p>These trends are observed in most physical systems. As the frequency of the input increases, the system has a harder time
+         "keeping up" with the input. Through the course of the hardware experiment in the next section, we will try to build some
+         intuition for this phenomenon. In the case of the system we are examining here, the frequency at which the input begins to
+         be attenuated is determined by the size of the electronic components <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq85930.png" alt="$R$"> and <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq22407.png" alt="$C$">. Specifically, recall the transfer function for the RC circuit:
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq24894.png" alt="$$ G(s) =  \frac{E_o(s)}{E_i(s)} = \frac{1}{RCs+1} =  \frac{K}{\tau s+1} $$"></p>
+      <p>The break frequency for this circuit is determined by the location of its pole, that is, the break frequency equals <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq36729.png" alt="$1/\tau = 1/RC$">. In the case of this circuit, <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq53426.png" alt="$RC = 1$"> and the break frequency is in the neighborhood of 1 rad/sec. Recalling the form of the RC circuit's step response, we can
+         anticipate how the circuit will respond to a square wave input of varying frequencies. We will verify our intuition with a
+         hardware-based experiment in the next section. The overall purpose of this activity is to better understand what a system's
+         frequency response means.
+      </p>
+      <p>Executing the following commands at the MATLAB command line will generate the theoretical step response plot for our RC circuit
+         (with <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq68420.png" alt="$R = 10 k\Omega$">, <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq78965.png" alt="$C = 100 \mu F$">).
+      </p><pre class="codeinput">s = tf(<span class="string">'s'</span>);
+R = 10000;                                        <span class="comment">% resistance of resistor in RC circuit</span>
+C = 100*10^-6;                                    <span class="comment">% capacitance of capacitor in RC circuit</span>
+G = 1/(C*R*s+1);                                  <span class="comment">% RC circuit transfer function</span>
+step (G)
+title(<span class="string">'RC Circuit Step Response (R = 10 kOhm, C = 100 uF)'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Activities/html/Activities_RCcircuitB_02.png" alt=""> <p>Examination of the above shows a standard first-order step response. For a square wave input, one can imagine that the output
+         will rise as shown above when the input is "ON" and will decay exponentially when the input is "OFF." Cycling between the
+         "ON" and "OFF" states will then generate a response like the one shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/square_resp.png" alt=""> </p>
+      <p>In the above figure, the period of the square wave input is sufficiently large that the system output has time to approximately
+         reach steady-state before the input signal switches its value. Recall that for a first-order system, it takes approximately
+         4 time constants (<img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq98841.png" alt="$4\tau$">) for the output to achieve <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq75201.png" alt="$98 \%$"> of its total change. Therefore, when the input frequency is sufficiently slow (period sufficiently large compared to <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq89224.png" alt="$\tau$">) the output response will appear as in the above figure where the amplitude of the output is approximately equal to the amplitude
+         of the input. This is what was observed in the Bode plot generated earlier. At low frequencies, the magnitude approximately
+         equaled <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq19037.png" alt="$20\log 1 = 0$"> dB, which corresponds to an amplitude ratio of 1 (no attenuation).
+      </p>
+      <p>Further recall that it takes approximately 1 time constant (<img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq89224.png" alt="$\tau$">) for a standard first-order step response to reach <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq48051.png" alt="$63 \%$"> of its total change. Therefore, when the square wave has a period of <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq74020.png" alt="$2\tau$"> (frequency equal <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq42629.png" alt="$2\pi/2\tau \approx 3.14$"> rad/sec for this system) the output response will not have time to reach steady-state before the input switches value again.
+         As such, the amplitude of the output will be smaller than the amplitude of the input. This is observed in the previously generated
+         Bode plot in that the magnitude above the break frequency (1 rad/sec) is less than 1 (less than 0 dB). As the frequency of
+         the input increases, there is even less time for the output to react. This is indicated in the Bode plot by the fact the system's
+         magnitude (the output amplitude) gets smaller and smaller as the frequency of the input is increased.
+      </p>
+      <p>We will investigate this phenomenon in the following experiment.</p>
+      <h2>System identification experiment<a name="6"></a></h2>
+      <p>In this experiment we will record the output voltage of the RC circuit for a square wave voltage input. Specifically, the
+         voltage input will alternate between 0 Volts and 5 Volts, where the time "OFF" will equal the time "ON." The frequency of
+         the square wave input will be varied and the resulting amplitude of the circuit's output response will be recorded to approximate
+         the system's magnitude response. In a sense, we are generating the system's frequency response model empirically. This is
+         sometimes referred to as a blackbox model or a data-driven model. The hardware and software setup we will employ is very similar
+         to that employed in <a href="?aux=Activities_RCcircuitA">Part (a)</a> of this activity.
+      </p>
+      <p><b>Hardware setup</b></p>
+      <p>Our simple RC circuit can be implemented on a breadboard and connected to the Arduino board as shown. Recall that if you employ
+         an electrolytic capacitor, its orientation matters. The Arduino board is employed to receive the input voltage command from
+         Simulink and to apply the voltage to the circuit (via a Digital Output). The board also acquires the output voltage data from
+         the circuit (via an Analog Input) and communicates the data to Simulink.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/arduinoRC.png" alt=""> </p>
+      <p>In this experiment, the values of the resistor and capacitor are chosen (<img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq19999.png" alt="$R = 10\ k\Omega$">, <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq02105.png" alt="$C = 100\ \mu F$">) such that the circuit's time response is slow enough that the Arduino/Simulink setup can sample the circuit at a fast enough
+         rate to give a clear picture of the circuit's output. Since we are generating the circuit's frequency response, we wish to
+         be able to accurately capture the circuit's response at frequencies at least one or two decades above the circuit's break
+         frequency (1 rad/sec).
+      </p>
+      <p><b>Software setup</b></p>
+      <p>In this experiment, we will employ Simulink to read the data from the board and to plot the data in real time. In particular,
+         we will employ the IO package from the MathWorks. For details on how to use the IO package, refer to the following <a href="?aux=Activities_IOpack">link</a>. The Simulink model we will use in this experiment is essentially the same as the one we used in Part (a) of this activity.
+         The model can be downloaded <a href="Content/Activities/RCpulse_bode.slx">here</a>, where you may need to change the port to which the Arduino board is connected (the port is COM5 in this case).
+      </p>
+      <p>As shown below, the input voltage command is generated by a Pulse Generator block (for generating a square wave input). The
+         Pulse Generator block generates values of 0 or 1 which are then fed to an Arduino Digital Write block. Since we are using
+         channel 8 for the digital output, we double-click on the Arduino Digital Write block to set the <b>Pin</b> to <tt>8</tt> from the drop-down menu. An input of 0 to the Digital Write block causes an output of 0 Volts to be generated at the corresponding
+         pin, while an input of 1 to the Digital Write block generates an output of 5 Volts. This scaling is captured by the Gain block
+         that is included prior to the Scope block.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RCpulse1.png" alt=""> </p>
+      <p>The Arduino Analog Read block reads the output voltage data via the Analog Input A0 on the board. Double-clicking on the block
+         allows us to set the <b>Pin</b> to <tt>0</tt> from the drop-down menu. We also will set the <b>Sample Time</b> based on the frequency of the input being employed. For example, for an input frequency of 10 rad/sec (1 decade above the
+         circuit's break frequency), we could employ a sample time of "0.02". This sample time corresponds to a sampling frequency
+         of 50 Hz, which is more than 30 times faster than the frequency of the input signal (10 rad/sec <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq70791.png" alt="$\approx$"> 1.59 Hz). This means the that circuit's response for this input would be sampled more than 30 times per cycle. This is enough
+         to capture the character of the system's output at this frequency. The downloadable model included above defines all sample
+         times as <i>Ts</i> (or left as "-1"). Therefore, before you run this model you must define the variable <i>Ts</i> in the MATLAB workspace, for example, by typing <tt>Ts = 0.02;</tt> at the command line. The Gain block is included to convert the data into units of Volts (by multiplying the data by 5/1023).
+      </p>
+      <p>The given Simulink model then plots the commanded input voltage and recorded output voltage on a scope and also writes the
+         output data to the MATLAB workspace for further analysis. The Arduino Digital Write block, the Arduino Analog Read block,
+         the Arduino IO Setup block, and the Real-Time Pacer block are all part of the IO package. The remaining blocks are part of
+         the standard Simulink library, specifically, they can be found under the Math, Sources, and Sinks libraries.
+      </p>
+      <h2>Data acquisition<a name="9"></a></h2>
+      <p>To experimentally construct a Bode magnitude plot, we will sweep through a series of square wave inputs of varying frequency
+         and record the amplitude of the output response. In order to get a complete picture of the RC circuit's frequency response,
+         we need to capture frequencies ranging from at least 1 decade below the break frequency to at least 1 decade above the break
+         frequency. Specifically, we will look at frequencies ranging from approximately 0.05 rad/sec (20 times smaller than 1 rad/sec)
+         all the way up to about 30 rad/sec (30 times larger than 1 rad/sec). Below provides a table describing the input signal periods
+         and frequencies, as well as the sampling time and duration employed to guarantee the circuit's response is sampled frequently
+         enough and the response is given sufficient time to reach steady state.
+      </p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq84608.png" alt="$$&#xA;\begin{tabular}{l c c c c}&#xA;&amp;\textbf{T(sec)}&amp;\textbf{freq(rad/sec)}&amp;\textbf{Ts(sec)}&amp;\textbf{Duration(sec)}\\\hline&#xA;\textbf{(1)}&amp;125&amp;0.050&amp;0.1&amp;300\\&#xA;\textbf{(2)}&amp;60&amp;0.105&amp;0.1&amp;100\\&#xA;\textbf{(3)}&amp;40&amp;0.157&amp;0.1&amp;100\\&#xA;\textbf{(4)}&amp;20&amp;0.314&amp;0.1&amp;40\\&#xA;\textbf{(5)}&amp;15&amp;0.419&amp;0.1&amp;40\\&#xA;\textbf{(6)}&amp;12&amp;0.524&amp;0.1&amp;40\\&#xA;\textbf{(7)}&amp;10&amp;0.628&amp;0.1&amp;40\\&#xA;\textbf{(8)}&amp;9&amp;0.698&amp;0.05&amp;40\\&#xA;\textbf{(9)}&amp;8&amp;0.785&amp;0.05&amp;40\\&#xA;\textbf{(10)}&amp;7&amp;0.898&amp;0.05&amp;40\\&#xA;\textbf{(11)}&amp;6&amp;1.047&amp;0.05&amp;40\\&#xA;\textbf{(12)}&amp;5&amp;1.257&amp;0.05&amp;40\\&#xA;\textbf{(13)}&amp;4&amp;1.571&amp;0.05&amp;40\\&#xA;\textbf{(14)}&amp;3&amp;2.094&amp;0.05&amp;40\\&#xA;\textbf{(15)}&amp;2&amp;3.142&amp;0.05&amp;40\\&#xA;\textbf{(16)}&amp;1&amp;6.283&amp;0.05&amp;40\\&#xA;\textbf{(17)}&amp;0.6&amp;10.47&amp;0.02&amp;40\\&#xA;\textbf{(18)}&amp;0.4&amp;15.71&amp;0.02&amp;40\\&#xA;\textbf{(19)}&amp;0.2&amp;31.42&amp;0.02&amp;40\\&#xA;\end{tabular}&#xA;$$"></p>
+      <p>For demonstration purposes, we will look at the circuit's response to a square wave input of period <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq65796.png" alt="$T = 4$"> seconds. This corresponds to a frequency of approximately 1.571 rad/sec, which is slightly faster than the circuit's 1 rad/sec
+         break frequency. To get started, enter the following commands in the command window:
+      </p><pre class="codeinput">T=4;      <span class="comment">% Period of the square wave input</span>
+Ts=0.05;  <span class="comment">% Sampling time employed in the Simulink model</span>
+N=T/Ts;   <span class="comment">% Number of samples per period</span>
+</pre><p>Now open (or create) the Simulink model provided earlier in this section. Double-click on the Input Voltage block and the
+         Arduino Analog Read block, respectively, and set the parameters <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq05153.png" alt="$N$"> and <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq22859.png" alt="$Ts$"> as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC10_1.png" alt=""> </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC10_2.png" alt=""> </p>
+      <p>Before running the Simulink model, make sure that its run length is set to 40 seconds as shown below, corresponding to the
+         table that we previously introduced.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC10_3.png" alt=""> </p>
+      <p>Entering the following code at the MATLAB command line will generate a plot like the one shown below which includes the square
+         wave input and the circuit's output response.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         figure; plot(0:Ts:40,eo_act,0:Ts:40,ei,'r');
+         xlabel(<span class="string">'time (sec)'</span>)
+         ylabel(<span class="string">'signals (Volts)'</span>)
+         title(<span class="string">'RC Circuit Square Wave Response for T = 4 sec'</span>)
+         legend(<span class="string">'output','input'</span>)
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC11.png" alt=""> </p>
+      <p>Once we have recorded the output response data, we can then go about calculating the magnitude of the system's frequency response
+         at this particular frequency. From inspection of the above figure, the response begins with a transient period and reaches
+         steady-state in approximately 7-8 seconds. After reaching steady-state, the maximum and the minimum values of the output signal
+         can be estimated by simply zooming in on the plotted figure.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC12_1.png" alt=""> </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC12_2.png" alt=""> </p>
+      <p>Inspection of the above gives an estimate of the output amplitude of <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq06338.png" alt="$(4.32 - 0.65)/2 \approx 1.835$">. Since the input amplitude is approximately <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq47425.png" alt="$5/2 = 2.5$">, that means the system's magnitude at this frequency can be calculated as follows.
+      </p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq11538.png" alt="$$ \textrm{magnitude} = \frac{Y}{R} \approx \frac{1.835}{2.5} \approx&#xA;0.734 \Rightarrow 20\log_{10} \frac{Y}{R} \approx -2.686 \textrm{dB} $$"></p>
+      <p>This process can then be repeated for the 18 other frequencies specified in the table above. An example set of raw output
+         response data has been stored here in <a href="Content/Activities/frequency_response_data.mat">frequency_response_data.mat</a>. From this data, or your own, you can then estimate by hand the magnitude of the system's response at the other 18 frequencies.
+      </p>
+      <p>The example given above showed that the system attenuated the input somewhat (magnitude less than 1) at a frequency of approximately
+         1.571 rad/sec. This was to be expected since this frequency was slightly greater than the system's predicted break frequency.
+         Entering the following code will allow us to examine the system's response for a slower frequency, specifically, for <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq87789.png" alt="$T = 40$"> seconds which corresponds to a frequency of approximately 0.157 rad/sec.
+      </p><pre class="codeinput">load <span class="string">frequency_response_data.mat</span>
+figure; plot(0:0.1:100,eo_act_40,0:0.1:100,ei_40,<span class="string">'r'</span>)
+xlabel(<span class="string">'time (sec)'</span>);
+ylabel(<span class="string">'signals (Volts)'</span>);
+title(<span class="string">'RC Circuit Square Wave Response for T = 40 sec'</span>);
+legend(<span class="string">'output'</span>,<span class="string">'input'</span>);
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Activities/html/Activities_RCcircuitB_03.png" alt=""> <p>As expected, since the period of the square wave input is so much larger than the RC circuit's time constant, the output response
+         has plenty of time to reach steady state before the input switches. Therefore, the circuit's magnitude response at this frequency
+         is approximately 1 (0 dB). When the period equaled 4 seconds, the circuit did not have enough time to reach steady-state,
+         hence the output was somewhat attenuated. If we decrease the period of the input further (increase the frequency), the circuit
+         will have even less time to respond and the output will be attenuated further. Executing the following commands will show
+         the circuit's response for an input square wave with period <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq21370.png" alt="$T = 0.4$"> seconds, which corresponds to a frequency of approximately 15.71 rad/sec.
+      </p><pre class="codeinput">load <span class="string">frequency_response_data.mat</span>
+figure; plot(0:0.02:8,eo_act_dot4(1:401),0:0.02:8,ei_dot4(1:401),<span class="string">'r'</span>)
+xlabel(<span class="string">'time (sec)'</span>);
+ylabel(<span class="string">'signals (Volts)'</span>);
+title(<span class="string">'RC Circuit Square Wave Response for T = 0.4 sec'</span>);
+legend(<span class="string">'output'</span>,<span class="string">'input'</span>);
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Activities/html/Activities_RCcircuitB_04.png" alt=""> <p>As we expected, the output is much attenuated as compared to the input. Another thing that you will notice is that the output
+         becomes less stable at these higher frequencies. This arises for a couple of reasons. For one, since the output amplitude
+         is much smaller, any errors or disturbances become a larger percentage of the amplitude. Second, as the frequency of the signals
+         increase, a smaller sample time is required to get a sufficient number of points per period in order to reconstruct the output
+         response. If the signals are sufficiently fast, we will run into the speed limitations of the experimental hardware and software.
+         For the experimental set-up we are employing, we cannot achieve sample times faster than about 0.01 seconds. Therefore, at
+         higher frequencies we may sometimes miss the true extremes of the output signal (the peaks and valleys could occur between
+         samples).
+      </p>
+      <p>In order to construct the Bode magnitude plot we desire, we then need to calculate the gain at each of the 19 frequencies
+         outlined in our original table. This can be performed manually as we demonstrated for <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq65796.png" alt="$T = 4$"> seconds. Alternatively, we can employ the program <a href="Content/Activities/plot_mag.m">plot_mag.m</a> that we have written to generate the Bode magnitude plot. This plotting script employs the function <a href="Content/Activities/cal_avg.m">cal_avg.m</a> to calculate the average amplitude of the output response data for each of the prescribed periods. This function presumes
+         the output data is saved with the same name and format as <a href="Content/Activities/frequency_response_data.mat">frequency_response_data.mat</a>. Executing the program <i>plot_mag.m</i> will then generate a plot like the one shown below. Note the magnitude at <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq47196.png" alt="$\omega = 1.571$"> rad/sec (<img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq65796.png" alt="$T = 4$"> seconds) approximately matches the value we calculated by hand (<img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq16113.png" alt="$\approx -2.686$"> dB).
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/RC16b.png" alt=""> </p>
+      <p>If you calculate the magnitudes manually (in dB) and store them in the vector <tt>M</tt> and store the corresponding frequencies in the vector <tt>w</tt>, then the following commands will generate a plot like the one shown above.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         s = tf(<span class="string">'s'</span>)
+         R = 10*10^3;                          <span class="comment">% resistance in Ohms </span>
+         C = 100*10^-6;                        <span class="comment">% capacitance in Farads </span>
+         G = 1/(R*C*s + 1);                    <span class="comment">% theoretical transfer function </span>
+         figure; semilogx(w,M,'r*');
+         hold <span class="string">on</span>;
+         bodemag(G);
+         legend(<span class="string">'experiment','theory','Location','SouthWest'</span>)
+         grid <span class="string">on</span>;
+         </pre>
+         
+      </p>
+      <p>Inspection of the above Bode plot shows qualitative agreement between the magnitude response predicted by theory and the experimental
+         data we recorded. Some of the difference can be attributed to mismatch between the assumed and actual component values (R
+         and C). However, the primary cause of the discrepancy is that we performed our experiments by sweeping through the frequencies
+         of <i>square wave</i> inputs, rather than employing <i>sinusoidal</i> inputs, as is the standard for frequency response analysis. We employed square wave inputs in order to build intuition for
+         why a system responds differently to inputs of varying frequencies. Furthermore, most models of Arduino board do not have
+         the ability to generate analog outputs.
+      </p>
+      <p>While we did not construct the phase response portion of the Bode plot for this circuit, the data we recorded does provide
+         some intuition here as well. Consider that one period corresponds to 360 degrees. For a square wave input, we can consider
+         that the wave switches from 5 Volts to 0 Volts at the 180 degree position in its cycle. Furthermore, we can approximate the
+         wave as reaching its "peak" at the midpoint of its ON state, which would be at the 90 degree position of its cycle. When the
+         square wave input is slow, for example <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq87789.png" alt="$T = 40$"> seconds, the output reaches 5 Volts relatively quickly as compared to the length of the period. As such, the "peak" of the
+         output wave lags behind the "peak" of the input wave only slightly. As the frequency of the input increases, for example <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq65796.png" alt="$T = 4$"> seconds or <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq21370.png" alt="$T = 0.4$"> seconds, the output reaches its maximum value at the point when the input switches from 5 Volts to 0 Volts. Therefore, the
+         output reaches its peak at the 180 degree position, which is 90 degrees after the input reaches its peak (phase = -90 degrees).
+         This agrees with the theoretical Bode phase plot generated at the beginning of this activity.
+      </p>
+      <p>This behavior also makes intuitive sense. Since it takes time for a physical system to react to a change in its input, the
+         output will always lag behind the input. The "speed" of the system is in essence constant (the time constant doesn't change),
+         however, the time it takes a system to react as a percentage of the input's period increases as the input becomes faster.
+         In other words, <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq89224.png" alt="$\tau$"> is the same whether the input has period <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq87789.png" alt="$T = 40$"> seconds or period <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq65796.png" alt="$T = 4$"> seconds, but <img class="inline_eqn" src="Content/Activities/html/Activities_RCcircuitB_eq89224.png" alt="$\tau$"> becomes a much larger percentage of the period as the frequency increases. This sort of behavior is indicative of most physical
+         systems in that the output will lag behind the input to a greater degree as the frequency of the input is increased.
+      </p>
+      <h2>Extensions<a name="13"></a></h2>
+      <p>If you would like to experimentally generate the frequency response of this circuit employing sinusoidal inputs, there are
+         a couple of options. One approach is to use an external function generator to generate the inputs to the RC circuit, rather
+         than generating the input from the Arduino board. Another option is to employ a board that is able to generate analog outputs.
+         One such example is the Arduino Due. Most other Arduino models (Uno, Mega 2560, etc.), however, can only generate digital
+         outputs. In that case, you can consider the input to the circuit to be the duty cycle of a pulse-width modulated square wave.
+         Therefore, you can observe the frequency response of the circuit by sinusoidally varying the duty cycle across different frequencies.
+         To see an example of this approach, refer to the system identification experiment performed for a Boost Converter Circuit
+         in <a href="?aux=Activities_BoostcircuitB">Activity 5b</a>.
+      </p>
+      <p>In <a href="?aux=Activities_RCcircuitC">Part (c)</a> of this activity, a controller is implemented to change the response characteristics of the RC circuit.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 8.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Activity 1 Part (b): Frequency-Response Identification of a Resistor–Capacitor (RC) Circuit   
+%
+% <<Content/Activities/figures/RC2.jpg>>
+%
+% *Key Topics*: Modeling Electrical Systems, First-Order Systems, System
+% Identification, Frequency Response, Bode Plots
+%
+%% Equipment needed
+%
+% * Arduino board (e.g. Uno, Mega 2560, etc.)
+% * Breadboard
+% * Electronic components (resistor and capacitor)
+% * Ohmmeter, Capacitance meter (optional)
+% * Jumper wires
+%
+% Following up the < ?aux=Activities_RCcircuitA Activity 1a>, we will employ
+% the same Resistor–Capacitor (RC) Circuit in this experiment.  The
+% hardware and software needed for this experiment will also be the same as
+% used previously. Specifically, the Arduino board will be used for
+% generating the input to the circuit and for measuring the output of the
+% ciruit. The input to the circuit will be generated from
+% one of the board's _Digital Outputs_, applied across the resistor and  
+% capacitor in series. The output of the circuit will be the voltage across
+% the capacitor which will be read via one of the board's _Analog Inputs_.
+% This data is then fed to Simulink for visualization and for comparison to
+% our theoretical predictions.
+%
+% <<Content/Activities/figures/RC.png>>
+%
+%% Purpose
+%
+% In the previous activity we examined the time response of an RC circuit.
+% The purpose of this activity is rather to understand the frequency
+% response of the same circuit. Specifically, we are going to
+% experimentally construct the magnitude plot portion of the Bode plot for
+% the RC circuit. In this activity we will sweep through a range of
+% frequencies, but we will employ square wave inputs rather than sine wave
+% inputs. In this regard, the magnitude response that we generate won't
+% exactly correspond to the standard definition of frequency response. The
+% reason we will employ square wave inputs is to build intuition regarding
+% the meaning of the circuit's frequency response based on the
+% understanding of the circuit's step response we gained in
+% < ?aux=Activities_RCcircuitA Activity 1a>.
+%
+%% Theoretical frequency response
+%
+% The idea behind frequency response analysis is to examine how a system
+% responds to sinusoidally varying inputs of different frequencies. If we
+% have a linear system, as we do in this case, then a sinusoidal input of a
+% particular frequency will generate in steady-state a sinusoidal output of
+% the same frequency. The output, however, may have a different amplitude
+% than the input and the output may be phase shifted as compared to the
+% input. This idea is demonstrated below. 
+%
+% <<Content/Activities/figures/freq_resp.png>>
+%
+% One can understand the above by considering that if our system is
+% represented as the transfer function $G(s)$, then the output is simply
+% the product of the transfer function and the input, $Y(s) = G(s)R(s)$.
+% Therefore, the output can be separated (via a partial fraction expansion) into
+% a component with the poles of the transfer function (representing the
+% system's natural response) and a component with the poles of the input
+% signal. If the system is stable, then the natural response will die out
+% resulting in a steady-state output that has the same form (poles) as the input
+% signal. 
+%
+% When we consider a system's frequency response, we are specifically
+% interested in how the amplitude and phase of the steady-state output
+% compare to the sinusoidal input. One way to represent this amplitude
+% (magnitude) data and this phase data is as a Bode plot. A Bode plot
+% consists of two graphs, one being the magnitude of the response (the
+% ratio of the output amplitude to the input amplitude, $Y/R$) versus frequency,
+% and the other being the phase of the response versus frequency.
+%
+% Executing the following commands at the MATLAB command line will generate
+% the theoretical Bode plot for our RC circuit (with $R = 10 k\Omega$, $C =
+% 100 \mu F$). 
+
+s = tf('s');
+R = 10000;                                        % resistance of resistor in RC circuit
+C = 100*10^-6;                                    % capacitance of capacitor in RC circuit
+G = 1/(C*R*s+1);                                  % RC circuit transfer function
+bode(G)
+title('RC Circuit Frequency Response (R = 10 kOhm, C = 100 uF)')
+
+%%
+% Examination of the above demonstrates that the RC circuit behaves like a
+% low-pass filter (passes low frequencies and blocks high frequencies). At
+% low frequencies, the circuit has a magnitude response 
+% of zero decibels. Recall that in decibels the magnitude is calculated
+% as $20 \log Y/R$, therefore, a magnitude of 0 dB corresponds to the case that
+% the output amplitude is equal to the input amplitude (the ratio $Y/R$
+% equals 1). While at higher frequencies, the magnitude in dBs becomes more
+% and more negative. This trend corresponds to the amplitude ratio becoming
+% closer to zero, that is, the output is attenuated to a greater degree as
+% the input frequency is increased. The trend observed in the phase plot is
+% that the output lags behind the input to greater degree as the input
+% frequency is increased.
+% 
+% These trends are observed in most physical systems. As the frequency of the
+% input increases, the system has a harder time "keeping up" with the
+% input. Through the course of the hardware experiment in the next section,
+% we will try to build some intuition for this phenomenon. In the case of
+% the system we are examining here, the frequency at which the input begins
+% to be attenuated is determined by the size of the electronic components
+% $R$ and $C$. Specifically, recall the transfer function for the RC
+% circuit: 
+%
+% $$ G(s) =  \frac{E_o(s)}{E_i(s)} = \frac{1}{RCs+1} =  \frac{K}{\tau s+1} $$
+%
+% The break frequency for this circuit is determined by the location of its
+% pole, that is, the break frequency equals $1/\tau = 1/RC$. In the case of
+% this circuit, $RC = 1$ and the break frequency is in the neighborhood of
+% 1 rad/sec. Recalling the form of the RC circuit's step response, we can
+% anticipate how the circuit will respond to a square wave input of varying
+% frequencies. We will verify our intuition with a hardware-based
+% experiment in the next section. The overall purpose of this activity is
+% to better understand what a system's frequency response means.
+%
+% Executing the following commands at the MATLAB command line will generate
+% the theoretical step response plot for our RC circuit (with $R = 10 k\Omega$, $C =
+% 100 \mu F$). 
+
+s = tf('s');
+R = 10000;                                        % resistance of resistor in RC circuit
+C = 100*10^-6;                                    % capacitance of capacitor in RC circuit
+G = 1/(C*R*s+1);                                  % RC circuit transfer function
+step (G)
+title('RC Circuit Step Response (R = 10 kOhm, C = 100 uF)')
+
+%%
+% Examination of the above shows a standard first-order step response. For
+% a square wave input, one can imagine that the output will rise 
+% as shown above when the input is "ON" and will decay exponentially when
+% the input is "OFF." Cycling between the "ON" and "OFF" states will then
+% generate a response like the one shown below.
+%
+% <<Content/Activities/figures/square_resp.png>>
+% 
+% In the above figure, the period of the square wave input is sufficiently
+% large that the system output has time to approximately reach steady-state
+% before the input signal switches its value. Recall that for a
+% first-order system, it takes approximately 4 time constants ($4\tau$) for
+% the output to achieve $98 \%$ of its total change. Therefore, when the input
+% frequency is sufficiently slow (period sufficiently large compared to
+% $\tau$) the output response will appear as in the above figure where the
+% amplitude of the output is approximately equal to the amplitude of the
+% input. This is what was observed in the Bode plot generated earlier. At
+% low frequencies, the magnitude approximately equaled $20\log 1 = 0$ dB,
+% which corresponds to an amplitude ratio of 1 (no attenuation).
+%
+% Further recall that it takes approximately 1 time constant ($\tau$) for a
+% standard first-order step response to reach $63 \%$ of its total change.
+% Therefore, when the square wave has a period of $2\tau$ (frequency equal
+% $2\pi/2\tau \approx 3.14$ rad/sec for this system) the output response
+% will not have time to reach steady-state before the input switches value
+% again. As such, the amplitude of the output will be smaller than the
+% amplitude of the input. This is observed in the previously generated Bode
+% plot in that the magnitude above the break frequency (1 rad/sec) is less
+% than 1 (less than 0 dB). As the frequency of the input increases, there
+% is even less time for the output to react. This is indicated in the Bode
+% plot by the fact the system's magnitude (the output amplitude) gets
+% smaller and smaller as the frequency of the input is increased.
+%
+% We will investigate this phenomenon in the following experiment.
+% 
+%% System identification experiment
+% 
+% In this experiment we will record the output voltage of the
+% RC circuit for a square wave voltage input. Specifically, the voltage
+% input will alternate between 0 Volts and 5 Volts, where the time "OFF"
+% will equal the time "ON." The frequency of the square wave input will be
+% varied and the resulting amplitude of the circuit's output response will
+% be recorded to approximate the system's magnitude response. In a sense,
+% we are generating the system's frequency response model empirically. This
+% is sometimes referred to as a blackbox model or a data-driven model. The
+% hardware and software setup we will employ is very similar to that
+% employed in < ?aux=Activities_RCcircuitA Part (a)> of this activity.
+%
+%%
+% *Hardware setup*
+%
+% Our simple RC circuit can be implemented on a breadboard and connected to
+% the Arduino board as shown. Recall that if you employ an
+% electrolytic capacitor, its orientation matters. The Arduino board is
+% employed to receive the input voltage command from Simulink and to apply
+% the voltage to the circuit (via a Digital Output). The board also
+% acquires the output voltage data from the circuit (via an Analog Input)
+% and communicates the data to Simulink. 
+%
+% <<Content/Activities/figures/arduinoRC.png>> 
+%
+% In this experiment, the values of the resistor and capacitor are chosen
+% ($R = 10\ k\Omega$, $C = 100\ \mu F$) such that the circuit's time
+% response is slow enough that the Arduino/Simulink setup can sample the
+% circuit at a fast enough rate to give a clear picture of the circuit's
+% output. Since we are generating the circuit's frequency response, we wish
+% to be able to accurately capture the circuit's response at frequencies at
+% least one or two decades above the circuit's break frequency (1 rad/sec).
+% 
+%%
+% *Software setup*
+%
+% In this experiment, we will employ Simulink to read the data from
+% the board and to plot the data in real time. In particular, we
+% will employ the IO package from the MathWorks. For details on how to
+% use the IO package, refer to the following < ?aux=Activities_IOpack
+% link>. 
+% The Simulink model we will use in this experiment is essentially the same
+% as the one we used in Part (a) of this activity. The model can be 
+% downloaded <Content/Activities/RCpulse_bode.slx here>, where you may need to change the port
+% to which the Arduino board is connected (the port is COM5 in this case).
+%
+% As shown below, the input voltage command is generated by a Pulse
+% Generator block (for generating a square wave input). The Pulse Generator
+% block generates values of 0 or 1 which are then fed to an Arduino Digital
+% Write block. Since we are using channel 8 for the digital output, we
+% double-click on the Arduino Digital Write block to set the *Pin* to |8|
+% from the drop-down menu. An input of 0 to the Digital Write block causes
+% an output of 0 Volts to be generated at the corresponding pin, while an
+% input of 1 to the Digital Write block generates an output of 5 Volts.
+% This scaling is captured by the Gain block that is included prior to the
+% Scope block.  
+%
+% <<Content/Activities/figures/RCpulse1.png>>
+%
+% The Arduino Analog Read block reads the output voltage data 
+% via the Analog Input A0 on the board. Double-clicking on the block allows
+% us to set the *Pin* to |0| from the drop-down menu. We also will set the
+% *Sample Time* based on the frequency of the input being employed. For
+% example, for an input frequency of 10 rad/sec (1 decade above the
+% circuit's break frequency), we could employ a sample time of "0.02". This
+% sample time corresponds to a sampling frequency of 50 Hz, which is
+% more than 30 times faster than the frequency of the input signal (10
+% rad/sec $\approx$ 1.59 Hz). This means the that circuit's response for
+% this input would be sampled more than 30 times per cycle. This is enough
+% to capture the character of the system's output at this frequency. The
+% downloadable model included above defines all sample times as _Ts_ (or
+% left as "-1"). Therefore, before you run this model you must define the
+% variable _Ts_ in the MATLAB workspace, for example, by typing |Ts =
+% 0.02;| at the command line. The Gain block is included to convert the
+% data into units of Volts (by multiplying the data by 5/1023). 
+%
+% The given Simulink model then plots the commanded input voltage and
+% recorded output voltage on a scope and also writes the output data to the
+% MATLAB workspace for further analysis. The Arduino Digital Write block,
+% the Arduino Analog Read block, the Arduino IO Setup block, and the
+% Real-Time Pacer block are all part of the IO package. The remaining
+% blocks are part of the standard Simulink library, specifically, they can
+% be found under the Math, Sources, and Sinks libraries. 
+%
+%% Data acquisition
+%
+% To experimentally construct a Bode magnitude plot, we will sweep through
+% a series of square wave inputs of varying frequency and record the
+% amplitude of the output response. In order to get a complete picture of
+% the RC circuit's frequency response, we need to capture frequencies
+% ranging from at least 1 decade below the break frequency to at least 1
+% decade above the break frequency. Specifically, we will look at
+% frequencies ranging from approximately 0.05 rad/sec (20 times smaller
+% than 1 rad/sec) all the way up to about 30 rad/sec (30 times larger than
+% 1 rad/sec). Below provides a table describing the input signal periods
+% and frequencies, as well as the sampling time and duration employed to
+% guarantee the circuit's response is sampled frequently enough and the
+% response is given sufficient time to reach steady state.
+%
+% $$
+% \begin{tabular}{l c c c c}
+% &\textbf{T(sec)}&\textbf{freq(rad/sec)}&\textbf{Ts(sec)}&\textbf{Duration(sec)}\\\hline
+% \textbf{(1)}&125&0.050&0.1&300\\
+% \textbf{(2)}&60&0.105&0.1&100\\
+% \textbf{(3)}&40&0.157&0.1&100\\
+% \textbf{(4)}&20&0.314&0.1&40\\
+% \textbf{(5)}&15&0.419&0.1&40\\
+% \textbf{(6)}&12&0.524&0.1&40\\
+% \textbf{(7)}&10&0.628&0.1&40\\
+% \textbf{(8)}&9&0.698&0.05&40\\
+% \textbf{(9)}&8&0.785&0.05&40\\
+% \textbf{(10)}&7&0.898&0.05&40\\
+% \textbf{(11)}&6&1.047&0.05&40\\
+% \textbf{(12)}&5&1.257&0.05&40\\
+% \textbf{(13)}&4&1.571&0.05&40\\
+% \textbf{(14)}&3&2.094&0.05&40\\
+% \textbf{(15)}&2&3.142&0.05&40\\
+% \textbf{(16)}&1&6.283&0.05&40\\
+% \textbf{(17)}&0.6&10.47&0.02&40\\
+% \textbf{(18)}&0.4&15.71&0.02&40\\
+% \textbf{(19)}&0.2&31.42&0.02&40\\
+% \end{tabular}
+% $$
+%
+% For demonstration purposes, we will look at the circuit's response to a
+% square wave input of period $T = 4$ seconds. This corresponds to a
+% frequency of approximately 1.571 rad/sec, which is slightly faster than the
+% circuit's 1 rad/sec break frequency. To get started, enter the following
+% commands in the command window: 
+%
+
+T=4;      % Period of the square wave input
+Ts=0.05;  % Sampling time employed in the Simulink model
+N=T/Ts;   % Number of samples per period
+
+%%
+% Now open (or create) the Simulink model provided earlier in this
+% section. Double-click on the Input Voltage block and the Arduino Analog Read 
+% block, respectively, and set the parameters $N$ and $Ts$ as shown below.
+%
+% <<Content/Activities/figures/RC10_1.png>>
+%
+% <<Content/Activities/figures/RC10_2.png>>
+% 
+% Before running the Simulink model, make sure that its run length is
+% set to 40 seconds as shown below, corresponding to the table that we 
+% previously introduced.
+%
+% <<Content/Activities/figures/RC10_3.png>>
+%
+% Entering the following code at the MATLAB command line will generate a
+% plot like the one shown below which includes the square wave input and
+% the circuit's output response.
+%
+% <html>
+% </p><pre class="codeinput">
+% figure; plot(0:Ts:40,eo_act,0:Ts:40,ei,'r');
+% xlabel(<span class="string">'time (sec)'</span>)
+% ylabel(<span class="string">'signals (Volts)'</span>)
+% title(<span class="string">'RC Circuit Square Wave Response for T = 4 sec'</span>)
+% legend(<span class="string">'output','input'</span>)
+% </pre>
+% </html>
+%
+% <<Content/Activities/figures/RC11.png>>
+%
+% Once we have recorded the output response data, we can then go about
+% calculating the magnitude of the system's frequency response at this
+% particular frequency. From inspection of the above figure, the response
+% begins with a transient period and reaches steady-state in approximately
+% 7-8 seconds. After reaching steady-state, the maximum and the minimum
+% values of the output signal can be estimated by simply zooming in on the
+% plotted figure. 
+%
+% <<Content/Activities/figures/RC12_1.png>>
+%
+% <<Content/Activities/figures/RC12_2.png>>
+%
+% Inspection of the above gives an estimate of the output amplitude of $(4.32
+% - 0.65)/2 \approx 1.835$. Since the input amplitude is approximately $5/2
+% = 2.5$, that means the system's magnitude at this frequency can be
+% calculated as follows.
+%
+% $$ \textrm{magnitude} = \frac{Y}{R} \approx \frac{1.835}{2.5} \approx
+% 0.734 \Rightarrow 20\log_{10} \frac{Y}{R} \approx -2.686 \textrm{dB} $$
+%
+% This process can then be repeated for the 18 other frequencies specified
+% in the table above. An example set of raw output response data has been
+% stored here in <Content/Activities/frequency_response_data.mat
+% frequency_response_data.mat>. From this data, or your own, you can then
+% estimate by hand the magnitude of the system's response at the other 18
+% frequencies.
+%
+% The example given above showed that the system attenuated the input
+% somewhat (magnitude less than 1) at a frequency of approximately 1.571
+% rad/sec. This was to be expected since this frequency was slightly
+% greater than the system's predicted break frequency. Entering the
+% following code will allow us to examine the system's response for a
+% slower frequency, specifically, for $T = 40$ seconds which corresponds to
+% a frequency of approximately 0.157 rad/sec.
+
+load frequency_response_data.mat
+figure; plot(0:0.1:100,eo_act_40,0:0.1:100,ei_40,'r')
+xlabel('time (sec)');
+ylabel('signals (Volts)');
+title('RC Circuit Square Wave Response for T = 40 sec');
+legend('output','input');
+
+%%
+% As expected, since the period of the square wave input is so much larger
+% than the RC circuit's time constant, the output response has plenty of
+% time to reach steady state before the input switches. Therefore, the
+% circuit's magnitude response at this frequency is approximately 1 (0 dB).
+% When the period equaled 4 seconds, the circuit did not have enough time
+% to reach steady-state, hence the output was somewhat attenuated. If we
+% decrease the period of the input further (increase the frequency), the
+% circuit will have even less time to respond and the output will be
+% attenuated further. Executing the following commands will show the
+% circuit's response for an input square wave with period $T = 0.4$
+% seconds, which corresponds to a frequency of approximately 15.71 rad/sec.
+
+load frequency_response_data.mat
+figure; plot(0:0.02:8,eo_act_dot4(1:401),0:0.02:8,ei_dot4(1:401),'r')
+xlabel('time (sec)');
+ylabel('signals (Volts)');
+title('RC Circuit Square Wave Response for T = 0.4 sec');
+legend('output','input');
+
+%%
+% As we expected, the output is much attenuated as compared to the input.
+% Another thing that you will notice is that the output becomes less stable
+% at these higher frequencies. This arises for a couple of reasons. For
+% one, since the output amplitude is much smaller, any errors or
+% disturbances become a larger percentage of the amplitude. Second, as the
+% frequency of the signals increase, a smaller sample time is required to
+% get a sufficient number of points per period in order to reconstruct the
+% output response. If the signals are sufficiently fast, we will run into
+% the speed limitations of the experimental hardware and software. For the
+% experimental set-up we are employing, we cannot achieve sample times faster
+% than about 0.01 seconds. Therefore, at higher frequencies we may
+% sometimes miss the true extremes of the output signal (the peaks and
+% valleys could occur between samples).
+%
+% In order to construct the Bode magnitude plot we desire, we then need to
+% calculate the gain at each of the 19 frequencies outlined in our original
+% table. This can be performed manually as we demonstrated for $T = 4$
+% seconds. Alternatively, we can employ the program <Content/Activities/plot_mag.m
+% plot_mag.m> that we have written to generate the Bode magnitude plot.
+% This plotting script employs the function <Content/Activities/cal_avg.m cal_avg.m> to
+% calculate the average amplitude of the output response data for each of
+% the prescribed periods. This function presumes the output data is saved
+% with the same name and format as <Content/Activities/frequency_response_data.mat
+% frequency_response_data.mat>. Executing the program _plot_mag.m_ will
+% then generate a plot like the one shown below. Note the magnitude at
+% $\omega = 1.571$ rad/sec ($T = 4$ seconds) approximately matches the
+% value we calculated by hand ($\approx -2.686$ dB).
+%
+% <<Content/Activities/figures/RC16b.png>>
+%
+% If you calculate the magnitudes manually (in dB) and store them in the vector |M|
+% and store the corresponding frequencies in the vector |w|, then the
+% following commands will generate a plot like the one shown above.
+%
+% <html>
+% </p><pre class="codeinput">
+% s = tf(<span class="string">'s'</span>)
+% R = 10*10^3;                          <span class="comment">% resistance in Ohms </span>
+% C = 100*10^-6;                        <span class="comment">% capacitance in Farads </span>
+% G = 1/(R*C*s + 1);                    <span class="comment">% theoretical transfer function </span>
+% figure; semilogx(w,M,'r*');
+% hold <span class="string">on</span>;
+% bodemag(G);
+% legend(<span class="string">'experiment','theory','Location','SouthWest'</span>)
+% grid <span class="string">on</span>;
+% </pre>
+% </html>
+%
+% Inspection of the above Bode plot shows qualitative agreement between the magnitude
+% response predicted by theory and the experimental data we recorded. Some
+% of the difference can be attributed to mismatch between the assumed
+% and actual component values (R and C). However, the primary cause of the
+% discrepancy is that we performed our experiments by sweeping through the 
+% frequencies of _square wave_ inputs, rather than employing _sinusoidal_
+% inputs, as is the standard for frequency response analysis. We employed
+% square wave inputs in order to build intuition for why a system responds
+% differently to inputs of varying frequencies. Furthermore, most models of
+% Arduino board do not have the ability to generate analog outputs.
+%
+% While we did not construct the phase response portion of the Bode plot
+% for this circuit, the data we recorded does provide some intuition here
+% as well. Consider that one period corresponds to 360 degrees. For a
+% square wave input, we can consider that the wave switches from 5 Volts to 0
+% Volts at the 180 degree position in its cycle. Furthermore, we can
+% approximate the wave as reaching its "peak" at the midpoint of its ON
+% state, which would be at the 90 degree position of its cycle. When the
+% square wave input is slow, for example $T = 40$ seconds, the output
+% reaches 5 Volts relatively quickly as compared to the length of the
+% period. As such, the "peak" of the output wave lags behind the "peak" of
+% the input wave only slightly. As the frequency of the input increases,
+% for example $T = 4$ seconds or $T = 0.4$ seconds, the output reaches its
+% maximum value at the point when the input switches from 5 Volts to 0
+% Volts. Therefore, the output reaches its peak at the 180 degree position,
+% which is 90 degrees after the input reaches its peak (phase = -90
+% degrees). This agrees with the theoretical Bode phase plot generated at
+% the beginning of this activity. 
+%
+% This behavior also makes intuitive sense. Since it takes time for a
+% physical system to react to a change in its input, the output will always
+% lag behind the input. The "speed" of the system is in essence constant
+% (the time constant doesn't change), however, the time it takes a system to
+% react as a percentage of the input's period increases as the input
+% becomes faster. In other words, $\tau$ is the same whether the input has
+% period $T = 40$ seconds or period $T = 4$ seconds, but $\tau$ becomes a
+% much larger percentage of the period as the frequency increases. This sort
+% of behavior is indicative of most physical systems in that the output
+% will lag behind the input to a greater degree as the frequency of the
+% input is increased. 
+%
+%% Extensions
+%
+% If you would like to experimentally generate the frequency response of
+% this circuit employing sinusoidal inputs, there are a couple of options.
+% One approach is to use an external function generator to generate the
+% inputs to the RC circuit, rather than generating the input from the
+% Arduino board. Another option is to employ a board that is able to
+% generate analog outputs. One such example is the Arduino Due. Most other
+% Arduino models (Uno, Mega 2560, etc.), however, can only generate digital
+% outputs. In that case, you can consider the input to the circuit to be
+% the duty cycle of a pulse-width modulated square wave. Therefore, you can
+% observe the frequency response of the circuit by sinusoidally varying the
+% duty cycle across different frequencies. To see an example of this approach,
+% refer to the system identification experiment performed for a Boost
+% Converter Circuit in < ?aux=Activities_BoostcircuitB Activity 5b>. 
+%
+% In < ?aux=Activities_RCcircuitC Part (c)> of this activity, a controller is 
+% implemented to change the response characteristics of the RC circuit.
+ 
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Introduction&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Introduction&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Introduction&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Introduction&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Introduction&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Introduction&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Introduction&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Introduction&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Introduction&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Introduction&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

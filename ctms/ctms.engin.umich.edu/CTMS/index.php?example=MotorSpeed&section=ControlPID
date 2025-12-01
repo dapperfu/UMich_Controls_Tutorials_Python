@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: MotorSpeed	section: ControlPID	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "MotorSpeed";
+			var section = "ControlPID";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=MotorSpeed&section=ControlRootLocus";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Motor Speed: PID Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#a3e0cccdd7d1cccff7d6d7ccd1cac2cfd0eec2d7cfc2c1f0caced6cfcacdc8e3c4cec2cacf8dc0ccce">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=MotorSpeed&section=ControlRootLocus">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlPID"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlPID"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlPID"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlPID"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlPID"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlPID"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlPID"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlPID"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>DC Motor Speed: PID Controller Design</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/feedback.html"><tt>feedback</tt></a> , <a href="http://www.mathworks.com/help/control/ref/controlsystemdesigner-app.html"><tt>controlSystemDesigner</tt></a></p>
+      </div>
+	  <div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?example=Introduction&section=ControlPID">PID Control Intro</a></li>
+        <li><a href="?aux=Activities_DCmotorB">DC Motor Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/videos/pid-control-made-easy-81646.html">MATLAB PID Video</a></li>
+	  	<li><a href="https://www.mathworks.com/videos/control-system-design-with-control-system-tuning-app-68749.html">Control System Designer App Video</a></li>	
+		<li><a href="https://www.youtube.com/watch?v=RYWPqb2hAEM">PID Intro Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#3">Proportional control</a></li>
+            <li><a href="#12">PID control</a></li>
+            <li><a href="#14">Tuning the gains</a></li>
+         </ul>
+      </div>
+      <p>From the main problem, the dynamic equations in the Laplace domain and the open-loop transfer function of the DC Motor are
+         the following.
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq05457768202094204115.png" alt="$$ s(Js + b)\Theta(s) = KI(s) $$"></p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq08102615043751877723.png" alt="$$ (Ls + R)I(s) = V(s) - Ks\Theta(s) $$"></p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq12367307253716340627.png" alt="$$ P(s) = \frac{\dot{\Theta}(s)}{V(s)} = \frac{K}{(Js + b)(Ls + R) + K^2}  \qquad [\frac{rad/sec}{V}] $$"></p>
+      <p>The structure of the control system has the form shown in the figure below.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/MotorSpeed/Control/PID/figures/feedback_motors.png" alt=""> </p>
+      <p>For the original problem setup and the derivation of the above equations, please refer to the <a href="?example=MotorSpeed&amp;section=SystemModeling">DC Motor Speed: System Modeling</a> page.
+      </p>
+      <p>For a 1-rad/sec step reference, the design criteria are the following.</p>
+      <div>
+         <ul>
+            <li>Settling time less than 2 seconds</li>
+            <li>Overshoot less than 5%</li>
+            <li>Steady-state error less than 1%</li>
+         </ul>
+      </div>
+      <p>Now let's design a controller using the methods introduced in the <a href="?example=Introduction&amp;section=ControlPID">Introduction: PID Controller Design</a> page. Create a new <a href="?aux=Extras_Mfile">m-file</a> and type in the following commands.
+      </p><pre class="codeinput">J = 0.01;
+b = 0.1;
+K = 0.01;
+R = 1;
+L = 0.5;
+s = tf(<span class="string">'s'</span>);
+P_motor = K/((J*s+b)*(L*s+R)+K^2);
+</pre><p>Recall that the transfer function for a PID controller is:</p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq13891026611547201184.png" alt="$$ C(s) = K_{p} + \frac {K_{i}} {s} + K_{d}s = \frac{K_{d}s^2 + K_{p}s + K_{i}} {s} $$"></p>
+      <h2>Proportional control<a name="3"></a></h2>
+      <p>Let's first try employing a proportional controller with a gain of 100, that is, <i>C</i>(<i>s</i>) = 100. To determine the closed-loop transfer function, we use the <tt>feedback</tt> command.  Add the following code to the end of your m-file.
+      </p><pre class="codeinput">Kp = 100;
+C = pid(Kp);
+sys_cl = feedback(C*P_motor,1);
+</pre><p>Now let's examine the closed-loop step response. Add the following commands to the end of your m-file and run it in the command
+         window. You should generate the plot shown below. You can view some of the system's characteristics by right-clicking on the
+         figure and choosing <b>Characteristics</b> from the resulting menu. In the figure below, annotations have specifically been added for <b>Settling Time</b>, <b>Peak Response</b>, and <b>Steady State</b>.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         t = 0:0.01:5;
+         step(sys_cl,t)
+         grid
+         title('Step Response with Proportional Control')
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/MotorSpeed/Control/PID/figures/sPID_control_01.png" alt=""> </p>
+      <p>From the plot above we see that both the steady-state error and the overshoot are too large. Recall from the <a href="?example=Introduction&amp;section=ControlPID">Introduction: PID Controller Design</a> page that increasing the proportional gain <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq04301653670133881862.png" alt="$K_p$"> will reduce the steady-state error. However, also recall that increasing <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq04301653670133881862.png" alt="$K_p$"> often results in increased overshoot, therefore, it appears that not all of the design requirements can be met with a simple
+         proportional controller.
+      </p>
+      <p>This fact can be verified by experimenting with different values of <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq04301653670133881862.png" alt="$K_p$">. Specifically, you can employ the <b>Control System Designer</b> by entering the command <tt>controlSystemDesigner(P_motor)</tt> or by going to the <b>APPS</b> tab and clicking on the app icon under <b>Control System Design and Analysis</b> and then opening a closed-loop step response plot from the <b>New Plot</b> tab of the <b>Control System Designer</b> window as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/MotorSpeed/Control/PID/figures/control_sys_designer_PID.png" alt=""> </p>
+      <p>After that you can right-click on the plot and select <b>Edit Compensator</b>. You can then vary the control gain in the <b>Compensator Editor</b> window and see the resulting effect on the closed-loop step response as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/MotorSpeed/Control/PID/figures/control_sys_designer_PID_1.png" alt=""> </p>
+      <p>A little experimentation verifies what we anticipated, a proportional controller is insufficient for meeting the given design
+         requirements; derivative and/or integral terms must be added to the controller.
+      </p>
+      <h2>PID control<a name="12"></a></h2>
+      <p>Recall from the <a href="?example=Introduction&amp;section=ControlPID">Introduction: PID Controller Design</a> page, adding an integral term will eliminate the steady-state error to a step reference and a derivative term will often
+         reduce the overshoot. Let's try a PID controller with small <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq12979110429562330213.png" alt="$K_i$"> and <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq14222518565320121796.png" alt="$K_d$">. Modify your m-file so that the lines defining your control are as follows. Running this new m-file gives you the plot shown
+         below.
+      </p><pre class="codeinput">Kp = 75;
+Ki = 1;
+Kd = 1;
+C = pid(Kp,Ki,Kd);
+sys_cl = feedback(C*P_motor,1);
+step(sys_cl,[0:1:200])
+title(<span class="string">'PID Control with Small Ki and Small Kd'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_01.png" alt=""> <p>Inspection of the above indicates that the steady-state error does indeed go to zero for a step input. However, the time it
+         takes to reach steady-state is far larger than the required settling time of 2 seconds.
+      </p>
+      <h2>Tuning the gains<a name="14"></a></h2>
+      <p>In this case, the long tail on the step response graph is due to the fact that the integral gain is small and, therefore,
+         it takes a long time for the integral action to build up and eliminate the steady-state error. This process can be sped up
+         by increasing the value of <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq12979110429562330213.png" alt="$K_i$">. Go back to your m-file and change <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq12979110429562330213.png" alt="$K_i$"> to 200 as in the following. Rerun the file and you should get the plot shown below. Again the annotations are added by right-clicking
+         on the figure and choosing <b>Characteristics</b> from the resulting menu.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         Kp = 100;
+         Ki = 200;
+         Kd = 1;
+         C = pid(Kp,Ki,Kd);
+         sys_cl = feedback(C*P_motor,1);
+         step(sys_cl, 0:0.01:4)
+         grid
+         title('PID Control with Large Ki and Small Kd')
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/MotorSpeed/Control/PID/figures/sPID_control_03.png" alt=""> </p>
+      <p>As expected, the steady-state error is now eliminated much more quickly than before. However, the large <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq12979110429562330213.png" alt="$K_i$"> has greatly increased the overshoot. Let's increase <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq14222518565320121796.png" alt="$K_d$"> in an attempt to reduce the overshoot. Go back to the m-file and change <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq14222518565320121796.png" alt="$K_d$"> to 10 as shown in the following. Rerun your m-file and the plot shown below should be generated.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         Kp = 100;
+         Ki = 200;
+         Kd = 10;
+         C = pid(Kp,Ki,Kd);
+         sys_cl = feedback(C*P_motor,1);
+         step(sys_cl, 0:0.01:4)
+         grid
+         title('PID Control with Large Ki and Large Kd')
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/MotorSpeed/Control/PID/figures/sPID_control_04.png" alt=""> </p>
+      <p>As we had hoped, the increased <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq14222518565320121796.png" alt="$K_d$"> reduced the resulting overshoot. Now we know that if we use a PID controller with <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq04301653670133881862.png" alt="$K_p$"> = 100, <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq12979110429562330213.png" alt="$K_i$"> = 200, and <img class="inline_eqn" src="Content/MotorSpeed/Control/PID/html/MotorSpeed_ControlPID_eq14222518565320121796.png" alt="$K_d$"> = 10, all of our design requirements will be satisfied.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% DC Motor Speed: PID Controller Design
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/feedback.html
+% |feedback|> ,
+% <http://www.mathworks.com/help/control/ref/controlsystemdesigner-app.html |controlSystemDesigner|>
+%
+%% 
+% From the main problem, the dynamic equations in the Laplace domain and
+% the open-loop transfer function of the DC Motor are the following.
+%
+% $$ s(Js + b)\Theta(s) = KI(s) $$
+%
+% $$ (Ls + R)I(s) = V(s) - Ks\Theta(s) $$
+% 
+% $$ P(s) = \frac{\dot{\Theta}(s)}{V(s)} = \frac{K}{(Js + b)(Ls + R) + K^2}  \qquad [\frac{rad/sec}{V}] $$
+%
+% The structure of the control system has the form shown in the figure
+% below. 
+%
+% <<Content/MotorSpeed/Control/PID/figures/feedback_motors.png>>
+%
+% For the original problem setup and the derivation of the above equations,
+% please refer to the  
+% < ?example=MotorSpeed&section=SystemModeling
+% DC Motor Speed: System Modeling> page.  
+%
+% For a 1-rad/sec step reference, the design criteria are the following.
+%
+% * Settling time less than 2 seconds
+% * Overshoot less than 5%
+% * Steady-state error less than 1%
+%
+% Now let's design a controller using the methods introduced in the
+% < ?example=Introduction&section=ControlPID
+% Introduction: PID Controller Design> page. 
+% Create a new < ?aux=Extras_Mfile
+% m-file> and type in the following commands.
+
+J = 0.01;
+b = 0.1;
+K = 0.01;
+R = 1;
+L = 0.5;
+s = tf('s');
+P_motor = K/((J*s+b)*(L*s+R)+K^2);
+
+%%
+% Recall that the transfer function for a PID controller is:
+%
+% $$ C(s) = K_{p} + \frac {K_{i}} {s} + K_{d}s = \frac{K_{d}s^2 + K_{p}s + K_{i}} {s} $$
+%
+%
+%% Proportional control
+% Let's first try employing a proportional controller with a gain of 100,
+% that is, _C_(_s_) = 100. To determine the closed-loop transfer function, we
+% use the |feedback| command.  Add the following code to the end of your
+% m-file. 
+
+Kp = 100;
+C = pid(Kp);
+sys_cl = feedback(C*P_motor,1);
+      
+%%
+% Now let's examine the closed-loop step response. Add the following
+% commands to the end of your m-file and run it in the command window. 
+% You should generate the plot shown below. You can view some of the system's
+% characteristics by right-clicking on the figure and choosing
+% *Characteristics* from the resulting menu. In the figure below,
+% annotations have specifically been added for *Settling Time*, *Peak
+% Response*, and *Steady State*.
+%%
+% <html>
+% </p><pre class="codeinput">
+% t = 0:0.01:5;
+% step(sys_cl,t)
+% grid
+% title('Step Response with Proportional Control')
+% </pre>
+% </html>
+%%
+%
+% <<Content/MotorSpeed/Control/PID/figures/sPID_control_01.png>>
+% 
+%%
+% From the plot above we see that both the steady-state error and the
+% overshoot are too large. Recall from the
+% < ?example=Introduction&section=ControlPID Introduction: PID Controller Design> page 
+% that increasing the proportional gain $K_p$
+% will reduce the steady-state error. However, also recall that increasing
+% $K_p$ often results in increased overshoot, therefore, it appears that not
+% all of the design requirements can be met with a simple proportional
+% controller.
+%
+% This fact can be verified by experimenting with different values of $K_p$.
+% Specifically, you can employ the *Control System Designer* by entering the command
+% |controlSystemDesigner(P_motor)| or by going
+% to the *APPS* tab and clicking on the app icon under *Control System
+% Design and Analysis* and then opening a closed-loop step response plot from
+% the *New Plot* tab of the *Control System Designer*
+% window as shown below.
+%%
+% 
+% <<Content/MotorSpeed/Control/PID/figures/control_sys_designer_PID.png>>
+% 
+%%
+% After that you can right-click on the plot and select *Edit Compensator*. 
+% You can then vary the
+% control gain in the *Compensator Editor* window and see the resulting effect
+% on the closed-loop step response as shown below. 
+%%
+% 
+% <<Content/MotorSpeed/Control/PID/figures/control_sys_designer_PID_1.png>>
+% 
+%%
+% A little experimentation verifies what
+% we anticipated, a proportional controller is insufficient for meeting the
+% given design requirements; derivative and/or integral terms must be
+% added to the controller.
+%
+%% PID control
+% Recall from the 
+% < ?example=Introduction&section=ControlPID Introduction: PID Controller Design> page, 
+% adding an integral term will eliminate the steady-state error to a step reference and a
+% derivative term will often reduce the overshoot. Let's try a PID
+% controller with small $K_i$ and $K_d$. Modify your m-file so that the lines
+% defining your control are as follows. Running this new m-file gives you
+% the plot shown below.  
+
+Kp = 75;
+Ki = 1;
+Kd = 1;
+C = pid(Kp,Ki,Kd);
+sys_cl = feedback(C*P_motor,1);
+step(sys_cl,[0:1:200])
+title('PID Control with Small Ki and Small Kd')
+
+%%
+% Inspection of the above indicates that the steady-state error does indeed
+% go to zero for a step input. However, the time it takes to reach steady-state
+% is far larger than the required settling time of 2 seconds.
+%
+%% Tuning the gains
+% In this case, the long tail on the step response graph is due to the fact
+% that the integral gain is small and, therefore, it takes a long time for
+% the integral action to build up and eliminate the steady-state error.
+% This process can be sped up by increasing the value of $K_i$. Go back to
+% your m-file and change $K_i$ to 200 as in the following. Rerun the file and you
+% should get the plot shown below. Again the annotations are added by
+% right-clicking on the figure and choosing *Characteristics* from the
+% resulting menu. 
+%%
+% <html>
+% </p><pre class="codeinput">
+% Kp = 100;
+% Ki = 200;
+% Kd = 1;
+% C = pid(Kp,Ki,Kd);
+% sys_cl = feedback(C*P_motor,1);
+% step(sys_cl, 0:0.01:4)
+% grid
+% title('PID Control with Large Ki and Small Kd')
+% </pre>
+% </html>
+%%
+%
+% <<Content/MotorSpeed/Control/PID/figures/sPID_control_03.png>>
+%
+%%
+% As expected, the steady-state error is now eliminated much more quickly
+% than before. However, the large $K_i$ has greatly increased the overshoot.
+% Let's increase $K_d$ in an attempt to reduce the overshoot. Go back
+% to the m-file and change $K_d$ to 10 as shown in the following. Rerun your
+% m-file and the plot shown below should be generated.
+%%
+% <html>
+% </p><pre class="codeinput">
+% Kp = 100;
+% Ki = 200;
+% Kd = 10;
+% C = pid(Kp,Ki,Kd);
+% sys_cl = feedback(C*P_motor,1);
+% step(sys_cl, 0:0.01:4)
+% grid
+% title('PID Control with Large Ki and Large Kd')
+% </pre>
+% </html>
+%%
+%
+% <<Content/MotorSpeed/Control/PID/figures/sPID_control_04.png>>
+%
+%%
+% As we had hoped, the increased $K_d$ reduced the resulting overshoot. Now
+% we know that if we use a PID controller with $K_p$ = 100, $K_i$ = 200, and
+% $K_d$ = 10, all of our design requirements will be satisfied. 
+
+
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=MotorSpeed&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=MotorSpeed&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=MotorSpeed&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=MotorSpeed&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=MotorSpeed&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=MotorSpeed&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=MotorSpeed&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=MotorSpeed&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=MotorSpeed&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=MotorSpeed&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

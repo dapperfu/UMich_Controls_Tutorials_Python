@@ -1,0 +1,1152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: 	section: 	aux: Basics_Simulink	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "";
+			var section = "";
+			var aux = "Basics_Simulink";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=Introduction&section=SystemModeling";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Simulink Basics Tutorial</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#83c0ecedf7f1ecefd7f6f7ecf1eae2eff0cee2f7efe2e1d0eaeef6efeaede8c3e4eee2eaefade0ecee">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=Introduction&section=SystemModeling">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SystemModeling"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SystemModeling"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SystemModeling"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SystemModeling"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SystemModeling"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SystemModeling"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SystemModeling"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SystemModeling"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+      <h1>Simulink Basics Tutorial</h1>
+      <!--introduction-->
+      <p>Simulink is a graphical extension to MATLAB for modeling and simulation of systems.  One of the main advantages of Simulink
+         is the ability to model a nonlinear system, which a transfer function is unable to do. Another advantage of Simulink is the
+         ability to take on initial conditions.  When a transfer function is built, the initial conditions are assumed to be zero.
+      </p>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#3">Starting Simulink</a></li>
+            <li><a href="#10">Model Files</a></li>
+            <li><a href="#17">Basic Elements</a></li>
+            <li><a href="#28">Simple Example</a></li>
+            <li><a href="#48">Running Simulations</a></li>
+            <li><a href="#65">Building Systems</a></li>
+         </ul>
+      </div>
+      <p>In Simulink, systems are drawn on screen as block diagrams.  Many elements of block diagrams are available, such as transfer
+         functions, summing junctions, etc., as well as virtual input and output devices such as function generators and oscilloscopes.
+         Simulink is integrated with MATLAB and data can be easily transfered between the programs.  In these tutorials, we will apply
+         Simulink to the examples from the MATLAB tutorials to model the systems, build controllers, and simulate the systems.  Simulink
+         is supported on Unix, Macintosh, and Windows environments; and is included in the student version of MATLAB for personal computers.
+          For more information on Simulink, please visit the <a href="http://www.mathworks.com">MathWorks</a> home.
+      </p>
+      <p>The idea behind these tutorials is that you can view them in one window while running Simulink in another window.  System
+         model files can be downloaded from the tutorials and opened in Simulink.  You will modify and extend these system while learning
+         to use Simulink for system modeling, control, and simulation.  Do not confuse the windows, icons, and menus in the tutorials
+         for your actual Simulink windows. Most images in these tutorials are not live - they simply display what you should see in
+         your own Simulink windows.  All Simulink operations should be done in your Simulink windows.
+      </p>
+      <h2>Starting Simulink<a name="3"></a></h2>
+      <p>Simulink is started from the MATLAB command prompt by entering the following command:</p>
+      <p><tt>simulink</tt></p>
+      <p>Alternatively, you can hit the <b>Simulink</b> button at the top of the MATLAB window as shown here:
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_StartingSimulink_SimulinkButton.png" alt=""> </p>
+      <p>When it starts, Simulink brings up a single window, entitled <b>Simulink Start Page</b> which can be seen here.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_StartingSimulink_SimulinkLibraryBrowser.png" alt=""> </p>
+      <p>Once you click on <b>Blank Model</b>, a new window will appear as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_StartingSimulink_SimulinkModelWindow.png" alt=""> </p>
+      <h2>Model Files<a name="10"></a></h2>
+      <p>In Simulink, a model is a collection of blocks which, in general, represents a system.  In addition to creating a model from
+         scratch, previously saved model files can be loaded either from the <b>File</b> menu or from the MATLAB command prompt.  As an example, download the following model file by right-clicking on the following
+         link and saving the file in the directory you are running MATLAB from.
+      </p>
+      <p><a href="Content/Basics/simple.slx">simple.slx</a></p>
+      <p>Open this file in Simulink by entering the following command in the MATLAB command window.  (Alternatively, you can load this
+         file using the <b>Open</b> option in the <b>File</b> menu in Simulink, or by hitting <b>Ctrl-O</b> in Simulink).
+      </p>
+      <p><tt>simple</tt></p>
+      <p>The following model window should appear.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_ModelFiles_Simple.png" alt=""> </p>
+      <p>A new model can be created by selecting <b>New</b> from the <b>File</b> menu in any Simulink window (or by hitting <b>Ctrl-N</b>).
+      </p>
+      <h2>Basic Elements<a name="17"></a></h2>
+      <p>There are two major classes of items in Simulink: <b>blocks</b> and <b>lines</b>. Blocks are used to generate, modify, combine, output, and display signals.  Lines are used to transfer signals from one
+         block to another.
+      </p>
+      <p><b>Blocks</b></p>
+      <p>There are several general classes of blocks within the Simulink library:</p>
+      <div>
+         <ul>
+            <li>Sources: used to generate various signals</li>
+            <li>Sinks: used to output or display signals</li>
+            <li>Continuous: continuous-time system elements (transfer functions, state-space models, PID controllers, etc.)</li>
+            <li>Discrete: linear, discrete-time system elements (discrete transfer functions, discrete state-space models, etc.)</li>
+            <li>Math Operations: contains many common math operations (gain, sum, product, absolute value, etc.)</li>
+            <li>Ports &amp; Subsystems: contains useful blocks to build a system</li>
+         </ul>
+      </div>
+      <p>Blocks have zero to several input terminals and zero to several output terminals.  Unused input terminals are indicated by
+         a small open triangle.  Unused output terminals are indicated by a small triangular point.  The block shown below has an unused
+         input terminal on the left and an unused output terminal on the right.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_Blocks_TF.png" alt=""> </p>
+      <p><b>Lines</b></p>
+      <p>Lines transmit signals in the direction indicated by the arrow.  Lines must always transmit signals from the output terminal
+         of one block to the input terminal of another block.  On exception to this is a line can tap off of another line, splitting
+         the signal to each of two destination blocks, as shown below (right-click <a href="Content/Basics/split.slx">here</a> and then select <b>Save link as ...</b> to download the model file called split.slx).
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_Lines_Split.png" alt=""> </p>
+      <p>Lines can never inject a signal <i>into</i> another line; lines must be combined through the use of a block such as a summing junction.
+      </p>
+      <p>A signal can be either a scalar signal or a vector signal.  For Single-Input, Single-Output (SISO) systems, scalar signals
+         are generally used.  For Multi-Input, Multi-Output (MIMO) systems, vector signals are often used, consisting of two or more
+         scalar signals.  The lines used to transmit scalar and vector signals are identical.  The type of signal carried by a line
+         is determined by the blocks on either end of the line.
+      </p>
+      <h2>Simple Example<a name="28"></a></h2>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_ModelFiles_Simple.png" alt=""> </p>
+      <p>The <tt>simple</tt> model consists of three blocks: Step, Transfer Function, and Scope.  The Step is a <b>Source</b> block from which a step input signal originates.  This signal is transferred through the <b>line</b> in the direction indicated by the arrow to the <i>Transfer Function</i> <b>Continuous</b> block.  The <i>Transfer Function</i> block modifies its input signal and outputs a new signal on a line to the <i>Scope</i>.  The <i>Scope</i> is a <b>Sink</b> block used to display a signal much like an oscilloscope.
+      </p>
+      <p>There are many more types of blocks available in Simulink, some of which will be discussed later.  Right now, we will examine
+         just the three we have used in the <tt>simple</tt> model.
+      </p>
+      <p><b>Modifying Blocks</b></p>
+      <p>A block can be modified by double-clicking on it.  For example, if you double-click on the <i>Transfer Function</i> block in the <tt>Simple</tt> model, you will see the following dialog box.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_ModifyingBlocks_TFParameters.png" alt=""> </p>
+      <p>This dialog box contains fields for the numerator and the denominator of the block's transfer function.  By entering a vector
+         containing the coefficients of the desired numerator or denominator polynomial, the desired transfer function can be entered.
+          For example, to change the denominator to
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/Basics/html/Basics_Simulink_eq15272535590167104918.png" alt="$$&#xA;s^2 + 2s + 4&#xA;$$"></p>
+      <p>enter the following into the denominator field</p>
+      <p><tt>[1 2 4]</tt></p>
+      <p>and hit the close button, the model window will change to the following,</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_ModifyingBlocks_Simple2.png" alt=""> </p>
+      <p>which reflects the change in the denominator of the transfer function.</p>
+      <p>The <i>Step</i> block can also be double-clicked, bringing up the following dialog box.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_ModifyingBlocks_StepOptions.png" alt=""> </p>
+      <p>The default parameters in this dialog box generate a step function occurring at time = 1 sec, from an initial level of zero
+         to a level of 1 (in other words, a unit step at t = 1).  Each of these parameters can be changed.  Close this dialog before
+         continuing.
+      </p>
+      <p>The most complicated of these three blocks in the <i>Scope</i> block. Double-clicking on this brings up a blank oscilloscope screen.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_ModifyingBlocks_Scope.png" alt=""> </p>
+      <p>When a simulation is performed, the signal which feeds into the scope will be displayed in this window.  Detailed operation
+         of the scope will not be covered in this tutorial.
+      </p>
+      <h2>Running Simulations<a name="48"></a></h2>
+      <p>To run a simulation, we will work with the following model file:</p>
+      <p><a href="Content/Basics/simple2.slx">simple2.slx</a> (right-click and then select <b>Save link as ...</b>)
+      </p>
+      <p>Download and open this file in Simulink following the previous instructions for this file.  You should see the following model
+         window.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_Simple2.png" alt=""> </p>
+      <p>Before running a simulation of this system, first open the scope window by double-clicking on the scope block.  Then, to start
+         the simulation, either select <b>Run</b> from the <b>Simulation</b> menu, click the <b>Play</b> button at the top of the screen, or hit <b>Ctrl-T</b>.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_Start.png" alt=""> </p>
+      <p>The simulation should run very quickly and the scope window will appear as shown below.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_Scope.png" alt=""> </p>
+      <p>Note that the step response does not begin until t = 1.  This can be changed by double-clicking on the <i>step</i> block.  Now, we will change the parameters of the system and simulate the system again.  Double-click on the <i>Transfer Function</i> block in the model window and change the denominator to:
+      </p>
+      <p><tt>[1 20 400]</tt></p>
+      <p>Re-run the simulation (hit <b>Ctrl-T</b>) and you should see the following in the scope window.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_NewTFScope.png" alt=""> </p>
+      <p>Since the new transfer function has a very fast response, it compressed into a very narrow part of the scope window.  This
+         is not really a problem with the scope, but with the simulation itself.  Simulink simulated the system for a full ten seconds
+         even though the system had reached steady state shortly after one second.
+      </p>
+      <p>To correct this, you need to change the parameters of the simulation itself.  In the model window, select <b>Model Configuration Parameters</b> from the <b>Simulation</b> menu.  You will see the following dialog box.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_ConfigParameters.png" alt=""> </p>
+      <p>There are many simulation parameter options; we will only be concerned with the start and stop times, which tell Simulink
+         over what time period to perform the simulation.  Change <b>Start time</b> from 0.0 to 0.8 (since the step doesn't occur until t = 1.0).  Change <b>Stop time</b> from 10.0 to 2.0, which should be only shortly after the system settles.  Close the dialog box and rerun the simulation.
+          Now, the scope window should provide a much better display of the step response as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_Stop2Scope.png" alt=""> </p>
+      <h2>Building Systems<a name="65"></a></h2>
+      <p>In this section, you will learn how to build systems in Simulink using the building blocks in Simulink's <b>Block Libraries</b>.  You will build the following system.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_FinalModel.png" alt=""> </p>
+      <p>If you would like to download the completed model, right-click <a href="Content/Basics/buildex.slx">here</a> and then select <b>Save link as ...</b>.
+      </p>
+      <p>First, you will gather all of the necessary blocks from the block libraries.  Then you will modify the blocks so they correspond
+         to the blocks in the desired model.  Finally, you will connect the blocks with lines to form the complete system.  After this,
+         you will simulate the complete system to verify that it works.
+      </p>
+      <p><b>Gathering Blocks</b></p>
+      <p>Follow the steps below to collect the necessary blocks:</p>
+      <div>
+         <ul>
+            <li>Create a new model (<b>New</b> from the <b>File</b> menu or hit <b>Ctrl-N</b>).  You will get a blank model window.
+            </li>
+            <li>Click on the <b>Tools</b> tab and then select <b>Library Browser</b>.
+            </li>
+            <li>Then click on the <b>Sources</b> listing in the Simulink library browser.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_SelectSources.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>This will bring up the <b>Sources</b> block library.  <b>Sources</b> are used to generate signals.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_SourcesLibrary.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>Drag the <i>Step</i> block from the <b>Sources</b> window into the left side of your model window.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase1.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>Click on the <b>Math Operations</b> listing in the main Simulink window.
+            </li>
+            <li>From this library, drag a <i>Sum</i> and <i>Gain</i> block into the model window and place them to the right of the <i>Step</i> block in that order.
+            </li>
+            <li>Click on the <b>Continuous</b> listing in the main Simulink window.
+            </li>
+            <li>First, from this library, drag a <i>PID Controller</i> block into the model window and place it to the right of the <i>Gain</i> block.
+            </li>
+            <li>From the same library, drag a <i>Transfer Function</i> block into the model window and place it to the right of the <i>PID Controller</i> block.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase2.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>Click on the <b>Sinks</b> listing in the main Simulink window.
+            </li>
+            <li>Drag the <i>Scope</i> block into the right side of the model window.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase3.png" alt=""> </p>
+      <p><b>Modify Blocks</b></p>
+      <p>Follow these steps to properly modify the blocks in your model.</p>
+      <div>
+         <ul>
+            <li>Double-click on the <i>Sum</i> block.  Since you will want the second input to be subtracted, enter <tt>+-</tt> into the list of signs field.  Close the dialog box.
+            </li>
+            <li>Double-click the <i>Gain</i> block.  Change the gain to 2.5 and close the dialog box.
+            </li>
+            <li>Double-click the <i>PID Controller</i> block and change the Proportional gain to 1 and the Integral gain to 2.  Close the dialog box.
+            </li>
+            <li>Double-click the <i>Transfer Function</i> block.  Leave the numerator [1], but change the denominator to [1 2 4].  Close the dialog box.  The model should appear as:
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase4.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>Change the name of the <i>PID Controller</i> block to <i>PI Controller</i> by double-clicking on the word <i>PID Controller</i>.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase5.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>Similarly, change the name of the <i>Transfer Function</i> block to <i>Plant</i>. Now, all the blocks are entered properly.  Your model should appear as:
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase6.png" alt=""> </p>
+      <p><b>Connecting Blocks with Lines</b></p>
+      <p>Now that the blocks are properly laid out, you will now connect them together.  Follow these steps.</p>
+      <div>
+         <ul>
+            <li>Drag the mouse from the output terminal of the <i>Step</i> block to the positive input of the <i>Sum</i> input.  Another option is to click on the <i>Step</i> block and then <b>Ctrl-Click</b> on the <i>Sum</i> block to connect the two togther.  You should see the following.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase7.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>The resulting line should have a filled arrowhead.  If the arrowhead is open and red, as shown below, it means it is not connected
+               to anything.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase8.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>You can continue the partial line you just drew by treating the open arrowhead as an output terminal and drawing just as before.
+               Alternatively, if you want to redraw the line, or if the line connected to the wrong terminal, you should delete the line
+               and redraw it. To delete a line (or any other object), simply click on it to select it, and hit the delete key.
+            </li>
+            <li>Draw a line connecting the <i>Sum</i> block output to the <i>Gain</i> input. Also draw a line from the <i>Gain</i> to the <i>PI Controller</i>, a line from the <i>PI Controller</i> to the <i>Plant</i>, and a line from the <i>Plant</i> to the <i>Scope</i>.  You should now have the following.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase9.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>The line remaining to be drawn is the feedback signal connecting the output of the <i>Plant</i> to the negative input of the <i>Sum</i> block.  This line is different in two ways.  First, since this line loops around and does not simply follow the shortest
+               (right-angled) route so it needs to be drawn in several stages.  Second, there is no output terminal to start from, so the
+               line has to tap off of an existing line.
+            </li>
+            <li>Drag a line off the negative portion of the <i>Sum</i> block straight down and release the mouse so the line is incomplete.  From the endpoint of this line, click and drag to the
+               line between the <i>Plant</i> and the <i>Scope</i>.  The model should now appear as follows.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase10.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>Finally, labels will be placed in the model to identify the signals. To place a label anywhere in the model, double-click
+               at the point you want the label to be.  Start by double-clicking above the line leading from the <i>Step</i> block.  You will get a blank text box with an editing cursor as shown below.
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase11.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>Type an <i>r</i> in this box, labeling the reference signal and click outside it to end editing.
+            </li>
+            <li>Label the error (<i>e</i>) signal, the control (<i>u</i>) signal, and the output (<i>y</i>) signal in the same manner.  Your final model should appear as:
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_FinalModel.png" alt=""> </p>
+      <p>To save your model, select <b>Save As</b> in the <b>File</b> menu and type in any desired model name.  The completed model can be downloaded by right-clicking <a href="Content/Basics/buildex.slx">here</a> and then selecting <b>Save link as ...</b>.
+      </p>
+      <p><b>Simulation</b></p>
+      <p>Now that the model is complete, you can simulate the model.  Select <b>Run</b> from the <b>Simulation</b> menu to run the simulation.  Double-click on the _Scope_block to view its output and you should see the following:
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Simulation_Scope1.png" alt=""> </p>
+      <p><b>Taking Variables from MATLAB</b></p>
+      <p>In some cases, parameters, such as gain, may be calculated in MATLAB to be used in a Simulink model.  If this is the case,
+         it is not necessary to enter the result of the MATLAB calculation directly into Simulink.  For example, suppose we calculated
+         the gain in MATLAB in the variable <tt>K</tt>. Emulate this by entering the following command at the MATLAB command prompt.
+      </p>
+      <p><tt>K = 2.5</tt></p>
+      <p>This variable can now be used in the Simulink <i>Gain</i> block.  In your Simulink model, double-click on the <i>Gain</i> block and enter the following the Gain field.
+      </p>
+      <p><tt>K</tt></p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Variables_GainBlock.png" alt=""> </p>
+      <p>Close this dialog box.  Notice now that the <i>Gain</i> block in the Simulink model shows the variable <tt>K</tt> rather than a number.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Variables_Model.png" alt=""> </p>
+      <p>Now, you can re-run the simulation and view the output on the Scope.  The result should be the same as before.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Variables_Scope1.png" alt=""> </p>
+      <p>Now, if any calculations are done in MATLAB to change any of the variables used in the Simulink model, the simulation will
+         use the new values the next time it is run.  To try this, in MATLAB, change the gain, <tt>K</tt>, by entering the following at the command prompt.
+      </p>
+      <p><tt>K = 5</tt></p>
+      <p>Start the Simulink simulation again and open the Scope window. You will see the following output which reflects the new, higher
+         gain.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Variables_Scope2.png" alt=""> </p>
+      <p>Besides variables and signals, even entire systems can be exchanged between MATLAB and Simulink.</p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Simulink Basics Tutorial
+%
+% Simulink is a graphical extension to MATLAB for modeling and simulation
+% of systems.  One of the main advantages of Simulink is the ability to
+% model a nonlinear system, which a transfer function is unable to do.
+% Another advantage of Simulink is the ability to take on initial
+% conditions.  When a transfer function is built, the initial conditions
+% are assumed to be zero.
+%
+%%
+% In Simulink, systems are drawn on screen as block diagrams.  Many 
+% elements of block diagrams are available, such as transfer functions, 
+% summing junctions, etc., as well as virtual input and output devices such
+% as function generators and oscilloscopes.  Simulink is integrated with 
+% MATLAB and data can be easily transfered between the programs.  In these 
+% tutorials, we will apply Simulink to the examples from the MATLAB 
+% tutorials to model the systems, build controllers, and simulate the 
+% systems.  Simulink is supported on Unix, Macintosh, and Windows 
+% environments; and is included in the student version of MATLAB for 
+% personal computers.  For more information on Simulink, please visit the
+% <http://www.mathworks.com MathWorks> home.
+% 
+%%
+% The idea behind these tutorials is that you can view them in one window
+% while running Simulink in another window.  System model files can be 
+% downloaded from the tutorials and opened in Simulink.  You will modify 
+% and extend these system while learning to use Simulink for system 
+% modeling, control, and simulation.  Do not confuse the windows, icons, 
+% and menus in the tutorials for your actual Simulink windows. Most images 
+% in these tutorials are not live - they simply display what you should see
+% in your own Simulink windows.  All Simulink operations should be done in 
+% your Simulink windows.
+%
+%% Starting Simulink
+% Simulink is started from the MATLAB command prompt by entering the
+% following command:
+%
+%%
+% |simulink|
+%
+%%
+% Alternatively, you can hit the *Simulink* button at the top of the MATLAB
+% window as shown here:
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_StartingSimulink_SimulinkButton.png>>
+%
+%%
+% When it starts, Simulink brings up a single window, entitled *Simulink
+% Start Page* which can be seen here.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_StartingSimulink_SimulinkLibraryBrowser.png>>
+%
+%%
+% Once you click on *Blank Model*, a new window will appear as shown below.
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_StartingSimulink_SimulinkModelWindow.png>>
+%
+%% Model Files
+% In Simulink, a model is a collection of blocks which, in general,
+% represents a system.  In addition to creating a model from scratch,
+% previously saved model files can be loaded either from the *File* 
+% menu or from the MATLAB command prompt.  As an example, download the
+% following model file by right-clicking on the following link and saving the
+% file in the directory you are running MATLAB from.
+%
+%%
+% <Content/Basics/simple.slx simple.slx>
+%
+%%
+% Open this file in Simulink by entering the following command in the
+% MATLAB command window.  (Alternatively, you can load this file using the
+% *Open* option in the *File* menu in Simulink, or by hitting *Ctrl-O* in
+% Simulink).
+%
+%%
+% |simple|
+%
+%%
+% The following model window should appear.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_ModelFiles_Simple.png>>
+%
+%%
+% A new model can be created by selecting *New* from the *File* menu in any
+% Simulink window (or by hitting *Ctrl-N*).
+%
+%% Basic Elements
+% There are two major classes of items in Simulink: *blocks* and *lines*.
+% Blocks are used to generate, modify, combine, output, and display
+% signals.  Lines are used to transfer signals from one block to another.
+%
+%%
+% *Blocks*
+%
+%%
+% There are several general classes of blocks within the Simulink library:
+%
+%%
+% * Sources: used to generate various signals
+% * Sinks: used to output or display signals
+% * Continuous: continuous-time system elements (transfer functions,
+% state-space models, PID controllers, etc.)
+% * Discrete: linear, discrete-time system elements (discrete transfer
+% functions, discrete state-space models, etc.)
+% * Math Operations: contains many common math operations (gain, sum,
+% product, absolute value, etc.)
+% * Ports & Subsystems: contains useful blocks to build a system
+%
+%%
+% Blocks have zero to several input terminals and zero to several output
+% terminals.  Unused input terminals are indicated by a small open 
+% triangle.  Unused output terminals are indicated by a small triangular 
+% point.  The block shown below has an unused input terminal on the left 
+% and an unused output terminal on the right.
+% 
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_Blocks_TF.png>>
+%
+%%
+% *Lines*
+%
+%%
+% Lines transmit signals in the direction indicated by the arrow.  Lines
+% must always transmit signals from the output terminal of one block to the
+% input terminal of another block.  On exception to this is a line can tap 
+% off of another line, splitting the signal to each of two destination 
+% blocks, as shown below (right-click <Content/Basics/split.slx here> and then select 
+% *Save link as ...* to download the model file called split.slx).
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_Lines_Split.png>>
+%
+%%
+% Lines can never inject a signal _into_ another line; lines must be 
+% combined through the use of a block such as a summing junction.
+%
+%%
+% A signal can be either a scalar signal or a vector signal.  For
+% Single-Input, Single-Output (SISO) systems, scalar signals are generally 
+% used.  For Multi-Input, Multi-Output (MIMO) systems, vector signals are 
+% often used, consisting of two or more scalar signals.  The lines used to 
+% transmit scalar and vector signals are identical.  The type of signal 
+% carried by a line is determined by the blocks on either end of the line.
+%
+%% Simple Example
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_ModelFiles_Simple.png>>
+%
+%%
+% The |simple| model consists of three blocks: Step, Transfer Function, and
+% Scope.  The Step is a *Source* block from which a step input signal
+% originates.  This signal is transferred through the *line* in the
+% direction indicated by the arrow to the _Transfer Function_ *Continuous*
+% block.  The _Transfer Function_ block modifies its input signal and
+% outputs a new signal on a line to the _Scope_.  The _Scope_ is a *Sink*
+% block used to display a signal much like an oscilloscope.
+%
+%%
+% There are many more types of blocks available in Simulink, some of which
+% will be discussed later.  Right now, we will examine just the three we
+% have used in the |simple| model.
+%
+%%
+% *Modifying Blocks*
+%
+%%
+% A block can be modified by double-clicking on it.  For example, if you
+% double-click on the _Transfer Function_ block in the |Simple| model, you
+% will see the following dialog box.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_ModifyingBlocks_TFParameters.png>>
+%
+%%
+% This dialog box contains fields for the numerator and the denominator of
+% the block's transfer function.  By entering a vector containing the
+% coefficients of the desired numerator or denominator polynomial, the
+% desired transfer function can be entered.  For example, to change the
+% denominator to
+%
+%%
+% $$
+% s^2 + 2s + 4
+% $$
+%
+%%
+% enter the following into the denominator field
+%
+%%
+% |[1 2 4]|
+%
+%%
+% and hit the close button, the model window will change to the following,
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_ModifyingBlocks_Simple2.png>>
+%
+%%
+% which reflects the change in the denominator of the transfer function.
+%
+%%
+% The _Step_ block can also be double-clicked, bringing up the following
+% dialog box.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_ModifyingBlocks_StepOptions.png>>
+%
+%%
+% The default parameters in this dialog box generate a step function
+% occurring at time = 1 sec, from an initial level of zero to a level of 1
+% (in other words, a unit step at t = 1).  Each of these parameters can be 
+% changed.  Close this dialog before continuing.
+%
+%%
+% The most complicated of these three blocks in the _Scope_ block.
+% Double-clicking on this brings up a blank oscilloscope screen.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BasicElements_ModifyingBlocks_Scope.png>>
+%
+%%
+% When a simulation is performed, the signal which feeds into the scope
+% will be displayed in this window.  Detailed operation of the scope will 
+% not be covered in this tutorial.
+%
+%% Running Simulations
+% To run a simulation, we will work with the following model file:
+%
+%%
+% <Content/Basics/simple2.slx simple2.slx> (right-click and then select *Save link as ...*)
+%
+%%
+% Download and open this file in Simulink following the previous
+% instructions for this file.  You should see the following model window.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_Simple2.png>>
+%
+%%
+% Before running a simulation of this system, first open the scope window
+% by double-clicking on the scope block.  Then, to start the simulation,
+% either select *Run* from the *Simulation* menu, click the *Play* button
+% at the top of the screen, or hit *Ctrl-T*.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_Start.png>>
+%
+%%
+% The simulation should run very quickly and the scope window will appear
+% as shown below.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_Scope.png>>
+%
+%%
+% Note that the step response does not begin until t = 1.  This can be
+% changed by double-clicking on the _step_ block.  Now, we will change the
+% parameters of the system and simulate the system again.  Double-click on
+% the _Transfer Function_ block in the model window and change the 
+% denominator to:
+%
+%%
+% |[1 20 400]|
+%
+%%
+% Re-run the simulation (hit *Ctrl-T*) and you should see the
+% following in the scope window.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_NewTFScope.png>>
+%
+%%
+% Since
+% the new transfer function has a very fast response, it compressed into a
+% very narrow part of the scope window.  This is not really a problem with
+% the scope, but with the simulation itself.  Simulink simulated the system
+% for a full ten seconds even though the system had reached steady state
+% shortly after one second.
+%
+%%
+% To correct this, you need to change the parameters of the simulation
+% itself.  In the model window, select *Model Configuration Parameters* from the 
+% *Simulation* menu.  You will see the following dialog box.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_ConfigParameters.png>>
+%
+%%
+% There are many simulation parameter options; we will only be concerned
+% with the start and stop times, which tell Simulink over what time period
+% to perform the simulation.  Change *Start time* from 0.0 to 0.8 (since
+% the step doesn't occur until t = 1.0).  Change *Stop time* from 10.0 to
+% 2.0, which should be only shortly after the system settles.  Close the
+% dialog box and rerun the simulation.  Now,
+% the scope window should provide a much better display of the step
+% response as shown below.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_RunningSimulations_Stop2Scope.png>>
+%
+%% Building Systems
+% In this section, you will learn how to build systems in Simulink using
+% the building blocks in Simulink's *Block Libraries*.  You will build the
+% following system.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_FinalModel.png>>
+%
+%%
+% If you would like to download the completed model, right-click <Content/Basics/buildex.slx here>
+% and then select *Save link as ...*.
+%
+%%
+% First, you will gather all of the necessary blocks from the block
+% libraries.  Then you will modify the blocks so they correspond to the
+% blocks in the desired model.  Finally, you will connect the blocks with
+% lines to form the complete system.  After this, you will simulate the
+% complete system to verify that it works.
+%
+%%
+% *Gathering Blocks*
+%
+%%
+% Follow the steps below to collect the necessary blocks:
+%
+%%
+% * Create a new model (*New* from the *File* menu or hit *Ctrl-N*).  You
+% will get a blank model window.
+% * Click on the *Tools* tab and then select *Library Browser*.
+% * Then click on the *Sources* listing in the Simulink library browser. 
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_SelectSources.png>>
+%
+%%
+% * This will bring up the *Sources* block library.  *Sources* are used to 
+% generate signals.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_SourcesLibrary.png>>
+%
+%%
+% * Drag the _Step_ block from the *Sources* window into the left side of
+% your model window.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase1.png>>
+%
+%%
+% * Click on the *Math Operations* listing in the main Simulink window.
+% * From this library, drag a _Sum_ and _Gain_ block into the model window
+% and place them to the right of the _Step_ block in that order.
+% * Click on the *Continuous* listing in the main Simulink window.
+% * First, from this library, drag a _PID Controller_ block into the model
+% window and place it to the right of the _Gain_ block.
+% * From the same library, drag a _Transfer Function_ block into the model
+% window and place it to the right of the _PID Controller_ block.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase2.png>>
+%
+%%
+% * Click on the *Sinks* listing in the main Simulink window.
+% * Drag the _Scope_ block into the right side of the model window.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase3.png>>
+%
+%%
+% *Modify Blocks*
+%
+%%
+% Follow these steps to properly modify the blocks in your model.
+%
+%%
+% * Double-click on the _Sum_ block.  Since you will want the second input
+% to be subtracted, enter |+-| into the list of signs field.  Close the
+% dialog box.
+% * Double-click the _Gain_ block.  Change the gain to 2.5 and close the
+% dialog box.
+% * Double-click the _PID Controller_ block and change the Proportional
+% gain to 1 and the Integral gain to 2.  Close the dialog box.
+% * Double-click the _Transfer Function_ block.  Leave the numerator [1], 
+% but change the denominator to [1 2 4].  Close the dialog box.  The model 
+% should appear as:
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase4.png>>
+%
+%%
+% * Change the name of the _PID Controller_ block to _PI Controller_ by
+% double-clicking on the word _PID Controller_.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase5.png>>
+%
+%%
+% * Similarly, change the name of the _Transfer Function_ block to _Plant_.
+% Now, all the blocks are entered properly.  Your model should appear as:
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase6.png>>
+%
+%%
+% *Connecting Blocks with Lines*
+%
+%%
+% Now that the blocks are properly laid out, you will now connect them
+% together.  Follow these steps.
+%
+%%
+% * Drag the mouse from the output terminal of the _Step_ block to the
+% positive input of the _Sum_ input.  Another option is to click on the
+% _Step_ block and then *Ctrl-Click* on the _Sum_ block to connect the two
+% togther.  You should see the following.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase7.png>>
+%
+%%
+% * The resulting line should have a filled arrowhead.  If the arrowhead is
+% open and red, as shown below, it means it is not connected to anything.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase8.png>>
+%
+%%
+% * You can continue the partial line you just drew by treating the open
+% arrowhead as an output terminal and drawing just as before.  
+% Alternatively, if you want to redraw the line, or if the line connected 
+% to the wrong terminal, you should delete the line and redraw it. To 
+% delete a line (or any other object), simply click on it to select it, and
+% hit the delete key.
+% * Draw a line connecting the _Sum_ block output to the _Gain_ input.
+% Also draw a line from the _Gain_ to the _PI Controller_, a line from the
+% _PI Controller_ to the _Plant_, and a line from the _Plant_ to the
+% _Scope_.  You should now have the following.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase9.png>>
+%
+%%
+% * The line remaining to be drawn is the feedback signal connecting the
+% output of the _Plant_ to the negative input of the _Sum_ block.  This
+% line is different in two ways.  First, since this line loops around and
+% does not simply follow the shortest (right-angled) route so it needs to
+% be drawn in several stages.  Second, there is no output terminal to start
+% from, so the line has to tap off of an existing line.
+% * Drag a line off the negative portion of the _Sum_ block straight down
+% and release the mouse so the line is incomplete.  From the endpoint of
+% this line, click and drag to the line between the _Plant_ and the
+% _Scope_.  The model should now appear as follows.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase10.png>>
+%
+%%
+% * Finally, labels will be placed in the model to identify the signals.
+% To place a label anywhere in the model, double-click at the point you
+% want the label to be.  Start by double-clicking above the line leading
+% from the _Step_ block.  You will get a blank text box with an editing
+% cursor as shown below.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Phase11.png>>
+%
+%%
+% * Type an _r_ in this box, labeling the reference signal and click
+% outside it to end editing.
+% * Label the error (_e_) signal, the control (_u_) signal, and the output
+% (_y_) signal in the same manner.  Your final model should appear as:
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_FinalModel.png>>
+%
+%%
+% To save your model, select *Save As* in the *File* menu and type in any
+% desired model name.  The completed model can be downloaded by right-clicking
+% <Content/Basics/buildex.slx here> and then selecting *Save link as ...*.
+%
+%%
+% *Simulation*
+%
+%%
+% Now that the model is complete, you can simulate the model.  Select
+% *Run* from the *Simulation* menu to run the simulation.  Double-click
+% on the _Scope_block to view its output and you should see the following:
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Simulation_Scope1.png>>
+%
+%%
+% *Taking Variables from MATLAB*
+%
+%%
+% In some cases, parameters, such as gain, may be calculated in MATLAB to
+% be used in a Simulink model.  If this is the case, it is not necessary to
+% enter the result of the MATLAB calculation directly into Simulink.  For
+% example, suppose we calculated the gain in MATLAB in the variable |K|.
+% Emulate this by entering the following command at the MATLAB command
+% prompt.
+%
+%%
+% |K = 2.5|
+%
+%%
+% This variable can now be used in the Simulink _Gain_ block.  In your
+% Simulink model, double-click on the _Gain_ block and enter the following
+% the Gain field.
+%
+%%
+% |K|
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Variables_GainBlock.png>>
+%
+%%
+% Close this dialog box.  Notice now that the _Gain_ block in the Simulink
+% model shows the variable |K| rather than a number.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Variables_Model.png>>
+%
+%%
+% Now, you can re-run the simulation and view the output on the Scope.  The
+% result should be the same as before.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Variables_Scope1.png>>
+%
+%%
+% Now, if any calculations are done in MATLAB to change any of the
+% variables used in the Simulink model, the simulation will use the new 
+% values the next time it is run.  To try this, in MATLAB, change the gain,
+% |K|, by entering the following at the command prompt. 
+%
+%%
+% |K = 5|
+%
+%%
+% Start the Simulink simulation again and open the Scope window.
+% You will see the following output which reflects
+% the new, higher gain.
+%
+%%
+%
+% <<Content/Basics/figures/SimulinkBasicsTutorial_BuildingSystems_Variables_Scope2.png>>
+%
+%%
+% Besides variables and signals, even entire systems can be exchanged
+% between MATLAB and Simulink.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Introduction&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Introduction&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Introduction&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Introduction&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Introduction&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Introduction&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Introduction&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Introduction&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Introduction&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Introduction&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

@@ -1,0 +1,630 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: AircraftPitch	section: SystemAnalysis	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "AircraftPitch";
+			var section = "SystemAnalysis";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=AircraftPitch&section=ControlPID";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Aircraft Pitch: System Analysis</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#a7e4c8c9d3d5c8cbf3d2d3c8d5cec6cbd4eac6d3cbc6c5f4cecad2cbcec9cce7c0cac6cecb89c4c8ca">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=AircraftPitch&section=ControlPID">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SystemAnalysis"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SystemAnalysis"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SystemAnalysis"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SystemAnalysis"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SystemAnalysis"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SystemAnalysis"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SystemAnalysis"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SystemAnalysis"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Aircraft Pitch: System Analysis</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/pole.html"><tt>pole</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/zero.html"><tt>zero</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/feedback.html"><tt>feedback</tt></a> , <a href="http://www.mathworks.com/help/techdoc/ref/residue.html"><tt>residue</tt></a></p>
+      </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+        <li><a href="?example=Introduction&section=SystemAnalysis">Intro to Sys Analysis</a></li>
+		<li><a href="?aux=Activities_RCcircuitA">Time Resp Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/academia/student_center/tutorials/source/controls/System_Analysis/player.html">Analysis in MATLAB Video</a></li>
+		<li><a href="https://www.youtube.com/watch?v=F4w0rslb04E">Time Resp Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#3">Open-loop response</a></li>
+            <li><a href="#7">Closed-loop response</a></li>
+         </ul>
+      </div>
+      <p>From the main problem, the dynamic equations in the Laplace domain and the open-loop transfer function of the aircraft pitch
+         dynamics are:
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_eq12097446194847348094.png" alt="$$ sA(s) = -0.313A(s)+ 56.7 Q(s) + 0.232\Delta(s) $$"></p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_eq05760783770121920576.png" alt="$$ sQ(s) = -0.0139A(s) - 0.426Q(s) + 0.0203\Delta(s) $$"></p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_eq08469019533710468580.png" alt="$$ s\Theta(s) = 56.7 Q(s)$$"></p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_eq03924842389374930933.png" alt="$$ P(s) = \frac{\Theta(s)}{\Delta(s)} = \frac {1.151s+0.1774} {s^3+0.739s^2+0.921s} $$"></p>
+      <p>For the original problem setup and the derivation of the above equations please refer to the <a href="?example=AircraftPitch&amp;section=SystemModeling">Aircraft Pitch: System Modeling</a> page
+      </p>
+      <p>For a step reference, the design criteria are the following.</p>
+      <div>
+         <ul>
+            <li>Overshoot less than 10%</li>
+            <li>Rise time  less than 2 seconds</li>
+            <li>Settling time less than 10 seconds</li>
+            <li>Steady-state error less than 2%</li>
+         </ul>
+      </div>
+      <h2>Open-loop response<a name="3"></a></h2>
+      <p>First create a new <a href="?aux=Extras_Mfile">m-file</a> and type in the following commands (refer to the main problem for the details of getting these commands).
+      </p><pre class="codeinput">s = tf(<span class="string">'s'</span>);
+P_pitch = (1.151*s+0.1774)/(s^3+0.739*s^2+0.921*s);
+</pre><p>Now let's see how the uncompensated open-loop system performs. Specifically, we will use the MATLAB command <tt>step</tt> to analyze the open-loop step response where we have scaled the input to represent an elevator angle input (<img class="inline_eqn" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_eq06646721004341227832.png" alt="$\delta$">) of 0.2 radians (11 degrees). Add the following commands onto the end of the m-file and run it in the MATLAB command window
+         and you will get the associated plot shown below.
+      </p><pre class="codeinput">t = [0:0.01:10];
+step(0.2*P_pitch,t);
+axis([0 10 0 0.8]);
+ylabel(<span class="string">'pitch angle (rad)'</span>);
+title(<span class="string">'Open-loop Step Response'</span>);
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_01.png" alt=""> <p>From the above plot, we see that the open-loop response does not satisfy the design criteria at all. In fact, the open-loop
+         response is unstable. Stability of a system can be determined by examining the poles of the transfer function where the poles
+         can be identified using the MATLAB command <tt>pole</tt> as shown below.
+      </p><pre class="codeinput">pole(P_pitch)
+</pre><pre class="codeoutput">ans =
+   0.0000 + 0.0000i
+  -0.3695 + 0.8857i
+  -0.3695 - 0.8857i
+</pre><p>As indicated by this function, one of the poles of the open-loop transfer function is on the imaginary axis while the other
+         two poles are in the left-half of the complex <i>s</i>-plane.  A pole on the imaginary axis indicates that the free response of the system will not grow unbounded, but also will
+         not decay to zero. Even though the free response will not grow unbounded, a system with a pole on the imaginary axis can grow
+         unbounded when given an input, even when the input is bounded. This fact is in agreement with what we have already seen. In
+         this particular case, the pole at the origin behaves like an integrator. Therefore, when the system is given a step input
+         its output continues to grow to infinity in the same manner that an integral of a constant would grow to infinity as the upper
+         limit of the integral is made larger.
+      </p>
+      <h2>Closed-loop response<a name="7"></a></h2>
+      <p>In order to stabilize this system and eventually meet our given design requirements, we will add a feedback controller. The
+         figure below illustrates the control architecture we will employ.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/System/Analysis/figures/feedback_pitch.png" alt=""> </p>
+      <p>The closed-loop transfer function for the above with the controller <i>C</i>(<i>s</i>) simply set equal to one can be generated using the MATLAB command <tt>feedback</tt> as shown below.
+      </p><pre class="codeinput">sys_cl = feedback(P_pitch,1)
+</pre><pre class="codeoutput">
+sys_cl =
+ 
+           1.151 s + 0.1774
+  ----------------------------------
+  s^3 + 0.739 s^2 + 2.072 s + 0.1774
+ 
+Continuous-time transfer function.
+
+</pre><p>The corresponding step response can be generated by adding the above and following commands to your m-file. Note that the
+         response is scaled to model the fact that the pitch angle reference is a 0.2 radian (11 degree) step. Running your m-file
+         at the command line will produce the plot shown below where the annotations for the rise time, settling time and final value
+         can be added to the plot from the right-click menu under <b>Characteristics</b>.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         step(0.2*sys_cl);
+         ylabel('pitch angle (rad)');
+         title('Closed-loop Step Response');
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/System/Analysis/figures/Figure1.png" alt=""> </p>
+      <p>Examining the above closed-loop step response, the addition of feedback has stabilized the system. In fact, the steady-state
+         error appears to be driven to zero and there is no overshoot in the response, though the rise-time and settle-time requirements
+         are not met. The character of the resulting step response is indicated by the location of the poles and zeros of the system's
+         transfer function, in a similar manner to the way the system's stability properties were. The MATLAB commands <tt>pole</tt> and <tt>zero</tt> can be used to reveal the poles and zeros of the closed-loop transfer function as shown below.
+      </p><pre class="codeinput">poles = pole(sys_cl)
+zeros = zero(sys_cl)
+</pre><pre class="codeoutput">poles =
+  -0.3255 + 1.3816i
+  -0.3255 - 1.3816i
+  -0.0881 + 0.0000i
+zeros =
+   -0.1541
+</pre><p>The above results demonstrate that the closed-loop transfer function is third order with a zero. Most of the relationships
+         that we are familiar with for predicting the character of a system's step response assume a standard underdamped second-order
+         system with no zeros. Therefore, we cannot rely on these relationships for this system. We can, however, transform the output
+         back to the time domain to generate a time function for the system's response to get some insight into how the poles and zeros
+         of the closed-loop transfer function affect the system's response. Assuming the closed-loop transfer function has the form
+         <i>Y</i>(<i>s</i>) / <i>R</i>(<i>s</i>), the output <i>Y</i>(<i>s</i>) in the Laplace domain is calculated as follows where <i>R</i>(<i>s</i>) is a step of magnitude 0.2.
+      </p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_eq08215119066743727957.png" alt="$$ Y(s) = \frac{1.151s+0.1774}{s^3+0.739s^2+2.072s+0.1774}R(s) $$"></p>
+      <p><span class="eqn_num">(6)</span><img class="display_eqn" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_eq06590928113548282612.png" alt="$$ = \frac{0.2(1.151s+0.1774)}{s^4+0.739s^3+2.072s^2+0.1774s} $$"></p>
+      <p>We can then perform a partial fraction expansion in order to break this expression into simpler terms that we hopefully recognize
+         and are able to covert from the Laplace domain back to the time domain. First we will use the MATLAB command <tt>zpk</tt> to factor the numerator and denominator of our output <i>Y</i>(<i>s</i>) into simpler terms.
+      </p><pre class="codeinput">R = 0.2/s;
+Y = zpk(sys_cl*R)
+</pre><pre class="codeoutput">
+Y =
+ 
+            0.2302 (s+0.1541)
+  -------------------------------------
+  s (s+0.08805) (s^2 + 0.6509s + 2.015)
+ 
+Continuous-time zero/pole/gain model.
+
+</pre><p>Based on the above, the denominator of our output <i>Y</i>(<i>s</i>) can be factored into a first-order term for the real pole of the transfer function, a second-order term for the complex
+         conjugate poles of the transfer function, and a pole at the origin for the step input. Therefore, it is desired to expand
+         <i>Y</i>(<i>s</i>) as shown below.
+      </p>
+      <p><span class="eqn_num">(7)</span><img class="display_eqn" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_eq14172679251818553533.png" alt="$$ Y(s) = \frac{0.2302(s+0.1541)}{s(s+0.08805)(s^2+0.6509s+2.105)} $$"></p>
+      <p><span class="eqn_num">(8)</span><img class="display_eqn" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_eq11015877783904155404.png" alt="$$ = \frac{A}{s} + \frac{B}{s+0.08805} + \frac{Cs+D}{s^2+0.6509s+2.015} $$"></p>
+      <p>The specific values of the constants <i>A</i>, <i>B</i>, <i>C</i>, and <i>D</i> can be determined by hand calculation or by using the MATLAB command <tt>residue</tt> to perform the partial fraction expansion as shown below. Here the syntax is <tt>[r,p,k] = residue(num,den)</tt> where <tt>num</tt> and <tt>den</tt> are arrays containing the coefficients of the numerator and denominator, respectively, of the Laplace function being expanded.
+         Notice that the denominator array includes a placeholder zero since there is no constant term in the denominator of <i>Y</i>(<i>s</i>).
+      </p><pre class="codeinput">[r,p,k] = residue(0.2*[1.151 0.1774],[1 0.739 2.072 0.1774 0])
+</pre><pre class="codeoutput">r =
+  -0.0560 + 0.0160i
+  -0.0560 - 0.0160i
+  -0.0879 + 0.0000i
+   0.2000 + 0.0000i
+p =
+  -0.3255 + 1.3816i
+  -0.3255 - 1.3816i
+  -0.0881 + 0.0000i
+   0.0000 + 0.0000i
+k =
+     []
+</pre><p>In the above, <tt>r</tt> is an array containing the residues of the partial fraction expansion, that is, the numerator coefficients in the expansion.
+         The array <tt>p</tt> contains the poles of the system where the order corresponds to the order of the residues in <tt>r</tt>. The direct term <tt>k</tt> is empty in this case, as it will be in general since the numerator polyonomial will generally be a smaller order than the
+         denominator polynomial. Based on the above, the coefficients <i>A</i> and <i>B</i> in our expansion are equal to 0.2 and -0.0881, respectively. The coeffients <i>C</i> and <i>D</i> can be determined by combining the terms for the complex conjugate poles back into a single expression as shown below.
+      </p><pre class="codeinput">[num,den] = residue(r(1:2),p(1:2),k);
+tf(num,den)
+</pre><pre class="codeoutput">
+ans =
+ 
+   -0.1121 s - 0.08071
+  ----------------------
+  s^2 + 0.6509 s + 2.015
+ 
+Continuous-time transfer function.
+
+</pre><p>Based on the above, <i>C</i> = -0.1121 and <i>D</i> = -0.08071 and our resulting partial fraction expansion can be expressed as follows.
+      </p>
+      <p><span class="eqn_num">(9)</span><img class="display_eqn" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_eq07374054320716515617.png" alt="$$ Y(s) = \frac{0.2}{s} - \frac{0.0881}{s+0.08805} - \frac{0.1121s + 0.08071}{s^2+0.6509s+2.015} $$"></p>
+      <p>Employing a Laplace transform table, the inverse Laplace transform of the above expression can be taken to generate the corresponding
+         time domain expression shown below. If you have the Symbolic Math toolbox addition to MATLAB, you can use the command <tt>laplace</tt> to perform the inversion.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/System/Analysis/figures/pitch_eq2.png" alt=""> </p>
+      <p>Examining the above, each term corresponds to a pole of <i>Y</i>(<i>s</i>) where the real part of the pole describes the exponential decay (or growth) of that mode and the imaginary part of the pole
+         corresponds to the frequency of oscillation of the mode. The effect of zeros is to alter the coefficients multiplying each
+         of the terms. In other words, zeros affect the relative contribution of each of the modes. The above example helps to give
+         some insight into how poles and zeros in the Laplace domain indicate the system's corresponding behavior in the time domain.
+      </p>
+      <p>Entering the following code in the MATLAB command window will generate the plot shown below which matches (within roundoff)
+         the plot generated using the <tt>step</tt> command above.
+      </p><pre class="codeinput">t = [0:0.1:70];
+y = 0.2 - 0.0881*exp(-0.08805*t) - exp(-0.3255*t).*(0.1121*cos(1.3816*t)+0.0320*sin(1.3816*t));
+plot(t,y)
+xlabel(<span class="string">'time (sec)'</span>);
+ylabel(<span class="string">'pitch angle (rad)'</span>);
+title(<span class="string">'Closed-loop Step Response'</span>);
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/System/Analysis/html/AircraftPitch_SystemAnalysis_02.png" alt=""> <p>The above plot again demonstrates that this closed-loop system does not meet the given design requirements. The subsequent
+         pages of this example describe several controller design techniques that produce closed-loop systems that do generate the
+         desired system behavior.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Aircraft Pitch: System Analysis
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/pole.html |pole|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/zero.html |zero|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> ,
+% <http://www.mathworks.com/help/techdoc/ref/residue.html |residue|>
+%
+%%
+% From the main problem, the dynamic equations in the Laplace domain and
+% the open-loop transfer function of the aircraft pitch dynamics are:
+%
+% $$ sA(s) = -0.313A(s)+ 56.7 Q(s) + 0.232\Delta(s) $$
+%
+% $$ sQ(s) = -0.0139A(s) - 0.426Q(s) + 0.0203\Delta(s) $$
+%
+% $$ s\Theta(s) = 56.7 Q(s)$$
+%
+% $$ P(s) = \frac{\Theta(s)}{\Delta(s)} = \frac {1.151s+0.1774} {s^3+0.739s^2+0.921s} $$
+%
+%%
+% For the original problem setup and the derivation of the above equations please refer to the
+% < ?example=AircraftPitch&section=SystemModeling Aircraft Pitch: System Modeling> page 
+%
+% For a step reference, the design criteria are the following.
+%
+% * Overshoot less than 10%
+% * Rise time  less than 2 seconds
+% * Settling time less than 10 seconds
+% * Steady-state error less than 2% 
+%
+%% Open-loop response
+% First create a new < ?aux=Extras_Mfile
+% m-file> and type in the following commands (refer to the main problem for the details of
+% getting these commands). 
+
+s = tf('s');
+P_pitch = (1.151*s+0.1774)/(s^3+0.739*s^2+0.921*s);
+
+%%
+% Now let's see how the uncompensated open-loop system performs.
+% Specifically, we will use the MATLAB command |step| to analyze the
+% open-loop step response where we have scaled the input to represent an
+% elevator angle input ($\delta$) of 0.2 radians (11 degrees). Add the
+% following commands onto the end of the m-file and run it in the MATLAB
+% command window and you will get the associated plot shown below. 
+
+t = [0:0.01:10];
+step(0.2*P_pitch,t);
+axis([0 10 0 0.8]);
+ylabel('pitch angle (rad)');
+title('Open-loop Step Response');
+
+%%
+% From the above plot, we see that the open-loop response does not satisfy the
+% design criteria at all. In fact, the open-loop response is unstable.
+% Stability of a system can be determined by examining the poles of the
+% transfer function where the poles can be identified using the MATLAB
+% command |pole| as shown below.
+
+pole(P_pitch)
+
+%%
+% As indicated by this function, one of the poles of the open-loop transfer
+% function is on the imaginary axis while the other two poles are in the
+% left-half of the complex _s_-plane.  A pole on the imaginary axis
+% indicates that the free response of the system will not grow unbounded,
+% but also will not decay to zero. Even though the free response will not grow
+% unbounded, a system with a pole on the imaginary axis can grow unbounded
+% when given an input, even when the input is bounded. This fact is in
+% agreement with what we have already seen. In this particular case, the
+% pole at the origin behaves like an integrator. Therefore, when the system
+% is given a step input its output continues to grow to infinity in the
+% same manner that an integral of a constant would grow to infinity as the
+% upper limit of the integral is made larger.
+%% Closed-loop response
+% In order to stabilize this system and eventually meet our given
+% design requirements, we will add a feedback controller. The figure 
+% below illustrates the control architecture we will employ.
+%
+% <<Content/AircraftPitch/System/Analysis/figures/feedback_pitch.png>>
+%
+%%
+% The closed-loop transfer function for the above with the controller
+% _C_(_s_) simply set equal to one can be generated using the MATLAB command
+% |feedback| as shown below.
+
+sys_cl = feedback(P_pitch,1)
+
+%%
+% The corresponding step response can be generated by adding the above
+% and following commands to your m-file. Note that the response is scaled to
+% model the fact that the pitch angle reference is a 0.2 radian (11 degree)
+% step. Running your m-file at the command line will produce the plot shown
+% below where the annotations for the rise time, settling time and final value 
+% can be added to the plot from the right-click menu under
+% *Characteristics*.
+%%
+% <html>
+% </p><pre class="codeinput">
+% step(0.2*sys_cl);
+% ylabel('pitch angle (rad)');
+% title('Closed-loop Step Response');
+% </pre>
+% </html>
+%%
+%
+% <<Content/AircraftPitch/System/Analysis/figures/Figure1.png>>
+%
+%%
+% Examining the above closed-loop step response, the addition of feedback
+% has stabilized the system. In fact, the steady-state error appears to be
+% driven to zero and there is no overshoot in the response, though the
+% rise-time and settle-time requirements are not met. The character of the 
+% resulting step response is indicated by the location of the poles and
+% zeros of the system's transfer function, in a similar manner to the way
+% the system's stability properties were. The MATLAB commands |pole| and
+% |zero| can be used to reveal the poles and zeros of the closed-loop
+% transfer function as shown below.
+
+poles = pole(sys_cl)
+zeros = zero(sys_cl)
+
+%%
+% The above results demonstrate that the closed-loop transfer function is
+% third order with a zero. Most of the relationships that we are familiar
+% with for predicting the character of a system's step response assume a
+% standard underdamped second-order system with no zeros. Therefore, we
+% cannot rely on these relationships for this system. We can, however,
+% transform the output back to the time domain to generate a time function
+% for the system's response to get some insight into how the poles and
+% zeros of the closed-loop transfer function affect the system's response.
+% Assuming the closed-loop transfer function has the form _Y_(_s_) / _R_(_s_), the
+% output _Y_(_s_) in the Laplace domain is calculated as follows where _R_(_s_)
+% is a step of magnitude 0.2.
+%
+% $$ Y(s) = \frac{1.151s+0.1774}{s^3+0.739s^2+2.072s+0.1774}R(s) $$ 
+%
+% $$ = \frac{0.2(1.151s+0.1774)}{s^4+0.739s^3+2.072s^2+0.1774s} $$
+%
+% We can then perform a partial fraction expansion in order to break this expression
+% into simpler terms that we hopefully recognize and are able to covert
+% from the Laplace domain back to the time domain. First we will use the
+% MATLAB command |zpk| to factor the numerator and denominator of our output
+% _Y_(_s_) into simpler terms.
+
+R = 0.2/s;
+Y = zpk(sys_cl*R)
+
+%%
+% Based on the above, the denominator of our output _Y_(_s_)
+% can be factored into a first-order term for the real pole of the transfer
+% function, a second-order term for the complex conjugate poles of the
+% transfer function, and a pole at the origin for the step input.
+% Therefore, it is desired to expand _Y_(_s_) as shown below. 
+%%
+% $$ Y(s) = \frac{0.2302(s+0.1541)}{s(s+0.08805)(s^2+0.6509s+2.105)} $$
+%
+%%
+% $$ = \frac{A}{s} + \frac{B}{s+0.08805} + \frac{Cs+D}{s^2+0.6509s+2.015} $$
+%
+% The specific values of the constants _A_, _B_, _C_, and _D_ can be determined by
+% hand calculation or by using the MATLAB command |residue| to perform the
+% partial fraction expansion as shown below. Here the syntax is |[r,p,k] =
+% residue(num,den)| where |num| and |den| are arrays containing the
+% coefficients of the numerator and denominator, respectively, of the
+% Laplace function being expanded. Notice that the denominator array
+% includes a placeholder zero since there is no constant term in the
+% denominator of _Y_(_s_).
+
+[r,p,k] = residue(0.2*[1.151 0.1774],[1 0.739 2.072 0.1774 0])
+
+%%
+% In the above, |r| is an array containing the residues of the partial
+% fraction expansion, that is, the numerator coefficients in the expansion.
+% The array |p| contains the poles of the system where the order
+% corresponds to the order of the residues in |r|. The direct term |k| is
+% empty in this case, as it will be in general since the numerator
+% polyonomial will generally be a smaller order than the denominator
+% polynomial. Based on the above, the coefficients _A_ and _B_ in our expansion
+% are equal to 0.2 and -0.0881, respectively. The coeffients _C_ and _D_ can be
+% determined by combining the terms for the complex conjugate poles back
+% into a single expression as shown below.
+
+[num,den] = residue(r(1:2),p(1:2),k);
+tf(num,den)
+
+%%
+% Based on the above, _C_ = -0.1121 and _D_ = -0.08071 and our resulting partial fraction
+% expansion can be expressed as follows. 
+%
+% $$ Y(s) = \frac{0.2}{s} - \frac{0.0881}{s+0.08805} - \frac{0.1121s + 0.08071}{s^2+0.6509s+2.015} $$
+%
+%%
+% Employing a Laplace transform table, the inverse Laplace transform of the
+% above expression can be taken to generate the corresponding time domain
+% expression shown below. If you have the Symbolic Math toolbox addition to
+% MATLAB, you can use the command |laplace| to perform the inversion. 
+%
+% <<Content/AircraftPitch/System/Analysis/figures/pitch_eq2.png>>
+%
+% Examining the above, each term corresponds to a pole of _Y_(_s_) where the
+% real part of the pole describes the exponential decay (or growth) of that
+% mode and the imaginary part of the pole corresponds to the frequency of
+% oscillation of the mode. The effect of zeros is to alter the coefficients
+% multiplying each of the terms. In other words, zeros affect the relative
+% contribution of each of the modes. The above example helps to give some
+% insight into how poles and zeros in the Laplace domain indicate the
+% system's corresponding behavior in the time domain.
+%
+% Entering the following code in the MATLAB command window will generate
+% the plot shown below which matches (within roundoff) the plot generated
+% using the |step| command above.
+
+t = [0:0.1:70];
+y = 0.2 - 0.0881*exp(-0.08805*t) - exp(-0.3255*t).*(0.1121*cos(1.3816*t)+0.0320*sin(1.3816*t));
+plot(t,y)
+xlabel('time (sec)');
+ylabel('pitch angle (rad)');
+title('Closed-loop Step Response');
+
+%%
+% The above plot again demonstrates that this closed-loop system does not
+% meet the given design requirements. The subsequent pages of this example
+% describe several controller design techniques that produce closed-loop
+% systems that do generate the desired system behavior.
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=AircraftPitch&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=AircraftPitch&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=AircraftPitch&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=AircraftPitch&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=AircraftPitch&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=AircraftPitch&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=AircraftPitch&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=AircraftPitch&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=AircraftPitch&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=AircraftPitch&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

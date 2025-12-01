@@ -1,0 +1,580 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: MotorPosition	section: ControlPID	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "MotorPosition";
+			var section = "ControlPID";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=MotorPosition&section=ControlRootLocus";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Motor Position: PID Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#a4e7cbcad0d6cbc8f0d1d0cbd6cdc5c8d7e9c5d0c8c5c6f7cdc9d1c8cdcacfe4c3c9c5cdc88ac7cbc9">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=MotorPosition&section=ControlRootLocus">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlPID"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlPID"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlPID"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlPID"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlPID"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlPID"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlPID"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlPID"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>DC Motor Position: PID Controller Design</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/feedback.html"><tt>feedback</tt></a></p>
+       <a href="https://www.mathworks.com/campaigns/products/control-tutorials.html#dc-motor-position-pid-controller-design" style="color: white" class="button"> Run Live Script Version in MATLAB Online</a>
+	  </div>
+	  <div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?example=Introduction&section=ControlPID">PID Control Intro</a></li>
+        <li><a href="?aux=Activities_DCmotorB">DC Motor Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/videos/pid-control-made-easy-81646.html">MATLAB PID Video</a></li>
+	  		<li><a href="https://www.youtube.com/watch?v=RYWPqb2hAEM">PID Intro Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#4">Proportional control</a></li>
+            <li><a href="#8">PI control</a></li>
+            <li><a href="#11">PID control</a></li>
+         </ul>
+      </div>
+      <p>From the main problem, the open-loop transfer function of the DC Motor is given as follows.</p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq13686718476754334417.png" alt="$$ P(s) = \frac {\Theta (s)}{V(s)} = \frac{K}{s ( (Js + b)(Ls + R) + K^2 )} \qquad [ \frac{rad}{V}  ] $$"></p>
+      <p>The structure of the control system has the form shown in the figure below.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/MotorPosition/Control/PID/figures/feedback_motorp.png" alt=""> </p>
+      <p>For the original problem setup and the derivation of the above equations, please refer to the <a href="?example=MotorPosition&amp;section=SystemModeling">DC Motor Position: System Modeling</a> page.
+      </p>
+      <p>For a 1-radian step reference, the design criteria are the following.</p>
+      <div>
+         <ul>
+            <li>Settling time less than 0.040 seconds</li>
+            <li>Overshoot less than 16%</li>
+            <li>No steady-state error, even in the presence of a step disturbance input</li>
+         </ul>
+      </div>
+      <p>Now let's design a PID controller and add it into the system. First create a new <a href="?aux=Extras_Mfile">m-file</a> and type in the following commands (refer to main problem for the details of getting these commands).
+      </p><pre class="codeinput">J = 3.2284E-6;
+b = 3.5077E-6;
+K = 0.0274;
+R = 4;
+L = 2.75E-6;
+s = tf(<span class="string">'s'</span>);
+P_motor = K/(s*((J*s+b)*(L*s+R)+K^2));
+</pre><p>Recall that the transfer function for a PID controller has the following form.</p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq07188098621412022496.png" alt="$$ C(s) = K_{p} + \frac {K_{i}} {s} + K_{d}s = \frac{K_{d}s^2 + K_{p}s + K_{i}} {s}  $$"></p>
+      <h2>Proportional control<a name="4"></a></h2>
+      <p>Let's first try using a proportional controller with gain ranging from 1 to 21. An <b>array of LTI models</b>, each with a different proportional gain, can be built using a <tt>for</tt> loop. The closed-loop transfer functions can be generated using the <tt>feedback</tt> command. Add the following code to the end of your m-file and run it in the MATLAB command window:
+      </p><pre class="codeinput">Kp = 1;
+<span class="keyword">for</span> i = 1:3
+    C(:,:,i) = pid(Kp);
+    Kp = Kp + 10;
+<span class="keyword">end</span>
+sys_cl = feedback(C*P_motor,1);
+</pre><p>Now let's see what the step responses look like. Add the following code to the end of your m-file and again run it in the
+         command window. You should generate the plot shown in the figure below.
+      </p><pre class="codeinput">t = 0:0.001:0.2;
+step(sys_cl(:,:,1), sys_cl(:,:,2), sys_cl(:,:,3), t)
+ylabel(<span class="string">'Position, \theta (radians)'</span>)
+title(<span class="string">'Response to a Step Reference with Different Values of K_p'</span>)
+legend(<span class="string">'Kp = 1'</span>,  <span class="string">'Kp = 11'</span>,  <span class="string">'Kp = 21'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_01.png" alt=""> <p>Let's also consider the system's response to a step disturbance. In this case, we will assume a reference of zero and look
+         at how the system responds to the disturbance by itself. The <tt>feedback</tt> command can still be employed for generating the closed-loop transfer function where there is still negative feedback, however,
+         now only the plant transfer function <i>P</i>(<i>s</i>) is in the forward path and the controller <i>C</i>(<i>s</i>) is considered to be in the feedback path. Refer back to the block diagram at the top of this page to see the structure of
+         the system. Add the following to the end of your m-file and run it in the command window. You should generate the plot shown
+         in the figure below.
+      </p><pre class="codeinput">dist_cl = feedback(P_motor,C);
+step(dist_cl(:,:,1), dist_cl(:,:,2), dist_cl(:,:,3), t)
+ylabel(<span class="string">'Position, \theta (radians)'</span>)
+title(<span class="string">'Response to a Step Disturbance with Different Values of K_p'</span>)
+legend(<span class="string">'Kp = 1'</span>, <span class="string">'Kp = 11'</span>,<span class="string">'Kp = 21'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_02.png" alt=""> <p>The above plots show that the system has no steady-state error in response to the step reference by itself, no matter the
+         choice of proportional gain <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq04301653670133881862.png" alt="$K_p$">. This is due to the fact that the plant has an integrator, that is, the system is type 1.  However, the system has significant
+         steady-state error when the disturbance is added. Specifically, the response due to the reference and disturbance applied
+         simultaneously is equal to the sum of the two graphs shown above. This follows from the property of <b>superposition</b> that holds for linear systems. Therefore, to have zero steady-state error in the presence of a disturbance, we need the disturbance
+         response to decay to zero. The larger the value of <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq04301653670133881862.png" alt="$K_p$"> the smaller the steady-state error is due to the disturbance, but it never reaches zero. Furthermore, employing increasingly
+         larger values of <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq04301653670133881862.png" alt="$K_p$"> has the adverse effect of increasing the overshoot and settle time as can be seen from the step reference plot. Recall from
+         the <a href="?example=MotorPosition&amp;section=SystemModeling">DC Motor Position: System Modeling</a> page that adding an integral term will eliminate the steady-state error and a derivative term can reduce the overshoot and
+         settling time.
+      </p>
+      <h2>PI control<a name="8"></a></h2>
+      <p>Let's first try a PI controller to get rid of the steady-state error due to the disturbance. We will set <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq04301653670133881862.png" alt="$K_p$"> = 21 and test integral gains <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq12979110429562330213.png" alt="$K_i$"> ranging from 100 to 500. Change your m-file to the following and run in the command window. You should generate a figure
+         like the one shown below.
+      </p><pre class="codeinput">Kp = 21;
+Ki = 100;
+<span class="keyword">for</span> i = 1:5
+    C(:,:,i) = pid(Kp,Ki);
+    Ki = Ki + 200;
+<span class="keyword">end</span>
+
+sys_cl = feedback(C*P_motor,1);
+t = 0:0.001:0.4;
+step(sys_cl(:,:,1), sys_cl(:,:,2), sys_cl(:,:,3), t)
+ylabel(<span class="string">'Position, \theta (radians)'</span>)
+title(<span class="string">'Response to a Step Reference with K_p = 21 and Different Values of K_i'</span>)
+legend(<span class="string">'Ki = 100'</span>, <span class="string">'Ki = 300'</span>, <span class="string">'Ki = 500'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_03.png" alt=""> <p>Now let's see what happened to the step disturbance response. Change the following commands in your m-file and re-run in the
+         command window. You should generate a plot like the one shown in the figure below.
+      </p><pre class="codeinput">dist_cl = feedback(P_motor,C);
+step(dist_cl(:,:,1), dist_cl(:,:,2), dist_cl(:,:,3), t)
+ylabel(<span class="string">'Position, \theta (radians)'</span>)
+title(<span class="string">'Response to a Step Disturbance with K_p = 21 and Different Values of K_i'</span>)
+legend(<span class="string">'Ki = 100'</span>,  <span class="string">'Ki = 300'</span>,  <span class="string">'Ki = 500'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_04.png" alt=""> <p>The integral control has reduced the steady-state error to zero, even when a step disturbance is present; that was the goal
+         for adding the integral term. For the response to the step reference, all of the reponses look similar with the amount of
+         oscillation increasing slightly as <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq12979110429562330213.png" alt="$K_i$"> is made larger. However, the response due to the disturbance changes significantly as the integral gain <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq12979110429562330213.png" alt="$K_i$"> is changed. Specifically, the larger the value of <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq12979110429562330213.png" alt="$K_i$"> employed, the faster the error decays to zero. We will choose <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq12979110429562330213.png" alt="$K_i$"> = 500 because the error due to the disturbance decays to zero quickly, even though the response to the reference has a longer
+         settling time and more overshoot. We will attempt to reduce the settling time and overshoot by adding a derivative term to
+         the controller.
+      </p>
+      <h2>PID control<a name="11"></a></h2>
+      <p>Adding a derivative term to the controller means that we now have all three terms of the PID controller. We will investigate
+         derivative gains <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq14222518565320121796.png" alt="$K_d$"> ranging from 0.05 to 0.25. Go back to the m-file and make the following changes. Running the altered m-file will generate
+         a graph like the one shown below.
+      </p><pre class="codeinput">Kp = 21;
+Ki = 500;
+Kd = 0.05;
+
+<span class="keyword">for</span> i = 1:3
+    C(:,:,i) = pid(Kp,Ki,Kd);
+    Kd = Kd + 0.1;
+<span class="keyword">end</span>
+
+sys_cl = feedback(C*P_motor,1);
+t = 0:0.001:0.1;
+step(sys_cl(:,:,1), sys_cl(:,:,2), sys_cl(:,:,3), t)
+ylabel(<span class="string">'Position, \theta (radians)'</span>)
+title(<span class="string">'Step Response with K_p = 21, K_i = 500 and Different Values of K_d'</span>)
+legend(<span class="string">'Kd = 0.05'</span>, <span class="string">'Kd = 0.15'</span>, <span class="string">'Kd = 0.25'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_05.png" alt=""> <p>Let's see what happened to the step disturbance response, change the following commands in your m-file and re-run at the command
+         line.
+      </p><pre class="codeinput">dist_cl = feedback(P_motor,C);
+t = 0:0.001:0.2;
+step(dist_cl(:,:,1), dist_cl(:,:,2), dist_cl(:,:,3), t)
+ylabel(<span class="string">'Position, \theta (radians)'</span>)
+title(<span class="string">'Step Response with K_p = 21, K_i = 500 and Different values of K_d'</span>)
+legend(<span class="string">'Kd = 0.05'</span>, <span class="string">'Kd = 0.15'</span>, <span class="string">'Kd = 0.25'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_06.png" alt=""> <p>It looks like when <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq14222518565320121796.png" alt="$K_d$"> = 0.15, we can meet our design requirements. To determine the precise characteristics of the step response you can use the
+         right-click menu of the step response plot, or you can use the MATLAB command <tt>stepinfo</tt> as shown below.
+      </p><pre class="codeinput">stepinfo(sys_cl(:,:,2))
+</pre><pre class="codeoutput">ans = 
+  struct with fields:
+
+        RiseTime: 0.0046
+    SettlingTime: 0.0338
+     SettlingMin: 0.9103
+     SettlingMax: 1.1212
+       Overshoot: 12.1175
+      Undershoot: 0
+            Peak: 1.1212
+        PeakTime: 0.0122
+</pre><p>From the above, we see that the response to a step reference has a settling time of roughly 34ms (&lt; 40 ms), overshoot of 12%
+         (&lt; 16%), and no steady-state error. Additionally, the step disturbance response also has no steady-state error. So now we
+         know that if we use a PID controller with
+      </p>
+      <p><img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq04301653670133881862.png" alt="$K_p$"> = 21, <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq12979110429562330213.png" alt="$K_i$"> = 500, and <img class="inline_eqn" src="Content/MotorPosition/Control/PID/html/MotorPosition_ControlPID_eq14222518565320121796.png" alt="$K_d$"> = 0.15,
+      </p>
+      <p>all of our design requirements will be satisfied.</p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% DC Motor Position: PID Controller Design
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|>
+%
+%% 
+% From the main problem, the open-loop transfer function of the DC Motor is
+% given as follows.
+% 
+% $$ P(s) = \frac {\Theta (s)}{V(s)} = \frac{K}{s ( (Js + b)(Ls + R) + K^2 )} \qquad [ \frac{rad}{V}  ] $$
+%
+% The structure of the control system has the form shown in the figure below. 
+%
+% <<Content/MotorPosition/Control/PID/figures/feedback_motorp.png>>
+%
+%%
+% For the original problem setup and the derivation of the above equations,
+% please refer to the  
+% < ?example=MotorPosition&section=SystemModeling
+% DC Motor Position: System Modeling> page. 
+%
+% For a 1-radian step reference, the design criteria are the following.
+%
+% * Settling time less than 0.040 seconds
+% * Overshoot less than 16%
+% * No steady-state error, even in the presence of a step disturbance input
+%
+% Now let's design a PID controller and add it into the system. First
+% create a new < ?aux=Extras_Mfile
+% m-file> and type in the following commands (refer to main
+% problem for the details of getting these commands). 
+
+J = 3.2284E-6;
+b = 3.5077E-6;
+K = 0.0274;
+R = 4;
+L = 2.75E-6;
+s = tf('s');
+P_motor = K/(s*((J*s+b)*(L*s+R)+K^2));
+
+%%
+% Recall that the transfer function for a PID controller has the following
+% form.
+%
+% $$ C(s) = K_{p} + \frac {K_{i}} {s} + K_{d}s = \frac{K_{d}s^2 + K_{p}s + K_{i}} {s}  $$
+%
+%
+%% Proportional control
+% Let's first try using a proportional controller with gain ranging
+% from 1 to 21. An *array of LTI models*, each with a different
+% proportional gain, can be built using a |for| loop. The
+% closed-loop transfer functions can be generated using the
+% |feedback| command. Add the following code to the end of your m-file and
+% run it in the MATLAB command window: 
+
+Kp = 1;
+for i = 1:3
+    C(:,:,i) = pid(Kp);
+    Kp = Kp + 10;
+end
+sys_cl = feedback(C*P_motor,1);
+
+%%
+% Now let's see what the step responses look like. Add the following code
+% to the end of your m-file and again run it in the command window. You
+% should generate the plot shown in the figure below.
+
+t = 0:0.001:0.2;
+step(sys_cl(:,:,1), sys_cl(:,:,2), sys_cl(:,:,3), t)
+ylabel('Position, \theta (radians)')
+title('Response to a Step Reference with Different Values of K_p')
+legend('Kp = 1',  'Kp = 11',  'Kp = 21')
+
+%%
+% Let's also consider the system's response to a step disturbance. In
+% this case, we will assume a reference of zero and look at how the
+% system responds to the disturbance by itself. The |feedback| command can
+% still be employed for generating the closed-loop transfer function
+% where there is still negative feedback, however, now only the
+% plant transfer function _P_(_s_) is in the forward path and the
+% controller _C_(_s_) is considered to be in the feedback path. Refer back
+% to the block diagram at the top of this page to see the structure of the
+% system. Add the following to the end of your m-file and run it in the
+% command window. You should generate the plot shown in the figure below.  
+
+dist_cl = feedback(P_motor,C);
+step(dist_cl(:,:,1), dist_cl(:,:,2), dist_cl(:,:,3), t)
+ylabel('Position, \theta (radians)')
+title('Response to a Step Disturbance with Different Values of K_p')
+legend('Kp = 1', 'Kp = 11','Kp = 21')
+
+%%
+% The above plots show that the system has no steady-state error in
+% response to the step reference by itself, no matter the choice of
+% proportional gain $K_p$. This is due to the fact that the plant has an
+% integrator, that is, the system is type 1.  However, the system has
+% significant steady-state error when the disturbance is added.
+% Specifically, the response due to the reference and disturbance applied
+% simultaneously is equal to the sum of the two graphs shown above. This
+% follows from the property of *superposition* that holds for linear
+% systems. Therefore, to have zero steady-state error in the presence of a
+% disturbance, we need the disturbance response to decay to zero. The
+% larger the value of $K_p$ the smaller the steady-state error is due to the
+% disturbance, but it never reaches zero. Furthermore, employing
+% increasingly larger values of $K_p$ has the adverse effect of increasing
+% the overshoot and settle time as can be seen from the step reference
+% plot. Recall from the
+% < ?example=MotorPosition&section=SystemModeling
+% DC Motor Position: System Modeling> page that adding an integral term
+% will eliminate the steady-state error and a derivative term can reduce
+% the overshoot and settling time. 
+%
+%% PI control
+% Let's first try a PI controller to get rid of the steady-state error due
+% to the disturbance. We will set $K_p$ = 21 and test integral gains $K_i$
+% ranging from 100 to 500. Change your m-file to the following and run in
+% the command window. You should generate a figure like the one shown
+% below.
+
+Kp = 21;
+Ki = 100;
+for i = 1:5
+    C(:,:,i) = pid(Kp,Ki);
+    Ki = Ki + 200;
+end
+
+sys_cl = feedback(C*P_motor,1);
+t = 0:0.001:0.4;
+step(sys_cl(:,:,1), sys_cl(:,:,2), sys_cl(:,:,3), t)
+ylabel('Position, \theta (radians)')
+title('Response to a Step Reference with K_p = 21 and Different Values of K_i')
+legend('Ki = 100', 'Ki = 300', 'Ki = 500')
+
+%%
+% Now let's see what happened to the step disturbance response. Change the
+% following commands in your m-file and re-run in the command window. You
+% should generate a plot like the one shown in the figure below.
+
+dist_cl = feedback(P_motor,C);
+step(dist_cl(:,:,1), dist_cl(:,:,2), dist_cl(:,:,3), t)
+ylabel('Position, \theta (radians)')
+title('Response to a Step Disturbance with K_p = 21 and Different Values of K_i')
+legend('Ki = 100',  'Ki = 300',  'Ki = 500')
+
+%%
+% The integral control has reduced the steady-state error to zero, even
+% when a step disturbance is present; that was the goal for adding the
+% integral term. For the response to the step reference, all of the
+% reponses look similar with the amount of oscillation increasing slightly 
+% as $K_i$ is made larger. However, the response due to the disturbance
+% changes significantly as the integral gain $K_i$ is changed. Specifically,
+% the larger the value of $K_i$ employed, the faster the error decays to
+% zero. We will choose $K_i$ = 500 because the error due to the disturbance
+% decays to zero quickly, even though the response to the reference has a
+% longer settling time and more overshoot. We will attempt to reduce the
+% settling time and overshoot by adding a derivative term to the controller. 
+%% PID control
+% Adding a derivative term to the controller means that we now have all
+% three terms of the PID controller. We will investigate derivative gains
+% $K_d$ ranging from 0.05 to 0.25. Go back to the m-file and make the
+% following changes. Running the altered m-file will generate a graph like
+% the one shown below.
+
+Kp = 21;
+Ki = 500;
+Kd = 0.05;
+
+for i = 1:3
+    C(:,:,i) = pid(Kp,Ki,Kd);
+    Kd = Kd + 0.1;
+end
+
+sys_cl = feedback(C*P_motor,1);
+t = 0:0.001:0.1;
+step(sys_cl(:,:,1), sys_cl(:,:,2), sys_cl(:,:,3), t)
+ylabel('Position, \theta (radians)')
+title('Step Response with K_p = 21, K_i = 500 and Different Values of K_d')
+legend('Kd = 0.05', 'Kd = 0.15', 'Kd = 0.25')
+
+%%
+% Let's see what happened to the step disturbance response, change the
+% following commands in your m-file and re-run at the command line. 
+
+dist_cl = feedback(P_motor,C);
+t = 0:0.001:0.2;
+step(dist_cl(:,:,1), dist_cl(:,:,2), dist_cl(:,:,3), t)
+ylabel('Position, \theta (radians)')
+title('Step Response with K_p = 21, K_i = 500 and Different values of K_d')
+legend('Kd = 0.05', 'Kd = 0.15', 'Kd = 0.25')
+
+%%
+% It looks like when $K_d$ = 0.15, we can meet our design requirements.
+% To determine the precise characteristics of the step response you can use
+% the right-click menu of the step response plot, or you can use the MATLAB
+% command |stepinfo| as shown below.
+
+stepinfo(sys_cl(:,:,2))
+
+%%
+% From the above, we see that the response to a step reference has a settling time
+% of roughly 34ms (< 40 ms), overshoot of 12% (< 16%), and no
+% steady-state error. Additionally, the step disturbance response also has
+% no steady-state error. So now we know that if we use a PID controller with   
+%
+% $K_p$ = 21, $K_i$ = 500, and $K_d$ = 0.15,
+%
+% all of our design requirements will be satisfied.
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=MotorPosition&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=MotorPosition&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=MotorPosition&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=MotorPosition&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=MotorPosition&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=MotorPosition&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=MotorPosition&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=MotorPosition&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=MotorPosition&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=MotorPosition&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

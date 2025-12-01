@@ -1,0 +1,946 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: InvertedPendulum	section: SimulinkSimscape	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "InvertedPendulum";
+			var section = "SimulinkSimscape";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=AircraftPitch&section=SystemModeling";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Inverted Pendulum: Simulink Simscape</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#f0b39f9e84829f9ca485849f8299919c83bd91849c9192a3999d859c999e9bb0979d91999cde939f9d">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=AircraftPitch&section=SystemModeling">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SimulinkSimscape"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SimulinkSimscape"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SimulinkSimscape"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SimulinkSimscape"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SimulinkSimscape"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SimulinkSimscape"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SimulinkSimscape"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SimulinkSimscape"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Inverted Pendulum: Simscape Modeling</h1>
+      <!--introduction-->
+	   </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+		<li><a href="?aux=Basics_Simulink">Simulink Basics</a></li>
+		<li><a href="?example=Introduction&section=SimulinkModeling">Modeling w/ Simulink</a></li>
+		<li><a href="?aux=Activities_RCcircuitA">Circuit Sim Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/help/physmod/sm/index.html">Simscape Multibody Intro</a></li>
+		<li><a href="https://www.mathworks.com/help/physmod/sm/gs/model-pendulum.html">Pendulum in Simscape</a></li>
+		<li><a href="https://www.mathworks.com/help/slcontrol/ug/control-of-an-inverted-pendulum-on-a-cart.html">Inv Pend Control</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Physical Setup</a></li>
+            <li><a href="#3">Create world frame and basic configuration</a></li>
+            <li><a href="#4">Assemble base plane and cart</a></li>
+            <li><a href="#5">Pendulum subsystem and connecting the cart to the pendulum</a></li>
+            <li><a href="#8">Selecting outputs for controller and angle conversion</a></li>
+            <li><a href="#12">Create subsystem for pendulum and cart</a></li>
+            <li><a href="#13">Closed-loop setup</a></li>
+            <li><a href="#14">Controller implementation</a></li>
+         </ul>
+      </div>
+      <h2>Physical Setup<a name="1"></a></h2>
+      <p>In this section we show how to build the inverted pendulum model using the physical modeling blocks of Simscape Multibody.
+         The blocks in the Simscape library represent actual physical components; therefore, complex multibody dynamic models can be
+         built without the need to build mathematical equations from physical principles as was done by applying Newton's laws to generate
+         the model implemented in <a href="?example=InvertedPendulum&amp;section=SimulinkModeling">Inverted Pendulum: Simulink Modeling</a>.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/pendulum_sche.png" alt=""> </p>
+      <p>The system parameters are defined as follows:</p><pre>(M)       mass of the cart                         0.5 kg</pre><pre>(m)       mass of the pendulum                     0.2 kg</pre><pre>(b)       coefficient of friction for cart         0.1 N/m/sec</pre><pre>(l)       length to pendulum center of mass        0.3 m</pre><pre>(I)       mass moment of inertia of the pendulum   0.006 kg.m^2</pre><h2>Create world frame and basic configuration<a name="3"></a></h2>
+      <p>Open a new Simscape Multibody model by typing <tt>smnew</tt> in the MATLAB command window. A new model opens, as shown below, with a few commonly used blocks already in the model. The
+         PS-Simulink and Simulink-PS blocks define the boundary between Simulink input/output models where the blocks are evaluated
+         sequentially and Simscape models where the equations are evaluated simultaneously.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_01.png" alt=""> </p>
+      <p>To configure basic settings in the model, carry out the following:</p>
+      <div>
+         <ul>
+            <li>Double-click on the Mechanism Configuration block and set <b>Gravity</b> to "[0 0 -9.81]", this represents an acceleration due to gravity of <img class="inline_eqn" src="Content/InvertedPendulum/Simulink/Simscape/html/InvertedPendulum_SimulinkSimscape_eq12764556104877078342.png" alt="$9.81\ m/s^2$"> acting along the global -Z direction
+            </li>
+            <li>Open the Solver Configuration block and ensure that the <b>Use local solver</b> checkbox is not selected.
+            </li>
+            <li>Type <b>CTRL-E</b> to open the <b>Configration Parameters</b> dialog
+            </li>
+            <li>On the <b>Solver</b> pane, ensure that <b>Type</b> is set to "Variable-Step" and that <b>Solver</b> is set to "auto", also set the <b>Stop time</b> to "10"
+            </li>
+         </ul>
+      </div>
+      <h2>Assemble base plane and cart<a name="4"></a></h2>
+      <p>We will model the cart as a point mass moving along an axis. We use the World Frame to define the axis along which the cart
+         will travel.
+      </p>
+      <div>
+         <ul>
+            <li>Connect the B port of the Rigid Transform block to the W port of the World Frame</li>
+            <li>Double-click on the Rigid Transform block</li>
+            <li>In group <b>Rotation</b>, set <b>Method</b> to "Standard Axis", <b>Axis</b> to "+Y" and <b>Angle</b> to "90 deg"
+            </li>
+            <li>Rename the Rigid Transform block to "Transform Vehicle Axis"</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_01a_transform_cart_axis.png" alt=""> </p>
+      <p><b>Tips for adding blocks:</b></p>
+      <div>
+         <ol>
+            <li>Use Quick Insert to add the blocks. Click in the diagram and type the name of the block (use the letters in <b>bold</b> below).  A list of blocks will appear and you can select the block you want from the list.
+            </li>
+            <li>After the block is entered, a prompt will appear for you to enter the parameter. Enter the variable names as shown below.</li>
+            <li>To rotate a block or flip blocks, right-click on the block and select an option from the <b>Rotate &amp; Flip</b> menu.
+            </li>
+            <li>To show the parameter below the block name, see <a href="https://www.mathworks.com/help/simulink/ug/block-properties-dialog-box.html#bvcdzkl-1">Set Block Annotation Properties</a> in the Simulink documentation.
+            </li>
+         </ol>
+      </div>
+      <p>Add the following blocks:</p>
+      <p>
+         * <b>Pri</b>smatic Reference<br>
+         * <b>Sco</b>pe<br>
+         * <b>Pul</b>se Generator<br>
+         
+      </p>
+      <p>For the Pulse Generator, double-click on the block and set <b>Period</b> to "10", <b>Amplitude</b> to "1000", <b>Pulse Width</b> to "0.01", and <b>Phase delay</b> to "1".
+      </p>
+      <p>The Prismatic Joint allows only one translational degree of freedom. The Prismatic Joint will be actuated by a force input.</p>
+      <div>
+         <ul>
+            <li>Double-Click on the Prismatic Joint to open the dialog box</li>
+            <li>In group <b>Internal Mechanics</b>, set <b>Damping Coefficient</b> to "0.1 N/(m/s)"
+            </li>
+            <li>Under group <b>Actuation</b>, set the <b>Force</b> to "Provided by Input"
+            </li>
+            <li>In group <b>Sensing</b>, select <b>Position</b> and <b>Velocity</b></li>
+            <li>Rename the Prismatic Joint to "Prismatic Cart"</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_01b_prismatic_cart.png" alt=""> </p>
+      <p>The Prismatic Joint next needs to be connected to the rest of the model.</p>
+      <div>
+         <ul>
+            <li>Connect the B port of Prismatic Cart to the F port of block Transform Vehicle Axis</li>
+            <li>Connect the F port of Prismatic Cart to the R port of the solid block</li>
+            <li>Rename the Pulse Generator block to "Disturbance" and connect the output of the "Disturbance" to the Simulink-PS Converter
+               block that is already in the diagram
+            </li>
+            <li>Connect the output of the Simulink-PS Converter block to the force input of Prismatic Cart</li>
+            <li>Double-click on this signal and name it "Force"</li>
+            <li>Double-click on the Simulink-PS Converter block and set <b>Input signal unit</b> to "N" for newtons
+            </li>
+            <li>Make a copy of the PS-Simulink block</li>
+            <li>Double-click on one PS-Simulink block and set <b>Output signal unit</b> to "m", and connect that block to the p port of the Prismatic Cart block
+            </li>
+            <li>Double-click on the other PS-Simulink block, set the <b>Output signal unit</b> to "m/s" and connect it to the v port of the Prismatic Cart block
+            </li>
+            <li>Connect both PS-Simulink blocks to the Scope</li>
+            <li>Name the signal from the p port "x Cart"</li>
+            <li>Name the signal from the v port "v Cart"</li>
+         </ul>
+      </div>
+      <p>Since we are modeling the sliding cart as a point mass, only the mass will affect the simulation results.</p>
+      <div>
+         <ul>
+            <li>Double-click on the solid block</li>
+            <li>Set parameter <b>Dimensions</b> to "[0.2,0.04,0.6]" so that the longest dimension points along the direction of travel.
+            </li>
+            <li>In group <b>Inertia</b>, set <b>Type</b> to "Point Mass" and <b>Mass</b> to "0.5 kg"
+            </li>
+            <li>In group <b>Graphic</b>, under <b>Visual Properties</b> set <b>Color</b> to "[0.8 0.45 0]"
+            </li>
+            <li>Rename the block to "Cart"</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_01c_cart.png" alt=""> </p>
+      <p>The model at this point should now appear as follows.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_02.png" alt=""> </p>
+      <p>Running a simulation (type <b>CTRL-T</b> or press the green arrow run button), the resulting plot shows both the distance traveled by the cart as well as its velocity.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_03.png" alt=""> </p>
+      <h2>Pendulum subsystem and connecting the cart to the pendulum<a name="5"></a></h2>
+      <p>Add the following blocks to the model:</p>
+      <div>
+         <ol>
+            <li>A Rigid Transform block</li>
+            <li>A Brick Solid block (Solid block prior to R2019b)</li>
+            <li>A Revolute Joint</li>
+         </ol>
+      </div>
+      <p>To define the axis of rotation for the pendulum:</p>
+      <div>
+         <ul>
+            <li>Connect the B port of the new Rigid Transform block to the F port of Prismatic Cart</li>
+            <li>Connect the F port of the new Rigid Transform block to the B port of the new Revolute Joint block</li>
+            <li>Double-click on the new Rigid Transform block</li>
+            <li>In group <b>Rotation</b>, set <b>Method</b> to "Standard Axis", <b>Axis</b> to "+X", and <b>Angle</b> to "90 deg"
+            </li>
+            <li>Rename the block "Transform Pendulum Pivot" the revolute</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_02a_transform_pendulum_pivot.png" alt=""> </p>
+      <p>To define the degree of freedom of rotation for the pendulum:</p>
+      <div>
+         <ul>
+            <li>Rename Revolute Joint to "Revolute Pendulum"</li>
+            <li>Connect F port of Revolute Pendulum to R port of Brick Solid block (Solid block prior to R2019b)</li>
+         </ul>
+      </div>
+      <p>To model the pendulum:</p>
+      <div>
+         <ul>
+            <li>Double-click on the Brick Solid block</li>
+            <li>In group <b>Geometry</b>, set <b>Dimensions</b> to "[0.6 0.03 0.05] m"
+            </li>
+            <li>In group <b>Inertia</b>, set <b>Type</b> to "Point Mass" and <b>Mass</b> to "0.2 kg"
+            </li>
+            <li>In group <b>Graphic</b>, under <b>Visual Properties</b> set <b>Color</b> to "[0.25 0.4 0.7]"
+            </li>
+            <li>Press <b>OK</b>, and rename the block to "Pendulum"
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_02b_pendulum_solid.png" alt=""> </p>
+      <p>To model the connection point to the cart:</p>
+      <div>
+         <ul>
+            <li>Double-click on the Pendulum block</li>
+            <li>In group <b>Frames</b>, click on the + next to <b>New Frame</b>, this opens the frame definition interface
+            </li>
+            <li>Click on the small face of the brick facing you (along positive x direction) to select it</li>
+            <li>In section <b>Frame Origin</b>, select radio button <b>Based on Geometric Feature</b></li>
+            <li>Click the <b>Save</b> button at the bottom of the dialog box
+            </li>
+            <li>Change the name of "Frame1" to "B"</li>
+            <li>Unselect the checkbox for <b>Show Port R</b></li>
+            <li>Click <b>OK</b></li>
+            <li>Connect the B port of Pendulum to the F port of "Transform Pendulum Pivot"</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_02c_pendulum_frame.png" alt=""> </p>
+      <p>The resulting model should appear as follows:</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_04.png" alt=""> </p>
+      <p>Running a simulation (type <b>CTRL-T</b> or press the green arrow run button), the following plot is generated, where one can see that the addition of the pendulum
+         alters the cart behavior both in its distance traveled as well as its velocity.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_05.png" alt=""> </p>
+      <h2>Selecting outputs for controller and angle conversion<a name="8"></a></h2>
+      <p>We now need to measure the angle and angular velocity of the pendulum:</p>
+      <div>
+         <ul>
+            <li>Double-click on "Revolute Pendulum"</li>
+            <li>In group <b>Z Revolute Primitive (Rz)</b> under <b>Sensing</b>, select checkboxes for <b>Position</b> and <b>Velocity</b></li>
+            <li>Make two copies of the PS-Simulink converter block</li>
+            <li>Double-click on one PS-Simulink block and set <b>Output signal units</b> to "rad"
+            </li>
+            <li>Connect that PS-Simulink block to the q port on Revolute Pendulum</li>
+            <li>Double-click on the other PS-Simulink block and set <b>Output signal units</b> to "rad/s"
+            </li>
+            <li>Connect that PS-Simulink block to the w port on Revolute Pendulum</li>
+         </ul>
+      </div>
+      <p>We need to limit the measured angle to stay between -pi and pi radians.</p>
+      <div>
+         <ul>
+            <li>Add a Subsystem block to your model</li>
+            <li>Rename the Subsytem block "Wrap Angle"</li>
+            <li>Double-click to enter the Wrap Angle subsystem</li>
+         </ul>
+      </div>
+      <p>In this subsystem we will add pi radians to the measurement, find the remainder when the signal is divided by 2*pi, and then
+         subtract pi radians.
+      </p>
+      <div>
+         <ul>
+            <li>Rename the input block "q"</li>
+            <li>Delete the signal connection between the inport and the outport</li>
+            <li>Add a Bias block to the model</li>
+            <li>Set parameter <b>Bias</b> to "pi"
+            </li>
+            <li>Connect the q block to the Bias block</li>
+            <li>Add a Math Function block to the model</li>
+            <li>Double-click on the Math Function block and set <b>Function</b> to "rem"
+            </li>
+            <li>Connect the output of Bias to the first input of the Math Function block</li>
+            <li>Add a Constant block to the model</li>
+            <li>Set parameter <b>Constant</b> to "2*pi"
+            </li>
+            <li>Connect the Constant block to the second input of the Math Function</li>
+            <li>Make a copy of the Bias block</li>
+            <li>Set parameter <b>Bias</b> in the new block to "-pi"
+            </li>
+            <li>Connect Math Function output to the input of the new Bias block</li>
+            <li>Connect the output of the new Bias block to the outport</li>
+            <li>Rename the outport "qwrap"</li>
+            <li>Go up one level in the diagram and rename the subsytem "Wrap Angle"</li>
+         </ul>
+      </div>
+      <p>Here you can see the resulting subsystem for wrapping the angle</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_06.png" alt=""> </p>
+      <p>We will plot the new signals on a Scope</p>
+      <div>
+         <ul>
+            <li>Connect PS-Simulink output for the q measurement of Revolute Pendulum to the input of Wrap Angle</li>
+            <li>Add a new Scope</li>
+            <li>Connect the qwrap output of Wrap Angle to the new Scope and change the name of this signal to "q pendulum"</li>
+            <li>Connect the PS-Simulink output for the w measurement of Revolute Pendulum to the new Scope and change the name of this signal
+               to "w pendulum"
+            </li>
+         </ul>
+      </div>
+      <p>The resulting model should appear as follows:</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_07.png" alt=""> </p>
+      <p>Running a simulation (type <b>CTRL-T</b> or press the green arrow run button), the followings plot are generated. The motion of the cart is the same as before, but
+         now we can see the motion of the pendulum. The associated animation shown below is also generated.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_08.png" alt=""> </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_09.png" alt=""> </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_mechanics_explorer.png" alt=""> </p>
+      <h2>Create subsystem for pendulum and cart<a name="12"></a></h2>
+      <p>We have now successfully created all the elements of the inverted pendulum system. We will convert this into a subsystem.</p>
+      <div>
+         <ul>
+            <li>Click once in the diagram (but not on a block) and press <b>CTRL-A</b> to select all blocks
+            </li>
+            <li>Hold the <b>Shift</b> key and click on the Disturbance block and each Scope to unselect those blocks
+            </li>
+            <li>Press <b>CTRL-G</b> to create a subsystem
+            </li>
+            <li>Rename the subsystem "Inverted Pendulum on Cart"</li>
+         </ul>
+      </div>
+      <p>Your model should now appear as shown:</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_10.png" alt=""> </p>
+      <h2>Closed-loop setup<a name="13"></a></h2>
+      <p>We will now add blocks for open and closed-loop testing.</p>
+      <p>Add the following blocks:</p>
+      <div>
+         <ul>
+            <li>Subtract</li>
+            <li>PID Controller</li>
+            <li>Constant</li>
+            <li>Manual Switch</li>
+            <li>Sum</li>
+         </ul>
+      </div>
+      <p>The Disturbance also will be added to the control signal.</p>
+      <div>
+         <ul>
+            <li>Delete the signal connecting Disturbance to the cart subsystem</li>
+            <li>Connect the output of the sum block to the Force input of the cart subsystem</li>
+            <li>Connect Disturbance to the bottom + port of the Sum block</li>
+         </ul>
+      </div>
+      <p>We wish to manually select open or closed-loop behavior.</p>
+      <div>
+         <ul>
+            <li>Connect the Manual Switch output to the + input of the Sum block</li>
+            <li>Connect the Constant block to the lower input of the Manual Switch, then set the parameter <b>Constant</b> to "0" and rename block "No Force"
+            </li>
+            <li>Connect the output of the PID Controller to the upper input of Manual Switch</li>
+            <li>Connect the Subtract block output to the input of PID Controller</li>
+         </ul>
+      </div>
+      <p>We will close the loop to control the pendulum angle.</p>
+      <div>
+         <ul>
+            <li>Connect q pendulum output of the cart subsystem to the - port of the Subtract block</li>
+            <li>Make a copy of the Constant block and connect it to the + port of the Subtract block and rename the block "Desired Pendulum
+               Angle"
+            </li>
+         </ul>
+      </div>
+      <p>Your model should now appear as follows. The output of the simulation is unchanged from prior results when in open-loop mode.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_12.png" alt=""> </p>
+      <h2>Controller implementation<a name="14"></a></h2>
+      <p>We will now implement the PID control gains developed in the <a href="?example=InvertedPendulum&amp;section=SimulinkModeling">Inverted Pendulum: PID Controller Design</a> page.
+      </p>
+      <div>
+         <ul>
+            <li>Double-click on the PID Controller block</li>
+            <li>Set parameter <b>Proportional (P)</b> to "100"
+            </li>
+            <li>Set parameter <b>Integral (I)</b> to "1"
+            </li>
+            <li>Set parameter <b>Derivative (D)</b> to "20"
+            </li>
+         </ul>
+      </div>
+      <p>Double-click on Manual Switch until the input from the PID Controller is selected.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_15.png" alt=""> </p>
+      <p>Running a simulation produces the following two plots show the controlled response of the system. After the initial impact
+         the controller was able to quickly bring down the pendulum angle to zero and the pendulum velocity is also zero. The cart
+         moves slowly and with a constant velocity in the negative X direction to keep the pendulum balanced.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_16.png" alt=""> </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_17.png" alt=""> </p>
+      <p>You can download the final Simscape model created here by right-clicking <a href="Content/InvertedPendulum/Simulink/Simscape/cart_pendulum_06.slx">here</a> and then selecting <b>Save link as ...</b>.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.7<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Inverted Pendulum: Simscape Modeling
+
+%% Physical Setup
+%
+% In this section we show how to build the inverted pendulum
+% model using the physical modeling blocks of Simscape Multibody.  The
+% blocks in the Simscape library represent actual physical components;
+% therefore, complex multibody dynamic models can be built without the
+% need to build mathematical equations from physical principles as was done
+% by applying Newton's laws to generate the model implemented in
+% < ?example=InvertedPendulum&section=SimulinkModeling Inverted Pendulum: 
+% Simulink Modeling >.  
+% 
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/pendulum_sche.png>>
+%%
+% The system parameters are defined as follows:
+% 
+%  (M)       mass of the cart                         0.5 kg
+% 
+%  (m)       mass of the pendulum                     0.2 kg
+% 
+%  (b)       coefficient of friction for cart         0.1 N/m/sec
+% 
+%  (l)       length to pendulum center of mass        0.3 m
+% 
+%  (I)       mass moment of inertia of the pendulum   0.006 kg.m^2	
+%
+%% Create world frame and basic configuration
+%
+% Open a new Simscape Multibody model by typing |smnew| in the MATLAB 
+% command window. A new model opens, as shown below, with a few commonly used blocks 
+% already in the model. The PS-Simulink and Simulink-PS blocks define the boundary between
+% Simulink input/output models where the blocks are evaluated sequentially
+% and Simscape models where the equations are evaluated simultaneously.
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_01.png>>
+%
+% To configure basic settings in the model, carry out the following:
+%
+% * Double-click on the Mechanism Configuration block and set *Gravity* to
+% "[0 0 -9.81]", this represents an acceleration due to gravity of $9.81\ 
+% m/s^2$ acting along the global -Z direction
+% * Open the Solver Configuration block and ensure that the *Use local
+% solver* checkbox is not selected.
+% * Type *CTRL-E* to open the *Configration Parameters* dialog
+% * On the *Solver* pane, ensure that *Type* is set to "Variable-Step" and
+% that *Solver* is set to "auto", also set the *Stop time* to "10"
+%
+%% Assemble base plane and cart 
+% 
+% We will model the cart as a point mass moving along an axis. We use
+% the World Frame to define the axis along which the cart will travel.
+%
+% * Connect the B port of the Rigid Transform block to the W port of the World Frame 
+% * Double-click on the Rigid Transform block
+% * In group *Rotation*, set *Method* to "Standard Axis", *Axis* to "+Y" and
+% *Angle* to "90 deg"
+% * Rename the Rigid Transform block to "Transform Vehicle Axis" 
+%  
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_01a_transform_cart_axis.png>>
+%
+% *Tips for adding blocks:* 
+%
+% # Use Quick Insert to add the blocks. Click in the diagram and type the
+% name of the block (use the letters in *bold* below).  A list of
+% blocks will appear and you can select the block you want from the list.
+% # After the block is entered, a prompt will appear for you to enter the
+% parameter. Enter the variable names as shown below.
+% # To rotate a block or flip blocks, right-click on the block and select
+% an option from the *Rotate & Flip* menu.
+% # To show the parameter below the block name, see
+% <https://www.mathworks.com/help/simulink/ug/block-properties-dialog-box.html#bvcdzkl-1
+% Set Block Annotation Properties> in the Simulink documentation.
+% 
+% Add the following blocks:
+% 
+% <html>
+% * <b>Pri</b>smatic Reference<br> 
+% * <b>Sco</b>pe<br>
+% * <b>Pul</b>se Generator<br>
+% </html>
+%
+% For the Pulse Generator, double-click on the block and set *Period* to "10",
+% *Amplitude* to "1000", *Pulse Width* to "0.01", and *Phase delay* to "1".
+%
+% The Prismatic Joint allows only one translational degree of freedom. The
+% Prismatic Joint will be actuated by a force input. 
+% 
+% * Double-Click on the Prismatic Joint to open the dialog box
+% * In group *Internal Mechanics*, set *Damping Coefficient* to "0.1
+% N/(m/s)"
+% * Under group *Actuation*, set the *Force* to "Provided by Input"
+% * In group *Sensing*, select *Position* and *Velocity* 
+% * Rename the Prismatic Joint to "Prismatic Cart"
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_01b_prismatic_cart.png>>
+%
+% The Prismatic Joint next needs to be connected to the rest of the model.
+%
+% * Connect the B port of Prismatic Cart to the F port of block
+% Transform Vehicle Axis
+% * Connect the F port of Prismatic Cart to the R port of the solid
+% block
+% * Rename the Pulse Generator block to "Disturbance" and connect the
+% output of the "Disturbance"  
+% to the Simulink-PS Converter block that is already in the diagram
+% * Connect the output of the Simulink-PS Converter block to the force
+% input of Prismatic Cart 
+% * Double-click on this signal and name it "Force"
+% * Double-click on the Simulink-PS Converter block and set *Input signal
+% unit* to "N" for newtons 
+% * Make a copy of the PS-Simulink block 
+% * Double-click on one PS-Simulink block and set *Output signal unit* to
+% "m", and connect that block to the p port of the Prismatic Cart block  
+% * Double-click on the other PS-Simulink block, set the *Output signal
+% unit* to "m/s" and connect it to the v port of the Prismatic Cart block 
+% * Connect both PS-Simulink blocks to the Scope
+% * Name the signal from the p port "x Cart"
+% * Name the signal from the v port "v Cart"
+% 
+% Since we are modeling the sliding cart as a point mass, only the mass
+% will affect the simulation results. 
+%
+% * Double-click on the solid block
+% * Set parameter *Dimensions* to "[0.2,0.04,0.6]" so that the longest dimension
+% points along the direction of travel.  
+% * In group *Inertia*, set *Type* to "Point Mass" and *Mass* to "0.5 kg"
+% * In group *Graphic*, under *Visual Properties* set *Color* to "[0.8 0.45
+% 0]"
+% * Rename the block to "Cart"
+% 
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_01c_cart.png>>
+% 
+% The model at this point should now appear as follows.
+% 
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_02.png>>
+% 
+% Running a simulation (type *CTRL-T* or press the green arrow run button), the
+% resulting plot shows both the distance traveled by the cart as well as
+% its velocity. 
+% 
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_03.png>>
+% 
+%% Pendulum subsystem and connecting the cart to the pendulum 
+%
+% Add the following blocks to the model:
+% 
+% # A Rigid Transform block
+% # A Brick Solid block (Solid block prior to R2019b)
+% # A Revolute Joint
+% 
+% To define the axis of rotation for the pendulum:
+%
+% * Connect the B port of the new Rigid Transform block to the F port of
+% Prismatic Cart
+% * Connect the F port of the new Rigid Transform block to the B port of
+% the new Revolute Joint block
+% * Double-click on the new Rigid Transform block
+% * In group *Rotation*, set *Method* to "Standard Axis", *Axis* to "+X",
+% and *Angle* to "90 deg"  
+% * Rename the block "Transform Pendulum Pivot" the revolute 
+% 
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_02a_transform_pendulum_pivot.png>>
+%
+% To define the degree of freedom of rotation for the pendulum:
+%
+% * Rename Revolute Joint to "Revolute Pendulum"
+% * Connect F port of Revolute Pendulum to R port of Brick Solid block (Solid
+% block prior to R2019b)
+%
+% To model the pendulum:
+%
+% * Double-click on the Brick Solid block
+% * In group *Geometry*, set *Dimensions* to "[0.6 0.03 0.05] m"
+% * In group *Inertia*, set *Type* to "Point Mass" and *Mass* to "0.2 kg"
+% * In group *Graphic*, under *Visual Properties* set *Color* to "[0.25 0.4
+% 0.7]"
+% * Press *OK*, and rename the block to "Pendulum"
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_02b_pendulum_solid.png>>
+%
+% To model the connection point to the cart:
+%
+% * Double-click on the Pendulum block
+% * In group *Frames*, click on the + next to *New Frame*, this opens the
+% frame definition interface
+% * Click on the small face of the brick facing you (along positive x
+% direction) to select it
+% * In section *Frame Origin*, select radio button *Based on Geometric
+% Feature*
+% * Click the *Save* button at the bottom of the dialog box
+% * Change the name of "Frame1" to "B"
+% * Unselect the checkbox for *Show Port R*
+% * Click *OK*
+% * Connect the B port of Pendulum to the F port of "Transform Pendulum
+% Pivot"
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_02c_pendulum_frame.png>>
+% 
+%%
+% The resulting model should appear as follows:
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_04.png>>
+% 
+%%
+% Running a simulation (type *CTRL-T* or press the green arrow run button),
+% the following plot is generated, where one can see that the 
+% addition of the pendulum alters the cart behavior both in its distance
+% traveled as well as its velocity.
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_05.png>>
+% 
+%% Selecting outputs for controller and angle conversion 
+%
+% We now need to measure the angle and angular velocity of the pendulum:
+%
+% * Double-click on "Revolute Pendulum" 
+% * In group *Z Revolute Primitive (Rz)* under *Sensing*, select checkboxes
+% for *Position* and *Velocity*
+% * Make two copies of the PS-Simulink converter block
+% * Double-click on one PS-Simulink block and set *Output signal units* to "rad"
+% * Connect that PS-Simulink block to the q port on Revolute Pendulum
+% * Double-click on the other PS-Simulink block and set *Output signal units* to "rad/s"
+% * Connect that PS-Simulink block to the w port on Revolute Pendulum
+%   
+% We need to limit the measured angle to stay between -pi and pi radians.
+% 
+% * Add a Subsystem block to your model
+% * Rename the Subsytem block "Wrap Angle"
+% * Double-click to enter the Wrap Angle subsystem
+% 
+% In this subsystem we will add pi radians to the measurement, find the remainder when
+% the signal is divided by 2*pi, and then subtract pi radians.
+% 
+% * Rename the input block "q"
+% * Delete the signal connection between the inport and the outport
+% * Add a Bias block to the model
+% * Set parameter *Bias* to "pi"
+% * Connect the q block to the Bias block
+% * Add a Math Function block to the model
+% * Double-click on the Math Function block and set *Function* to "rem"
+% * Connect the output of Bias to the first input of the Math Function
+% block
+% * Add a Constant block to the model
+% * Set parameter *Constant* to "2*pi"
+% * Connect the Constant block to the second input of the Math Function
+% * Make a copy of the Bias block
+% * Set parameter *Bias* in the new block to "-pi"
+% * Connect Math Function output to the input of the new Bias block
+% * Connect the output of the new Bias block to the outport
+% * Rename the outport "qwrap"
+% * Go up one level in the diagram and rename the subsytem "Wrap Angle" 
+% 
+% Here you can see the resulting subsystem for wrapping the angle
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_06.png>>
+% 
+%% 
+% 
+% We will plot the new signals on a Scope
+%
+% * Connect PS-Simulink output for the q measurement of Revolute Pendulum
+% to the input of Wrap Angle
+% * Add a new Scope
+% * Connect the qwrap output of Wrap Angle to the new Scope and change the name
+% of this signal to "q pendulum"
+% * Connect the PS-Simulink output for the w measurement of Revolute
+% Pendulum to the new Scope and change the name of this signal to "w
+% pendulum"
+%
+%%
+% The resulting model should appear as follows:
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_07.png>>
+% 
+%%
+% Running a simulation (type *CTRL-T* or press the green arrow run button),
+% the followings plot are generated. The motion of the cart is the same as
+% before, but now we can see the motion of the pendulum. The associated
+% animation shown below is also generated. 
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_08.png>>
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_09.png>>
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_mechanics_explorer.png>>
+
+%% Create subsystem for pendulum and cart
+%
+% We have now successfully created all the elements of the inverted 
+% pendulum system. We will convert this into a subsystem. 
+%
+% * Click once in the diagram (but not on a block) and press *CTRL-A* to
+% select all blocks
+% * Hold the *Shift* key and click on the Disturbance block and each Scope to
+% unselect those blocks
+% * Press *CTRL-G* to create a subsystem
+% * Rename the subsystem "Inverted Pendulum on Cart"
+%
+% Your model should now appear as shown:
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_10.png>>
+%
+%% Closed-loop setup
+%
+% We will now add blocks for open and closed-loop testing.
+%
+% Add the following blocks:
+% 
+% * Subtract
+% * PID Controller
+% * Constant
+% * Manual Switch
+% * Sum
+%
+% The Disturbance also will be added to the control signal.
+%
+% * Delete the signal connecting Disturbance to the cart subsystem
+% * Connect the output of the sum block to the Force input of the cart
+% subsystem
+% * Connect Disturbance to the bottom + port of the Sum block
+%
+% We wish to manually select open or closed-loop behavior.
+%
+% * Connect the Manual Switch output to the + input of the Sum block
+% * Connect the Constant block to the lower input of the Manual Switch,
+% then set the parameter *Constant* to "0" and rename block "No Force"
+% * Connect the output of the PID Controller to the upper input of Manual
+% Switch
+% * Connect the Subtract block output to the input of PID Controller
+%
+% We will close the loop to control the pendulum angle.
+%
+% * Connect q pendulum output of the cart subsystem to the - port of the
+% Subtract block
+% * Make a copy of the Constant block and connect it to the + port of the
+% Subtract block and rename the block "Desired Pendulum Angle"
+%
+% Your model should now appear as follows. The output of the simulation is
+% unchanged from prior results when in open-loop mode.
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_12.png>>
+%
+%% Controller implementation
+% 
+% We will now implement the PID control gains developed in the < ?example=InvertedPendulum&section=SimulinkModeling Inverted Pendulum: 
+% PID Controller Design > page.
+%
+% * Double-click on the PID Controller block
+% * Set parameter *Proportional (P)* to "100"
+% * Set parameter *Integral (I)* to "1"
+% * Set parameter *Derivative (D)* to "20"
+% 
+% Double-click on Manual Switch until the input from the PID Controller is
+% selected.
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_15.png>>
+%
+%%
+% Running a simulation produces the following two plots show the controlled
+% response of the system. After the initial impact the controller was able
+% to quickly bring down the pendulum angle to zero and the pendulum
+% velocity is also zero. The cart moves slowly and with a constant
+% velocity in the negative X direction to keep the pendulum balanced. 
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_16.png>>
+%
+% <<Content/InvertedPendulum/Simulink/Simscape/figures/cart_pendulum_17.png>>
+%
+%%
+% You can download the final Simscape model created here by right-clicking <Content/InvertedPendulum/Simulink/Simscape/cart_pendulum_06.slx here>
+% and then selecting *Save link as ...*.
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=InvertedPendulum&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=InvertedPendulum&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=InvertedPendulum&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=InvertedPendulum&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=InvertedPendulum&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=InvertedPendulum&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=InvertedPendulum&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=InvertedPendulum&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=InvertedPendulum&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=InvertedPendulum&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

@@ -1,0 +1,588 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: AircraftPitch	section: ControlRootLocus	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "AircraftPitch";
+			var section = "ControlRootLocus";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=AircraftPitch&section=ControlFrequency";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Aircraft Pitch: Root Locus Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#672408091315080b33121308150e060b142a06130b0605340e0a120b0e090c27000a060e0b4904080a">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=AircraftPitch&section=ControlFrequency">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlRootLocus"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlRootLocus"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlRootLocus"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlRootLocus"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlRootLocus"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlRootLocus"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlRootLocus"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlRootLocus"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Aircraft Pitch: Root Locus Controller Design</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a> , <a href="http://www.mathworks.com/help/control/ref/controlsystemdesigner-app.html"><tt>controlSystemDesigner</tt></a></p>
+      </div>
+	  <div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?example=Introduction&section=ControlRootLocus">Intro to Root Locus</a></li>
+        <li><a href="?aux=Extras_Leadlag">Lead/Lag Control</a></li>
+		<li><a href="?aux=Activities_RCcircuitC">Root Locus Activity</a></li>       
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/help/control/ug/root-locus-design.html#bq9_b2z">Design in MATLAB</a></li>
+		<li><a href="https://www.mathworks.com/videos/control-system-design-with-control-system-tuning-app-68749.html">Control System Designer App Video</a></li>
+		<li><a href="https://www.youtube.com/watch?v=vJ49jcquQ5E">Root Locus Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#3">Original root locus plot</a></li>
+            <li><a href="#7">Lead compensation</a></li>
+         </ul>
+      </div>
+      <p>From the main problem, the open-loop transfer function for the aircraft pitch dynamics is</p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/AircraftPitch/Control/RootLocus/html/AircraftPitch_ControlRootLocus_eq11086271845340660577.png" alt="$$ P(s) = \frac{\Theta(s)}{\Delta(s)} = \frac {1.151s+0.1774}{s^3+0.739s^2+0.921s} $$"></p>
+      <p>where the input is elevator deflection angle <img class="inline_eqn" src="Content/AircraftPitch/Control/RootLocus/html/AircraftPitch_ControlRootLocus_eq06646721004341227832.png" alt="$\delta$"> and the output is the aircraft pitch angle <img class="inline_eqn" src="Content/AircraftPitch/Control/RootLocus/html/AircraftPitch_ControlRootLocus_eq08288499342375314727.png" alt="$\theta$">.
+      </p>
+      <p>For the original problem setup and the derivation of the above transfer function please refer to the <a href="?example=AircraftPitch&amp;section=SystemModeling">Aircraft Pitch: System Modeling</a> page.
+      </p>
+      <p>For a step reference of 0.2 radians, the design criteria are the following.</p>
+      <div>
+         <ul>
+            <li>Overshoot less than 10%</li>
+            <li>Rise time less than 2 seconds</li>
+            <li>Settling time less than 10 seconds</li>
+            <li>Steady-state error less than 2%</li>
+         </ul>
+      </div>
+      <p>Recall from the <a href="?example=Introduction&amp;section=ControlRootLocus">Introduction: Root Locus Controller Design</a> page. a root locus plot shows all possible closed-loop pole locations as a parameter (usually a proportional gain <i>K</i>) is varied from 0 to infinity. We will employ the root locus to design our controller to place our system's closed-loop poles
+         in locations that will result in behavior that satisfies our given requirements. Recall from the <a href="?example=AircraftPitch&amp;section=SystemAnalysis">Aircraft Pitch: System Analysis</a> page. how pole locations directly affect the character of the system's response to a step reference.
+      </p>
+      <p>We will specifically use MATLAB's <b>Control System Designer</b> to modify the system's root locus to design a compensator to place the system's closed-loop poles to achieve the given design
+         requirements. More specifically, we will use the root locus to design for the requirements on transient response. We will
+         assume the following unity-feedback architecture.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/feedback_pitch2.png" alt=""> </p>
+      <h2>Original root locus plot<a name="3"></a></h2>
+      <p>We will begin by examining the system's root locus under simple proportional control <i>C</i>(<i>s</i>) = <i>K</i>. First, enter the following code at the command line to define the model of our plant <i>P</i>(<i>s</i>). Refer to the <a href="?example=AircraftPitch&amp;section=SystemModeling">Aircraft Pitch: System Modeling</a> page for the details of getting these commands.
+      </p><pre class="codeinput">s = tf(<span class="string">'s'</span>);
+P_pitch = (1.151*s+0.1774)/(s^3+0.739*s^2+0.921*s);
+</pre><p>Then, type <tt>controlSystemDesigner('rlocus', P_pitch)</tt> in the command window. One window named <b>Control System Designer</b> will initially open, with the root locus and closed-loop step response of the plant with controller  <i>C</i>(<i>s</i>) = <i>K</i> as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/PictureA.png" alt=""> </p>
+      <p>The <b>Edit Architecture</b> button (as shown above) in the <b>Control System Designer</b> window displays the architecture of the control system being designed as shown below. This default agrees with the architecture
+         we are employing.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/Picture1.png" alt=""> </p>
+      <p>Since our reference is a step function of 0.2 radians, we can set the precompensator block <i>F</i>(<i>s</i>) equal to 0.2 to scale a unit step input to our system. This can be accomplished from the <b>Compensator Editor</b> window, which can be opened by right-clicking on the root locus plot and then selecting <b>Edit Compensator</b>. Specifically, choose <tt>F</tt> from the drop-down menu in the <b>Compensator</b> portion of the window and set the compensator equal to 0.2 as shown in the figure below. Since the addition of this precompensator
+         doesn't affect the closed-loop pole locations, the displayed root locus will remain unchanged.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/Picture2.png" alt=""> </p>
+      <p>Recalling that pole locations relate to transient performance, we can identify regions of the complex plane that correspond
+         to pole locations that meet our requirements. These regions assume a canonical second-order system which we do not have even
+         under proportional control, however, the regions serve as a good starting point for our design.
+      </p>
+      <p>To add the design requirements to the root-locus plot, right-click on the plot and select <b>Design Requirements &gt; New</b> from the resulting menu. You can add many design requirements including Settling time, Percent overshoot, Damping ratio,
+         Natural frequency, and generic Region constraint. Our settling time and percent overshoot requirements can be added directly
+         employing these choices. Rise time is not explicitly included as one of the drop-down choices, however, we can use the following
+         approximate relationship that relates rise time to natural frequency.
+      </p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/AircraftPitch/Control/RootLocus/html/AircraftPitch_ControlRootLocus_eq16801118892391693852.png" alt="$$ \omega_n \approx \frac{1.8}{T_r} $$"></p>
+      <p>Therefore, our requirement that rise time be less than 2 seconds corresponds approximately to a natural frequency of greater
+         than 0.9 rad/sec for a canonical underdamped second-order system. Adding this requirement to the root locus plot in addition
+         to the settle time and overshoot requirements generates the following figure.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/Picture3.png" alt=""> </p>
+      <p>The resulting desired region for the closed-loop poles is shown by the unshaded region of the above figure. More specifically,
+         the two rays centered at the origin represent the overshoot requirement; the smaller the angle these rays make with the negative
+         real-axis, the less overshoot is allowed. The vertical line at <i>s</i> = -0.4 represents the settling time requirement, where the farther to left the closed-loop poles are located, the smaller
+         the settling time is. The rise time (natural frequency) requirement corresponds to the circle centered at the origin, where
+         the radius corresponds to a natural frequency of 0.9.
+      </p>
+      <p>Examination of the above figure shows that none of the three branches of the root locus enter the unshaded region, therefore,
+         we cannot place the system's closed-loop poles in the desired region by varying the proportional gain <i>K</i>. We must attempt a dynamic compensator with poles and/or zeros in order to reshape the root locus.
+      </p>
+      <h2>Lead compensation<a name="7"></a></h2>
+      <p>We specifically need to shift the root locus more to the left in the complex plane to get it inside our desired region. One
+         way to do this is to employ a lead compensator, refer to the <a href="?aux=Extras_Leadlag">Lead and Lag Compensators</a> page for details.
+      </p>
+      <p>The transfer function of a typical lead compensator is the following, where the zero has smaller magnitude than the pole,
+         that is, it is closer to the imaginary axis in the complex plane.
+      </p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/AircraftPitch/Control/RootLocus/html/AircraftPitch_ControlRootLocus_eq06139368819404258843.png" alt="$$ C(s) = K \frac{s+z}{s+p}$$"></p>
+      <p>Before we begin designing the lead compensator, we need to configure the <b>Control System Designer</b> to have a compensator parameterization corresponding to the one shown above. This can be accomplished by clicking on the
+         <b>Preferences</b> menu at the top of the <b>Control System Designer</b> window. Then from the <b>Options</b> tab of the resulting <b>Control System Designer Preferences</b> window, select a <b>Zero/pole/gain</b> parameterization as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/Picture4.png" alt=""> </p>
+      <p>We will choose to place the zero of our lead compensator on the real axis on the semicircle defined by our rise time requirement,
+         <i>z</i> = -0.9. This will ensure that as the gain <i>K</i> is increased, the branch of the root locus that approaches that open-loop zero won't exit the desired region. Furthermore,
+         we will place the pole farther to the left than the zero, as required by the definition of a lead compensator. To begin with,
+         let <i>p</i> = -3.
+      </p>
+      <p>Within the <b>Control System Designer</b> you can add the lead compensator from under the <b>Compensator Editor</b> window that can be opened by right-clicking on the root locus and then selecting <b>Edit Compensator</b>. Specifically, right-click in the <b>Dynamics</b> section of the window and select <b>Add Pole/Zero &gt; Lead</b>. Then enter the <b>Real Zero</b> and <b>Real Pole</b> locations as shown in the following figure.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/Picture5.png" alt=""> </p>
+      <p>In order to see the effect of moving the pole of the lead compensator, you can enter different numerical values under the
+         <b>Compensator Editor</b> window. Any changes in the compensator here will be reflected in the root locus plot. Alternatively, you can tune the compensator
+         graphically directly from the root locus plot. Specifically, if you click on the open-loop pole at -3 (marked by a red <tt>x</tt>) you can then slide the pole along the real axis and observe how the root locus plot changes. Specifically, you should see
+         that as you move the pole to the left, the root locus gets pulled farther to the left (and further into our desired region).
+         Placing the pole at -30 will generate the figure shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/Picture6.png" alt=""> </p>
+      <p>Right-clicking on the root locus plot and choosing <b>Properties</b> from the resulting menu, we can change the limits of the graph in order to zoom in on the region of the root locus nearer
+         to the origin as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/Picture7.png" alt=""> </p>
+      <p>From examination of the two above plots, three of the branches of the root locus clearly pass through the desired region.
+         The fourth branch on the real axis closer to the origin is not in the desired region. Even though the closed-loop pole associated
+         with that branch is slower than the other closed-loop poles, its effect will be canceled somewhat by the closed-loop zero
+         at -0.1541. The larger the value of the loop gain <i>K</i> employed, the closer this closed-loop pole will be to the closed-loop zero and the less effect it will have. The locations
+         of the closed-loop poles for the current value of the loop gain (in the above figures <i>K</i> = 33.3) are indicated by the pink boxes on the root locus. The closed-loop pole located farthest to the left will have minimal
+         effect on the transient response of the system since it is significantly faster than the other closed-loop poles.
+      </p>
+      <p>In order to see the explicit effect of the zeroes and higher-order poles, we will need to examine the closed-loop step response.
+         We can check the closed-loop step response for the system with this new gain by moving to the <b>IOTransfer_r2y:step</b> tab. If you have accidentally closed this tab, you can re-open it from the <b>Control System Designer</b> window by clicking on the <b>New Plot</b> menu and selecting <b>New Step</b>. In response, a new window titled <b>New Step to plot</b> will appear. From the <b>Select Responses to Plot</b> menu, then choose <b>IOTransfer_r2y</b> and click the button <b>Plot</b>. The response of the output <i>y</i> of the closed-loop system for a step reference <i>r</i> will then appear in the <b>Control System Designer</b> window.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/Picture8.png" alt=""> </p>
+      <p>You can also identify some characteristics of the step response. Specifically, right-click on the figure and under <b>Characteristics</b> choose <b>Settling Time</b>. Then repeat for <b>Rise Time</b>. Your figure will appear as shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/Picture9.png" alt=""> </p>
+      <p>From the above, we can see that for the current value of gain <i>K</i> the settling time and rise time are both too large. Let's attempt to modify the loop gain graphically by clicking on one
+         of the pink boxes on the root locus and dragging the box along the locus in the direction of increasing <i>K</i>. As you do this, the step response plot will automatically update. The effect of increasing <i>K</i> to a value of 200 will be that the two slowest closed-loop poles will approach closed-loop zeros thereby making their effect
+         minimal. The next slowest pole moves to the left in the complex plane with increasing <i>K</i> which has the effect of reducing both the settle time (increased <img class="inline_eqn" src="Content/AircraftPitch/Control/RootLocus/html/AircraftPitch_ControlRootLocus_eq11373214381793991308.png" alt="$\sigma$">) and the rise time (increased <img class="inline_eqn" src="Content/AircraftPitch/Control/RootLocus/html/AircraftPitch_ControlRootLocus_eq11630137503890776924.png" alt="$\omega_n$">). A loop gain of <i>K</i> = 200 keeps all of the poles on the real-axis, leading to no overshoot and the presence of the integrator in the plant guarantees
+         zero steady-state error. Therefore, this controller meets all of the given requirements as shown in the figure below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/RootLocus/figures/Picture10.png" alt=""> </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Aircraft Pitch: Root Locus Controller Design
+% 
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
+% <http://www.mathworks.com/help/control/ref/controlsystemdesigner-app.html |controlSystemDesigner|>
+% 
+%%
+% From the main problem, the open-loop transfer function for the aircraft pitch dynamics is
+%
+% $$ P(s) = \frac{\Theta(s)}{\Delta(s)} = \frac {1.151s+0.1774}{s^3+0.739s^2+0.921s} $$
+%
+% where the input is elevator deflection angle $\delta$ and the output is
+% the aircraft pitch angle $\theta$.
+%%
+% For the original problem setup and the derivation of the above transfer function please refer to the
+% < ?example=AircraftPitch&section=SystemModeling Aircraft Pitch: System Modeling> page. 
+%
+% For a step reference of 0.2 radians, the design criteria are the
+% following.
+%
+% * Overshoot less than 10%
+% * Rise time less than 2 seconds
+% * Settling time less than 10 seconds
+% * Steady-state error less than 2% 
+%
+% Recall from the 
+% < ?example=Introduction&section=ControlRootLocus Introduction: Root Locus Controller Design> page. 
+% a root locus plot shows all possible
+% closed-loop pole locations as a parameter (usually a proportional gain _K_)
+% is varied from 0 to infinity. We will employ the root locus to design our
+% controller to place our system's closed-loop poles in locations that will
+% result in behavior that satisfies our given requirements. Recall from the
+% < ?example=AircraftPitch&section=SystemAnalysis Aircraft Pitch: System Analysis> page. 
+% how pole locations directly affect the character of the system's
+% response to a step reference. 
+%
+% We will specifically use MATLAB's *Control System Designer* to modify the system's root
+% locus to design a compensator to place the system's closed-loop poles
+% to achieve the given design requirements. More specifically, we will use
+% the root locus to design for the requirements on transient response. We
+% will assume the following unity-feedback architecture.
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/feedback_pitch2.png>>
+%
+%%  Original root locus plot
+% We will begin by examining the system's root locus under simple
+% proportional control _C_(_s_) = _K_. First, enter the following code at the
+% command line to define the model of our plant _P_(_s_). Refer to the
+% < ?example=AircraftPitch&section=SystemModeling Aircraft Pitch: System Modeling> page 
+% for the details of getting these commands.
+
+s = tf('s');
+P_pitch = (1.151*s+0.1774)/(s^3+0.739*s^2+0.921*s);
+
+%%
+% Then, type |controlSystemDesigner('rlocus', P_pitch)| in the command
+% window. One
+% window named *Control System Designer* will initially open, 
+% with the root locus and closed-loop step response of the plant with controller  _C_(_s_) = _K_ as shown
+% below.
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/PictureA.png>>
+%
+% The *Edit Architecture* button (as shown above) in the *Control System Designer* window displays the
+% architecture of the control system being designed as shown below. This
+% default agrees with the architecture we are employing. 
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/Picture1.png>>
+%
+% Since our reference is a step function of 0.2 radians, we can set the
+% precompensator block _F_(_s_) equal to 0.2 to scale a unit step input to our
+% system. This can be accomplished from the *Compensator Editor* window,
+% which can be opened by right-clicking on the root locus plot and then
+% selecting *Edit Compensator*.
+% Specifically, choose |F| from the drop-down menu in the
+% *Compensator* portion of the window and set the compensator equal to 0.2
+% as shown in the figure below. Since the addition of this precompensator
+% doesn't affect the closed-loop pole locations, the displayed root locus
+% will remain unchanged.
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/Picture2.png>>
+%
+%%
+% Recalling that pole locations relate to transient performance, we can
+% identify regions of the complex plane that correspond to pole locations
+% that meet our requirements. These regions assume a canonical second-order
+% system which we do not have even under proportional control, however,
+% the regions serve as a good starting point for our design.
+% 
+% To add the design requirements to the root-locus plot, right-click on the
+% plot and select *Design Requirements > New* from the resulting menu. You
+% can add many design requirements including Settling time, Percent
+% overshoot, Damping ratio, Natural frequency, and generic Region
+% constraint. Our settling time and percent overshoot requirements can be
+% added directly employing these choices. Rise time is not explicitly
+% included as one of the drop-down choices, however, we can use the
+% following approximate relationship that relates rise time to natural frequency.
+%
+% $$ \omega_n \approx \frac{1.8}{T_r} $$
+%
+% Therefore, our requirement that rise time be less than 2 seconds
+% corresponds approximately to a natural frequency of greater than 0.9 rad/sec for a
+% canonical underdamped second-order system. Adding this requirement to the root locus
+% plot in addition to the settle time and overshoot requirements generates
+% the following figure. 
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/Picture3.png>>
+%
+%%
+% The resulting desired region for the closed-loop poles is shown by the
+% unshaded region of the above figure. More specifically, the two rays
+% centered at the origin represent the overshoot requirement; the smaller the
+% angle these rays make with the negative real-axis, the less overshoot is
+% allowed. The vertical line at _s_ = -0.4 represents the settling time
+% requirement, where the farther to left the closed-loop poles are located, the
+% smaller the settling time is. The rise time (natural frequency)
+% requirement corresponds to the circle centered at the origin, where the
+% radius corresponds to a natural frequency of 0.9. 
+%
+% Examination of the above figure shows that none of the three branches of
+% the root locus enter the unshaded region, therefore, we cannot place the system's
+% closed-loop poles in the desired region by varying the proportional gain
+% _K_. We must attempt a dynamic compensator with poles and/or
+% zeros in order to reshape the root locus.
+
+%% Lead compensation
+%
+% We specifically need to shift the root locus more to the left in the
+% complex plane to get it inside our desired region. One way to do this is
+% to employ a lead compensator, refer to the 
+% < ?aux=Extras_Leadlag Lead and Lag Compensators>
+% page for details.
+%
+% The transfer function of a typical lead compensator is the following,
+% where the zero has smaller magnitude than the pole, that is, it is closer to the
+% imaginary axis in the complex plane. 
+%
+% $$ C(s) = K \frac{s+z}{s+p}$$
+% 
+% Before we begin designing the lead compensator, we need to configure the
+% *Control System Designer* to have a compensator parameterization corresponding to the   
+% one shown above. This can be accomplished by clicking on the *Preferences* menu
+% at the top of the *Control System Designer* window. Then
+% from the *Options* tab of the resulting *Control System Designer 
+% Preferences* window, select a *Zero/pole/gain* parameterization as shown below.
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/Picture4.png>>
+%
+%%
+% We will choose to place the zero of our lead compensator on the real axis
+% on the semicircle defined by our rise time requirement, _z_ = -0.9. This 
+% will ensure that as the gain _K_ is increased, the branch of the root
+% locus that approaches that open-loop zero won't exit the desired region.
+% Furthermore, we will place the pole farther to the left than the zero, as
+% required by the definition of a lead compensator. To begin with, let _p_ =
+% -3.
+%
+% Within the *Control System Designer* you can add the lead compensator from under the
+% *Compensator Editor* window that can be opened by right-clicking on the
+% root locus and then selecting *Edit Compensator*.
+% Specifically, right-click in the *Dynamics* section of the window
+% and select *Add Pole/Zero > Lead*. Then enter the *Real Zero* and *Real
+% Pole* locations as shown in the following figure.
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/Picture5.png>>
+% 
+%%
+% In order to see the effect of moving the pole of the lead compensator,
+% you can enter different numerical values under the *Compensator Editor*
+% window. Any changes in the compensator here will be reflected in the root
+% locus plot. Alternatively, you can tune the compensator graphically
+% directly from the root locus plot. Specifically, if you click on the
+% open-loop pole at -3 (marked by a red |x|) you can then slide the pole along the
+% real axis and observe how the root locus plot changes. Specifically, you
+% should see that as you move the pole to the left, the root locus gets
+% pulled farther to the left (and further into our desired region). Placing
+% the pole at -30 will generate the figure shown below.
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/Picture6.png>>
+% 
+%%
+% Right-clicking on the root locus plot and choosing *Properties* from the
+% resulting menu, we can change the limits of the graph in order to zoom in
+% on the region of the root locus nearer to the origin as shown below.
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/Picture7.png>>
+% 
+% From examination of the two above plots, three of the branches of the
+% root locus clearly pass through the desired region. The fourth branch on
+% the real axis closer to the origin is not in the desired region. Even
+% though the closed-loop pole associated with that branch is slower than
+% the other closed-loop poles, its effect will be canceled somewhat by the
+% closed-loop zero at -0.1541. The larger the value of the loop gain _K_
+% employed, the closer this closed-loop pole will be to the closed-loop
+% zero and the less effect it will have. The locations of the closed-loop
+% poles for the current value of the loop gain (in the above figures _K_ =
+% 33.3) are indicated by the pink boxes on the root locus. The closed-loop
+% pole located farthest to the left will have minimal effect on the
+% transient response of the system since it is significantly faster than
+% the other closed-loop poles.
+%
+% In order to see the explicit effect of the zeroes and higher-order poles,
+% we will need to examine the closed-loop step response.
+% We can check the closed-loop step response for the system with this new
+% gain by moving to the *IOTransfer_r2y:step* tab. If you have accidentally
+% closed this tab, you can re-open it from the *Control System Designer* window by clicking on the
+% *New Plot* menu and selecting *New Step*. In response, a new window
+% titled *New Step to plot* will appear. From the *Select Responses to 
+% Plot* menu, then choose *IOTransfer_r2y* and click the button *Plot*.
+% The response of the output _y_ of the closed-loop system for a step reference _r_ will then appear in the
+% *Control System Designer* window. 
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/Picture8.png>>
+% 
+%%
+% You can also identify some characteristics of
+% the step response. Specifically, right-click on the figure and under
+% *Characteristics* choose *Settling Time*. Then repeat for *Rise Time*.
+% Your figure will appear as shown below. 
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/Picture9.png>>
+% 
+%%
+% From the above, we can see that for the current value of gain _K_ the
+% settling time and rise time are both too large. Let's attempt to modify
+% the loop gain graphically by clicking on one of the pink boxes on the root
+% locus and dragging the box along the locus in the direction of increasing
+% _K_. As you do this, the step response plot will automatically update.
+% The effect of increasing _K_ to a value of 200 will be that the two
+% slowest closed-loop poles will approach closed-loop zeros thereby making
+% their effect minimal. The next slowest pole moves to the left in the
+% complex plane with increasing _K_ which has the effect of reducing both
+% the settle time (increased $\sigma$) and the rise time (increased $\omega_n$).
+% A loop gain of _K_ = 200 keeps all of the poles on the real-axis, leading to no
+% overshoot and the presence of the integrator in the plant guarantees zero
+% steady-state error. Therefore, this controller meets all of the given
+% requirements as shown in the figure below.
+%
+% <<Content/AircraftPitch/Control/RootLocus/figures/Picture10.png>>
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=AircraftPitch&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=AircraftPitch&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=AircraftPitch&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=AircraftPitch&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=AircraftPitch&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=AircraftPitch&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=AircraftPitch&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=AircraftPitch&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=AircraftPitch&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=AircraftPitch&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

@@ -1,0 +1,1057 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: Introduction	section: ControlPID	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "Introduction";
+			var section = "ControlPID";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=Introduction&section=ControlRootLocus";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Introduction: PID Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#01426e6f75736e6d5574756e7368606d724c60756d606352686c746d686f6a41666c60686d2f626e6c">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=Introduction&section=ControlRootLocus">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlPID"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlPID"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlPID"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlPID"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlPID"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlPID"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlPID"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlPID"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Introduction: PID Controller Design</h1>
+      <!--introduction-->
+      <p>In this tutorial we will introduce a simple, yet versatile, feedback compensator structure: the Proportional-Integral-Derivative
+         (PID) controller. The PID controller is widely employed because it is very understandable and because it is quite effective.
+         One attraction of the PID controller is that all engineers understand conceptually differentiation and integration, so they
+         can implement the control system even without a deep understanding of control theory. Further, even though the compensator
+         is simple, it is quite sophisticated in that it captures the history of the system (through integration) and anticipates the
+         future behavior of the system (through differentiation). We will discuss the effect of each of the PID parameters on the dynamics
+         of a closed-loop system and will demonstrate how to use a PID controller to improve a system's performance.
+      </p>
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/pid.html"><tt>pid</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/feedback.html"><tt>feedback</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/pidtune.html"><tt>pidtune</tt></a></p>
+      </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?aux=Activities_RCcircuitC">Circuit Control Activity</a></li>
+        <li><a href="?aux=Activities_Lightbulb">Temp Control Activity</a></li>
+		<li><a href="?aux=Activities_DCmotorB">Motor Control Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="http://www.mathworks.com/videos/pid-control-design-with-control-system-toolbox-68748.html">MATLAB PID Video</a></li>
+	  	<li><a href="https://www.youtube.com/watch?v=RYWPqb2hAEM">PID Intro Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">PID Overview</a></li>
+            <li><a href="#7">The Characteristics of the P, I, and D Terms</a></li>
+            <li><a href="#9">Example Problem</a></li>
+            <li><a href="#10">Open-Loop Step Response</a></li>
+            <li><a href="#13">Proportional Control</a></li>
+            <li><a href="#16">Proportional-Derivative Control</a></li>
+            <li><a href="#19">Proportional-Integral Control</a></li>
+            <li><a href="#22">Proportional-Integral-Derivative Control</a></li>
+            <li><a href="#25">General Tips for Designing a PID Controller</a></li>
+            <li><a href="#27">Automatic PID Tuning</a></li>
+         </ul>
+      </div>
+      <h2>PID Overview<a name="1"></a></h2>
+      <p>In this tutorial, we will consider the following unity-feedback system:</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Control/PID/figures/feedback_block.png" alt=""> </p>
+      <p>The output of a PID controller, which is equal to the control input to the plant, is calculated in the time domain from the
+         feedback error as follows:
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq08099370175087303645.png" alt="$$&#xA;u(t) = K_p e(t) + K_i \int e(t)dt + K_p \frac{de}{dt}&#xA;$$"></p>
+      <p>First, let's take a look at how the PID controller works in a closed-loop system using the schematic shown above. The variable
+         (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12226254761175012236.png" alt="$e$">) represents the tracking error, the difference between the desired output (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04958265083611378313.png" alt="$r$">) and the actual output (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq08830444604280721118.png" alt="$y$">). This error signal (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12226254761175012236.png" alt="$e$">) is fed to the PID controller, and the controller computes both the derivative and the integral of this error signal with
+         respect to time. The control signal (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq11776305044305525613.png" alt="$u$">) to the plant is equal to the proportional gain (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$">) times the magnitude of the error plus the integral gain (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12979110429562330213.png" alt="$K_i$">) times the integral of the error plus the derivative gain (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq14222518565320121796.png" alt="$K_d$">) times the derivative of the error.
+      </p>
+      <p>This control signal (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq11776305044305525613.png" alt="$u$">) is fed to the plant and the new output (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq08830444604280721118.png" alt="$y$">) is obtained. The new output (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq08830444604280721118.png" alt="$y$">) is then fed back and compared to the reference to find the new error signal (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12226254761175012236.png" alt="$e$">). The controller takes this new error signal and computes an update of the control input. This process continues while the
+         controller is in effect.
+      </p>
+      <p>The transfer function of a PID controller is found by taking the Laplace transform of Equation (1).</p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq08983539440669327738.png" alt="$$&#xA;K_p + \frac {K_i} {s} + K_d s = \frac{K_d s^2 + K_p s + K_i} {s}&#xA;$$"></p>
+      <p>where <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$"> = proportional gain, <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12979110429562330213.png" alt="$K_i$"> = integral gain, and <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq14222518565320121796.png" alt="$K_d$"> = derivative gain.
+      </p>
+      <p>We can define a PID controller in MATLAB using a transfer function model directly, for example:</p><pre class="codeinput">Kp = 1;
+Ki = 1;
+Kd = 1;
+
+s = tf(<span class="string">'s'</span>);
+C = Kp + Ki/s + Kd*s
+</pre><pre class="codeoutput">
+C =
+ 
+  s^2 + s + 1
+  -----------
+       s
+ 
+Continuous-time transfer function.
+
+</pre><p>Alternatively, we may use MATLAB's <b>pid object</b> to generate an equivalent continuous-time controller as follows:
+      </p><pre class="codeinput">C = pid(Kp,Ki,Kd)
+</pre><pre class="codeoutput">
+C =
+ 
+             1          
+  Kp + Ki * --- + Kd * s
+             s          
+
+  with Kp = 1, Ki = 1, Kd = 1
+ 
+Continuous-time PID controller in parallel form.
+
+</pre><p>Let's convert the pid object to a transfer function to verify that it yields the same result as above:</p><pre class="codeinput">tf(C)
+</pre><pre class="codeoutput">
+ans =
+ 
+  s^2 + s + 1
+  -----------
+       s
+ 
+Continuous-time transfer function.
+
+</pre><h2>The Characteristics of the P, I, and D Terms<a name="7"></a></h2>
+      <p>Increasing the proportional gain (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$">) has the effect of proportionally increasing the control signal for the same level of error. The fact that the controller
+         will "push" harder for a given level of error tends to cause the closed-loop system to react more quickly, but also to overshoot
+         more. Another effect of increasing <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$"> is that it tends to reduce, but not eliminate, the <b>steady-state error</b>.
+      </p>
+      <p>The addition of a derivative term to the controller (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq14222518565320121796.png" alt="$K_d$">) adds the ability of the controller to "anticipate" error. With simple proportional control, if <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$"> is fixed, the only way that the control will increase is if the error increases. With derivative control, the control signal
+         can become large if the error begins sloping upward, even while the magnitude of the error is still relatively small. This
+         anticipation tends to add damping to the system, thereby decreasing overshoot. The addition of a derivative term, however,
+         has no effect on the steady-state error.
+      </p>
+      <p>The addition of an integral term to the controller (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12979110429562330213.png" alt="$K_i$">) tends to help reduce steady-state error. If there is a persistent, steady error, the integrator builds and builds, thereby
+         increasing the control signal and driving the error down. A drawback of the integral term, however, is that it can make the
+         system more sluggish (and oscillatory) since when the error signal changes sign, it may take a while for the integrator to
+         "unwind."
+      </p>
+      <p>The general effects of each controller parameter (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$">, <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq14222518565320121796.png" alt="$K_d$">, <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12979110429562330213.png" alt="$K_i$">) on a closed-loop system are summarized in the table below. Note, these guidelines hold in many cases, but not all. If you
+         truly want to know the effect of tuning the individual gains, you will have to do more analysis, or will have to perform testing
+         on the actual system.
+      </p>
+      <p>
+         <table border><center>
+         <tr>
+         <td><center><b> CL RESPONSE </center></b></td>
+         <td><center> <b> RISE TIME </center></b></td>
+         <td><center><b> OVERSHOOT </center></b></td>
+         <td><center><b> SETTLING TIME </center></b></td>
+         <td><center><b> S-S ERROR </center></b></td>
+         <tr>
+         <td> <b><center>Kp</center></b></td>
+         <td><center>Decrease</center></td>
+         <td><center>Increase</center></td>
+         <td><center>Small Change</center></td>
+         <td><center>Decrease</center></td>
+         <tr>
+         <td><b><center>Ki</center></b></td>
+         <td><center>Decrease</center></td>
+         <td><center>Increase</center></td>
+         <td><center>Increase</center></td>
+         <td><center>Decrease</center></td>
+         <tr>
+         <td><b><center>Kd</center></b></td>
+         <td><center>Small Change</center></td>
+         <td><center>Decrease</center></td>
+         <td><center>Decrease</center></td>
+         <td><center> No Change </center></td>
+         </table>
+         </center>
+         
+      </p>
+      <h2>Example Problem<a name="9"></a></h2>
+      <p>Suppose we have a simple mass-spring-damper system.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Control/PID/figures/mass_spring_damper.png" alt=""> </p>
+      <p>The governing equation of this system is</p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq05330951165496103978.png" alt="$$&#xA;m\ddot{x} + b\dot{x} + kx = F&#xA;$$"></p>
+      <p>Taking the Laplace transform of the governing equation, we get</p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12478796246890743143.png" alt="$$&#xA;ms^{2}X(s) + bsX(s) + kX(s) = F(s)&#xA;$$"></p>
+      <p>The transfer function between the input force <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq16262675972330469829.png" alt="$F(s)$"> and the output displacement <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq07689959845095838553.png" alt="$X(s)$"> then becomes
+      </p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq11461931124349955028.png" alt="$$&#xA;\frac{X(s)}{F(s)} = \frac{1}{ms^2 + bs + k}&#xA;$$"></p>
+      <p>Let</p><pre>    m = 1 kg
+    b = 10 N s/m
+    k = 20 N/m
+    F = 1 N</pre><p>Substituting these values into the above transfer function</p>
+      <p><span class="eqn_num">(6)</span><img class="display_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq03193067159819696253.png" alt="$$&#xA;\frac{X(s)}{F(s)} = \frac{1}{s^2 + 10s + 20}&#xA;$$"></p>
+      <p>The goal of this problem is to show how each of the terms, <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$">, <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12979110429562330213.png" alt="$K_i$">, and <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq14222518565320121796.png" alt="$K_d$">, contributes to obtaining the common goals of:
+      </p>
+      <div>
+         <ul>
+            <li>Fast rise time</li>
+            <li>Minimal overshoot</li>
+            <li>Zero steady-state error</li>
+         </ul>
+      </div>
+      <h2>Open-Loop Step Response<a name="10"></a></h2>
+      <p>Let's first view the open-loop step response. Create a new <a href="?aux=Extras_Mfile">m-file</a> and run the following code:
+      </p><pre class="codeinput">s = tf(<span class="string">'s'</span>);
+P = 1/(s^2 + 10*s + 20);
+step(P)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_01.png" alt=""> <p>The DC gain of the plant transfer function is 1/20, so 0.05 is the final value of the output to a unit step input. This corresponds
+         to a steady-state error of 0.95, which is quite large. Furthermore, the rise time is about one second, and the settling time
+         is about 1.5 seconds. Let's design a controller that will reduce the rise time, reduce the settling time, and eliminate the
+         steady-state error.
+      </p>
+      <h2>Proportional Control<a name="13"></a></h2>
+      <p>From the table shown above, we see that the proportional controller (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$">) reduces the rise time, increases the overshoot, and reduces the steady-state error.
+      </p>
+      <p>The closed-loop transfer function of our unity-feedback system with a proportional controller is the following, where <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq07689959845095838553.png" alt="$X(s)$"> is our output (equals <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq02334269718183958239.png" alt="$Y(s)$">) and our reference <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq18426617159966878460.png" alt="$R(s)$"> is the input:
+      </p>
+      <p><span class="eqn_num">(7)</span><img class="display_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq03858169107152915121.png" alt="$$&#xA;T(s) = \frac{X(s)}{R(s)} = \frac{K_p}{s^2 + 10s + (20 + K_p)}&#xA;$$"></p>
+      <p>Let the proportional gain (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$">) equal 300 and change the m-file to the following:
+      </p><pre class="codeinput">Kp = 300;
+C = pid(Kp)
+T = feedback(C*P,1)
+
+t = 0:0.01:2;
+step(T,t)
+</pre><pre class="codeoutput">
+C =
+ 
+  Kp = 300
+ 
+P-only controller.
+
+
+T =
+ 
+        300
+  ----------------
+  s^2 + 10 s + 320
+ 
+Continuous-time transfer function.
+
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_02.png" alt=""> <p>The above plot shows that the proportional controller reduced both the rise time and the steady-state error, increased the
+         overshoot, and decreased the settling time by a small amount.
+      </p>
+      <h2>Proportional-Derivative Control<a name="16"></a></h2>
+      <p>Now, let's take a look at PD control. From the table shown above, we see that the addition of derivative control (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq14222518565320121796.png" alt="$K_d$">) tends to reduce both the overshoot and the settling time. The closed-loop transfer function of the given system with a PD
+         controller is:
+      </p>
+      <p><span class="eqn_num">(8)</span><img class="display_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq15740922709003092131.png" alt="$$&#xA;T(s) = \frac{X(s)}{R(s)} = \frac{K_d s + K_p}{s^2 + (10 + K_d) s + (20 + K_p)}&#xA;$$"></p>
+      <p>Let <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$"> equal 300 as before and let <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq14222518565320121796.png" alt="$K_d$"> equal 10. Enter the following commands into an m-file and run it in the MATLAB command window.
+      </p><pre class="codeinput">Kp = 300;
+Kd = 10;
+C = pid(Kp,0,Kd)
+T = feedback(C*P,1)
+
+t = 0:0.01:2;
+step(T,t)
+</pre><pre class="codeoutput">
+C =
+ 
+             
+  Kp + Kd * s
+             
+
+  with Kp = 300, Kd = 10
+ 
+Continuous-time PD controller in parallel form.
+
+
+T =
+ 
+     10 s + 300
+  ----------------
+  s^2 + 20 s + 320
+ 
+Continuous-time transfer function.
+
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_03.png" alt=""> <p>This plot shows that the addition of the derivative term reduced both the overshoot and the settling time, and had a negligible
+         effect on the rise time and the steady-state error.
+      </p>
+      <h2>Proportional-Integral Control<a name="19"></a></h2>
+      <p>Before proceeding to PID control, let's investigate PI control. From the table, we see that the addition of integral control
+         (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12979110429562330213.png" alt="$K_i$">) tends to decrease the rise time, increase both the overshoot and the settling time, and reduces the steady-state error.
+         For the given system, the closed-loop transfer function with a PI controller is:
+      </p>
+      <p><span class="eqn_num">(9)</span><img class="display_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq07143343289485218864.png" alt="$$&#xA;T(s) = \frac{X(s)}{R(s)} = \frac{K_p s + K_i}{s^3 + 10 s^2 + (20 + K_p )s + K_i}&#xA;$$"></p>
+      <p>Let's reduce <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$"> to 30, and let <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12979110429562330213.png" alt="$K_i$"> equal 70. Create a new m-file and enter the following commands.
+      </p><pre class="codeinput">Kp = 30;
+Ki = 70;
+C = pid(Kp,Ki)
+T = feedback(C*P,1)
+
+t = 0:0.01:2;
+step(T,t)
+</pre><pre class="codeoutput">
+C =
+ 
+             1 
+  Kp + Ki * ---
+             s 
+
+  with Kp = 30, Ki = 70
+ 
+Continuous-time PI controller in parallel form.
+
+
+T =
+ 
+         30 s + 70
+  ------------------------
+  s^3 + 10 s^2 + 50 s + 70
+ 
+Continuous-time transfer function.
+
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_04.png" alt=""> <p>Run this m-file in the MATLAB command window and you should generate the above plot. We have reduced the proportional gain
+         (<img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$">) because the integral controller also reduces the rise time and increases the overshoot as the proportional controller does
+         (double effect). The above response shows that the integral controller eliminated the steady-state error in this case.
+      </p>
+      <h2>Proportional-Integral-Derivative Control<a name="22"></a></h2>
+      <p>Now, let's examine PID control. The closed-loop transfer function of the given system with a PID controller is:</p>
+      <p><span class="eqn_num">(10)</span><img class="display_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq13300862647596175898.png" alt="$$&#xA;T(s) = \frac{X(s)}{R(s)} = \frac{K_d s^2 + K_p s + K_i}{s^3 + (10 + K_d)s^2 + (20 + K_p)s + K_i }&#xA;$$"></p>
+      <p>After several iterations of tuning, the gains <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$"> = 350, <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12979110429562330213.png" alt="$K_i$"> = 300, and <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq14222518565320121796.png" alt="$K_d$"> = 50 provided the desired response. To confirm, enter the following commands to an m-file and run it in the command window.
+         You should obtain the following step response.
+      </p><pre class="codeinput">Kp = 350;
+Ki = 300;
+Kd = 50;
+C = pid(Kp,Ki,Kd)
+T = feedback(C*P,1);
+
+t = 0:0.01:2;
+step(T,t)
+</pre><pre class="codeoutput">
+C =
+ 
+             1          
+  Kp + Ki * --- + Kd * s
+             s          
+
+  with Kp = 350, Ki = 300, Kd = 50
+ 
+Continuous-time PID controller in parallel form.
+
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_05.png" alt=""> <p>Now, we have designed a closed-loop system with no overshoot, fast rise time, and no steady-state error.</p>
+      <h2>General Tips for Designing a PID Controller<a name="25"></a></h2>
+      <p>When you are designing a PID controller for a given system, follow the steps shown below to obtain a desired response.</p>
+      <div>
+         <ol>
+            <li>Obtain an open-loop response and determine what needs to be improved</li>
+            <li>Add a proportional control to improve the rise time</li>
+            <li>Add a derivative control to reduce the overshoot</li>
+            <li>Add an integral control to reduce the steady-state error</li>
+            <li>Adjust each of the gains <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$">, <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq12979110429562330213.png" alt="$K_i$">, and <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq14222518565320121796.png" alt="$K_d$"> until you obtain a desired overall response. You can always refer to the table shown in this "PID Tutorial" page to find
+               out which controller controls which characteristics.
+            </li>
+         </ol>
+      </div>
+      <p>Lastly, please keep in mind that you do not need to implement all three controllers (proportional, derivative, and integral)
+         into a single system, if not necessary. For example, if a PI controller meets the given requirements (like the above example),
+         then you don't need to implement a derivative controller on the system. Keep the controller as simple as possible.
+      </p>
+      <p>An example of tuning a PI controller on an actual physical system can be found at the following <a href="?aux=Activities_DCmotorB">link</a>. This example also begins to illustrate some challenges of implementing control, including: control saturation, integrator
+         wind-up, and noise amplification.
+      </p>
+      <h2>Automatic PID Tuning<a name="27"></a></h2>
+      <p>MATLAB provides tools for automatically choosing optimal PID gains which makes the trial and error process described above
+         unnecessary. You can access the tuning algorithm directly using <b>pidtune</b> or through a nice graphical user interface (GUI) using <b>pidTuner</b>.
+      </p>
+      <p>The MATLAB automated tuning algorithm chooses PID gains to balance performance (response time, bandwidth) and robustness (stability
+         margins). By default, the algorithm designs for a 60-degree phase margin.
+      </p>
+      <p>Let's explore these automated tools by first generating a proportional controller for the mass-spring-damper system by entering
+         the command shown below. In the shown syntax, <tt>P</tt> is the previously generated plant model, and <tt>'p'</tt> specifies that the tuner employ a proportional controller.
+      </p>
+      <p>
+         <pre class="codeinput">
+         pidTuner(P,'p')
+         </pre>
+         
+      </p>
+      <p>The <b>pidTuner</b> GUI window, like that shown below, should appear.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Control/PID/figures/pidtool_1.png" alt=""> </p>
+      <p>Notice that the step response shown is slower than the proportional controller we designed by hand. Now click on the <b>Show Parameters</b> button on the top right.  As expected, the proportional gain, <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$">, is smaller than the one we employed, <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$"> = 94.86 &lt; 300.
+      </p>
+      <p>We can now interactively tune the controller parameters and immediately see the resulting response in the GUI window.  Try
+         dragging the <b>Response Time</b> slider to the right to 0.14 s, as shown in the figure below. This causes the response to indeed speed up, and we can see
+         <img class="inline_eqn" src="Content/Introduction/Control/PID/html/Introduction_ControlPID_eq04301653670133881862.png" alt="$K_p$"> is now closer to the manually chosen value. We can also see other performance and robustness parameters for the system. 
+         Note that before we adjusted the slider, the target phase margin was 60 degrees. This is the default for the pidTuner and
+         generally provides a good balance between robustness and performance.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Control/PID/figures/pidtool_2.png" alt=""> </p>
+      <p>Now let's try designing a PID controller for our system. By specifying the previously designed or (baseline) controller, C,
+         as the second parameter, pidTuner will design another PID controller (instead of P or PI) and will compare the response of
+         the system with the automated controller with that of the baseline.
+      </p>
+      <p>
+         <pre class="codeinput">
+         pidTuner(P,C)
+         </pre>
+         
+      </p>
+      <p>We see in the output window that the automated controller responds slower and exhibits more overshoot than the baseline. Now
+         choose the <b>Domain: Frequency</b> option from the toolstrip, which reveals frequency domain tuning parameters.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Introduction/Control/PID/figures/pidtool_4.png" alt=""> </p>
+      <p>Now type in <tt>32 rad/s</tt> for <b>Bandwidth</b> and <b>90 deg</b> for <b>Phase Margin</b>, to generate a controller similar in performance to the baseline.  Keep in mind that a higher closed-loop bandwidth results
+         in a faster rise time, and a larger phase margin reduces the overshoot and improves the system stability.
+      </p>
+      <p>Finally, we note that we can generate the same controller using the command line tool <b>pidtune</b> instead of the <b>pidTuner</b> GUI employing the following syntax.
+      </p><pre class="codeinput">opts = pidtuneOptions(<span class="string">'CrossoverFrequency'</span>,32,<span class="string">'PhaseMargin'</span>,90);
+[C, info] = pidtune(P, <span class="string">'pid'</span>, opts)
+</pre><pre class="codeoutput">
+C =
+ 
+             1          
+  Kp + Ki * --- + Kd * s
+             s          
+
+  with Kp = 320, Ki = 796, Kd = 32.2
+ 
+Continuous-time PID controller in parallel form.
+
+info = 
+  struct with fields:
+
+                Stable: 1
+    CrossoverFrequency: 32
+           PhaseMargin: 90
+</pre><p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Introduction: PID Controller Design
+%
+% In this tutorial we will introduce a simple, yet versatile, feedback
+% compensator structure:
+% the Proportional-Integral-Derivative (PID) controller. The PID controller
+% is widely employed because it is very understandable and because it is quite
+% effective. One attraction of the PID controller is that all engineers
+% understand conceptually differentiation and integration, so they can
+% implement the control system even without a deep understanding of control theory.
+% Further, even though the compensator is simple, it is quite sophisticated
+% in that it captures the history of the system (through integration) and
+% anticipates the future behavior of the system (through differentiation). 
+% We will discuss the effect of each of the PID parameters on the dynamics of a closed-loop
+% system and will demonstrate how to use a PID controller to improve a system's performance.
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/pid.html |pid|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/pidtune.html |pidtune|>
+%
+%% PID Overview
+%
+% In this tutorial, we will consider the following unity-feedback system:
+%
+% <<Content/Introduction/Control/PID/figures/feedback_block.png>>
+%
+% The output of a PID controller, which is equal to the control input to
+% the plant, is calculated in the time domain from the feedback error as follows: 
+%
+% $$ 
+% u(t) = K_p e(t) + K_i \int e(t)dt + K_p \frac{de}{dt}
+% $$
+%
+% First, let's take a look at how the PID controller works in a closed-loop
+% system using the schematic shown above. The variable ($e$) represents the 
+% tracking error, the difference between the desired output ($r$) and
+% the actual output ($y$). This error signal ($e$) is fed to the PID
+% controller, and the controller computes both the derivative and the
+% integral of this error signal with respect to time. The control signal ($u$) to the plant is
+% equal to the proportional gain ($K_p$) times the magnitude of the error
+% plus the integral gain ($K_i$) times the integral of the error plus the
+% derivative gain ($K_d$) times the derivative of the error.
+%
+% This control signal ($u$) is fed to the plant and the new output ($y$)
+% is obtained. The new output ($y$) is then fed back and compared to the
+% reference to find the new error signal ($e$). The controller takes this
+% new error signal and computes an update of the control input. This
+% process continues while the controller is in effect.
+%
+% The transfer function of a PID controller is found by taking the Laplace
+% transform of Equation (1).
+%
+% $$ 
+% K_p + \frac {K_i} {s} + K_d s = \frac{K_d s^2 + K_p s + K_i} {s}  
+% $$
+%
+% where
+% $K_p$ = proportional gain,
+% $K_i$ = integral gain, and
+% $K_d$ = derivative gain.
+%
+% We can define a PID controller in MATLAB using a transfer
+% function model directly, for example:
+%
+%%
+
+Kp = 1;
+Ki = 1;
+Kd = 1;
+
+s = tf('s');
+C = Kp + Ki/s + Kd*s
+
+%%
+% Alternatively, we may use MATLAB's *pid object* to generate an
+% equivalent continuous-time controller as follows:
+%
+%%
+
+C = pid(Kp,Ki,Kd)
+
+%%
+% Let's convert the pid object to a transfer function to verify that it
+% yields the same result as above:
+%
+%%
+
+tf(C)
+
+%% The Characteristics of the P, I, and D Terms
+%
+% Increasing the proportional gain ($K_p$) has the effect of proportionally
+% increasing the control signal for the same level of error. The fact that the 
+% controller will "push" harder for a given level of error tends to cause
+% the closed-loop system to react more quickly, but also to overshoot more.
+% Another effect of increasing $K_p$ is that it tends to reduce,
+% but not eliminate, the *steady-state error*.  
+%
+% The addition of a derivative term to the controller ($K_d$) adds the ability of the
+% controller to "anticipate" error. With simple proportional control, if
+% $K_p$ is fixed, the only way that the control will increase is if the
+% error increases. With derivative control, the control signal can become
+% large if the error begins sloping upward, even while the magnitude of 
+% the error is still relatively small. This anticipation tends to add
+% damping to the system, thereby decreasing overshoot. The addition of a
+% derivative term, however, has no effect on the steady-state error. 
+%
+% The addition of an integral term to the controller ($K_i$) tends to help reduce
+% steady-state error. If there is a persistent, steady error, the
+% integrator builds and builds, thereby increasing the control signal and
+% driving the error down. A drawback of the integral term, however, is that
+% it can make the system more sluggish (and oscillatory) since when the
+% error signal changes sign, it may take a while for the integrator to
+% "unwind."
+%
+% The general effects of each controller parameter ($K_p$, $K_d$, $K_i$) on
+% a closed-loop system are summarized in the table below. Note, these
+% guidelines hold in many cases, but not all. If you truly want to know the
+% effect of tuning the individual gains, you will have to do more analysis,
+% or will have to perform testing on the actual system.
+%
+%%
+% <html> 
+% <table border><center>
+% <tr>
+% <td><center><b> CL RESPONSE </center></b></td>
+% <td><center> <b> RISE TIME </center></b></td>
+% <td><center><b> OVERSHOOT </center></b></td>
+% <td><center><b> SETTLING TIME </center></b></td>
+% <td><center><b> S-S ERROR </center></b></td>
+% <tr>
+% <td> <b><center>Kp</center></b></td>
+% <td><center>Decrease</center></td>
+% <td><center>Increase</center></td>
+% <td><center>Small Change</center></td>
+% <td><center>Decrease</center></td>
+% <tr>
+% <td><b><center>Ki</center></b></td>
+% <td><center>Decrease</center></td>
+% <td><center>Increase</center></td>
+% <td><center>Increase</center></td>
+% <td><center>Decrease</center></td>
+% <tr>
+% <td><b><center>Kd</center></b></td>
+% <td><center>Small Change</center></td>
+% <td><center>Decrease</center></td>
+% <td><center>Decrease</center></td>
+% <td><center> No Change </center></td>
+% </table>
+% </center>
+% </html> 
+%
+%% Example Problem
+%
+% Suppose we have a simple mass-spring-damper system.
+%
+% <<Content/Introduction/Control/PID/figures/mass_spring_damper.png>>
+%
+% The governing equation of this system is 
+%
+% $$ 
+% m\ddot{x} + b\dot{x} + kx = F
+% $$
+%
+% Taking the Laplace transform of the governing equation, we get 
+%
+% $$ 
+% ms^{2}X(s) + bsX(s) + kX(s) = F(s) 
+% $$
+%
+% The transfer function between the input
+% force $F(s)$ and the output displacement $X(s)$ then becomes 
+%
+% $$ 
+% \frac{X(s)}{F(s)} = \frac{1}{ms^2 + bs + k} 
+% $$
+%
+% Let
+%
+%      m = 1 kg
+%      b = 10 N s/m
+%      k = 20 N/m
+%      F = 1 N
+%
+% Substituting these values into the above transfer function 
+%
+% $$ 
+% \frac{X(s)}{F(s)} = \frac{1}{s^2 + 10s + 20} 
+% $$
+%
+% The goal of this problem is to show how each of the terms, $K_p$, $K_i$, and
+% $K_d$, contributes to obtaining the common goals of:
+%
+% * Fast rise time
+% * Minimal overshoot
+% * Zero steady-state error
+%
+%% Open-Loop Step Response
+%
+% Let's first view the open-loop step response. Create a new < ?aux=Extras_Mfile
+% m-file> and run the following code:
+%
+%%
+
+s = tf('s');
+P = 1/(s^2 + 10*s + 20);
+step(P)
+
+%%
+%
+% The DC gain of the plant transfer function is 1/20, so 0.05 is the final 
+% value of the output to a unit step input. This corresponds to a steady-state 
+% error of 0.95, which is quite large. Furthermore, the rise time is about one 
+% second, and the settling time is about 1.5 seconds. Let's design a controller 
+% that will reduce the rise time, reduce the settling time, and eliminate
+% the steady-state error. 
+%
+%%  Proportional Control
+% 
+% From the table shown above, we see that the proportional controller ($K_p$)
+% reduces the rise time, increases the overshoot, and reduces the
+% steady-state error.
+%
+% The closed-loop transfer function of our unity-feedback system with a
+% proportional controller is the following, where $X(s)$ is our output
+% (equals $Y(s)$) and our reference $R(s)$ is the input: 
+%
+% $$ 
+% T(s) = \frac{X(s)}{R(s)} = \frac{K_p}{s^2 + 10s + (20 + K_p)} 
+% $$
+%
+% Let the proportional gain ($K_p$) equal 300 and change the m-file to the
+% following:
+%%
+
+Kp = 300;
+C = pid(Kp)
+T = feedback(C*P,1)
+
+t = 0:0.01:2;
+step(T,t)
+
+%%
+%
+% The above plot shows that the proportional controller reduced both the 
+% rise time and the steady-state error, increased the overshoot, and 
+% decreased the settling time by a small amount. 
+%
+%% Proportional-Derivative Control
+%
+% Now, let's take a look at PD control. From the table shown above, we
+% see that the addition of derivative control ($K_d$) tends to reduce both the overshoot and
+% the settling time. The closed-loop transfer function of the given system with a PD controller is:
+% 
+% $$ 
+% T(s) = \frac{X(s)}{R(s)} = \frac{K_d s + K_p}{s^2 + (10 + K_d) s + (20 + K_p)} 
+% $$
+%
+% Let $K_p$ equal 300 as before and let $K_d$ equal 10. Enter the following
+% commands into an m-file and run it in the MATLAB command window.
+%
+%%
+
+Kp = 300;
+Kd = 10;
+C = pid(Kp,0,Kd)
+T = feedback(C*P,1)
+
+t = 0:0.01:2;
+step(T,t)
+
+%%
+% This plot shows that the addition of the derivative term reduced both the overshoot
+% and the settling time, and had a negligible effect on the rise time and the
+% steady-state error.
+%
+%% Proportional-Integral Control
+%
+% Before proceeding to PID control, let's investigate PI control. From 
+% the table, we see that the addition of integral control ($K_i$) tends to decrease the rise time,
+% increase both the overshoot and the settling time, and reduces the steady-state error.
+% For the given system, the closed-loop transfer function with a PI
+% controller is:
+%
+% $$ 
+% T(s) = \frac{X(s)}{R(s)} = \frac{K_p s + K_i}{s^3 + 10 s^2 + (20 + K_p )s + K_i} 
+% $$
+%
+% Let's reduce $K_p$ to 30, and let $K_i$ equal 70. Create a new m-file and
+% enter the following commands.
+%
+%%
+
+Kp = 30;
+Ki = 70;
+C = pid(Kp,Ki)
+T = feedback(C*P,1)
+
+t = 0:0.01:2;
+step(T,t)
+
+%%
+%
+% Run this m-file in the MATLAB command window and you should generate the
+% above plot.
+% We have reduced the proportional gain ($K_p$) because the integral
+% controller also reduces the rise time and increases the overshoot as the
+% proportional controller does (double effect). The above response shows
+% that the integral controller eliminated the steady-state error in this case.
+%
+%% Proportional-Integral-Derivative Control
+%
+% Now, let's examine PID control. The closed-loop transfer
+% function of the given system with a PID controller is:
+%
+% $$ 
+% T(s) = \frac{X(s)}{R(s)} = \frac{K_d s^2 + K_p s + K_i}{s^3 + (10 + K_d)s^2 + (20 + K_p)s + K_i } 
+% $$
+%
+% After several iterations of tuning, the gains $K_p$ = 350, $K_i$ = 300, and 
+% $K_d$ = 50 provided the desired response. To confirm, enter the following 
+% commands to an m-file and run it in the command window. You should obtain the 
+% following step response. 
+%%
+
+Kp = 350;
+Ki = 300;
+Kd = 50;
+C = pid(Kp,Ki,Kd)
+T = feedback(C*P,1);
+
+t = 0:0.01:2;
+step(T,t)
+
+%%
+%
+% Now, we have designed a closed-loop system with no overshoot, fast rise
+% time, and no steady-state error.
+%
+%% General Tips for Designing a PID Controller
+%
+% When you are designing a PID controller for a given system, follow the steps shown below to obtain a desired response.
+%
+%%
+% # Obtain an open-loop response and determine what needs to be improved
+% # Add a proportional control to improve the rise time
+% # Add a derivative control to reduce the overshoot
+% # Add an integral control to reduce the steady-state error
+% # Adjust each of the gains $K_p$, $K_i$, and $K_d$ until you obtain a
+% desired overall response. You can always refer to the table shown in this
+% "PID Tutorial" page to find out which controller controls which
+% characteristics.    
+%
+% Lastly, please keep in mind that you do not need to implement all three
+% controllers (proportional, derivative, and integral) into a single
+% system, if not necessary. For example, if a PI controller meets the given
+% requirements (like the above example), then you don't need to 
+% implement a derivative controller on the system. Keep the controller as
+% simple as possible.    
+%
+% An example of tuning a PI controller on an actual physical system can be
+% found at the following < ?aux=Activities_DCmotorB link>. This example also
+% begins to illustrate some challenges of implementing control, including:
+% control saturation, integrator wind-up, and noise amplification.
+% 
+%% Automatic PID Tuning
+%
+% MATLAB provides tools for automatically choosing optimal PID
+% gains which makes the trial and error process
+% described above unnecessary. You can access the tuning algorithm directly
+% using *pidtune* or through a nice graphical user interface (GUI) using
+% *pidTuner*.
+%
+% The MATLAB automated tuning algorithm chooses PID gains to balance performance 
+% (response time, bandwidth) and robustness (stability margins). By default, the
+% algorithm designs for a 60-degree phase margin.
+%
+% Let's explore these automated tools by first generating a proportional 
+% controller for the mass-spring-damper system by entering the command
+% shown below. In the shown syntax, |P| is the previously generated plant 
+% model, and |'p'| specifies that the tuner employ a proportional
+% controller.
+%
+%%
+% <html>
+% <pre class="codeinput">
+% pidTuner(P,'p')
+% </pre>
+% </html>
+%
+%%
+%
+% The *pidTuner* GUI window, like that shown below, should appear.
+%
+% <<Content/Introduction/Control/PID/figures/pidtool_1.png>>
+%
+% Notice that the step response shown is slower than the 
+% proportional controller we designed by hand. Now click on the *Show Parameters* 
+% button on the top right.  As expected, the proportional gain, $K_p$, is
+% smaller than the one we employed, $K_p$ = 94.86 < 300.
+%
+% We can now interactively tune the controller parameters and immediately
+% see the resulting response in the GUI window.  Try dragging the *Response
+% Time* slider to the right to 0.14 s, as shown in the figure below. This
+% causes the response to indeed speed up, and we can see $K_p$ is now
+% closer to the manually chosen value. We 
+% can also see other performance and robustness parameters for the
+% system.  Note that before we adjusted the slider, the target phase margin
+% was 60 degrees. This is the default for the pidTuner and generally provides a good
+% balance between robustness and performance. 
+%
+% <<Content/Introduction/Control/PID/figures/pidtool_2.png>>
+%
+% Now let's try designing a PID controller for our system. By specifying
+% the previously designed or (baseline) controller, C, as the second parameter, pidTuner
+% will design another PID controller (instead of P or PI) and will compare
+% the response of the system with the automated controller with that of the
+% baseline.
+%
+%%
+% <html>
+% <pre class="codeinput">
+% pidTuner(P,C)
+% </pre>
+% </html>
+%
+%%
+%
+% We see in the output window that the automated controller responds slower 
+% and exhibits more overshoot than the baseline. Now choose the *Domain: Frequency*
+% option from the toolstrip, which reveals frequency domain tuning parameters.  
+%
+% <<Content/Introduction/Control/PID/figures/pidtool_4.png>>
+%
+% Now type in |32 rad/s| for *Bandwidth* and *90 deg* for *Phase Margin*, to generate
+% a controller similar in performance to the baseline.  Keep in mind that
+% a higher closed-loop bandwidth results in a faster rise time, and a
+% larger phase margin reduces the overshoot and improves the system
+% stability.
+%
+% Finally, we note that we can generate the same controller using the
+% command line tool *pidtune* instead of the *pidTuner* GUI employing the
+% following syntax.
+%
+%%
+
+opts = pidtuneOptions('CrossoverFrequency',32,'PhaseMargin',90);
+[C, info] = pidtune(P, 'pid', opts)
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Introduction&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Introduction&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Introduction&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Introduction&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Introduction&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Introduction&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Introduction&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Introduction&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Introduction&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Introduction&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

@@ -1,0 +1,787 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: 	section: 	aux: Activities_BoostcircuitB	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "";
+			var section = "";
+			var aux = "Activities_BoostcircuitB";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?aux=Index_Activities";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Frequency-response Identification of a Boost Converter Circuit</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#d99ab6b7adabb6b58dacadb6abb0b8b5aa94b8adb5b8bb8ab0b4acb5b0b7b299beb4b8b0b5f7bab6b4">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?aux=Index_Activities">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SystemModeling"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SystemModeling"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SystemModeling"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SystemModeling"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SystemModeling"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SystemModeling"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SystemModeling"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SystemModeling"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+      <h1>Activity 5 Part (b): Frequency Response Identification of a Boost Converter Circuit</h1>
+      <!--introduction-->
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/boost.jpg" alt=""> </p>
+      <p><b>Key Topics</b>: Frequency Response Analysis, System Identification, Nonlinear Systems, Pulse-Width Modulation, Bode Plots
+      </p>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Equipment needed</a></li>
+            <li><a href="#2">Purpose</a></li>
+            <li><a href="#3">Frequency response experiment</a></li>
+            <li><a href="#7">Extensions</a></li>
+         </ul>
+      </div>
+      <h2>Equipment needed<a name="1"></a></h2>
+      <div>
+         <ul>
+            <li>Arduino microprocessor (e.g. Uno, Mega, etc.)</li>
+            <li>Breadboard</li>
+            <li>Battery (AA for example)</li>
+            <li>Electronic components (inductor, resistor, capacitor)</li>
+            <li>Diode</li>
+            <li>Transistor (MOSFET)</li>
+            <li>Jumper wires</li>
+         </ul>
+      </div>
+      <p>The system we will be employing in this activity is a type of DC/DC converter called a <i>Boost (Step-Up) Converter</i>. The purpose of a boost converter is to take the voltage supplied by a constant voltage source (e.g. a battery) and output
+         an (approximately) constant higher output voltage. Details regarding the principle of operation of a boost converter can be
+         found in <a href="?aux=Activities_BoostcircuitA">Part (a)</a> of this activity. We will implement a couple of very simple (not optimized) versions of a boost converter in order to illustrate
+         how to experimentally determine the frequency response of a system. In this part of the activity, the Arduino board will be
+         used for measuring the output of the circuit via one of the board's <i>Analog Inputs</i> and for controlling the level of the output voltage via one of the board's <i>Digital Outputs</i>. The Arduino board will also communicate the recorded data to Simulink for visualization and analysis.
+      </p>
+      <p>A schematic of the boost circuit we will analyze in this section is shown below including a list of the variables we will
+         employ.
+      </p><pre>(Rload)      resistance of the load resistor</pre><pre>(Req)        equivalent series resistance (ESR) of the inductor</pre><pre>(L)          inductance of the inductor</pre><pre>(C)          capacitance of capacitor</pre><pre>(ei)         input voltage (from the battery)</pre><pre>(eo)         output voltage</pre><p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/boost4.png" alt=""> </p>
+      <h2>Purpose<a name="2"></a></h2>
+      <p>The purpose of this activity is to build further intuition regarding the operation of a boost converter circuit. Specifically,
+         in this part of the activity we will model the circuit based on experimentally obtained frequency response data. This technique
+         provides intuition regarding frequency response analysis and demonstrates a blackbox approach for generating an approximate
+         (local) model of a nonlinear system.
+      </p>
+      <h2>Frequency response experiment<a name="3"></a></h2>
+      <p>Referring to the analysis of <a href="?aux=Activities_BoostcircuitA">Part (a)</a> of this activity, we demonstrated that the output voltage of the boost circuit chatters up and down as the transistor (MOSFET)
+         is switched on and off as shown in the following. The output, however, can approximate a constant (DC) voltage by employing
+         a very high switching frequency and by including a capacitor to "filter" the ripple.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/boost_eo2.png" alt=""> </p>
+      <p>One of the challenges of designing a controller for a DC/DC converter is that the plant model is inherently nonlinear due
+         to the switching between the two discrete states of the circuit. One solution to this challenge is to generate a linear model
+         that averages the ON and OFF states of the boost converter in order to approximate the true nonlinear behavior of the circuit.
+         This approach is appropriate when the switching frequency is sufficiently high such that the chatter in the output voltage
+         is small and can be well approximated by a single continuous model. In practice, the averaged model removes the switch and
+         employs an equivalent inductance in place of the true inductance. Often the equivalent inductance is modeled in terms of the
+         duty cycle <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq35719.png" alt="$D$"> as <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq12726.png" alt="$L_{eq} = L/(1 - D)^2$">. If the converter operates in a small range of duty cycles, then employing a constant <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq22768.png" alt="$L_{eq}$"> in the model is appropriate.
+      </p>
+      <p>Below is shown a depiction of an averaged boost converter model. Here we have neglected the equivalent series resistance for
+         the inductor since in practice it is often negligible in comparison to other effects. Often a resistance <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq25861.png" alt="$r$"> is included in series with the capacitor to better model the impedance of the capacitor for high frequency switching inputs,
+         though we have not done so here.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/boost7.png" alt=""> </p>
+      <p>So far we have analyzed the boost converter for an input of <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq81966.png" alt="$e_i$"> and an output of <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq10130.png" alt="$e_o$">. In practice, our control input to the converter is actually the duty cycle, that is, the percent of time the converter switch
+         is on. With this in mind, we can generate the following linearized model of the averaged boost converter shown above. This
+         transfer function has for its input the deviation <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq58995.png" alt="$\Delta D(t)$"> of the current duty cycle <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq68957.png" alt="$D(t)$"> from some nominal duty cycle <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq94576.png" alt="$\overline{D}$">, that is, <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq32540.png" alt="$\Delta D(t) = D(t) - \overline{D}$">. Similarly, the output is the deviation <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq85625.png" alt="$\Delta e_o(t)$"> of the output voltage <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq61937.png" alt="$e_o(t)$"> from the nominal output voltage <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq14457.png" alt="$\overline{e_o}$"> that corresponds to the nominal duty cycle <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq94576.png" alt="$\overline{D}$">, that is, <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq45927.png" alt="$\Delta e_o(t) = e_o(t) - \overline{e_o}$">.
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq84712.png" alt="$$ \frac{\Delta E_o(s)}{\Delta D(s)} = \frac{e_i}{(1-\overline{D})^2}\frac{R_{load} - sL_{eq}}{L_{eq}R_{load}Cs^2 + L_{eq}s + R_{load}} $$"></p>
+      <p>The above model is helpful in providing some insight into the behavior of the boost converter. Specifically, we can see the
+         system has two poles due to the LC filter inherent in the circuit. Also interesting is that the model has a non-minimum phase
+         zero. The behavior of a non-minimum phase system such as this is characterized by the fact that its response to a step input
+         initially moves in a direction opposite of the commanded direction. In this case, this means that an increase in duty cycle
+         will initially cause the output voltage to drop before beginning to increase toward its ultimate steady-state value. The intuition
+         behind this behavior is as follows. An increase in duty cycle means that the circuit is in its ON state for a longer period
+         of time. In the ON state, the current from the battery will flow through the switch and the load is in essence disconnected
+         from the battery for a longer period of time. Therefore, the output voltage will initially drop. This increased ON time also,
+         however, causes the current through the inductor to rise. This increase in current through the inductor eventually leads to
+         an increase in output voltage.
+      </p>
+      <p>Despite the intuition provided by the model given above, its accuracy may be limited. For example, inaccuracies in the model
+         could be due to failing to capture the non-ideal nature of the circuit components, as well as failing to capture the dynamics
+         of the channels of the Arduino board which are inherently part of our closed-loop system. One solution is to generate a blackbox
+         model of the boost converter based on empirical data. Specifically, a common industrial practice is to experimentally generate
+         a frequency response model of the boost converter. We will do that here by experimentally generating a Bode plot of the boost
+         converter's frequency response.
+      </p>
+      <p><b>Hardware setup</b></p>
+      <p>Our hardware setup will be exactly the same as that employed in <a href="?aux=Activities_BoostcircuitA">Part (a)</a> of this activity, except we will use different value components for the capacitor and the load in order to make the boost
+         circuit respond faster. Specifically, we will employ a 1200 <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq66343.png" alt="$\mu F$"> capacitor and a 1000 <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq17683.png" alt="$\Omega$"> resistor for the load. Furthermore, we will still use a Digital Output of the Arduino board to switch our transistor, but
+         in this case we will use a hardware-generated PWM signal. Only those Digital Outputs marked by the ~ symbol can generate such
+         a PWM signal. The frequency of the hardware-generated PWM is constant and much faster than what we can achieve in software
+         with Simulink. Most pins generate a PWM signal with an approximate frequency of 490 Hz. On the Arduino Uno and some similar
+         boards, pins 5 and 6 generate a PWM signal with a higher frequency of 980 Hz.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/arduinoBoost2.png" alt=""> </p>
+      <p>Looking at the theoretical linear averaged boost converter model given above with denominator <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq54578.png" alt="$L_{eq}R_{load}Cs^2 + L_{eq}s + R_{load}$">, we expect the system to have a natural frequency of <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq29062.png" alt="$\omega_n \approx \sqrt{1/L_{eq}C}$">. For our circuit components and a 1.5-Volt battery with nominal duty cycle of 0.39, we expect that the natural frequency
+         of the boost converter to be around 17.6 rad/sec (<img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq70791.png" alt="$\approx$"> 2.80 Hz). Since we expect the magnitude of the boost converter to begin to roll off around this frequency (it will begin
+         to attenuate inputs with frequencies above this threshold), the hardware-generated PWM signal should be sufficiently fast.
+         In other words, since 490 Hz is more than two decades larger than 2.80 Hz, the boost circuit should in essence filter the
+         square wave input resulting in a relatively smooth output voltage.
+      </p>
+      <p><b>Software setup</b></p>
+      <p>Our Simulink model for performing this frequency response experiment will be similar to our model from <a href="?aux=Activities_BoostcircuitA">Part (a)</a> of this activity. In order to trigger the hardware generated output, we will replace the Digital Write block with the Analog
+         Write block from the IO package. For details on how to use the IO package, refer to the following <a href="?aux=Activities_IOpack">link</a>. The name of the Analog Write block is a bit of a misnomer since the output is still digital, but the block does generate
+         the PWM signal we desire. The desired duty cycle is specified as an 8-bit number. Since <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq83360.png" alt="$2^8 = 256$">, the block accepts inputs between 0 and 255 where 0 corresponds to a <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq34175.png" alt="$0\%$"> duty cycle and 255 corresponds to a <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq68234.png" alt="$100\%$"> duty cycle. We will continue to use <tt>Pin 9</tt> for our digital output. We will also replace the Pulse Generator block with a Sine Wave block from the Sources library since
+         frequency response data is generated from the system's response to sinusoidal inputs over a range of frequencies. For the
+         Sine Wave block, we will continue to employ a <b>Sample time</b> of <i>Ts</i> that has been set to 0.01 seconds. Furthermore, we will set the <b>Bias</b> to "100" and the <b>Amplitude</b> to "40". Therefore, the Sine Wave block will generate a sinusoid that varies between 60 and 140, which corresponds to the
+         duty cycle varying between approximately <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq17235.png" alt="$24\%$"> and <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq87358.png" alt="$55\%$">. The frequency of the Sine Wave will be varied throughout the experiment. A depiction of the modified Simulink model is shown
+         below and can be downloaded <a href="Content/Activities/boostFreq.slx">here</a>.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/boostSWfreq.png" alt=""> </p>
+      <p>It can be a little difficult to envision the physical input to our system. The following figure may help by illustrating how
+         the duty cycle is changing sinusoidally. The input signal is still the digital PWM signal, but the percent of time the PWM
+         signal is "ON" is changing smoothly.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/sinusoidalPWM.png" alt=""> </p>
+      <p><b>Bode plot generation</b></p>
+      <p>With frequency response analysis we are interested in examining how a system responds to different frequency sinusoidal inputs.
+         For linear (or locally linear) systems, we know that in steady state a sinusoidal input will generate a sinusoidal output
+         of the same frequency, but with possibly different amplitude and phase. It is this scaling of the amplitude and time shifting
+         that we are interested in. We will experimentally determine this scaling (magnitude) and phase information, then we will represent
+         the information in the form of a Bode plot.
+      </p>
+      <p>Setting the frequency of the Sine Wave in our Simulink model to <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq03041.png" alt="$2\pi$"> rad/sec (1 Hz) and running the model, we generate the following output voltage response demonstrating how our 1.6-Volt battery
+         input can be stepped to a higher voltage depending on the control of the transistor switching.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/boostVolts3.png" alt=""> </p>
+      <p>Examining the above, we can see that there is an initial transient due to the natural response of the circuit, but once that
+         dies out, the steady-state response exhibits the sinusoidal response we expected. Assuming that the To Workspace blocks in
+         our Simulink model are set to have <tt>Array</tt> outputs, the following MATLAB commands will plot the steady-state voltage output (starting at 3 seconds) on the same set
+         of axes as the duty cycle input, thereby demonstrating the resultant scaling and shifting of the output.
+      </p>
+      <p>
+         </p><pre class="codeinput">
+         [AX,H1,H2] = plotyy(3:0.01:10,eo(301:1001),3:0.01:10,dc(301:1001),<span class="string">'plot'</span>);
+         xlabel(<span class="string">'time (sec)'</span>)
+         set(get(AX(1),<span class="string">'Ylabel'</span>),<span class="string">'String'</span>,<span class="string">'output voltage
+         (Volts)'</span>)
+         set(get(AX(2),<span class="string">'Ylabel'</span>),<span class="string">'String'</span>,<span class="string">'duty cycle'</span>)
+         title(<span class="string">'Boost Circuit Frequency Response (freq = 1 Hz)'</span>)
+         </pre>
+         
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/boostVolts4rev.png" alt=""> </p>
+      <p>From the recorded data shown above, we can calculate the magnitude and phase response of our boost converter at this frequency,
+         <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq03536.png" alt="$\omega = 2\pi$"> rad/sec. First we will estimate the magnitude. We know that the input duty cycle sinusoid has an amplitude of 40/255 <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq70791.png" alt="$\approx$"> 0.16. From inspection of the output voltage data, the difference between a peak and the valley that immediately succeeds
+         it is on average approximately 0.66 Volts which corresponds to an amplitude of 0.66/2 = 0.33 Volts. We use only successive
+         peaks and valleys for determining amplitude because the bias in the output can drift. Based on these two observations, the
+         magnitude of the boost converter at this frequency is 0.33/0.16 <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq70791.png" alt="$\approx$"> 2.06. When converted to decibels, the magnitude at this frequency is 20 <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq98427.png" alt="$\log$"> 2.06 <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq70791.png" alt="$\approx$"> 6.28 dB. Next we will estimate the phase. From inspection of the above, we can see that the output lags behind the input
+         (as expected). Comparing a peak of our input duty cycle signal to the peak of the output voltage signal that immediately follows
+         it, we can see that the output signal is shifted by on average 0.16 seconds (note that the frequencies of the input and the
+         output are equal (1 Hz)). Since the period of our signals are 1 second, that means our output lags behind the input by about
+         <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq57083.png" alt="$16\%$"> of a cycle, where one cycle corresponds to 360 degrees (<img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq57083.png" alt="$16\%$"> of 360 degrees <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq70791.png" alt="$\approx$"> 58 degrees). Also, we use the convention that the phase is negative when the output lags behind the input. Calculating the
+         phase in a different manner, we can multiply the time lag by the frequency. Therefore, the phase lag is -0.16 seconds <img class="inline_eqn" src="Content/Activities/html/Activities_BoostcircuitB_eq56357.png" alt="$\times 2\pi$"> radians/second, which is approximately -1.0 radians. Converting to degrees, we again have that the phase is approximately
+         -58 degrees.
+      </p>
+      <p>These calculations provide the frequency response of our boost converter at one frequency. If we repeat this process over
+         a range of frequencies, we can experimentally create a Bode plot for our boost converter (for this set of conditions). Below
+         is given a table of calculated magnitude and phase values for our boost circuit. This data is generated for a slightly different
+         set-up than we have used so far, but the results are very similar to what would be generated for the original set-up. Specifically,
+         the load resistor, capacitor, and inductor are unchanged, but we employed a different transistor and diode, and used a pin
+         with the 980 Hz PWM signal. The transistor employed was an IRFZ44N Power MOSFET and the diode was an NTE585 Schottky diode.
+         These components provide higher performance, but aren't really necessary for the level of power and PWM frequencies we are
+         employing.
+      </p>
+      <p>
+         <table style="border:1px solid black;" align="center" >
+         <tr><td style="background-color:#EEEEEE; font-weight:bold;">Frequency (Hz)</td><td>0.01</td><td>0.05</td><td>0.1</td><td>0.2</td><td>0.25</td><td>0.5</td><td>1</td><td>2.5</td><td>5</td></tr>
+         <tr><td style="background-color:#EEEEEE; font-weight:bold;">Frequency (rad/sec)</td><td>0.0628</td><td>0.314</td><td>0.628</td><td>1.26</td><td>1.57</td><td>3.14</td><td>6.28</td><td>15.7</td><td>31.4</td></tr>
+         <tr><td style="background-color:#EEEEEE; font-weight:bold;">Magnitude (dB)</td><td>9.52</td><td>9.35</td><td>9.06</td><td>9.16</td><td>8.96</td><td>7.44</td><td>6.15</td><td>-0.28</td><td>-9.83</td></tr>
+         <tr><td style="background-color:#EEEEEE; font-weight:bold;">Phase (degree)</td><td>-0.36</td><td>-0.00</td><td>-0.36</td><td>-5.76</td><td>-9.0</td><td>-28.8</td><td>-75.6</td><td>-90.0</td><td>-162</td></tr>
+         </table>
+         
+      </p>
+      <p>This data can then be compiled in the form of a Bode plot by executing the following commands at the MATLAB command line.</p><pre class="codeinput">freq  = [0.0628 0.314 0.628 1.26 1.57 3.14 6.28 15.7 31.4];
+mag   = [9.52 9.35 9.06 9.16 8.96 7.44 6.16 -0.28 -9.83];
+phase = [-0.36 0 -0.36 -5.76 -9 -28.8 -75.6 -90.0 -162];
+subplot(2,1,1);semilogx(freq,mag,<span class="string">'*'</span>)
+grid <span class="string">on</span>
+xlabel(<span class="string">'frequency (rad/sec)'</span>)
+ylabel(<span class="string">'magnitude (dB)'</span>)
+title(<span class="string">'Boost Converter Empirical Bode Diagram'</span>)
+subplot(2,1,2);semilogx(freq,phase,<span class="string">'*'</span>)
+grid <span class="string">on</span>
+xlabel(<span class="string">'frequency (rad/sec)'</span>)
+ylabel(<span class="string">'phase (deg)'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Activities/html/Activities_BoostcircuitB_01.png" alt=""> <p>Examining the above Bode diagram, the frequency response of the circuit doesn't exactly agree with the theoretical linear
+         averaged model given at the beginning of this section, but it does exhibit the same character. Specifically, the empirically-derived
+         Bode diagram reflects a type 0 system with two poles, though the DC gain and the location of the poles are somewhat different
+         than predicted by the theoretical linear averaged model. The system is type 0 because the magnitude plot is flat at low frequencies
+         and the phase approaches 0 degrees at low frequencies. The presence of the two poles is indicated by the magnitude plot rolling
+         off at a slope of approximately -40 dB/decade (and the phase appears headed towards -180 degrees). The contribution of the
+         non-minimum phase zero cannot be seen because it is thought that its break frequency (around 160 rad/sec) is beyond the frequency
+         band in which we can clearly identify the boost converter's response. This non-minimum phase zero would in theory add another
+         90 degrees of phase lag at high frequencies.
+      </p>
+      <p>It is typical that the high-frequency behavior of a system is difficult to identify experimentally. This arises due to a couple
+         of issues that can be illustrated by our physical experiment. One issue is that for physical systems the output tends to get
+         attenuated at high frequencies. The following figure shows the 5 Hz data from our experiment which was the highest frequency
+         we attempted to identify. At this frequency, we can already see that the amplitude of the output is getting quite small. As
+         the amplitude becomes small, the various sources of error can become quite large as a percentage of the signal amplitude.
+         For example, you can see that the quantization due to our analog-to-digital conversion is already significant and will become
+         more so at even higher frequencies. The other issue is that at high frequencies the period of one cycle becomes quite small.
+         Therefore, any errors in timing become a larger percentage of a single cycle. Again examining the following figure, one can
+         see that the number of samples we are able to take per cycle is getting smaller (at 5 Hz, can sample about 20 times per cycle
+         at most).
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Activities/figures/boostVolts5.png" alt=""> </p>
+      <p>Even though the accuracy of our model is lacking at higher frequencies, it is often okay because we wouldn't wish to operate
+         our boost converter in that frequency band anyway. It is, however, imperative that we understand what range of frequencies
+         of input commands we can achieve for our given system.
+      </p>
+      <h2>Extensions<a name="7"></a></h2>
+      <p>Some extensions to this activity would be to experiment with different circuit components to see what kind of performance
+         can be achieved. It could also be interesting to examine other types of DC/DC converters, such as the buck converter and the
+         buck-boost converter. In <a href="?aux=Activities_BoostcircuitC">Part (c)</a> of this activity, we will design and implement a controller for maintaining the output voltage of the boost converter we
+         examined here.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 8.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Activity 5 Part (b): Frequency Response Identification of a Boost Converter Circuit 
+%
+% <<Content/Activities/figures/boost.jpg>>
+%
+% *Key Topics*: Frequency Response Analysis, System
+% Identification, Nonlinear Systems, Pulse-Width Modulation, Bode Plots
+%
+%% Equipment needed
+%
+% * Arduino microprocessor (e.g. Uno, Mega, etc.)
+% * Breadboard
+% * Battery (AA for example)
+% * Electronic components (inductor, resistor, capacitor)
+% * Diode
+% * Transistor (MOSFET)
+% * Jumper wires
+%
+% The system we will be employing in this activity is a type of DC/DC
+% converter called a _Boost (Step-Up) Converter_. The purpose of a boost
+% converter is to take the voltage supplied by a constant voltage source
+% (e.g. a battery) and output an (approximately) constant higher output
+% voltage. Details regarding the principle of operation of a boost
+% converter can be found in < ?aux=Activities_BoostcircuitA Part (a)> of this
+% activity. We will implement a couple of very simple (not optimized)
+% versions of a boost converter in order to illustrate how to
+% experimentally determine the frequency response of a system. In this
+% part of the activity, the Arduino board will be used for measuring the output of 
+% the circuit via one of the board's _Analog Inputs_ and for controlling
+% the level of the output voltage via one of the board's _Digital Outputs_. 
+% The Arduino board will also communicate the recorded data to Simulink for
+% visualization and analysis.  
+%
+% A schematic of the boost circuit we will analyze in this section is shown
+% below including a list of the variables we will employ.
+%
+%  (Rload)      resistance of the load resistor
+%
+%  (Req)        equivalent series resistance (ESR) of the inductor
+%
+%  (L)          inductance of the inductor
+%
+%  (C)          capacitance of capacitor
+% 
+%  (ei)         input voltage (from the battery)
+% 
+%  (eo)         output voltage
+%
+% <<Content/Activities/figures/boost4.png>>
+%
+%% Purpose
+%
+% The purpose of this activity is to build further intuition regarding the
+% operation of a boost converter circuit. Specifically, in this part of the
+% activity we will model the circuit based on experimentally obtained
+% frequency response data. This technique provides intuition regarding
+% frequency response analysis and demonstrates a blackbox approach for
+% generating an approximate (local) model of a nonlinear system.
+%
+%% Frequency response experiment
+%
+% Referring to the analysis of < ?aux=Activities_BoostcircuitA Part (a)> of this
+% activity, we demonstrated that the output voltage of the boost circuit
+% chatters up and down as the transistor (MOSFET) is switched on and off as
+% shown in the following. The output, however, can approximate a constant
+% (DC) voltage by employing a very high switching frequency and by
+% including a capacitor to "filter" the ripple.
+%
+% <<Content/Activities/figures/boost_eo2.png>>
+%
+% One of the challenges of designing a controller for a DC/DC converter is
+% that the plant model is inherently nonlinear due to the switching between
+% the two discrete states of the circuit. One solution to this challenge is
+% to generate a linear model that averages the ON and OFF states of the
+% boost converter in order to approximate the true nonlinear behavior of the
+% circuit. This approach is appropriate when the switching frequency is
+% sufficiently high such that the chatter in the output voltage is small
+% and can be well approximated by a single continuous model. In practice,
+% the averaged model removes the switch and employs an equivalent
+% inductance in place of the true inductance. Often the equivalent
+% inductance is modeled in terms of the duty cycle $D$ as $L_{eq} = L/(1 -
+% D)^2$. If the converter operates in a small range of duty cycles, then
+% employing a constant $L_{eq}$ in the model is appropriate. 
+%
+% Below is shown a depiction of an averaged boost converter model. Here we
+% have neglected the equivalent series resistance for the inductor since in
+% practice it is often negligible in comparison to other effects. Often a
+% resistance $r$ is included in series with the capacitor to better
+% model the impedance of the capacitor for high frequency switching inputs,
+% though we have not done so here.
+%
+% <<Content/Activities/figures/boost7.png>>
+%
+% So far we have analyzed the boost converter for an input of $e_i$ and an
+% output of $e_o$. In practice, our control input to the converter is
+% actually the duty cycle, that is, the percent of time the converter
+% switch is on. With this in mind, we can generate the following linearized
+% model of the averaged boost converter shown above. This transfer function
+% has for its input the deviation $\Delta D(t)$ of the current duty cycle
+% $D(t)$ from some nominal duty cycle $\overline{D}$, that is, $\Delta D(t) =
+% D(t) - \overline{D}$. Similarly, the output is the deviation $\Delta e_o(t)$
+% of the output voltage $e_o(t)$ from the nominal output voltage
+% $\overline{e_o}$ that corresponds to the nominal duty cycle
+% $\overline{D}$, that is, $\Delta e_o(t) = e_o(t) - \overline{e_o}$. 
+%
+% $$ \frac{\Delta E_o(s)}{\Delta D(s)} = \frac{e_i}{(1-\overline{D})^2}\frac{R_{load} - sL_{eq}}{L_{eq}R_{load}Cs^2 + L_{eq}s + R_{load}} $$
+%
+% The above model is helpful in providing some insight into the
+% behavior of the boost converter. Specifically, we can see the system has
+% two poles due to the LC filter inherent in the circuit. Also interesting
+% is that the model has a non-minimum phase zero. The behavior of a
+% non-minimum phase system such as this is characterized by the fact that
+% its response to a step input initially moves in a direction opposite of
+% the commanded direction. In this case, this means that an increase in
+% duty cycle will initially cause the output voltage to drop before
+% beginning to increase toward its ultimate steady-state value. The
+% intuition behind this behavior is as follows. An increase in duty cycle
+% means that the circuit is in its ON state for a longer period of time. In
+% the ON state, the current from the battery will flow through the switch
+% and the load is in essence disconnected from the battery for a longer
+% period of time. Therefore, the 
+% output voltage will initially drop. This increased ON time also,
+% however, causes the current
+% through the inductor to rise. This increase in current through the
+% inductor eventually leads to an increase in output voltage.
+%
+% Despite the intuition provided by the model given above, its accuracy may
+% be limited. For example, inaccuracies in the model could be due to
+% failing to capture the non-ideal nature of the circuit components, as
+% well as failing to capture the dynamics of the channels of the Arduino
+% board which are inherently part of our closed-loop system. One solution
+% is to generate a blackbox model of the boost converter based on empirical
+% data. Specifically, a common industrial practice is to experimentally
+% generate a frequency response model of the boost converter. We will do
+% that here by experimentally generating a Bode plot of the
+% boost converter's frequency response. 
+%%
+% *Hardware setup*
+%
+% Our hardware setup will be exactly the same as that employed in
+% < ?aux=Activities_BoostcircuitA Part (a)> of this activity, except we will use
+% different value components for the capacitor and the load in order to
+% make the boost circuit respond faster. Specifically, we will employ a
+% 1200 $\mu F$ capacitor and a 1000 $\Omega$ resistor for the load.
+% Furthermore, we will still use a Digital Output of the Arduino board to
+% switch our transistor, but in this case we will use a hardware-generated
+% PWM signal. Only those Digital Outputs marked by the ~ symbol can
+% generate such a PWM signal. The frequency of the hardware-generated PWM is
+% constant and much faster than what we can achieve in software with
+% Simulink. Most pins generate a PWM signal with an approximate frequency 
+% of 490 Hz. On the Arduino Uno and some similar boards, pins 5 and 6
+% generate a PWM signal with a higher frequency of 980 Hz.
+%
+% <<Content/Activities/figures/arduinoBoost2.png>> 
+%
+% Looking at the theoretical linear averaged boost converter model given
+% above with denominator $L_{eq}R_{load}Cs^2 + L_{eq}s + R_{load}$, we
+% expect the system to have a natural frequency of $\omega_n \approx
+% \sqrt{1/L_{eq}C}$. For our circuit components and a 1.5-Volt battery with
+% nominal duty cycle of 0.39, we expect that the natural frequency of the
+% boost converter to be around 17.6 rad/sec ($\approx$ 2.80 Hz). Since we
+% expect the magnitude of the boost converter to begin to roll off around
+% this frequency (it will begin to attenuate inputs with frequencies above
+% this threshold), the hardware-generated PWM signal should be sufficiently
+% fast. In other words, since 490 Hz is more than two decades larger than
+% 2.80 Hz, the boost circuit should in essence filter the square wave input
+% resulting in a relatively smooth output voltage.
+% 
+%%
+% *Software setup*
+%
+% Our Simulink model for performing this frequency response experiment will
+% be similar to our model from < ?aux=Activities_BoostcircuitA Part (a)> of this
+% activity. In order to trigger the hardware 
+% generated output, we will replace the Digital Write block with the Analog
+% Write block from the IO package. For details on how to
+% use the IO package, refer to the following < ?aux=Activities_IOpack
+% link>. The name of the Analog Write block is a
+% bit of a misnomer since the output is still digital, but the block does
+% generate the PWM signal we desire. The desired duty cycle is specified as
+% an 8-bit number. Since $2^8 = 256$, the block accepts inputs
+% between 0 and 255 where 0 corresponds to a $0\%$ duty cycle and 255
+% corresponds to a $100\%$ duty cycle. We will continue to use |Pin 9| for
+% our digital output. We will also replace the Pulse
+% Generator block with a Sine Wave block from the Sources library since
+% frequency response data is generated from the system's response to
+% sinusoidal inputs over a range of frequencies. For the Sine Wave block,
+% we will continue to employ a *Sample time* of _Ts_ that has been set to
+% 0.01 seconds. Furthermore, we will set the *Bias* to "100" and the
+% *Amplitude* to "40". Therefore, the Sine Wave block will generate a
+% sinusoid that varies between 60 and 140, which corresponds to the duty
+% cycle varying between approximately $24\%$ and $55\%$. The frequency of
+% the Sine Wave will be varied throughout the experiment. A depiction of
+% the modified Simulink model is shown below and can be downloaded
+% <Content/Activities/boostFreq.slx here>. 
+%
+% <<Content/Activities/figures/boostSWfreq.png>> 
+%
+% It can be a little difficult to envision the physical input to our
+% system. The following figure may help by illustrating how the duty cycle is
+% changing sinusoidally. The input signal is still the digital PWM
+% signal, but the percent of time the PWM signal is "ON" is 
+% changing smoothly. 
+%
+% <<Content/Activities/figures/sinusoidalPWM.png>>
+%
+% *Bode plot generation*
+%
+% With frequency response analysis we are interested in examining how a
+% system responds to different frequency sinusoidal inputs. For linear (or
+% locally linear) systems, we know that in steady state a sinusoidal input
+% will generate a sinusoidal output of the same frequency, but with
+% possibly different amplitude and phase. It is this scaling of the
+% amplitude and time shifting that we are interested in. We will
+% experimentally determine this scaling (magnitude) and phase information,
+% then we will represent the information in the form of a Bode plot.
+%
+% Setting the frequency of the Sine Wave in our Simulink model to $2\pi$
+% rad/sec (1 Hz) and running the model, we generate the following
+% output voltage response demonstrating how our 1.6-Volt battery input can
+% be stepped to a higher voltage depending on the control of the transistor
+% switching.  
+%
+% <<Content/Activities/figures/boostVolts3.png>> 
+%
+% Examining the above, we can see that there is an initial transient due to
+% the natural response of the circuit, but once that dies out, the
+% steady-state response exhibits the sinusoidal response we expected.
+% Assuming that the To Workspace blocks in our Simulink model are set to
+% have |Array| outputs, the following MATLAB commands will plot the
+% steady-state voltage output (starting at 3 seconds) on the same set of
+% axes as the duty cycle input, thereby demonstrating the resultant scaling
+% and shifting of the output. 
+%
+% <html>
+% </p><pre class="codeinput">
+% [AX,H1,H2] = plotyy(3:0.01:10,eo(301:1001),3:0.01:10,dc(301:1001),<span class="string">'plot'</span>);
+% xlabel(<span class="string">'time (sec)'</span>)
+% set(get(AX(1),<span class="string">'Ylabel'</span>),<span class="string">'String'</span>,<span class="string">'output voltage (Volts)'</span>) 
+% set(get(AX(2),<span class="string">'Ylabel'</span>),<span class="string">'String'</span>,<span class="string">'duty cycle'</span>)
+% title(<span class="string">'Boost Circuit Frequency Response (freq = 1 Hz)'</span>)
+% </pre>
+% </html>
+%
+% <<Content/Activities/figures/boostVolts4rev.png>>
+%
+% From the recorded data shown above, we can calculate the magnitude and
+% phase response of our boost converter at this frequency, $\omega = 2\pi$
+% rad/sec. First we will estimate the magnitude. We know that the input
+% duty cycle sinusoid has an amplitude of 40/255 $\approx$ 0.16.
+% From inspection of the output voltage data, the difference between a peak
+% and the valley that immediately succeeds it is on average approximately 0.66 Volts
+% which corresponds to an amplitude of 0.66/2 = 0.33 Volts. We use only
+% successive peaks and valleys for determining amplitude because the bias
+% in the output can drift. Based on these two observations, the
+% magnitude of the boost converter at this frequency is 0.33/0.16 $\approx$
+% 2.06. When converted to decibels, the magnitude at this frequency is 20
+% $\log$ 2.06 $\approx$ 6.28 dB. Next we will estimate the phase. From
+% inspection of the above, we can see that the output lags behind the input
+% (as expected). Comparing a peak of our input duty cycle signal to the
+% peak of the output voltage signal that immediately follows it, we can see
+% that the output signal is shifted by on average 0.16 seconds (note that
+% the frequencies of the input and the output are equal (1 Hz)). Since the
+% period of our signals are 1 second, that means our output lags behind
+% the input by about $16\%$ of a cycle, where one cycle corresponds to
+% 360 degrees ($16\%$ of 360 degrees $\approx$ 58 degrees). Also, we use
+% the convention that the phase is 
+% negative when the output lags behind the input. Calculating the phase
+% in a different manner, we can multiply the time lag by the frequency.
+% Therefore, the phase lag is -0.16 seconds $\times 2\pi$ radians/second, which is
+% approximately -1.0 radians. Converting to degrees, we again have that the
+% phase is approximately -58 degrees.
+%
+% These calculations provide the frequency response of our boost converter
+% at one frequency. If we repeat this process over a range of frequencies,
+% we can experimentally create a Bode plot for our boost converter (for
+% this set of conditions). Below is given a table of calculated magnitude
+% and phase values for our boost circuit. This data is generated for a
+% slightly different set-up than we have used so far, but the results are
+% very similar to what would be generated for the original set-up.
+% Specifically, the load resistor, capacitor, and inductor are unchanged,
+% but we employed a different transistor and diode, and used a pin with the
+% 980 Hz PWM signal. The transistor employed was an IRFZ44N Power MOSFET
+% and the diode was an NTE585 Schottky diode. These components provide higher
+% performance, but aren't really necessary for the level of power and PWM
+% frequencies we are employing. 
+% 
+% <html>
+% <table style="border:1px solid black;" align="center" >
+% <tr><td style="background-color:#EEEEEE; font-weight:bold;">Frequency (Hz)</td><td>0.01</td><td>0.05</td><td>0.1</td><td>0.2</td><td>0.25</td><td>0.5</td><td>1</td><td>2.5</td><td>5</td></tr>
+% <tr><td style="background-color:#EEEEEE; font-weight:bold;">Frequency (rad/sec)</td><td>0.0628</td><td>0.314</td><td>0.628</td><td>1.26</td><td>1.57</td><td>3.14</td><td>6.28</td><td>15.7</td><td>31.4</td></tr>
+% <tr><td style="background-color:#EEEEEE; font-weight:bold;">Magnitude (dB)</td><td>9.52</td><td>9.35</td><td>9.06</td><td>9.16</td><td>8.96</td><td>7.44</td><td>6.15</td><td>-0.28</td><td>-9.83</td></tr>
+% <tr><td style="background-color:#EEEEEE; font-weight:bold;">Phase (degree)</td><td>-0.36</td><td>-0.00</td><td>-0.36</td><td>-5.76</td><td>-9.0</td><td>-28.8</td><td>-75.6</td><td>-90.0</td><td>-162</td></tr>
+% </table>
+% </html>
+%
+% This data can then be compiled in the form of a Bode plot by executing
+% the following commands at the MATLAB command line.
+
+freq  = [0.0628 0.314 0.628 1.26 1.57 3.14 6.28 15.7 31.4];
+mag   = [9.52 9.35 9.06 9.16 8.96 7.44 6.16 -0.28 -9.83];
+phase = [-0.36 0 -0.36 -5.76 -9 -28.8 -75.6 -90.0 -162];
+subplot(2,1,1);semilogx(freq,mag,'*')
+grid on
+xlabel('frequency (rad/sec)')
+ylabel('magnitude (dB)')
+title('Boost Converter Empirical Bode Diagram')
+subplot(2,1,2);semilogx(freq,phase,'*')
+grid on
+xlabel('frequency (rad/sec)')
+ylabel('phase (deg)')
+
+%%
+% Examining the above Bode diagram, the frequency response of the circuit
+% doesn't exactly agree with the theoretical linear averaged model given at the
+% beginning of this section, but it does exhibit the same character.
+% Specifically, the empirically-derived Bode diagram reflects a type 0
+% system with two poles, though the DC gain and the location of the poles
+% are somewhat different than predicted by the theoretical linear averaged
+% model. The system is type 0 because the magnitude plot is flat at low
+% frequencies and the phase approaches 0 degrees at low frequencies. The
+% presence of the two poles is indicated by the magnitude plot rolling off
+% at a slope of approximately -40 dB/decade (and the phase appears headed towards -180
+% degrees). The contribution of the non-minimum phase zero cannot be seen
+% because it is thought that its break frequency (around 160 rad/sec) is
+% beyond the frequency band in which we can clearly identify the boost
+% converter's response. This non-minimum phase zero would in theory add
+% another 90 degrees of phase lag at high frequencies.
+%
+% It is typical that the high-frequency behavior of a system is difficult
+% to identify experimentally. This arises due to a couple of issues that
+% can be illustrated by our physical experiment. One issue is that
+% for physical systems the output tends to get attenuated at high
+% frequencies. The following figure shows
+% the 5 Hz data from our experiment which was the highest frequency we
+% attempted to identify. At this frequency, we can already see that the
+% amplitude of the output is getting quite small. As the amplitude becomes
+% small, the various sources of error can become quite large as a
+% percentage of the signal amplitude. For example, you can see that the
+% quantization due to our analog-to-digital conversion is already
+% significant and will become more so at even higher frequencies. The other
+% issue is that at high frequencies the period of one cycle becomes quite
+% small. Therefore, any errors in timing become a larger percentage of
+% a single cycle. Again examining the following figure, one can see that
+% the number of samples we are able to take per cycle is getting smaller 
+% (at 5 Hz, can sample about 20 times per cycle at most).
+%
+% <<Content/Activities/figures/boostVolts5.png>>
+%
+% Even though the accuracy of our model is lacking at higher frequencies,
+% it is often okay because we wouldn't wish to operate our boost converter
+% in that frequency band anyway. It is, however, imperative that we understand
+% what range of frequencies of input commands we can achieve for our given
+% system. 
+%% Extensions
+%
+% Some extensions to this activity would be to experiment with different
+% circuit components to see what kind of performance can be achieved. It
+% could also be interesting to examine other types of DC/DC converters,
+% such as the buck converter and the buck-boost converter. In
+% < ?aux=Activities_BoostcircuitC Part (c)> of this activity, we will design and
+% implement a controller for maintaining the output voltage of the boost
+% converter we examined here.
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Introduction&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Introduction&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Introduction&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Introduction&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Introduction&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Introduction&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Introduction&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Introduction&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Introduction&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Introduction&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

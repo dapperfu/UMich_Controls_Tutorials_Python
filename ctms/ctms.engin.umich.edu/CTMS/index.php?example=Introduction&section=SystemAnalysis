@@ -1,0 +1,959 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: Introduction	section: SystemAnalysis	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "Introduction";
+			var section = "SystemAnalysis";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=Introduction&section=ControlPID";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Introduction: System Analysis</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#7f3c10110b0d10132b0a0b100d161e130c321e0b131e1d2c16120a131611143f18121e1613511c1012">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=Introduction&section=ControlPID">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SystemAnalysis"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SystemAnalysis"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SystemAnalysis"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SystemAnalysis"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SystemAnalysis"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SystemAnalysis"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SystemAnalysis"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SystemAnalysis"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+     <div class="introduction">
+      <h1>Introduction: System Analysis</h1>
+      <!--introduction-->
+      <p>Once appropriate mathematical models of a system have been obtained, either in state-space or transfer function form, we may
+         then analyze these models to predict how the system will respond in both the time and frequency domains.  To put this in context,
+         control systems are often designed to improve stability, speed of response, steady-state error, or prevent oscillations. In
+         this section, we will show how to determine these dynamic properties from the system models.
+      </p>
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/ssdata.html"><tt>ssdata</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/pole.html"><tt>pole</tt></a> , <a href="http://www.mathworks.com/help/techdoc/ref/eig.html"><tt>eig</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/pzmap.html"><tt>pzmap</tt></a> , <a href="http://www.mathworks.com/help/ident/ref/bode.html"><tt>bode</tt></a> , <a href="http://www.mathworks.com/help/control/ref/linearsystemanalyzer-app.html"><tt>linearSystemAnalyzer</tt></a></p>
+		<a href="https://www.mathworks.com/campaigns/products/control-tutorials.html#system-analysis" style="color: white" class="button"> Run Live Script Version in MATLAB Online</a>
+    	</div>
+		
+
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+        <li><a href="?aux=Activities_LRCcircuitA">Time Resp Activity</a></li>
+        <li><a href="?aux=Activities_RCcircuitB">Freq Resp Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.youtube.com/watch?v=F4w0rslb04E">Time Resp Video</a></li>
+		<li><a href="https://www.youtube.com/watch?v=NdrKm4z6gBY">Freq Resp Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	<!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Time Response Overview</a></li>
+            <li><a href="#2">Frequency Response Overview</a></li>
+            <li><a href="#3">Stability</a></li>
+            <li><a href="#7">System Order</a></li>
+            <li><a href="#8">First-Order Systems</a></li>
+            <li><a href="#13">Second-Order Systems</a></li>
+         </ul>
+      </div>
+      <h2>Time Response Overview<a name="1"></a></h2>
+      <p>The <b>time response</b> represents how the state of a dynamic system changes in time when subjected to a particular input.  Since the models we have
+         derived consist of differential equations, some integration must be performed in order to determine the time response of the
+         system.  For some simple systems, a closed-form analytical solution may be available.  However, for most systems, especially
+         nonlinear systems or those subject to complicated inputs, this integration must be carried out numerically.  Fortunately,
+         MATLAB provides many useful resources for calculating time responses for many types of inputs, as we shall see in the following
+         sections.
+      </p>
+      <p>The time response of a linear dynamic system consists of the sum of the <b>transient response</b> which depends on the initial conditions and the <b>steady-state response</b> which depends on the system input.  These correspond to the homogenous (free or zero input) and the particular solutions
+         of the governing differential equations, respectively.
+      </p>
+      <h2>Frequency Response Overview<a name="2"></a></h2>
+      <p>All the examples presented in this tutorial are modeled by linear constant coefficient differential equations and are thus
+         linear time-invariant (LTI). LTI systems have the extremely important property that if the input to the system is sinusoidal,
+         then the steady-state output will also be sinusoidal at the same frequency, but, in general, with different magnitude and
+         phase. These magnitude and phase differences are a function of the frequency and comprise the <b>frequency response</b> of the system.
+      </p>
+      <p>The frequency response of a system can be found from its transfer function in the following way: create a vector of frequencies
+         (varying between zero or "DC" to infinity) and compute the value of the plant transfer function at those frequencies. If <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq10401812460766877718.png" alt="$G(s)$"> is the open-loop transfer function of a system and <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq08589834809570054062.png" alt="$\omega$"> is the frequency vector, we then plot <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11651372816386356267.png" alt="$G(j\omega)$"> versus <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq08589834809570054062.png" alt="$\omega$">. Since <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11651372816386356267.png" alt="$G(j\omega)$"> is a complex number, we can plot both its magnitude and phase (the <b>Bode Plot</b>) or its position in the complex plane (the <b>Nyquist Diagram</b>). Both methods display the same information, but in different ways.
+      </p>
+      <h2>Stability<a name="3"></a></h2>
+      <p>For our purposes, we will use the <b>Bounded Input Bounded Output (BIBO)</b> definition of stability which states that a system is stable if the output remains bounded for all bounded (finite) inputs.
+          Practically, this means that the system will not "blow up" while in operation.
+      </p>
+      <p>The transfer function representation is especially useful when analyzing system stability. If all poles of the transfer function
+         (values of <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq17157792396909321071.png" alt="$s$"> for which the denominator equals zero) have negative real parts, then the system is stable. If any pole has a positive real
+         part, then the system is unstable. If we view the poles on the complex s-plane, then all poles must be in the left-half plane
+         (LHP) to ensure stability. If any pair of poles is on the imaginary axis, then the system is marginally stable and the system
+         will tend to oscillate. A system with purely imaginary poles is not considered BIBO stable. For such a system, there will
+         exist finite inputs that lead to an unbounded response. The poles of an LTI system model can easily be found in MATLAB using
+         the <tt>pole</tt> command, an example of which is shown below:
+      </p><pre class="codeinput">s = tf(<span class="string">'s'</span>);
+G = 1/(s^2+2*s+5)
+pole(G)
+</pre><pre class="codeoutput">
+G =
+ 
+        1
+  -------------
+  s^2 + 2 s + 5
+ 
+Continuous-time transfer function.
+
+ans =
+  -1.0000 + 2.0000i
+  -1.0000 - 2.0000i
+</pre><p>Thus this system is stable since the real parts of the poles are both negative. The stability of a system may also be found
+         from the state-space representation.  In fact, the poles of the transfer function are the eigenvalues of the system matrix
+         <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq05147331747641807187.png" alt="$A$">.  We can use the <tt>eig</tt> command to calculate the eigenvalues using either the LTI system model directly, <tt>eig(G)</tt>, or the system matrix as shown below.
+      </p><pre class="codeinput">[A,B,C,D] = ssdata(G);
+eig(A)
+</pre><pre class="codeoutput">ans =
+  -1.0000 + 2.0000i
+  -1.0000 - 2.0000i
+</pre><h2>System Order<a name="7"></a></h2>
+      <p>The order of a dynamic system is the order of the highest derivative of its governing differential equation.  Equivalently,
+         it is the highest power of <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq17157792396909321071.png" alt="$s$"> in the denominator of its transfer function. The important properties of first-, second-, and higher-order systems will be
+         reviewed in this section.
+      </p>
+      <h2>First-Order Systems<a name="8"></a></h2>
+      <p>First-order systems are the simplest dynamic systems to analyze.  Some common examples include mass-damper systems and RC
+         circuits.
+      </p>
+      <p>The general form of the first-order differential equation is as follows</p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq08741231128616349562.png" alt="$$&#xA;\dot{y} + a y = b u \quad \textrm{or} \ \quad \tau \dot{y} + y = k_{dc} u&#xA;$$"></p>
+      <p>The form of a first-order transfer function is</p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq15547923058035996146.png" alt="$$&#xA;G(s) = \frac{b}{s+a} = \frac{k_{dc}}{\tau s + 1}&#xA;$$"></p>
+      <p>where the parameters <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq17023687237162064508.png" alt="$k_{dc}$"> and <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq14593889327204786447.png" alt="$\tau$"> completely define the character of the first-order system.
+      </p>
+      <p><b>DC Gain</b></p>
+      <p>The DC gain, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq17023687237162064508.png" alt="$k_{dc}$">, is the ratio of the magnitude of the steady-state step response to the magnitude of the step input. For stable transfer
+         functions, the <b>Final Value Theorem</b> demonstrates that the DC gain is the value of the transfer function evaluated at <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq17157792396909321071.png" alt="$s$"> = 0. For first-order systems of the forms shown, the DC gain is <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq17848222225912273683.png" alt="$k_{dc} = b/a$">.
+      </p>
+      <p><b>Time Constant</b></p>
+      <p>The time constant of a first-order system is <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq05135385504200080365.png" alt="$T_c = \tau = 1/a$"> which is equal to the time it takes for the system's response to reach 63% of its steady-state value for a step input (from
+         zero initial conditions) or to decrease to 37% of the initial value for a system's free response.  More generally, it represents
+         the time scale for which the dynamics of the system are significant.
+      </p>
+      <p><b>Poles/Zeros</b></p>
+      <p>First-order systems have a single real pole, in this case at <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq01930274499620192747.png" alt="$s = -a$">. Therefore, the system is stable if <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq05508344529756732484.png" alt="$a$"> is positive and unstable if <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq05508344529756732484.png" alt="$a$"> is negative. Standard first-order system have no zeros.
+      </p>
+      <p><b>Step Response</b></p>
+      <p>We can calculate the system time response to a step input of magnitude <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11776305044305525613.png" alt="$u$"> using the following MATLAB commands:
+      </p><pre class="codeinput">k_dc = 5;
+Tc = 10;
+u = 2;
+
+s = tf(<span class="string">'s'</span>);
+G = k_dc/(Tc*s+1)
+
+step(u*G)
+</pre><pre class="codeoutput">
+G =
+ 
+     5
+  --------
+  10 s + 1
+ 
+Continuous-time transfer function.
+
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_01.png" alt=""> <p>Note: MATLAB also provides a powerful graphical user interface for analyzing LTI systems which can be accessed using the syntax
+         <tt>linearSystemAnalyzer('step',G)</tt>.
+      </p>
+      <p>If you right-click on the step response graph and select <b>Characteristics</b>, you can choose to have several system metrics overlaid on the response: peak response, settling time, rise time, and steady-state.
+      </p>
+      <p><b>Settling Time</b></p>
+      <p>The settling time, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq15197243358923498023.png" alt="$T_s$">, is the time required for the system output to fall within a certain percentage (i.e. 2%) of the steady-state value for a
+         step input. The settling times for a first-order system for the most common tolerances are provided in the table below. Note
+         that the tighter the tolerance, the longer the system response takes to settle to within this band, as expected.
+      </p>
+      <p>
+         <table style="border:2px solid black;" align="center" >
+         <tr style="background-color:#EEEEEE; font-weight:bold;"><td>10%</td><td>5%</td><td>2%</td><td>1%</td></tr>
+         <tr><td>Ts=2.3/a=2.3Tc</td><td>Ts=3/a=3Tc</td><td>Ts=3.9/a=3.9Tc</td><td>Ts=4.6/a=4.6Tc</td></tr>
+         </table>
+         
+      </p>
+      <p><b>Rise Time</b></p>
+      <p>The rise time, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq09816025793510003832.png" alt="$T_r$">, is the time required for the system output to rise from some lower level x% to some higher level y% of the final steady-state
+         value. For first-order systems, the typical range is 10% - 90%.
+      </p>
+      <p><b>Bode Plots</b></p>
+      <p>Bode diagrams show the magnitude and phase of a system's frequency response, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11651372816386356267.png" alt="$G(j\omega)$">, plotted with respect to frequency <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq08589834809570054062.png" alt="$\omega$">.  We can generate the Bode plot of a system <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq07365524530707038546.png" alt="$G$"> in MATLAB using the syntax <tt>bode(G)</tt> as shown below.
+      </p><pre class="codeinput">bode(G)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_02.png" alt=""> <p>Again the same results could be obtained using the Linear System Analyzer GUI, <tt>linearSystemAnalyzer('bode',G)</tt>.
+      </p>
+      <p>Bode plots employ a logarithmic frequency scale so that a larger range of frequencies are visible.  Also, the magnitude is
+         represented using the logarithmic <b>decibel unit (dB)</b> defined as:
+      </p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq08596750610598279663.png" alt="$$&#xA;M_{dB} = 20 \log_{10} (M)&#xA;$$"></p>
+      <p>As with the frequency axis, the decibel scale allows us to view a much larger range of magnitudes on a single plot.  Also,
+         as we shall see in subsequent tutorials, when components and controllers are placed in series, the transfer function of the
+         overall system is the product of the individual transfer functions.  Using the dB scale, the magnitude plot of the overall
+         system is simply the sum of the magnitude plots of the individual transfer functions. The phase plot of the overall system
+         is also just the sum of the individual phase plots.
+      </p>
+      <p>The low frequency magnitude of the first-order Bode plot is <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq02288589070881510167.png" alt="$20\log(k_{dc})$">. The magnitude plot has a bend at the frequency equal to the absolute value of the pole (ie. <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq14899126293695742794.png" alt="$\omega = a$">), and then decreases 20 dB for every factor of ten increase in frequency (slope = -20 dB/decade).  The phase plot is asymptotic
+         to 0 degrees at low frequencies, and asymptotic to -90 degrees at high frequencies. Between frequency 0.1a and 10a, the phase
+         changes by approximately -45 degrees for every factor of ten increase in frequency (-45 degrees/decade).
+      </p>
+      <p>We will see in the Frequency Methods for Controller Design Section how to use Bode plots to calculate closed-loop stability
+         and performance of feedback systems.
+      </p>
+      <h2>Second-Order Systems<a name="13"></a></h2>
+      <p>Second-order systems are commonly encountered in practice, and are the simplest type of dynamic system to exhibit oscillations.
+         Examples include mass-spring-damper systems and RLC circuits. In fact, many true higher-order systems may be approximated
+         as second-order in order to facilitate analysis.
+      </p>
+      <p>The canonical form of the second-order differential equation is as follows</p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq09813137934790695002.png" alt="$$&#xA;m \ddot{y} + b \dot{y} + k y = f(t) \quad \textrm{or} \ \quad \ddot{y} + 2\zeta\omega_n \dot{y} + \omega_n^2 y = k_{dc} \omega_n^2 u&#xA;$$"></p>
+      <p>The canonical second-order transfer function has the following form, in which it has two poles and no zeros.</p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq02240099409199738549.png" alt="$$&#xA;G(s) = \frac{1}{ms^2+bs+k} = \frac{k_{dc} \omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}&#xA;$$"></p>
+      <p>The parameters <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq17023687237162064508.png" alt="$k_{dc}$">, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq13496487163394900197.png" alt="$\zeta$">, and <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11630137503890776924.png" alt="$\omega_n$"> characterize the behavior of a canonical second-order system.
+      </p>
+      <p><b>DC Gain</b></p>
+      <p>The DC gain, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq17023687237162064508.png" alt="$k_{dc}$">, again is the ratio of the magnitude of the steady-state step response to the magnitude of the step input, and for stable
+         systems it is the value of the transfer function when <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq13139939434783242093.png" alt="$s = 0$">. For the forms given,
+      </p>
+      <p><span class="eqn_num">(6)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11588893725273532841.png" alt="$$&#xA;k_{dc} = \frac{1}{k}&#xA;$$"></p>
+      <p><b>Damping Ratio</b></p>
+      <p>The damping ratio <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq13496487163394900197.png" alt="$\zeta$"> is a dimensionless quantity charaterizing the rate at which an oscillation in the system's response decays due to effects
+         such as viscous friction or electrical resistance. From the above definitions,
+      </p>
+      <p><span class="eqn_num">(7)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq03560235088418808560.png" alt="$$&#xA;\zeta = \frac{b}{2 \sqrt{k m}}&#xA;$$"></p>
+      <p><b>Natural Frequency</b></p>
+      <p>The natural frequency <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11630137503890776924.png" alt="$\omega_n$"> is the frequency (in rad/s) that the system will oscillate at when there is no damping, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq05302189530577970823.png" alt="$\zeta = 0$">.
+      </p>
+      <p><span class="eqn_num">(8)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq04191811115763938644.png" alt="$$&#xA;\omega_n = \sqrt{\frac{k}{m}}&#xA;$$"></p>
+      <p><b>Poles/Zeros</b></p>
+      <p>The canonical second-order transfer function has two poles at:</p>
+      <p><span class="eqn_num">(9)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq06086712929926040512.png" alt="$$&#xA;s_p = -\zeta \omega_n \pm j \omega_n \sqrt{1-\zeta^2}&#xA;$$"></p>
+      <p><b>Underdamped Systems</b></p>
+      <p>If <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq00438183925216319023.png" alt="$\zeta < 1$">, then the system is <b>underdamped</b>. In this case, both poles are complex-valued with negative real parts; therefore, the system is stable but oscillates while
+         approaching the steady-state value. Specifically, the natural response oscillates with the damped natural frequency, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq04327887587731708043.png" alt="$\omega_d = \omega_n \sqrt{1-\zeta^2}$"> (in rad/sec).
+      </p><pre class="codeinput">k_dc = 1;
+w_n = 10;
+zeta = 0.2;
+
+s = tf(<span class="string">'s'</span>);
+G1 = k_dc*w_n^2/(s^2 + 2*zeta*w_n*s + w_n^2);
+
+pzmap(G1)
+axis([-3 1 -15 15])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_03.png" alt=""> <pre class="codeinput">step(G1)
+axis([0 3 0 2])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_04.png" alt=""> <p><b>Settling Time</b></p>
+      <p>The settling time, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq15197243358923498023.png" alt="$T_s$">, is the time required for the system ouput to fall within a certain percentage of the steady-state value for a step input.
+         For a canonical second-order, underdamped system, the settling time can be approximated by the following equation:
+      </p>
+      <p><span class="eqn_num">(10)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11336677715331354103.png" alt="$$&#xA;T_s = \frac{- \ln(\mathrm{tolerance}\;\mathrm{fraction})}{\zeta \omega_n}&#xA;$$"></p>
+      <p>The settling times for the most common tolerances are presented in the following table:</p>
+      <p>
+         <table style="border:2px solid black;" align="center" >
+         <tr style="background-color:#EEEEEE; font-weight:bold;"><td>10%</td><td>5%</td><td>2%</td><td>1%</td></tr>
+         <tr><td>Ts=2.3/(zeta*w_n)</td><td>Ts=3/(zeta*w_n)</td><td>Ts=3.9/(zeta*w_n)</td><td>Ts=4.6/(zeta*w_n)</td></tr>
+         </table>
+         
+      </p>
+      <p><b>Percent Overshoot</b></p>
+      <p>The percent overshoot is the percent by which a system's step response exceeds its final steady-state value.  For a second-order
+         underdamped system, the percent overshoot <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11116451481498567406.png" alt="$Mp$"> is directly related to the damping ratio by the following equation. Here, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11116451481498567406.png" alt="$Mp$"> is a decimal number where 1 corresponds to 100% overshoot.
+      </p>
+      <p><span class="eqn_num">(11)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq01773307438813857921.png" alt="$$&#xA;Mp = e^{\left( \frac{-\zeta\pi}{\sqrt{1-\zeta^2}} \right)}&#xA;$$"></p>
+      <p>For second-order underdamped systems, the 1% settling time, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq15197243358923498023.png" alt="$T_s$">, 10-90% rise time, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq09816025793510003832.png" alt="$T_r$">, and percent overshoot, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11116451481498567406.png" alt="$Mp$">, are related to the damping ratio and natural frequency as shown below.
+      </p>
+      <p><span class="eqn_num">(12)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11648533683078359532.png" alt="$$&#xA;T_s \approx \frac{4.6}{\zeta \omega_n}&#xA;$$"></p>
+      <p><span class="eqn_num">(13)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq09804321953713739755.png" alt="$$&#xA;T_r \approx \frac{1.8}{\omega_n}&#xA;$$"></p>
+      <p><span class="eqn_num">(14)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq10665920263226066230.png" alt="$$&#xA;\zeta = \frac{-\ln(Mp)}{\sqrt{\pi^2+\ln^2(Mp)}}&#xA;$$"></p>
+      <p><b>Overdamped Systems</b></p>
+      <p>If <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq12157636397680467141.png" alt="$\zeta &gt; 1$">, then the system is <b>overdamped</b>. Both poles are real and negative; therefore, the system is stable and does not oscillate. The step response and a pole-zero
+         map of an overdamped system are calculated below:
+      </p><pre class="codeinput">zeta = 1.2;
+
+G2 = k_dc*w_n^2/(s^2 + 2*zeta*w_n*s + w_n^2);
+
+pzmap(G2)
+axis([-20 1 -1 1])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_05.png" alt=""> <pre class="codeinput">step(G2)
+axis([0 1.5 0 1.5])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_06.png" alt=""> <p><b>Critically-Damped Systems</b></p>
+      <p>If <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq01622679301179558896.png" alt="$\zeta = 1$">, then the system is <b>critically damped</b>. Both poles are real and have the same magnitude, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq18296715442821964612.png" alt="$s_p = -\zeta\omega_n$">. For a canonical second-order system, the quickest settling time is achieved when the system is critically damped. Now change
+         the value of the damping ratio to 1, and re-plot the step response and pole-zero map.
+      </p><pre class="codeinput">zeta = 1;
+
+G3 = k_dc*w_n^2/(s^2 + 2*zeta*w_n*s + w_n^2);
+
+pzmap(G3)
+axis([-11 1 -1 1])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_07.png" alt=""> <pre class="codeinput">step(G3)
+axis([0 1.5 0 1.5])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_08.png" alt=""> <p><b>Undamped Systems</b></p>
+      <p>If <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq05302189530577970823.png" alt="$\zeta = 0$">, then the system is <b>undamped</b>.  In this case, the poles are purely imaginary; therefore, the system is marginally stable and the step response oscillates
+         indefinitely.
+      </p><pre class="codeinput">zeta = 0;
+
+G4 = k_dc*w_n^2/(s^2 + 2*zeta*w_n*s + w_n^2);
+
+pzmap(G4)
+axis([-1 1 -15 15])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_09.png" alt=""> <pre class="codeinput">step(G4)
+axis([0 5 -0.5 2.5])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_10.png" alt=""> <p><b>Bode Plot</b></p>
+      <p>We show the Bode magnitude and phase plots for all damping conditions of a second-order system below:</p><pre class="codeinput">bode(G1,G2,G3,G4)
+legend(<span class="string">'underdamped: zeta &lt; 1'</span>,<span class="string">'overdamped: zeta &gt; 1'</span>,<span class="string">'critically-damped: zeta = 1'</span>,<span class="string">'undamped: zeta = 0'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_11.png" alt=""> <p>The magnitude of the bode plot of a second-order system drops off at -40 dB per decade in the limit, while the relative phase
+         changes from 0 to -180 degrees. For underdamped systems, we also see a resonant peak near the natural frequency, <img class="inline_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq11630137503890776924.png" alt="$\omega_n$"> = 10 rad/s.  The size and sharpness of the peak depends on the damping in the system, and is charaterized by the quality
+         factor, or <b>Q-Factor</b>, defined below.  The Q-factor is an important property in signal processing.
+      </p>
+      <p><span class="eqn_num">(15)</span><img class="display_eqn" src="Content/Introduction/System/Analysis/html/Introduction_SystemAnalysis_eq08024512436322779902.png" alt="$$&#xA;Q = \frac{1}{2\zeta}&#xA;$$"></p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Introduction: System Analysis
+%
+% Once appropriate mathematical models of a system have been obtained,
+% either in state-space or transfer function form, we may then analyze these 
+% models to predict how the system will respond in both the time and frequency 
+% domains.  To put this in context, control systems are often designed to 
+% improve stability, speed of response, steady-state error, or prevent 
+% oscillations. In this section, we will show how to determine these dynamic 
+% properties from the system models.
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/ssdata.html |ssdata|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/pole.html |pole|> , 
+% <http://www.mathworks.com/help/techdoc/ref/eig.html |eig|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/pzmap.html |pzmap|> , 
+% <http://www.mathworks.com/help/ident/ref/bode.html |bode|> , 
+% <http://www.mathworks.com/help/control/ref/linearsystemanalyzer-app.html |linearSystemAnalyzer|>
+%
+%% Time Response Overview
+%
+% The *time response* represents how the state of a dynamic system changes in
+% time when subjected to a particular input.  Since the models we have derived 
+% consist of differential equations, some integration must be performed in 
+% order to determine the time response of the system.  For some simple systems,
+% a closed-form analytical solution may be available.  However, for most systems, 
+% especially nonlinear systems or those subject to complicated inputs, 
+% this integration must be carried out numerically.  Fortunately, MATLAB 
+% provides many useful resources for calculating time responses for many 
+% types of inputs, as we shall see in the following sections.
+%
+% The time response of a linear dynamic system consists of the sum of the
+% *transient response* which depends on the initial conditions and the 
+% *steady-state response* which depends on the system input.  These 
+% correspond to the homogenous (free or zero input) and the particular
+% solutions of the governing differential equations, respectively.
+%
+%% Frequency Response Overview
+%
+% All the examples presented in this tutorial are modeled by linear
+% constant coefficient differential equations and are thus linear 
+% time-invariant (LTI). LTI systems have the extremely important property 
+% that if the input to the system is sinusoidal, then the steady-state 
+% output will also be sinusoidal at the same frequency, but, in general, 
+% with different magnitude and phase. These magnitude and phase differences 
+% are a function of the frequency and comprise the *frequency response* of the
+% system.
+%
+% The frequency response of a system can be found from its transfer
+% function in the following way: create a vector of frequencies (varying 
+% between zero or "DC" to infinity) and compute the value of the plant 
+% transfer function at those frequencies. If $G(s)$ is the open-loop transfer 
+% function of a system and $\omega$ is the frequency vector, we then plot $G(j\omega)$ 
+% versus $\omega$. Since $G(j\omega)$ is a complex number, we can plot both its magnitude 
+% and phase (the *Bode Plot*) or its position in the complex plane (the 
+% *Nyquist Diagram*). Both methods display the same information, but in different 
+% ways.
+%
+%% Stability
+%
+% For our purposes, we will use the *Bounded Input Bounded Output (BIBO)*
+% definition of stability which states that a system is stable if the output 
+% remains bounded for all bounded (finite) inputs.  Practically, this means 
+% that the system will not "blow up" while in operation.
+%
+% The transfer function representation is especially useful when analyzing
+% system stability. If all poles of the transfer function (values of $s$ for 
+% which the denominator equals zero) have negative real parts, then the 
+% system is stable. If any pole has a positive real part, then the system
+% is unstable. If we view the poles on the complex s-plane, then all poles 
+% must be in the left-half plane (LHP) to ensure stability. If any pair of 
+% poles is on the imaginary axis, then the system is marginally stable and 
+% the system will tend to oscillate. A system with purely imaginary poles
+% is not considered BIBO stable. For such a system, there will exist finite
+% inputs that lead to an unbounded response. The poles of an LTI system
+% model can easily be found in MATLAB using the |pole| command, an example
+% of which is shown below: 
+%
+%%
+
+s = tf('s');
+G = 1/(s^2+2*s+5)
+pole(G)
+
+%%
+% Thus this system is stable since the real parts of the poles are both
+% negative. The stability of a system may also be found from the state-space 
+% representation.  In fact, the poles of the transfer function are the 
+% eigenvalues of the system matrix $A$.  We can use the |eig| command to 
+% calculate the eigenvalues using either the LTI system model directly,
+% |eig(G)|, or the system matrix as shown below.
+%
+%%
+
+[A,B,C,D] = ssdata(G);
+eig(A)
+
+%% System Order
+%
+% The order of a dynamic system is the order of the highest derivative of
+% its governing differential equation.  Equivalently, it is the highest power 
+% of $s$ in the denominator of its transfer function. The important properties 
+% of first-, second-, and higher-order systems will be reviewed in this
+% section.
+%
+%% First-Order Systems
+%
+% First-order systems are the simplest dynamic systems to analyze.  Some
+% common examples include mass-damper systems and RC circuits.
+%
+% The general form of the first-order differential equation is as follows
+%
+% $$ 
+% \dot{y} + a y = b u \quad \textrm{or} \ \quad \tau \dot{y} + y = k_{dc} u
+% $$
+%
+% The form of a first-order transfer function is
+%
+% $$ 
+% G(s) = \frac{b}{s+a} = \frac{k_{dc}}{\tau s + 1}
+% $$
+%
+% where the parameters $k_{dc}$ and $\tau$ completely define the character of the
+% first-order system.
+%
+% *DC Gain*
+%
+% The DC gain, $k_{dc}$, is the ratio of the magnitude of the steady-state step
+% response to the magnitude of the step input. For stable transfer functions,
+% the *Final Value Theorem* demonstrates that the DC gain is the value of the transfer 
+% function evaluated at $s$ = 0. For first-order systems of the forms
+% shown, the DC gain is $k_{dc} = b/a$. 
+%
+% *Time Constant*
+%
+% The time constant of a first-order system is $T_c = \tau = 1/a$ which is equal to the
+% time it takes for the system's response to reach 63% of its steady-state value for a
+% step input (from zero initial conditions) or to decrease to 37% of the
+% initial value for a system's free response.  More generally, it represents the time
+% scale for which the dynamics of the system are significant.  
+%
+% *Poles/Zeros*
+%
+% First-order systems have a single real pole, in this case at $s = -a$.
+% Therefore, the system is stable if $a$ is positive and unstable if $a$ is
+% negative. Standard first-order system have no zeros. 
+%
+% *Step Response*
+%
+% We can calculate the system time response to a step input of magnitude
+% $u$ using the following MATLAB commands:
+%
+%%
+
+k_dc = 5;
+Tc = 10;
+u = 2;
+
+s = tf('s');
+G = k_dc/(Tc*s+1)
+
+step(u*G)
+
+%%
+%
+% Note: MATLAB also provides a powerful graphical user interface for analyzing LTI 
+% systems which can be accessed using the syntax |linearSystemAnalyzer('step',G)|.
+%
+% If you right-click on the step response graph and select
+% *Characteristics*, you can choose to have several system metrics overlaid
+% on the response: peak response, settling time, rise time, and steady-state.
+%
+% *Settling Time*
+%
+% The settling time, $T_s$, is the time required for the system output to fall 
+% within a certain percentage (i.e. 2%) of the steady-state value for a
+% step input.
+% The settling times for a first-order system for the most common tolerances are provided in the
+% table below. Note that the tighter the tolerance, the longer the system
+% response takes to settle to within this band, as expected.
+%
+% <html>
+% <table style="border:2px solid black;" align="center" >
+% <tr style="background-color:#EEEEEE; font-weight:bold;"><td>10%</td><td>5%</td><td>2%</td><td>1%</td></tr>
+% <tr><td>Ts=2.3/a=2.3Tc</td><td>Ts=3/a=3Tc</td><td>Ts=3.9/a=3.9Tc</td><td>Ts=4.6/a=4.6Tc</td></tr>
+% </table>
+% </html>
+% 
+% *Rise Time*
+%
+% The rise time, $T_r$, is the time required for the system output to rise from
+% some lower level x% to some higher level y% of the final steady-state value. 
+% For first-order systems, the typical range is 10% - 90%.
+%
+% *Bode Plots*
+%
+% Bode diagrams show the magnitude and phase of a system's frequency response,
+% $G(j\omega)$, plotted with respect to frequency $\omega$.  We can
+% generate the Bode plot of a system $G$ in MATLAB using the syntax |bode(G)| 
+% as shown below.  
+%
+%%
+
+bode(G)
+
+%%
+%
+% Again the same results could be obtained using the Linear System Analyzer GUI,
+% |linearSystemAnalyzer('bode',G)|.
+%
+% Bode plots employ a logarithmic frequency scale so that a larger range
+% of frequencies are visible.  Also, the magnitude is represented using the
+% logarithmic *decibel unit (dB)* defined as:
+%
+% $$
+% M_{dB} = 20 \log_{10} (M)
+% $$
+%
+% As with the frequency axis, the decibel scale allows us to view a much larger range
+% of magnitudes on a single plot.  Also, as we shall see in subsequent
+% tutorials, when components and controllers are placed in series, the
+% transfer function of the overall system is the product of the individual
+% transfer functions.  Using the dB scale, the magnitude plot of the overall system is simply the sum of the 
+% magnitude plots of the individual transfer functions. The phase plot of
+% the overall system is also just the sum of the individual phase plots.
+%
+% The low frequency magnitude of the first-order Bode plot is $20\log(k_{dc})$.
+% The magnitude plot has a bend at the frequency equal to the absolute value 
+% of the pole (ie. $\omega = a$), and then decreases 20 dB for every factor of ten 
+% increase in frequency (slope = -20 dB/decade).  The phase plot is asymptotic to 0 
+% degrees at low frequencies, and asymptotic to -90 degrees at high frequencies.  
+% Between frequency 0.1a and 10a, the phase changes by approximately -45 degrees 
+% for every factor of ten increase in frequency (-45 degrees/decade).
+%
+% We will see in the Frequency Methods for Controller Design Section how to
+% use Bode plots to calculate closed-loop stability and performance of
+% feedback systems.
+%
+%% Second-Order Systems
+%
+% Second-order systems are commonly encountered in practice, and are the 
+% simplest type of dynamic system to exhibit oscillations. Examples include
+% mass-spring-damper systems and RLC circuits. In fact, many true  
+% higher-order systems may be approximated as second-order in order to
+% facilitate analysis. 
+%   
+% The canonical form of the second-order differential equation is as follows
+%
+% $$ 
+% m \ddot{y} + b \dot{y} + k y = f(t) \quad \textrm{or} \ \quad \ddot{y} + 2\zeta\omega_n \dot{y} + \omega_n^2 y = k_{dc} \omega_n^2 u
+% $$
+%
+% The canonical second-order transfer function has the following form, in
+% which it has two poles and no zeros.
+%
+% $$ 
+% G(s) = \frac{1}{ms^2+bs+k} = \frac{k_{dc} \omega_n^2}{s^2 + 2\zeta\omega_n s + \omega_n^2}
+% $$
+%
+% The parameters $k_{dc}$, $\zeta$, and $\omega_n$ characterize the
+% behavior of a canonical second-order system.
+%
+% *DC Gain*
+%
+% The DC gain, $k_{dc}$, again is the ratio of the magnitude of the steady-state step
+% response to the magnitude of the step input, and for stable systems it is 
+% the value of the transfer function when $s = 0$. For the forms given,
+% 
+% $$
+% k_{dc} = \frac{1}{k}
+% $$
+%
+% *Damping Ratio*
+% 
+% The damping ratio $\zeta$ is a dimensionless quantity charaterizing the rate at
+% which an oscillation in the system's response decays due to effects such
+% as viscous friction or electrical resistance. From the above definitions, 
+%
+% $$
+% \zeta = \frac{b}{2 \sqrt{k m}}
+% $$
+%
+% *Natural Frequency*
+%
+% The natural frequency $\omega_n$ is the frequency (in rad/s) that the system will oscillate at
+% when there is no damping, $\zeta = 0$. 
+%
+% $$
+% \omega_n = \sqrt{\frac{k}{m}}
+% $$
+%
+% *Poles/Zeros*
+%
+% The canonical second-order transfer function has two poles at:
+%
+% $$
+% s_p = -\zeta \omega_n \pm j \omega_n \sqrt{1-\zeta^2}
+% $$
+%
+% 
+% *Underdamped Systems*
+%
+% If $\zeta < 1$, then the system is *underdamped*. In this case, both poles are complex-valued
+% with negative real parts; therefore, the system is stable but oscillates while
+% approaching the steady-state value. Specifically, the natural response
+% oscillates with the damped natural frequency, $\omega_d = \omega_n
+% \sqrt{1-\zeta^2}$ (in rad/sec).
+%
+%%
+
+k_dc = 1;
+w_n = 10;
+zeta = 0.2;
+
+s = tf('s');
+G1 = k_dc*w_n^2/(s^2 + 2*zeta*w_n*s + w_n^2);
+
+pzmap(G1)
+axis([-3 1 -15 15])
+
+%%
+
+step(G1)
+axis([0 3 0 2])
+
+%%
+% *Settling Time*
+%
+% The settling time, $T_s$, is the time required for the system ouput to fall 
+% within a certain percentage of the steady-state value for a step input. For a canonical second-order,
+% underdamped system, the settling time can be approximated by the following equation: 
+%
+% $$
+% T_s = \frac{- \ln(\mathrm{tolerance}\;\mathrm{fraction})}{\zeta \omega_n}
+% $$
+%
+% The settling times for the most common tolerances are presented in the
+% following table:
+%
+% <html>
+% <table style="border:2px solid black;" align="center" >
+% <tr style="background-color:#EEEEEE; font-weight:bold;"><td>10%</td><td>5%</td><td>2%</td><td>1%</td></tr>
+% <tr><td>Ts=2.3/(zeta*w_n)</td><td>Ts=3/(zeta*w_n)</td><td>Ts=3.9/(zeta*w_n)</td><td>Ts=4.6/(zeta*w_n)</td></tr>
+% </table>
+% </html>
+% 
+% *Percent Overshoot*
+%
+% The percent overshoot is the percent by which a system's step response exceeds its final
+% steady-state value.  For a second-order underdamped system, the percent overshoot $Mp$ 
+% is directly related to the damping ratio by the following equation. Here,
+% $Mp$ is a decimal number where 1 corresponds to 100% overshoot.
+%
+% $$
+% Mp = e^{\left( \frac{-\zeta\pi}{\sqrt{1-\zeta^2}} \right)}
+% $$
+%
+% For second-order underdamped systems, the 1% settling time, $T_s$, 10-90% rise time,
+% $T_r$, and percent overshoot, $Mp$, are related to the damping ratio and natural
+% frequency as shown below.
+%
+% $$
+% T_s \approx \frac{4.6}{\zeta \omega_n}
+% $$
+%
+% $$
+% T_r \approx \frac{1.8}{\omega_n}
+% $$
+%
+% $$
+% \zeta = \frac{-\ln(Mp)}{\sqrt{\pi^2+\ln^2(Mp)}}
+% $$
+%
+%%
+% *Overdamped Systems*
+%
+% If $\zeta > 1$, then the system is *overdamped*. Both poles are real and
+% negative; therefore, the system is stable and does not oscillate. The step
+% response and a pole-zero map of an overdamped system are 
+% calculated below:
+%
+%%
+
+zeta = 1.2;
+
+G2 = k_dc*w_n^2/(s^2 + 2*zeta*w_n*s + w_n^2);
+
+pzmap(G2)
+axis([-20 1 -1 1])
+
+%%
+
+step(G2)
+axis([0 1.5 0 1.5])
+
+%% 
+% *Critically-Damped Systems*
+%
+% If $\zeta = 1$, then the system is *critically damped*. Both poles are real
+% and have the same magnitude, $s_p = -\zeta\omega_n$. For a canonical
+% second-order system, the quickest settling time is achieved when the
+% system is critically damped. Now change the value
+% of the damping ratio to 1, and re-plot the step response and pole-zero map.
+%
+%%
+
+zeta = 1;
+
+G3 = k_dc*w_n^2/(s^2 + 2*zeta*w_n*s + w_n^2);
+
+pzmap(G3)
+axis([-11 1 -1 1])
+
+%%
+
+step(G3)
+axis([0 1.5 0 1.5])
+
+%%
+% *Undamped Systems*
+%
+% If $\zeta = 0$, then the system is *undamped*.  In
+% this case, the poles are purely imaginary; therefore, the system is 
+% marginally stable and the step response oscillates indefinitely. 
+%
+%%
+
+zeta = 0;
+
+G4 = k_dc*w_n^2/(s^2 + 2*zeta*w_n*s + w_n^2);
+
+pzmap(G4)
+axis([-1 1 -15 15])
+
+%%
+
+step(G4)
+axis([0 5 -0.5 2.5])
+
+%%
+% *Bode Plot*
+%
+% We show the Bode magnitude and phase plots for all damping conditions of
+% a second-order system below:
+% 
+%%
+
+bode(G1,G2,G3,G4)
+legend('underdamped: zeta < 1','overdamped: zeta > 1','critically-damped: zeta = 1','undamped: zeta = 0')
+
+%%
+%
+% The magnitude of the bode plot of a second-order system drops off at
+% -40 dB per decade in the limit, while the relative phase changes from 0
+% to -180 degrees. For underdamped systems, we also see 
+% a resonant peak near the natural frequency, $\omega_n$ = 10 rad/s.  The size and sharpness 
+% of the peak depends on the damping in the system, and is charaterized by
+% the quality factor, or *Q-Factor*, defined below.  The Q-factor is an
+% important property in signal processing.
+%
+% $$
+% Q = \frac{1}{2\zeta}
+% $$
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Introduction&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Introduction&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Introduction&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Introduction&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Introduction&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Introduction&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Introduction&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Introduction&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Introduction&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Introduction&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

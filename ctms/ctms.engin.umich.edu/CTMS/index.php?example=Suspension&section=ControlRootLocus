@@ -1,0 +1,579 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: Suspension	section: ControlRootLocus	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "Suspension";
+			var section = "ControlRootLocus";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=Suspension&section=ControlFrequency";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Suspension: Root Locus Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#773418190305181b23020318051e161b043a16031b1615241e1a021b1e191c37101a161e1b5914181a">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=Suspension&section=ControlFrequency">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlRootLocus"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlRootLocus"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlRootLocus"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlRootLocus"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlRootLocus"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlRootLocus"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlRootLocus"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlRootLocus"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Suspension: Root Locus Controller Design</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a> , <a href="http://www.mathworks.com/help/matlab/ref/roots.html"><tt>roots</tt></a> , <a href="http://www.mathworks.com/help/control/ref/rlocus.html"><tt>rlocus</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/sgrid.html"><tt>sgrid</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a></p>
+            </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?example=Introduction&section=ControlRootLocus">Intro to Root Locus</a></li>
+        <li><a href="?aux=Extras_Notch">Notch Filters</a></li>
+		<li><a href="?aux=Activities_RCcircuitC">Root Locus Activity</a></li>
+        <li><a href="?aux=Animations_Busgui">Example Animation</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/help/control/ug/root-locus-design.html#bq9_b2z">Design in MATLAB</a></li>
+		<li><a href="https://www.youtube.com/watch?v=vJ49jcquQ5E">Root Locus Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#4">Plotting the root locus</a></li>
+            <li><a href="#6">Adding a notch filter</a></li>
+            <li><a href="#8">Finding the gain from the root locus</a></li>
+            <li><a href="#11">Plotting the closed-loop response</a></li>
+         </ul>
+      </div>
+      <p>From the main problem, the dynamic equations in transfer function form are the following:</p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/Suspension/Control/RootLocus/html/Suspension_ControlRootLocus_eq04640263996409739513.png" alt="$$&#xA;G_1(s) = \frac{X_1(s)-X_2(s)}{U(s)}=\frac{(M_1+M_2)s^2+b_2s+K_2}{\Delta}&#xA;$$"></p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/Suspension/Control/RootLocus/html/Suspension_ControlRootLocus_eq01223662835538930150.png" alt="$$&#xA;G_2(s) = \frac{X_1(s)-X_2(s)}{W(s)}=\frac{-M_1b_2s^3-M_1K_2s^2}{\Delta}&#xA;$$"></p>
+      <p>where,</p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/Suspension/Control/RootLocus/html/Suspension_ControlRootLocus_eq09560445620810438381.png" alt="$$&#xA;\Delta = (M_1s^2+b_1s+K_1)(M_2s^2+(b_1+b_2)s+(K_1+K_2))-(b_1s+K_1)(b_1s+K_1)&#xA;$$"></p>
+      <p>and the system schematic is the following where F(s)G1(s) = G2(s).</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/RootLocus/figures/susp3.png" alt=""> </p>
+      <p>For the original problem and the derivation of the above equations and schematic, please refer to the <a href="?example=Suspension&amp;section=SystemModeling">Suspension: System Modeling</a> page.
+      </p>
+      <p>We want to design a feedback controller so that when the road disturbance (W) is simulated by a unit step input, the output
+         (X1-X2) has a settling time less than 5 seconds and an overshoot less than 5%. For example, when the bus runs onto a 10-cm
+         step, the bus body will oscillate within a range of +/- 5 mm and will stop oscillating within 5 seconds.
+      </p>
+      <p>The system model can be represented in MATLAB by creating a new <a href="?aux=Extras_Mfile">m-file</a> and entering the following commands (refer to the main problem for the details of getting those commands).
+      </p><pre class="codeinput">m1 = 2500;
+m2 = 320;
+k1 = 80000;
+k2 = 500000;
+b1 = 350;
+b2 = 15020;
+
+nump=[(m1+m2) b2 k2];
+denp=[(m1*m2) (m1*(b1+b2))+(m2*b1) (m1*(k1+k2))+(m2*k1)+(b1*b2) (b1*k2)+(b2*k1) k1*k2];
+G1=tf(nump,denp);
+
+num1=[-(m1*b2) -(m1*k2) 0 0];
+den1=[(m1*m2) (m1*(b1+b2))+(m2*b1) (m1*(k1+k2))+(m2*k1)+(b1*b2) (b1*k2)+(b2*k1) k1*k2];
+G2=tf(num1,den1);
+
+numf=num1;
+denf=nump;
+F=tf(numf,denf);
+</pre><p>We are now ready to design a controller using the root locus design method.</p>
+      <p>First let's see what the open-loop poles of the system are:</p><pre class="codeinput">R = roots(denp)
+</pre><pre class="codeoutput">R =
+ -23.9758 +35.1869i
+ -23.9758 -35.1869i
+  -0.1098 + 5.2504i
+  -0.1098 - 5.2504i
+</pre><p>Therefore, the dominant poles are the roots -0.1098+/-5.2504i, which are close to the imaginary axis with a small damping
+         ratio.
+      </p>
+      <h2>Plotting the root locus<a name="4"></a></h2>
+      <p>The main idea of root locus design is to estimate the closed-loop response from the open-loop root locus plot. By adding zeros
+         and/or poles to the original system (adding a compensator), the root locus and thus the closed-loop response will be modified.
+         Let's first view the root locus for the plant. In your m-file, add the following command and then run the file, you should
+         get the root locus plot below:
+      </p><pre class="codeinput">rlocus(G1)
+z=-log(0.05)/sqrt(pi^2+(log(0.05)^2))
+sgrid(z,0)
+</pre><pre class="codeoutput">z =
+    0.6901
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/RootLocus/html/Suspension_ControlRootLocus_01.png" alt=""> <p>Note from the specification, we required the maximum overshoot, <img class="inline_eqn" src="Content/Suspension/Control/RootLocus/html/Suspension_ControlRootLocus_eq11116451481498567406.png" alt="$Mp$">, to be less than 5% and damping ratio, <img class="inline_eqn" src="Content/Suspension/Control/RootLocus/html/Suspension_ControlRootLocus_eq13496487163394900197.png" alt="$\zeta$">, can be found from the approximate damping ratio equation, <img class="inline_eqn" src="Content/Suspension/Control/RootLocus/html/Suspension_ControlRootLocus_eq07348635183483245488.png" alt="$\zeta = -\ln(Mp)/\sqrt{\pi^2+\ln^2(Mp)}$">. The command <tt>sgrid</tt> is used to overlay the desired percent overshoot line on the close-up root locus; you can find more information from commands
+         list.
+      </p>
+      <p>From the plot above, we see that there are two pair of poles and zeros that are very close together. These poles and zeros
+         are almost on the imaginary axis, they might make the bus system marginally stable, which might cause a problem. We have to
+         make all of the poles and zeros move into the left-half plane as far as possible to avoid an unstable system. We have to put
+         two zeros very close to the two poles on the imaginary axis of uncompensated system for pole-and-zero cancellation. Moreover,
+         we will put another two poles further to the left on the real axis to get fast response.
+      </p>
+      <h2>Adding a notch filter<a name="6"></a></h2>
+      <p>We will probably need two zeros near the two poles on the complex axis to draw the root locus, leading those poles to the
+         compensator zeros instead of to the plant zeros on the imaginary axis. We'll also need two poles placed far to the left to
+         pull the locus to the left. It seems that a notch filter (2-lead controller) will probably do the job. Let's try putting the
+         poles at 30 and 60 and the zeros at 3+/-3.5i. In your m-file add the following lines of code:
+      </p><pre class="codeinput">z1=3+3.5i;
+z2=3-3.5i;
+p1=30;
+p2=60;
+numc=conv([1 z1],[1 z2]);
+denc=conv([1 p1],[1 p2]);
+C=tf(numc,denc);
+
+rlocus(C*G1)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/RootLocus/html/Suspension_ControlRootLocus_02.png" alt=""> <p>Now let's change the axis to see the details of the root locus.</p><pre class="codeinput">axis([-40 10 -30 30])
+z=-log(0.05)/sqrt(pi^2+(log(0.05)^2))
+sgrid(z,0)
+</pre><pre class="codeoutput">z =
+    0.6901
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/RootLocus/html/Suspension_ControlRootLocus_03.png" alt=""> <h2>Finding the gain from the root locus<a name="8"></a></h2>
+      <p>Now that we have moved the root locus across the 5% damping ratio line, we can choose a gain that will satisfy the design
+         requirements. Recall that we want the settling time and the overshoot to be as small as possible. Generally, to get a small
+         overshoot and a fast response, we need to select a gain corresponding to a point on the root locus near the real axis and
+         far from the imaginary axis or the point that the root locus crosses the desired damping ratio line. But in this case, we
+         need the cancellation of poles and zeros near the imaginary axis, so we need to select a gain corresponding to a point on
+         the root locus near the zeros and percent overshoot line. There is a method to do this with the <tt>rlocfind</tt> command in MATLAB. Add the code <tt>[k,poles]=rlocfind(C*G1)</tt> onto the end of your m-file to help you choose a specific loop gain. After running in the command window, go to the root
+         locus plot and select a point near those indicated by the cross marks on the plot below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/RootLocus/figures/rlocus_susp2.png" alt=""> </p>
+      <p>After doing this, you should see the following output in the MATLAB command window.</p>
+      <p>
+         </p><pre class="codeoutput">Select a point in the graphics window
+         </p>
+         selected_point =
+         </p>
+         -2.8357 + 12.8306i
+         </p>
+         k =
+         </p>
+         1.0888e+08
+         </p>
+         poles =
+         </p>
+         1.0e+02 *
+         -0.6323 + 6.2136i
+         -0.6323 - 6.2136i
+         -0.0294 + 0.1306i
+         -0.0294 - 0.1306i
+         -0.0292 + 0.0367i
+         -0.0292 - 0.0367i
+         </pre>
+         
+      </p>
+      <p>Note that the value returned from your MATLAB command window may not be exactly the same, but should at least have the same
+         order of magnitude. This returned value can be used as the gain for the compensator. Recall that the schematic of the system
+         is the following:
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/RootLocus/figures/susp3.png" alt=""> </p>
+      <p>and the closed-loop transfer function can be derived as following:</p><pre class="codeinput">k = 1.0888e+08;
+sys_cl=F*feedback(G1,k*C);
+</pre><h2>Plotting the closed-loop response<a name="11"></a></h2>
+      <p>Let's see what the closed-loop step response looks like with this compensator. Keep in mind that we are going to use a 0.1-m
+         step as the disturbance. To simulate this, simply multiply sys_cl by 0.1. Add the following commands into the m-file and put
+         % marks in front of all <tt>rlocus</tt> and <tt>rlocfind</tt> commands.
+      </p><pre class="codeinput">t=0:0.01:2;
+step(0.1*sys_cl,t)
+title(<span class="string">'Closed-Loop Step Response w/ Notch Filter'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/RootLocus/html/Suspension_ControlRootLocus_04.png" alt=""> <p>From this plot we see that when the bus encounters a 0.1 m step on the road, the maximum deviation of the bus body from the
+         wheel (or the road) is about 3.75 mm, and the oscillations settle in 2 seconds. Thus this response is satisfactory.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Suspension: Root Locus Controller Design
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/matlab/ref/roots.html |roots|> , 
+% <http://www.mathworks.com/help/control/ref/rlocus.html |rlocus|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/sgrid.html |sgrid|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|>
+%
+%%
+%
+% From the main problem, the dynamic equations in transfer function form
+% are the following:
+%
+% $$ 
+% G_1(s) = \frac{X_1(s)-X_2(s)}{U(s)}=\frac{(M_1+M_2)s^2+b_2s+K_2}{\Delta}
+% $$
+% 
+% $$ 
+% G_2(s) = \frac{X_1(s)-X_2(s)}{W(s)}=\frac{-M_1b_2s^3-M_1K_2s^2}{\Delta}
+% $$
+%
+% where,
+%
+% $$ 
+% \Delta = (M_1s^2+b_1s+K_1)(M_2s^2+(b_1+b_2)s+(K_1+K_2))-(b_1s+K_1)(b_1s+K_1)
+% $$
+%
+% and the system schematic is the following where F(s)G1(s) = G2(s).
+%
+% <<Content/Suspension/Control/RootLocus/figures/susp3.png>>
+% 
+% For the original problem and the derivation of the above equations and
+% schematic, please refer to the 
+% < ?example=Suspension&section=SystemModeling Suspension: System Modeling> page.  
+%
+% We want to design a feedback controller so that when the road disturbance
+% (W) is simulated by a unit step input, the output (X1-X2) has a settling 
+% time less than 5 seconds and an overshoot less than 5%. For example, when 
+% the bus runs onto a 10-cm step, the bus body will oscillate within a 
+% range of +/- 5 mm and will stop oscillating within 5 seconds.
+%
+% The system model can be represented in MATLAB by creating a new < ?aux=Extras_Mfile
+% m-file> and entering the following commands (refer to the main problem for the 
+% details of getting those commands). 
+
+m1 = 2500;
+m2 = 320;
+k1 = 80000;
+k2 = 500000;
+b1 = 350;
+b2 = 15020;
+
+nump=[(m1+m2) b2 k2];
+denp=[(m1*m2) (m1*(b1+b2))+(m2*b1) (m1*(k1+k2))+(m2*k1)+(b1*b2) (b1*k2)+(b2*k1) k1*k2];
+G1=tf(nump,denp);
+
+num1=[-(m1*b2) -(m1*k2) 0 0];
+den1=[(m1*m2) (m1*(b1+b2))+(m2*b1) (m1*(k1+k2))+(m2*k1)+(b1*b2) (b1*k2)+(b2*k1) k1*k2];
+G2=tf(num1,den1);
+
+numf=num1;
+denf=nump;
+F=tf(numf,denf);
+
+%%
+% We are now ready to design a controller using the root locus design
+% method. 
+%
+% First let's see what the open-loop poles of the system are: 
+
+R = roots(denp)
+
+%%
+%
+% Therefore, the dominant poles are the roots -0.1098+/-5.2504i, which are
+% close to the imaginary axis with a small damping ratio. 
+%
+%% Plotting the root locus
+%
+% The main idea of root locus design is to estimate the closed-loop
+% response from the open-loop root locus plot. By adding zeros and/or poles 
+% to the original system (adding a compensator), the root locus and thus the 
+% closed-loop response will be modified. Let's first view the root locus for 
+% the plant. In your m-file, add the following command and then run the file, 
+% you should get the root locus plot below: 
+
+rlocus(G1)
+z=-log(0.05)/sqrt(pi^2+(log(0.05)^2))
+sgrid(z,0)
+
+%%
+% Note from the specification, we required the maximum overshoot, $Mp$, to be less
+% than 5% and damping ratio, $\zeta$, can be found from the approximate damping 
+% ratio equation, $\zeta = -\ln(Mp)/\sqrt{\pi^2+\ln^2(Mp)}$. The command 
+% |sgrid| is used to overlay the desired percent overshoot line on the close-up 
+% root locus; you can find more information from commands list.
+%
+% From the plot above, we see that there are two pair of poles and zeros
+% that are very close together. These poles and zeros are almost on the 
+% imaginary axis, they might make the bus system marginally stable, which 
+% might cause a problem. We have to make all of the poles and zeros move 
+% into the left-half plane as far as possible to avoid an unstable system. 
+% We have to put two zeros very close to the two poles on the imaginary axis 
+% of uncompensated system for pole-and-zero cancellation. Moreover, we will 
+% put another two poles further to the left on the real axis to get fast response. 
+%
+%% Adding a notch filter
+%
+% We will probably need two zeros near the two poles on the complex axis to
+% draw the root locus, leading those poles to the compensator zeros instead 
+% of to the plant zeros on the imaginary axis. We'll also need two poles 
+% placed far to the left to pull the locus to the left. It seems that a notch 
+% filter (2-lead controller) will probably do the job. Let's try putting the
+% poles at 30 and 60 and the zeros at 3+/-3.5i. In your m-file add the following 
+% lines of code: 
+
+z1=3+3.5i;
+z2=3-3.5i;
+p1=30;
+p2=60;
+numc=conv([1 z1],[1 z2]);
+denc=conv([1 p1],[1 p2]);
+C=tf(numc,denc);
+
+rlocus(C*G1)
+
+%%
+% Now let's change the axis to see the details of the root locus. 
+
+axis([-40 10 -30 30])
+z=-log(0.05)/sqrt(pi^2+(log(0.05)^2))
+sgrid(z,0)
+
+%% Finding the gain from the root locus
+%
+% Now that we have moved the root locus across the 5% damping ratio line,
+% we can choose a gain that will satisfy the design requirements. Recall 
+% that we want the settling time and the overshoot to be as small as possible.
+% Generally, to get a small overshoot and a fast response, we need to select 
+% a gain corresponding to a point on the root locus near the real axis and 
+% far from the imaginary axis or the point that the root locus crosses the 
+% desired damping ratio line. But in this case, we need the cancellation of 
+% poles and zeros near the imaginary axis, so we need to select a gain 
+% corresponding to a point on the root locus near the zeros and percent 
+% overshoot line. There is a method to do this with the |rlocfind| command 
+% in MATLAB. Add the code |[k,poles]=rlocfind(C*G1)| onto the end of your m-file
+% to help you choose a specific loop gain. After running in the command
+% window, go to the root locus plot and select a point near those indicated by the 
+% cross marks on the plot below. 
+%
+% <<Content/Suspension/Control/RootLocus/figures/rlocus_susp2.png>>
+%
+% After doing this, you should see the following output in the MATLAB
+% command window. 
+%%
+% <html>
+% </p><pre class="codeoutput">Select a point in the graphics window
+% </p>
+% selected_point =
+% </p>
+%  -2.8357 + 12.8306i
+% </p>
+% k =
+% </p>
+%   1.0888e+08
+% </p>
+% poles =
+% </p>
+%   1.0e+02 *
+%  -0.6323 + 6.2136i
+%  -0.6323 - 6.2136i
+%  -0.0294 + 0.1306i
+%  -0.0294 - 0.1306i
+%  -0.0292 + 0.0367i
+%  -0.0292 - 0.0367i   
+% </pre>
+% </html>
+%%
+% Note that the value returned from your MATLAB command window may not be
+% exactly the same, but should at least have the same order of magnitude. 
+% This returned value can be used as the gain for the compensator. Recall 
+% that the schematic of the system is the following: 
+%
+% <<Content/Suspension/Control/RootLocus/figures/susp3.png>>
+% 
+% and the closed-loop transfer function can be derived as following:
+
+k = 1.0888e+08;
+sys_cl=F*feedback(G1,k*C);
+
+%% Plotting the closed-loop response
+%
+% Let's see what the closed-loop step response looks like with this
+% compensator. Keep in mind that we are going to use a 0.1-m step as 
+% the disturbance. To simulate this, simply multiply sys_cl by 0.1. Add the
+% following commands into the m-file and put % marks in front of all |rlocus| 
+% and |rlocfind| commands. 
+
+t=0:0.01:2;
+step(0.1*sys_cl,t)
+title('Closed-Loop Step Response w/ Notch Filter')
+
+%%
+% From this plot we see that when the bus encounters a 0.1 m step on the 
+% road, the maximum deviation of the bus body from the wheel (or the road) 
+% is about 3.75 mm, and the oscillations settle in 2 seconds. Thus this 
+% response is satisfactory.
+
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Suspension&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Suspension&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Suspension&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Suspension&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Suspension&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Suspension&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Suspension&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Suspension&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Suspension&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Suspension&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

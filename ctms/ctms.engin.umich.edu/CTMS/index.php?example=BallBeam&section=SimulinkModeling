@@ -1,0 +1,505 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: BallBeam	section: SimulinkModeling	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "BallBeam";
+			var section = "SimulinkModeling";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=BallBeam&section=SimulinkControl";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Ball & Beam: Simulink Modeling</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#89cae6e7fdfbe6e5ddfcfde6fbe0e8e5fac4e8fde5e8ebdae0e4fce5e0e7e2c9eee4e8e0e5a7eae6e4">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=BallBeam&section=SimulinkControl">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SimulinkModeling"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SimulinkModeling"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SimulinkModeling"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SimulinkModeling"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SimulinkModeling"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SimulinkModeling"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SimulinkModeling"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SimulinkModeling"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+      <div class="introduction">
+      <h1>Ball &amp; Beam: Simulink Modeling</h1>
+      <!--introduction-->
+	  </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+		<li><a href="?aux=Basics_Simulink">Simulink Basics</a></li>
+		<li><a href="?example=Introduction&section=SimulinkModeling">Modeling w/ Simulink</a></li>
+		<li><a href="?aux=Activities_RCcircuitA">Circuit Sim Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="http://www.mathworks.com/videos/getting-started-with-simulink-69027.html">Simulink Intro Video</a></li>
+		<li><a href="https://www.mathworks.com/academia/student_center/tutorials/source/simulink/modelsps/player.html?slide=21">Simulink Modeling Video</a></li>
+	  	<li><a href="https://www.youtube.com/watch?v=Ro2uu70o1Fs">Modeling Challenges Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Problem setup</a></li>
+            <li><a href="#2">Building the model in Simulink</a></li>
+            <li><a href="#3">Open-loop response</a></li>
+         </ul>
+      </div>
+      <h2>Problem setup<a name="1"></a></h2>
+      <p>A ball is placed on a beam, see figure below, where it is allowed to roll with 1 degree of freedom along the length of the
+         beam. A lever arm is attached to the beam at one end and a servo gear at the other. As the servo gear turns by an angle theta,
+         the lever changes the angle of the beam by alpha. When the angle is changed from the horizontal position, gravity causes the
+         ball to roll along the beam. A controller will be designed for this system so that the ball's position can be manipulated.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Simulink/Modeling/figures/bb2.png" alt=""> </p>
+      <p>For this problem, we will assume that the ball rolls without slipping and friction between the beam and ball is negligible.
+         The constants and variables for this example are defined as follows:
+      </p><pre>(m)      mass of the ball              0.11 kg</pre><pre>(R)      radius of the ball            0.015 m</pre><pre>(d)      lever arm offset              0.03 m</pre><pre>(g)      gravitational acceleration    9.8 m/s^2</pre><pre>(L)      length of the beam            1.0 m</pre><pre>(J)      ball's moment of inertia      9.99e-6 kg.m^2</pre><pre>(r)      ball position coordinate</pre><pre>(alpha)  beam angle coordinate</pre><pre>(theta)  servo gear angle</pre><p>The design criteria for this problem are:</p>
+      <div>
+         <ul>
+            <li>Settling time less than 3 seconds</li>
+            <li>Overshoot less than 5%</li>
+         </ul>
+      </div>
+      <p>The second derivative of the input angle alpha actually affects the second derivative of <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq04958265083611378313.png" alt="$r$">. However, we will ignore this contribution. The Lagrangian equation of motion for the ball is then given by the following:
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq10929648025248834484.png" alt="$$&#xA;0 = \left( \frac{J}{R^2}+m \right) \ddot{r} + mg \sin \alpha -&#xA;mr\dot{\alpha}^2&#xA;$$"></p>
+      <p>The beam angle (<img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq14221827199139923399.png" alt="$\alpha$">) can be expressed in terms of the angle of the gear (<img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq08288499342375314727.png" alt="$\theta$">).
+      </p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq07303935830101250060.png" alt="$$&#xA;\alpha = \frac{d}{L}\theta&#xA;$$"></p>
+      <h2>Building the model in Simulink<a name="2"></a></h2>
+      <p>In this example, rather than expressing all the forces and geometric constraints (which is difficult to model in Simulink
+         for dynamic systems with constraints) we will model the nonlinear Lagrangian equation of motion directly. This equation gives
+         <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq11935144250579063671.png" alt="$\dot{r}$"> as a function of the state and input variables, <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq04958265083611378313.png" alt="$r$">, <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq11935144250579063671.png" alt="$\dot{r}$">, <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq14221827199139923399.png" alt="$\alpha$">, and <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq11875962711613055823.png" alt="$\dot{\alpha}$">. We will make use of the Fcn block to express this function. First, we must express the derivatives of the output, <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq04958265083611378313.png" alt="$r$">.
+      </p>
+      <div>
+         <ul>
+            <li>Open a new model window in Simulink.</li>
+            <li>Insert an Integrator block from the Continuous library.</li>
+            <li>Insert a second Integrator to the right of the first, and connect the two with a line.</li>
+            <li>Label the line connecting the two "d/dt(r)". To label a line, double-click near the line where you want the label (in this
+               case, just below the line)
+            </li>
+            <li>Draw a line from the second Integrator and label it "r".</li>
+            <li>Insert an Out1 block from the Sinks library and connect it to the "r" signal line. This will form the output of the system.</li>
+            <li>Change the label of the Out1 block to "r" by single-clicking on the existing "Out1" label.</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Simulink/Modeling/figures/ball001.png" alt=""> </p>
+      <p>Now, we will insert the function which takes the vector <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq05272085587567392963.png" alt="$[r \quad \dot{r} \quad \alpha \quad \dot{\alpha}]$"> and returns <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq02521000915417897671.png" alt="$\ddot{r}$">.
+      </p>
+      <p>Insert a Fnc block from the User-Defined Functions library and connect its output to the input of the first Integrator. Edit
+         the Fcn block by double clicking it, and change it's function to the following:
+      </p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq11334711015559341077.png" alt="$$\ddot{r} = (-1/(J/R^2+m))(m g \sin(\alpha) - m r \dot{\alpha}^2)$$"></p>
+      <p>This function block takes an input vector, u, where each component is referred to as <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq16797088912344319622.png" alt="$u[1]$">, <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq09480978736114493923.png" alt="$u[2]$">, etc. In our case, <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq10186557744551271356.png" alt="$u[1]=r$">, <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq11474911526846318144.png" alt="$u[2]=\dot{r}$">, <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq08082521743395158518.png" alt="$u[3]=\alpha$">, and <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq04437634292010896001.png" alt="$u[4]=\dot{\alpha}$">.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Simulink/Modeling/figures/ball002.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>Close the dialog box and change the label of the Fcn block to "Ball-Beam Lagrangian Model" (you can add newlines in the label
+               by hitting return).
+            </li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Simulink/Modeling/figures/ball003.png" alt=""> </p>
+      <p>Now, we will begin to construct the function input vector u by feeding back the state signals from the integrators and forming
+         a vector from them with a Mux block.
+      </p>
+      <div>
+         <ul>
+            <li>Insert a Mux block from the Signal Routing library and connect its output to the input of the Ball-Beam block.</li>
+            <li>Edit the Mux block (by double-clicking on it) and change its number of inputs to 4. The Mux block should now have four inputs.</li>
+            <li>Tap a line off the d/dt(r) signal (hold Ctrl while drawing) and connect it to the second input of the Mux block.</li>
+            <li>Tap a line of the r signal and connect it to the first input of the Mux block.</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Simulink/Modeling/figures/ball004.png" alt=""> </p>
+      <p>Now we will construct the signals <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq14221827199139923399.png" alt="$\alpha$"> and <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq14888830690045380264.png" alt="$$\dot{\alpha}$"> from the input <img class="inline_eqn" src="Content/BallBeam/Simulink/Modeling/html/BallBeam_SimulinkModeling_eq08288499342375314727.png" alt="$\theta$">.
+      </p>
+      <div>
+         <ul>
+            <li>Insert an In block on the left side of your model window. Change its label to "theta".</li>
+            <li>Insert a Gain block and connect it to the theta block. Change its gain value (double-click on it) to "d/L".</li>
+            <li>Connect the output of the gain block to the third input of the Mux block. Label this line "alpha".</li>
+            <li>Insert a Derivative block from the Continuous library and place it underneath the alpha signal line.</li>
+            <li>Tap a line off the output of the Gain block and connect it to the input of the Derivative block.</li>
+            <li>Connect the output of the Derivative block to the fourth input off the Mux block.</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Simulink/Modeling/figures/ball005.png" alt=""> </p>
+      <p>Save your model as "ball.slx". You can download ours by right-clicking <a href="Content/BallBeam/Simulink/Modeling/ball.slx">here</a> and then selecting <b>Save link as ...</b>.
+      </p>
+      <h2>Open-loop response<a name="3"></a></h2>
+      <p>To generate the open-loop response, it is helpful to first contain this model in a subsystem block.</p>
+      <div>
+         <ul>
+            <li>Create a new model window (select <b>New</b> from the <b>File</b> menu in Simulink or hit <b>Ctrl-N</b>).
+            </li>
+            <li>Insert a Subsystem block from the Ports &amp; Subsystems library.</li>
+            <li>Open the Subsystem block by double clicking on it. You will see a new model window labeled "Subsystem".</li>
+            <li>Open your previous model window named ball.slx. Select all of the model components by selecting <b>Select All</b> from the <b>Edit</b> menu (or hit <b>Ctrl-A</b>).
+            </li>
+            <li>Copy the model into the paste buffer by selecting <b>Copy</b> from the <b>Edit</b> menu (or hit <b>Ctrl-C</b>).
+            </li>
+            <li>Paste the model into the Subsystem window by selecting <b>Paste</b> from the <b>Edit</b> menu (or hit <b>Ctrl-V</b>) in the Subsystem window
+            </li>
+            <li>Close the Subsystem window. You will see the Subsystem block in the untitled window with one input terminal labeled theta
+               and one output terminal labeled r.
+            </li>
+            <li>Resize the Subsystem block to make the labels visible by selecting it and dragging one of the corners.</li>
+            <li>Label the Subsystem block "Ball and Beam Model".</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Simulink/Modeling/figures/ballol001.png" alt=""> </p>
+      <div>
+         <ul>
+            <li>Insert a Step block (from the Sources library) and connect it to the input of the Ball and Beam Model.</li>
+            <li>Edit the Step block (by double clicking on it to bring up the dialog box) and change the Step Time value to 0. Close the Step
+               block dialog box.
+            </li>
+            <li>Insert a Scope block (from the Sinks library) and connect it to the output of the Ball and Beam Model.</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/BallBeam/Simulink/Modeling/figures/ballol002.png" alt=""> </p>
+      <p>We will actually run this open-loop simulation model in the <a href="?example=BallBeam&amp;section=SimulinkControl">Ball &amp; Beam: Simulink Controller Design</a> page. In this page we will then design and simulate a controller for the system.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Ball & Beam: Simulink Modeling
+%
+%% Problem setup
+% 
+% A ball is placed on a beam, see figure below, where it is allowed to roll
+% with 1 degree of freedom along the length of the beam. A lever arm is attached
+% to the beam at one end and a servo gear at the other. As the servo gear turns 
+% by an angle theta, the lever changes the angle of the beam by alpha. When 
+% the angle is changed from the horizontal position, gravity causes the ball 
+% to roll along the beam. A controller will be designed for this system so 
+% that the ball's position can be manipulated.
+%
+% <<Content/BallBeam/Simulink/Modeling/figures/bb2.png>>
+%
+% For this problem, we will assume that the ball rolls without slipping and
+% friction between the beam and ball is negligible. The constants and variables
+% for this example are defined as follows:
+% 
+%  (m)      mass of the ball              0.11 kg
+%  
+%  (R)      radius of the ball            0.015 m
+%  
+%  (d)      lever arm offset              0.03 m
+%  
+%  (g)      gravitational acceleration    9.8 m/s^2
+%   
+%  (L)      length of the beam            1.0 m
+%
+%  (J)      ball's moment of inertia      9.99e-6 kg.m^2
+%  
+%  (r)      ball position coordinate	
+%  
+%  (alpha)  beam angle coordinate	
+%  
+%  (theta)  servo gear angle
+%
+% The design criteria for this problem are:
+%
+% * Settling time less than 3 seconds
+% * Overshoot less than 5% 
+%
+% The second derivative of the input angle alpha actually affects the
+% second derivative of $r$. However, we will ignore this contribution. The 
+% Lagrangian equation of motion for the ball is then given by the following:
+%
+% $$
+% 0 = \left( \frac{J}{R^2}+m \right) \ddot{r} + mg \sin \alpha -
+% mr\dot{\alpha}^2
+% $$
+%
+% The beam angle ($\alpha$) can be expressed in terms of the angle of the gear
+% ($\theta$). 
+%
+% $$
+% \alpha = \frac{d}{L}\theta
+% $$
+%
+%% Building the model in Simulink
+%
+% In this example, rather than expressing all the forces and geometric
+% constraints (which is difficult to model in Simulink for dynamic systems 
+% with constraints) we will model the nonlinear Lagrangian equation of 
+% motion directly. This equation gives $\dot{r}$ as a function of the state 
+% and input variables, $r$, $\dot{r}$, $\alpha$, and $\dot{\alpha}$. We will make use of 
+% the Fcn block to express this function. First, we must 
+% express the derivatives of the output, $r$. 
+%
+% * Open a new model window in Simulink.
+% * Insert an Integrator block from the Continuous library.
+% * Insert a second Integrator to the right of the first, and connect the two with a line.
+% * Label the line connecting the two "d/dt(r)". To label a line,
+% double-click near the line where you want the label (in this case, just below the line) 
+% * Draw a line from the second Integrator and label it "r".
+% * Insert an Out1 block from the Sinks library and connect it to the "r"
+% signal line. This will form the output of the system. 
+% * Change the label of the Out1 block to "r" by single-clicking on the
+% existing "Out1" label.  
+%
+% <<Content/BallBeam/Simulink/Modeling/figures/ball001.png>>
+%
+% Now, we will insert the function which takes the vector $[r \quad \dot{r} \quad \alpha \quad \dot{\alpha}]$ and returns $\ddot{r}$. 
+%
+% Insert a Fnc block from the User-Defined Functions library and connect its output to the input of the first Integrator.
+% Edit the Fcn block by double clicking it, and change it's function to the following: 
+%
+% $$\ddot{r} = (-1/(J/R^2+m))(m g \sin(\alpha) - m r \dot{\alpha}^2)$$
+%
+% This function block takes an input vector, u, where each component is
+% referred to as $u[1]$, $u[2]$, etc. In our case, $u[1]=r$, $u[2]=\dot{r}$, 
+% $u[3]=\alpha$, and $u[4]=\dot{\alpha}$. 
+% 
+% <<Content/BallBeam/Simulink/Modeling/figures/ball002.png>>
+%
+% * Close the dialog box and change the label of the Fcn block to "Ball-Beam Lagrangian Model" (you can add newlines in the label by hitting return). 
+%
+% <<Content/BallBeam/Simulink/Modeling/figures/ball003.png>>
+%
+% Now, we will begin to construct the function input vector u by feeding
+% back the state signals from the integrators and forming a vector from them 
+% with a Mux block. 
+%
+% * Insert a Mux block from the Signal Routing library and connect its output to the input of the Ball-Beam block.
+% * Edit the Mux block (by double-clicking on it) and change its number of inputs to 4. The Mux block should now have four inputs.
+% * Tap a line off the d/dt(r) signal (hold Ctrl while drawing) and connect it to the second input of the Mux block.
+% * Tap a line of the r signal and connect it to the first input of the Mux block. 
+%
+% <<Content/BallBeam/Simulink/Modeling/figures/ball004.png>>
+%
+% Now we will construct the signals $\alpha$ and $$\dot{\alpha}$ from the input
+% $\theta$. 
+%
+% * Insert an In block on the left side of your model window. Change its label to "theta".
+% * Insert a Gain block and connect it to the theta block. Change its gain value (double-click on it) to "d/L".
+% * Connect the output of the gain block to the third input of the Mux block. Label this line "alpha".
+% * Insert a Derivative block from the Continuous library and place it underneath the alpha signal line.
+% * Tap a line off the output of the Gain block and connect it to the input of the Derivative block.
+% * Connect the output of the Derivative block to the fourth input off the Mux block. 
+%
+% <<Content/BallBeam/Simulink/Modeling/figures/ball005.png>>
+%
+% Save your model as "ball.slx". You can download ours by right-clicking <Content/BallBeam/Simulink/Modeling/ball.slx here>
+% and then selecting *Save link as ...*. 
+%
+%% Open-loop response 
+% To generate the open-loop response, it is helpful to first 
+% contain this model in a subsystem block. 
+%
+% * Create a new model window (select *New* from the *File* menu in Simulink or hit *Ctrl-N*).
+% * Insert a Subsystem block from the Ports & Subsystems library.
+% * Open the Subsystem block by double clicking on it. You will see a new model window labeled "Subsystem".
+% * Open your previous model window named ball.slx. Select all of the model components by selecting *Select All* from the *Edit* menu (or hit *Ctrl-A*).
+% * Copy the model into the paste buffer by selecting *Copy* from the *Edit* menu (or hit *Ctrl-C*).
+% * Paste the model into the Subsystem window by selecting *Paste* from the *Edit* menu (or hit *Ctrl-V*) in the Subsystem window
+% * Close the Subsystem window. You will see the Subsystem block in the untitled window with one input terminal labeled theta and one output terminal labeled r.
+% * Resize the Subsystem block to make the labels visible by selecting it and dragging one of the corners.
+% * Label the Subsystem block "Ball and Beam Model". 
+%
+% <<Content/BallBeam/Simulink/Modeling/figures/ballol001.png>>
+%
+% * Insert a Step block (from the Sources library) and connect it to the input of the Ball and Beam Model.
+% * Edit the Step block (by double clicking on it to bring up the dialog box) and change the Step Time value to 0. Close the Step block dialog box.
+% * Insert a Scope block (from the Sinks library) and connect it to the output of the Ball and Beam Model. 
+%
+% <<Content/BallBeam/Simulink/Modeling/figures/ballol002.png>>
+%
+% We will actually run this open-loop simulation model in the
+% < ?example=BallBeam&section=SimulinkControl Ball & Beam: Simulink
+% Controller Design> page. In this page we will then design and simulate a
+% controller for the system.
+%
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=BallBeam&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=BallBeam&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=BallBeam&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=BallBeam&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=BallBeam&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=BallBeam&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=BallBeam&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=BallBeam&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=BallBeam&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=BallBeam&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

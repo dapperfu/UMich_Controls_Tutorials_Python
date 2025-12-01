@@ -1,0 +1,616 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: Suspension	section: ControlDigital	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "Suspension";
+			var section = "ControlDigital";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=Suspension&section=SimulinkModeling";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Suspension: Digital Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#296a46475d5b46457d5c5d465b4048455a64485d45484b7a40445c45404742694e44484045074a4644">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=Suspension&section=SimulinkModeling">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlDigital"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlDigital"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlDigital"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlDigital"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlDigital"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlDigital"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlDigital"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlDigital"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+      <div class="introduction">
+	  <h1>Suspension: Digital Controller Design</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/ss.html"><tt>ss</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/c2d.html"><tt>c2d</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/ssdata.html"><tt>ssdata</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/tfdata.html"><tt>tfdata</tt></a> , <a href="http://www.mathworks.com/help/matlab/ref/roots.html"><tt>roots</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/place.html"><tt>place</tt></a></p>
+       </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?example=Introduction&section=ControlDigital">Digital Control Intro</a></li>
+		<li><a href="?aux=Extras_Dtrans">Discrete Poles</a></li>
+		<li><a href="?aux=Activities_Pendulum">Sampling Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/help/control/examples/digital-servo-control-of-a-hard-disk-drive.html">MATLAB Example</a></li>
+	  	<li><a href="https://www.youtube.com/watch?v=9iOHYkFOOeE">Implementation Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#3">Sampling time selection</a></li>
+            <li><a href="#5">Continuous to discrete conversion</a></li>
+            <li><a href="#6">Adding integral control</a></li>
+            <li><a href="#7">Designing the controller</a></li>
+            <li><a href="#9">Simulating the closed-loop response</a></li>
+         </ul>
+      </div>
+      <p>In this example, we will design a digital state-space controller for the bus suspension control example. First we will convert
+         the continuous-time model to a discrete-time model, and then use the pole placement method to design the controller. From
+         the <a href="?example=Suspension&amp;section=SystemModeling">Suspension: System Modeling</a> page. the state space model of the system is where Y1 = X1-X2.
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_eq03560461639558871530.png" alt="$$&#xA;\left[ \begin{array}{c} \dot{X_1} \\ \ddot{X_1} \\ \dot{Y_1} \\ \ddot{Y_1} \end{array} \right] =&#xA;\left[ \begin{array}{cccc}&#xA;0 &amp; 1 &amp; 0 &amp; 0 \\&#xA;\frac{-b_1 b_2}{M_1 M_2} &amp; 0 &amp; \left[ \frac{b_1}{M_1} \left( \frac{b_1}{M_1}+\frac{b_1}{M_2}+\frac{b_2}{M_2} \right)-\frac{K_1}{M_1} \right] &amp; \frac{-b_1}{M_1} \\&#xA;\frac{b_2}{M_2} &amp; 0 &amp; -\left( \frac{b_1}{M_1}+\frac{b_1}{M_2}+\frac{b_2}{M_2} \right) &amp; 1 \\&#xA;\frac{K_2}{M_2} &amp; 0 &amp; -\left( \frac{K_1}{M_1}+\frac{K_1}{M_2}+\frac{K_2}{M_2} \right) &amp; 0&#xA;\end{array} \right]&#xA;\left[ \begin{array}{c} X_1 \\ \dot{X_1} \\ Y_1 \\ \dot{Y_1} \end{array} \right] +&#xA;$$"></p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_eq11214314320263348466.png" alt="$$&#xA;\left[ \begin{array}{cc}&#xA;0 &amp; 0 \\&#xA;\frac{1}{M_1} &amp; \frac{b_1 b_2}{M_1 M_2} \\&#xA;0 &amp; \frac{-b_2}{M_2} \\&#xA;\left( \frac{1}{M_2}+\frac{1}{M_2} \right) &amp; \frac{-K_2}{M_2}&#xA;\end{array} \right]&#xA;\left[ \begin{array}{c} U \\ W \end{array} \right]&#xA;$$"></p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_eq16950519132394094273.png" alt="$$&#xA;Y = \left[ \begin{array}{cccc} 0 &amp; 0 &amp; 1 &amp; 0 \end{array} \right]&#xA;\left[ \begin{array}{c} X_1 \\ \dot{X_1} \\ Y_1 \\ \dot{Y_1} \end{array} \right] +&#xA;\left[ \begin{array}{cc} 0 &amp; 0 \end{array} \right] \left[&#xA;\begin{array}{c} U \\ W \end{array} \right]&#xA;$$"></p>
+      <p>Where:</p><pre>(m1)    1/4 bus body mass                        2500 kg</pre><pre>(m2)    suspension mass                          320 kg</pre><pre>(k1)    spring constant of suspension system     80,000 N/m</pre><pre>(k2)    spring constant of wheel and tire        500,000 N/m</pre><pre>(b1)    damping constant of suspension system    350 N.s/m</pre><pre>(b2)    damping constant of wheel and tire       15,020 N.s/m</pre><pre>(U)     control force</pre><p>The design requirements are:</p>
+      <div>
+         <ul>
+            <li>Overshoot: Output (X1-X2) less than 5% of disturbance (W)</li>
+            <li>Settling time: Less than 5 seconds</li>
+         </ul>
+      </div>
+      <h2>Sampling time selection<a name="3"></a></h2>
+      <p>The first step in the design of a discrete-time controller is to convert the continuous plant to its discrete time equivalent.
+         First, we need to pick an appropriate sampling time, <img class="inline_eqn" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_eq14047577632175690031.png" alt="$T$">. In this example, selection of sampling time is very important since a step in the road surface very quickly affects the
+         output. Physically, what happens is the road surface suddenly lifts the wheel, compressing the spring, K2, and the damper,
+         b2. Since the suspension mass is relatively low, and the spring fairly stiff, the suspension mass rises quickly, increasing
+         X2 almost immediately. Since the controller can only see the effect of the disturbance after a complete sampling period, we
+         have to pick a sampling time, <img class="inline_eqn" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_eq14047577632175690031.png" alt="$T$">, short enough so that the output (X1-X2) does not exceed the 5% requirement in one sampling period. To pick the sampling
+         period, we need to closely examine the beginning of the step response. If you remember from the <a href="?example=Suspension&amp;section=SystemAnalysis">Suspension: System Analysis</a> page, the output quickly goes negative in response to a step disturbance, and then begins to oscillate. We will simulate
+         just the beginning of this response by setting the time vector input to the step function to range from 0 to .005. The response
+         to a .1m step input is simulated by multiplying the B matrix by .1. Create a new <a href="?aux=Extras_Mfile">m-file</a> and enter the following code:
+      </p><pre class="codeinput">m1 = 2500;
+m2 = 320;
+k1 = 80000;
+k2 = 500000;
+b1 = 350;
+b2 = 15020;
+
+A = [0                 1   0                                              0
+    -(b1*b2)/(m1*m2)   0   ((b1/m1)*((b1/m1)+(b1/m2)+(b2/m2)))-(k1/m1)   -(b1/m1)
+     b2/m2             0  -((b1/m1)+(b1/m2)+(b2/m2))                      1
+     k2/m2             0  -((k1/m1)+(k1/m2)+(k2/m2))                      0];
+B = [0                 0
+     1/m1              (b1*b2)/(m1*m2)
+     0                -(b2/m2)
+     (1/m1)+(1/m2)    -(k2/m2)];
+C = [0   0   1   0];
+D = [0   0];
+
+sys = ss(A,B,C,D);
+step(sys*[0;1]*.1,0:0.0001:.005);
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_01.png" alt=""> <p>This plot shows that the spring, K1 compresses very quickly, and exceeds our requirement of 5mm in response to a 0.1-m step
+         after only a little more than 0.001s. Therefore, we will set T=.0005s in order to give the controller a chance to respond.
+      </p>
+      <h2>Continuous to discrete conversion<a name="5"></a></h2>
+      <p>Now that we have selected a sampling time, we can convert the plant to discrete time. MATLAB can be used to convert the above
+         state space model, <tt>sys</tt>, to a discrete state space model, <tt>d_sys</tt>, by using the <tt>c2d</tt> command. The <tt>c2d</tt> command takes three arguments: the continuous time system, the sampling time, <img class="inline_eqn" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_eq14047577632175690031.png" alt="$T$">, and the type of hold circuit. In this example we will use zero-order hold ('zoh'). Refer to the <a href="?example=Introduction&amp;section=ControlDigital">Introduction: Digital Controller Design</a> tutorial.
+      </p>
+      <p>Add the following code to your m-file. Running in the command window, MATLAB should return the following, which represents
+         the new discrete-time state-space model.
+      </p><pre class="codeinput">T = .0005;
+d_sys = c2d(sys,T,<span class="string">'zoh'</span>)
+</pre><pre class="codeoutput">
+d_sys =
+ 
+  A = 
+               x1          x2          x3          x4
+   x1           1      0.0005  -3.126e-06  -1.802e-08
+   x2   -0.003461           1    -0.01244  -7.313e-05
+   x3     0.02338   5.852e-06       0.976    0.000494
+   x4      0.7705   0.0001935     -0.9112      0.9998
+ 
+  B = 
+              u1         u2
+   x1  4.999e-11  8.506e-07
+   x2  1.999e-07   0.003461
+   x3  4.375e-10   -0.02338
+   x4  1.762e-06    -0.7705
+ 
+  C = 
+       x1  x2  x3  x4
+   y1   0   0   1   0
+ 
+  D = 
+       u1  u2
+   y1   0   0
+ 
+Sample time: 0.0005 seconds
+Discrete-time state-space model.
+
+</pre><h2>Adding integral control<a name="6"></a></h2>
+      <p>In this example, we will need to add an integrator to the system in order to drive the steady-state response to zero. We will
+         add this integrator in series with the plant. This will have the effect of adding another state to the plant. An integrator
+         in discrete-time state space can be represented as a trapezoidal approximation of integration over each sample period as follows:
+      </p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_eq14667534280217959877.png" alt="$$&#xA;x(k+1) = x(k) + Tu(k)&#xA;$$"></p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_eq11338439985399598524.png" alt="$$&#xA;y(k) = x(k) + \frac{T}{2} u(k)&#xA;$$"></p>
+      <p>To add this, add the following commands in your m-file:</p><pre class="codeinput">Ai = 1;
+Bi = T;
+Ci = 1;
+Di = T/2;
+[As,Bs,Cs,Ds]=ssdata(d_sys);
+Aa = [As,	zeros(4,1);
+      Bi*Cs,	Ai];
+Ba = [Bs;
+      0,0];
+Ca = [Cs,	0];
+Da = Ds;
+
+d_sys_int = ss(Aa,Ba,Ca,Da,T);
+[Ad,Bd,Cd,Dd] = ssdata(d_sys_int);
+</pre><h2>Designing the controller<a name="7"></a></h2>
+      <p>The structure of the controller is similar to the structure of the continuous-time state-space controller. We will now use
+         the <tt>place</tt> command to compute the gain matrix, K, which will, in feedback, give us the desired closed-loop poles.
+      </p>
+      <p>We first need to decide where to place the closed-loop poles. Since we get to place all five of the closed-loop poles, we
+         can be very selective about where they go. In particular, we can place them to cancel all of the plant zeros, as well as give
+         us the desired response. First, we will find the plant zeros by converting the plant's digital state equations to a transfer
+         function, and then finding the roots of the numerator. We will use the <tt>tfdata</tt> command which takes a system (<tt>d_sys</tt>) as its argument and outputs a transfer function numerator and denominator. Since the suspension system (<tt>d_sys</tt>) has two inputs, only one input must be selected. Notice how the first input is selected in the following code.
+      </p>
+      <p>Add the following code to your m-file:</p><pre class="codeinput">sys1 = d_sys_int*[1;0]; <span class="comment">%select the first input</span>
+[num,den] = tfdata(sys1,<span class="string">'v'</span>);
+z = roots(num)
+</pre><pre class="codeoutput">z =
+  -0.9929 + 0.0000i
+   0.9986 + 0.0065i
+   0.9986 - 0.0065i
+</pre><p>We will select these three zeros as three of our desired closed-loop poles. One of the other two will be selected at .9992
+         since a pole there settles in approximately 10000 samples (or 5 seconds). The last pole will be selected at z=.5 since this
+         is sufficiently fast to be insignificant. Add the following code to your m-file:
+      </p><pre class="codeinput">p1 = z(1);
+p2 = z(2);
+p3 = z(3);
+p4 = .9992;
+p5 = .5;
+
+K=place(Ad,Bd*[1;0],[p1 p2 p3 p4 p5])
+</pre><pre class="codeoutput">K =
+   1.0e+09 *
+    0.0534    0.0000    1.0898    0.0011    1.8286
+</pre><h2>Simulating the closed-loop response<a name="9"></a></h2>
+      <p>We can use the <tt>step</tt> command to simulate the closed-loop response. Since multiplying the state vector by K in our controller only returns a single
+         signal, U, we need to add a row of zeros to K by multiplying it by [1 0]'. This is identical to what was done in the continuous
+         design to compensate for the fact that there are two inputs to the plant, but only one is a control input. We will simulate
+         with a negative 0.1-m step disturbance in the road to give us a positive deflection of the bus for aesthetic reasons. Enter
+         the following code into your m-file:
+      </p><pre class="codeinput">d_sys_cl = ss(Ad-Bd*[1;0]*K,Bd,Cd,Dd,T);
+step(-.1*d_sys_cl*[0;1],5);
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_02.png" alt=""> <p>We can see in this plot, that the overshoot is less than 5mm, and the response settles well within 5 seconds. Changing the
+         axes allows a better view of the suspension's initial response.
+      </p><pre class="codeinput">d_sys_cl = ss(Ad-Bd*[1;0]*K,Bd,Cd,Dd,T);
+step(-.1*d_sys_cl*[0;1],5);
+axis([0 0.1 -.01 .01])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Control/Digital/html/Suspension_ControlDigital_03.png" alt=""> <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Suspension: Digital Controller Design
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/c2d.html |c2d|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/ssdata.html |ssdata|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tfdata.html |tfdata|> , 
+% <http://www.mathworks.com/help/matlab/ref/roots.html |roots|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/place.html |place|>
+%
+%%
+% In this example, we will design a digital state-space controller for the
+% bus suspension control example. First we will convert the continuous-time 
+% model to a discrete-time model, and then use the pole placement method to 
+% design the controller. From the 
+% < ?example=Suspension&section=SystemModeling Suspension: System Modeling> page.  
+% the state space model of the system is where Y1 = X1-X2. 
+%
+% $$
+% \left[ \begin{array}{c} \dot{X_1} \\ \ddot{X_1} \\ \dot{Y_1} \\ \ddot{Y_1} \end{array} \right] = 
+% \left[ \begin{array}{cccc} 
+% 0 & 1 & 0 & 0 \\ 
+% \frac{-b_1 b_2}{M_1 M_2} & 0 & \left[ \frac{b_1}{M_1} \left( \frac{b_1}{M_1}+\frac{b_1}{M_2}+\frac{b_2}{M_2} \right)-\frac{K_1}{M_1} \right] & \frac{-b_1}{M_1} \\ 
+% \frac{b_2}{M_2} & 0 & -\left( \frac{b_1}{M_1}+\frac{b_1}{M_2}+\frac{b_2}{M_2} \right) & 1 \\ 
+% \frac{K_2}{M_2} & 0 & -\left( \frac{K_1}{M_1}+\frac{K_1}{M_2}+\frac{K_2}{M_2} \right) & 0
+% \end{array} \right]
+% \left[ \begin{array}{c} X_1 \\ \dot{X_1} \\ Y_1 \\ \dot{Y_1} \end{array} \right] +
+% $$
+% 
+% $$
+% \left[ \begin{array}{cc} 
+% 0 & 0 \\
+% \frac{1}{M_1} & \frac{b_1 b_2}{M_1 M_2} \\
+% 0 & \frac{-b_2}{M_2} \\
+% \left( \frac{1}{M_2}+\frac{1}{M_2} \right) & \frac{-K_2}{M_2}
+% \end{array} \right]
+% \left[ \begin{array}{c} U \\ W \end{array} \right]
+% $$ 
+%
+% $$
+% Y = \left[ \begin{array}{cccc} 0 & 0 & 1 & 0 \end{array} \right]
+% \left[ \begin{array}{c} X_1 \\ \dot{X_1} \\ Y_1 \\ \dot{Y_1} \end{array} \right] +
+% \left[ \begin{array}{cc} 0 & 0 \end{array} \right] \left[
+% \begin{array}{c} U \\ W \end{array} \right]
+% $$
+%
+%%
+% Where:
+%
+%  (m1)    1/4 bus body mass                        2500 kg
+%
+%  (m2)    suspension mass                          320 kg
+%  
+%  (k1)    spring constant of suspension system     80,000 N/m
+%
+%  (k2)    spring constant of wheel and tire        500,000 N/m
+%
+%  (b1)    damping constant of suspension system    350 N.s/m
+% 
+%  (b2)    damping constant of wheel and tire       15,020 N.s/m
+%
+%  (U)     control force
+%
+% The design requirements are:
+%
+% * Overshoot: Output (X1-X2) less than 5% of disturbance (W)
+% * Settling time: Less than 5 seconds
+%
+%% Sampling time selection
+%
+% The first step in the design of a discrete-time controller is to convert
+% the continuous plant to its discrete time equivalent. First, we need to 
+% pick an appropriate sampling time, $T$. In this example, selection of sampling 
+% time is very important since a step in the road surface very quickly affects 
+% the output. Physically, what happens is the road surface suddenly lifts the 
+% wheel, compressing the spring, K2, and the damper, b2. Since the suspension 
+% mass is relatively low, and the spring fairly stiff, the suspension mass 
+% rises quickly, increasing X2 almost immediately. Since the controller can 
+% only see the effect of the disturbance after a complete sampling period, 
+% we have to pick a sampling time, $T$, short enough so that the output (X1-X2) 
+% does not exceed the 5% requirement in one sampling period. To pick the 
+% sampling period, we need to closely examine the beginning of the step 
+% response. If you remember from the 
+% < ?example=Suspension&section=SystemAnalysis Suspension: System Analysis> page,  
+% the output quickly goes 
+% negative in response to a step disturbance, and then begins to oscillate. 
+% We will simulate just the beginning of this response by setting the time 
+% vector input to the step function to range from 0 to .005. The response 
+% to a .1m step input is simulated by multiplying the B matrix by .1. 
+% Create a new < ?aux=Extras_Mfile m-file> and enter the following code:
+
+m1 = 2500;
+m2 = 320;
+k1 = 80000;
+k2 = 500000;
+b1 = 350;
+b2 = 15020;
+
+A = [0                 1   0                                              0
+    -(b1*b2)/(m1*m2)   0   ((b1/m1)*((b1/m1)+(b1/m2)+(b2/m2)))-(k1/m1)   -(b1/m1)   
+     b2/m2             0  -((b1/m1)+(b1/m2)+(b2/m2))                      1
+     k2/m2             0  -((k1/m1)+(k1/m2)+(k2/m2))                      0]; 
+B = [0                 0
+     1/m1              (b1*b2)/(m1*m2)
+     0                -(b2/m2)
+     (1/m1)+(1/m2)    -(k2/m2)];
+C = [0   0   1   0];
+D = [0   0];
+
+sys = ss(A,B,C,D);
+step(sys*[0;1]*.1,0:0.0001:.005);
+
+%%
+% This plot shows that the spring, K1 compresses very quickly, and exceeds
+% our requirement of 5mm in response to a 0.1-m step after only a little more 
+% than 0.001s. Therefore, we will set T=.0005s in order to give the controller 
+% a chance to respond. 
+%
+%% Continuous to discrete conversion
+%
+% Now that we have selected a sampling time, we can convert the plant to
+% discrete time. MATLAB can be used to convert the above state space model, 
+% |sys|, to a discrete state space model, |d_sys|, by using the |c2d| command. 
+% The |c2d| command takes three arguments: the continuous time system, the 
+% sampling time, $T$, and the type of hold circuit. In this example we will 
+% use zero-order hold ('zoh'). Refer to the 
+% < ?example=Introduction&section=ControlDigital Introduction: Digital Controller Design> tutorial.  
+%
+% Add the following code to your m-file. Running in the command window,
+% MATLAB should return the following, which represents the new
+% discrete-time state-space model. 
+
+T = .0005;
+d_sys = c2d(sys,T,'zoh')
+
+%% Adding integral control
+%
+% In this example, we will need to add an integrator to the system in order
+% to drive the steady-state response to zero. We will add this integrator in 
+% series with the plant. This will have the effect of adding another state 
+% to the plant. An integrator in discrete-time state space can be represented 
+% as a trapezoidal approximation of integration over each sample period as follows:
+%
+% $$
+% x(k+1) = x(k) + Tu(k)
+% $$
+%
+% $$
+% y(k) = x(k) + \frac{T}{2} u(k)
+% $$
+%
+% To add this, add the following commands in your m-file:  
+
+Ai = 1;
+Bi = T;
+Ci = 1;
+Di = T/2;
+[As,Bs,Cs,Ds]=ssdata(d_sys);
+Aa = [As,	zeros(4,1);
+      Bi*Cs,	Ai];
+Ba = [Bs;
+      0,0];
+Ca = [Cs,	0];
+Da = Ds;
+
+d_sys_int = ss(Aa,Ba,Ca,Da,T);
+[Ad,Bd,Cd,Dd] = ssdata(d_sys_int);
+
+%% Designing the controller
+%
+% The structure of the controller is similar to the structure of the
+% continuous-time state-space controller. We will now use the |place| command 
+% to compute the gain matrix, K, which will, in feedback, give us the desired 
+% closed-loop poles. 
+%
+% We first need to decide where to place the closed-loop poles. Since we
+% get to place all five of the closed-loop poles, we can be very selective 
+% about where they go. In particular, we can place them to cancel all of the 
+% plant zeros, as well as give us the desired response. First, we will find 
+% the plant zeros by converting the plant's digital state equations to a 
+% transfer function, and then finding the roots of the numerator. We will 
+% use the |tfdata| command which takes a system (|d_sys|) as its argument and 
+% outputs a transfer function numerator and denominator. Since the suspension 
+% system (|d_sys|) has two inputs, only one input must be selected. Notice 
+% how the first input is selected in the following code. 
+%
+% Add the following code to your m-file: 
+
+sys1 = d_sys_int*[1;0]; %select the first input
+[num,den] = tfdata(sys1,'v');
+z = roots(num)
+
+%%
+% We will select these three zeros as three of our desired closed-loop
+% poles. One of the other two will be selected at .9992 since a pole there 
+% settles in approximately 10000 samples (or 5 seconds). The last pole will 
+% be selected at z=.5 since this is sufficiently fast to be insignificant. 
+% Add the following code to your m-file:
+
+p1 = z(1);
+p2 = z(2);
+p3 = z(3);
+p4 = .9992;
+p5 = .5;
+
+K=place(Ad,Bd*[1;0],[p1 p2 p3 p4 p5])
+
+%% Simulating the closed-loop response
+%
+% We can use the |step| command to simulate the closed-loop response. Since
+% multiplying the state vector by K in our controller only returns a single 
+% signal, U, we need to add a row of zeros to K by multiplying it by [1 0]'. 
+% This is identical to what was done in the continuous design to compensate 
+% for the fact that there are two inputs to the plant, but only one is a 
+% control input. We will simulate with a negative 0.1-m step disturbance in 
+% the road to give us a positive deflection of the bus for aesthetic reasons. 
+% Enter the following code into your m-file: 
+%
+%%
+
+d_sys_cl = ss(Ad-Bd*[1;0]*K,Bd,Cd,Dd,T);
+step(-.1*d_sys_cl*[0;1],5);
+
+%%
+% We can see in this plot, that the overshoot is less than 5mm, and the
+% response settles well within 5 seconds. Changing the axes allows a better
+% view of the suspension's initial response.
+
+d_sys_cl = ss(Ad-Bd*[1;0]*K,Bd,Cd,Dd,T);
+step(-.1*d_sys_cl*[0;1],5);
+axis([0 0.1 -.01 .01])
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Suspension&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Suspension&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Suspension&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Suspension&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Suspension&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Suspension&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Suspension&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Suspension&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Suspension&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Suspension&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

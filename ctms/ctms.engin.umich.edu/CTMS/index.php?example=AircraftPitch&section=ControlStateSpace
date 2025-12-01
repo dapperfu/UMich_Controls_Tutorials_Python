@@ -1,0 +1,665 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: AircraftPitch	section: ControlStateSpace	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "AircraftPitch";
+			var section = "ControlStateSpace";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=AircraftPitch&section=ControlDigital";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Aircraft Pitch: State-Space Methods for Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#5c1f3332282e3330082928332e353d302f113d28303d3e0f353129303532371c3b313d3530723f3331">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=AircraftPitch&section=ControlDigital">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlStateSpace"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlStateSpace"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlStateSpace"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlStateSpace"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlStateSpace"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlStateSpace"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlStateSpace"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlStateSpace"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Aircraft Pitch: State-Space Methods for Controller Design</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/ss.html"><tt>ss</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/ctrb.html"><tt>ctrb</tt></a> , <a href="http://www.mathworks.com/help/techdoc/ref/rank.html"><tt>rank</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/lqr.html"><tt>lqr</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a></p>
+      </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?example=Introduction&section=ControlStateSpace">State Space Intro</a></li>
+        <li><a href="?aux=Animations_Invgui">LQR Animation 1</a></li>
+		<li><a href="?aux=Animations_Pitchgui">LQR Animation 2</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/videos/state-space-models-part-2-control-design-100816.html">MATLAB State FB Video</a></li>
+		<li><a href="https://www.youtube.com/watch?v=X3TOZLJCWiY">State Space Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#2">Controllability</a></li>
+            <li><a href="#4">Control design via pole placement</a></li>
+            <li><a href="#5">Linear quadratic regulation</a></li>
+            <li><a href="#9">Adding precompensation</a></li>
+         </ul>
+      </div>
+      <p>In the <a href="?example=AircraftPitch&amp;section=SystemModeling">Aircraft Pitch: System Modeling</a> page. the state-space model of the plant was derived as
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq00145764574977387789.png" alt="$$ \left [ \begin{array}{c} \dot\alpha \\ \ \\ \dot q \\ \ \\ \dot\theta \end{array} \right] =&#xA;\left [\begin{array}{ccc} -0.313 &amp; 56.7 &amp; 0 \\ \ \\ -0.0139 &amp; -0.426 &amp; 0 \\ \ \\ 0 &amp; 56.7 &amp; 0 \end{array} \right]&#xA;\left [\begin{array}{c} \alpha \\ \ \\  q \\ \ \\ \theta \end{array}&#xA;\right]+\left [\begin{array}{c} 0.232 \\ \ \\ 0.0203 \\ \ \\ 0 \end{array} \right][\delta]$$"></p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq17120053744416992805.png" alt="$$  y = [ \begin{array}{ccc}0 &amp; \ 0 &amp; \ 1 \end{array}]&#xA;\left[\begin{array}{c} \alpha  \\ \ \\ q \\ \ \\ \theta \end{array} \right]+[0][\delta]$$"></p>
+      <p>where the input is elevator deflection angle <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq06646721004341227832.png" alt="$\delta$"> and the output is the aircraft pitch angle <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq08288499342375314727.png" alt="$\theta$">. The above equations match the general, linear state-space form.
+      </p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq12067533390843682384.png" alt="$$ \frac{d{\bf x}}{dt}=A{\bf x}+Bu $$"></p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq16907336188889992295.png" alt="$$ y = C{\bf x} + Du $$"></p>
+      <p>For a step reference of 0.2 radians, the design criteria are the following.</p>
+      <div>
+         <ul>
+            <li>Overshoot less than 10%</li>
+            <li>Rise time less than 2 seconds</li>
+            <li>Settling time less than 10 seconds</li>
+            <li>Steady-state error less than 2%</li>
+         </ul>
+      </div>
+      <p>In this page we will apply a state-space controller design technique. In particular, we will attempt to place the closed-loop
+         poles of the system by designing a controller that calculates its control based on the states of the system.
+      </p>
+      <h2>Controllability<a name="2"></a></h2>
+      <p>In order to apply our state-space controller design techniques we need to first verify an important property, controllability.
+         The controllability property is necessary to guarantee that we have the authority to drive the state of the system anywhere
+         we like. This corresponds to the ability to place the closed-loop poles of the system anywhere in the complex <i>s</i>-plane.
+      </p>
+      <p>For the system to be completely state controllable, the controllability matrix</p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq00050126922917941065.png" alt="$$ \mathcal{C} = \left[ B\ AB\ A^2B\ \cdots\ A^{n-1}B \right] $$"></p>
+      <p>must have rank <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq08984225997457563733.png" alt="$n$">. The rank of a matrix is the number of linearly independent rows (or columns). The number <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq08984225997457563733.png" alt="$n$"> corresponds to the number of state variables of the system. Adding additional terms to the controllability matrix with higher
+         powers of the matrix <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq05147331747641807187.png" alt="$A$"> will not increase the rank of the controllability matrix since these additional terms will just be linear combinations of
+         the earlier terms.
+      </p>
+      <p>Since our controllability matrix is 3x3, the rank of the matrix must be 3. The MATLAB command <tt>rank</tt> can give you the rank of this matrix. Create a new <a href="?aux=Extras_Mfile">m-file</a> and enter the following commands. Running this m-file in the MATLAB command window, will produce the following output.
+      </p><pre class="codeinput">A = [-0.313 56.7 0; -0.0139 -0.426 0; 0 56.7 0];
+B = [0.232; 0.0203; 0];
+C = [0 0 1];
+D = [0];
+
+co = ctrb(A,B);
+
+Controllability = rank(co)
+</pre><pre class="codeoutput">Controllability =
+     3
+</pre><p>Therefore, our system is completely state controllable since the controllability matrix has rank 3.</p>
+      <h2>Control design via pole placement<a name="4"></a></h2>
+      <p>The schematic of a full-state feedback control system is shown below (with <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq16171345478199012472.png" alt="$D$"> = 0).
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/StateSpace/figures/statefeedback_pitch2.png" alt=""> </p>
+      <p>where</p>
+      <div>
+         <ul>
+            <li><img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03845174387838694102.png" alt="$K$"> = control gain matrix
+            </li>
+         </ul>
+      </div>
+      <div>
+         <ul>
+            <li><img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq15103632420927825471.png" alt="${\bf x}$"> = <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq16537315979067945223.png" alt="$[ \alpha,\ q,\ \theta ]'$"> = state vector
+            </li>
+         </ul>
+      </div>
+      <div>
+         <ul>
+            <li><img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq05110081545702731043.png" alt="$\theta_{des}$"> = reference (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq04958265083611378313.png" alt="$r$">)
+            </li>
+         </ul>
+      </div>
+      <div>
+         <ul>
+            <li><img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq06646721004341227832.png" alt="$\delta$"> = <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03455769699373938039.png" alt="$(\theta_{des} - K{\bf x})$"> = control input (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq11776305044305525613.png" alt="$u$">)
+            </li>
+         </ul>
+      </div>
+      <div>
+         <ul>
+            <li><img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq08288499342375314727.png" alt="$\theta$"> = output (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq08830444604280721118.png" alt="$y$">)
+            </li>
+         </ul>
+      </div>
+      <p>Referring back to the state-space equations at the top of the page, we see that substituting the state-feedback law <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03463007352004223180.png" alt="$\delta = (\theta_{des} - K{\bf x})$"> for <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq06646721004341227832.png" alt="$\delta$"> leads to the following.
+      </p>
+      <p><span class="eqn_num">(6)</span><img class="display_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq02459986774072207816.png" alt="$$ \dot{{\bf x}} = (A - BK){\bf x} + B\theta_{des} $$"></p>
+      <p><span class="eqn_num">(7)</span><img class="display_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq13175093900427953175.png" alt="$$ \theta = C{\bf x} $$"></p>
+      <p>Based on the above, matrix <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq11454269558498571770.png" alt="$A - BK$"> determines the closed-loop dynamics of our system. Specfically, the roots of the determinant of the matrix <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03440169188234536277.png" alt="$[sI - (A - BK)]$"> are the closed-loop poles of the system. Since the determinant of <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03440169188234536277.png" alt="$[sI - (A - BK)]$"> is a third-order polynomial, there are three poles we can place and since our system is completely state controllable, we
+         can place the poles anywhere we like. Recall from the <a href="?example=Introduction&amp;section=ControlStateSpace">Introduction: State-Space Methods for Controller Design</a> page that a "pole-placement" technique can be used to find the control gain matrix <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03845174387838694102.png" alt="$K$"> to place the closed-loop poles in the desired locations. Note that this feedback law presumes that all of the state variables
+         in the vector <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq15103632420927825471.png" alt="${\bf x}$"> are measured, even though <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq08288499342375314727.png" alt="$\theta$"> is our only output. If this is not the case, then an observer needs to be designed to estimate the other state variables.
+      </p>
+      <p>We know from the above that we can place the closed-loop poles of the system anywhere we would like. The question then that
+         is left is, where should we place them? If we have a standard first- or second-order system, we then have relationships that
+         directly relate pole locations to characteristics of the step response and can use these relations to place the poles in order
+         to meet our given requirements. This process becomes more difficult if we have a higher-order system or zeros. With a higher-order
+         system, one approach is to place the higher-order poles 5-10 times farther to the left in the complex plane than the dominant
+         poles, thereby leading them to have negligible contribution to the transient response. The effect of zeros is more difficult
+         to address using a pole-placement approach to control. Another limitation of this pole-placement approach is that it doesn't
+         explicitly take into account other factors like the amount of required control effort.
+      </p>
+      <h2>Linear quadratic regulation<a name="5"></a></h2>
+      <p>We will use a technique called the <b>Linear Quadratic Regulator (LQR)</b> method to generate the "best" gain matrix <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03845174387838694102.png" alt="$K$">, without explicitly choosing to place the closed-loop poles in particular locations. This type of control technique optimally
+         balances the system error and the control effort based on a cost that the designer specifies that defines the relative importance
+         of minimizing errors and minimimizing control effort. In the case of the regulator problem, it is assumed that the reference
+         is zero. Therefore, in this case the magnitude of the error is equal to the magnitude of the state. <i>Please consult your control textbook for details</i>. To use this LQR method, we need to define two parameters: the state-cost weighted matrix (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq12795926589847895066.png" alt="$Q$">) and the control weighted matrix (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03442895190380135198.png" alt="$R$">). For simplicity, we will choose the control weighted matrix equal to 1 (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03442895190380135198.png" alt="$R$"> = 1), and the state-cost matrix (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq12795926589847895066.png" alt="$Q$">) equal to <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq06762159743176959769.png" alt="$pC'C$">. Employing the vector <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03986222445007418011.png" alt="$C$"> from the output equation means that we will only consider those states in the output in defining our cost. In this case,
+         <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq08288499342375314727.png" alt="$\theta$"> is the only state variable in the output. The weighting factor (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq09941021013676836398.png" alt="$p$">) will be varied in order to modify the step response. In this case, <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03442895190380135198.png" alt="$R$"> is a scalar since we have a single input system.
+      </p>
+      <p>Now we are ready to find the control matrix (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03845174387838694102.png" alt="$K$">) employing the MATLAB command <tt>lqr</tt>. We will first let the weighting factor (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq09941021013676836398.png" alt="$p$">) equal 2. Add the following commands to your m-file and run it in the MATLAB command window.
+      </p><pre class="codeinput">p = 2;
+Q = p*C'*C
+R = 1;
+[K] = lqr(A,B,Q,R)
+</pre><pre class="codeoutput">Q =
+     0     0     0
+     0     0     0
+     0     0     2
+K =
+   -0.5034   52.8645    1.4142
+</pre><p>Note the structure of the weighting matrix <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq12795926589847895066.png" alt="$Q$"> and the resulting gain matrix <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03845174387838694102.png" alt="$K$">. Referring to the closed-loop state equations given above assuming a control law with non-zero reference, <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03463007352004223180.png" alt="$\delta = (\theta_{des} - K{\bf x})$">, we can then generate the closed-loop step response by adding the following commands to your m-file and running it in the
+         MATLAB command window. Note that the response is scaled to model the fact that the pitch angle reference is a 0.2 radian (11
+         degree) step. The step response shown below should then be generated.
+      </p><pre class="codeinput">sys_cl = ss(A-B*K, B, C, D);
+step(0.2*sys_cl)
+ylabel(<span class="string">'pitch angle (rad)'</span>);
+title(<span class="string">'Closed-Loop Step Response: LQR'</span>);
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_01.png" alt=""> <p>Examination of the above demonstrates that the response is too slow. We can tune the performance of our system to be faster
+         by weighting the importance of the error more heavily than the importance of the control effort. More specifically, this can
+         be done by increasing the weighting factor <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq09941021013676836398.png" alt="$p$">. After some trial and error, we settle on a value of <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq09941021013676836398.png" alt="$p$"> = 50. Modify the code of your m-file as follows and then run at the command line to produce the following step response.
+      </p><pre class="codeinput">p = 50;
+Q = p*C'*C;
+R = 1;
+[K] = lqr(A,B,Q,R)
+sys_cl = ss(A-B*K, B, C, D);
+step(0.2*sys_cl)
+ylabel(<span class="string">'pitch angle (rad)'</span>);
+title(<span class="string">'Closed-Loop Step Response: LQR'</span>);
+</pre><pre class="codeoutput">K =
+   -0.6435  169.6950    7.0711
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_02.png" alt=""> <p>Examination of the above demonstrates that the rise time, overshoot, and settling time are satisfactory. However, there is
+         a large steady-state error. One way to correct this is by introducing a precompensator (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03445892616825440122.png" alt="$\overline{N}$">) to scale the overall output.
+      </p>
+      <h2>Adding precompensation<a name="9"></a></h2>
+      <p>Unlike other design methods, the full-state feedback system does not compare the output to the reference; instead, it compares
+         all states multiplied by the control matrix (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq05535425416069083578.png" alt="$K{\bf x}$">) to the reference (see the schematic shown above). Thus, we should not expect the output to equal the commanded reference.
+         To obtain the desired output, we can scale the reference input so that the output does equal the reference in steady state.
+         This can be done by introducing a precompensator scaling factor called <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03445892616825440122.png" alt="$\overline{N}$">. The basic schematic of our state-feedback system with scaling factor (<img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03445892616825440122.png" alt="$\overline{N}$">) is shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/StateSpace/figures/statefeedback_w_pre_pitch.png" alt=""> </p>
+      <p>We can easily find <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03445892616825440122.png" alt="$\overline{N}$"> from the MATLAB function <a href="?aux=Extras_rscale">rscale.m</a>. Since <tt>rscale.m</tt> is a user-defined function, you need to copy and save the function to your directory. For further assistance in using user-defined
+         functions, refer to the <a href="?aux=Extras_Function">function</a> page. After you have saved the <tt>rscale.m</tt> file to your directory, modify the code of your m-file as follows and run it in the MATLAB command window.
+      </p><pre class="codeinput">p = 50;
+Q = p*C'*C;
+R = 1;
+[K] = lqr(A,B,Q,R);
+Nbar = rscale(A,B,C,D,K)
+</pre><pre class="codeoutput">Nbar =
+    7.0711
+</pre><p>Adding the following code and rerunning your m-file will then generate the response shown below.</p><pre class="codeinput">sys_cl = ss(A-B*K,B*Nbar,C,D);
+step(0.2*sys_cl)
+ylabel(<span class="string">'pitch angle (rad)'</span>);
+title(<span class="string">'Closed-Loop Step Response: LQR with Precompensation'</span>);
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_03.png" alt=""> <p>Now the steady-state error has been eliminated and all design requirements are satisfied.</p>
+      <p>Note that the precompensator <img class="inline_eqn" src="Content/AircraftPitch/Control/StateSpace/html/AircraftPitch_ControlStateSpace_eq03445892616825440122.png" alt="$\overline{N}$"> employed above is calculated based on the model of the plant and further that the precompensator is located outside of the
+         feedback loop. Therefore, if there are errors in the model (or unknown disturbances) the precompensator will not correct for
+         them and there will be steady-state error. You may recall that the addition of integral control may also be used to eliminate
+         steady-state error, even in the presence of model uncertainty and step disturbances. For an example of how to implement integral
+         control in the state space setting, see the <a href="?example=MotorPosition&amp;section=ControlStateSpace">DC Motor Position: State-Space Methods for Controller Design</a> page. The tradeoff with using integral control is that the error must first develop before it can be corrected for, therefore,
+         the system may be slow to respond. The precompensator on the other hand is able to anticipitate the steady-state offset using
+         knowledge of the plant model. A useful technique is to combine the precompensator with integral control to leverage the advantages
+         of each approach.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Aircraft Pitch: State-Space Methods for Controller Design
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/ctrb.html |ctrb|> ,
+% <http://www.mathworks.com/help/techdoc/ref/rank.html |rank|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/lqr.html |lqr|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|>
+% 
+%%
+%
+% In the 
+% < ?example=AircraftPitch&section=SystemModeling Aircraft Pitch: System Modeling> page. 
+% the state-space model of the plant was derived as
+%
+% $$ \left [ \begin{array}{c} \dot\alpha \\ \ \\ \dot q \\ \ \\ \dot\theta \end{array} \right] = 
+% \left [\begin{array}{ccc} -0.313 & 56.7 & 0 \\ \ \\ -0.0139 & -0.426 & 0 \\ \ \\ 0 & 56.7 & 0 \end{array} \right]  
+% \left [\begin{array}{c} \alpha \\ \ \\  q \\ \ \\ \theta \end{array}
+% \right]+\left [\begin{array}{c} 0.232 \\ \ \\ 0.0203 \\ \ \\ 0 \end{array} \right][\delta]$$
+%                                                                          
+% $$  y = [ \begin{array}{ccc}0 & \ 0 & \ 1 \end{array}]
+% \left[\begin{array}{c} \alpha  \\ \ \\ q \\ \ \\ \theta \end{array} \right]+[0][\delta]$$  
+%
+% where the input is elevator deflection angle $\delta$ and the output is
+% the aircraft pitch angle $\theta$. The above equations match the general, linear state-space form.
+% 
+% $$ \frac{d{\bf x}}{dt}=A{\bf x}+Bu $$
+%
+% $$ y = C{\bf x} + Du $$
+%
+% For a step reference of 0.2 radians, the design criteria are the
+% following.
+%
+% * Overshoot less than 10%
+% * Rise time less than 2 seconds
+% * Settling time less than 10 seconds
+% * Steady-state error less than 2% 
+%
+% In this page we will apply a state-space controller design technique. In
+% particular, we will attempt to place the closed-loop poles of the system
+% by designing a controller that calculates its control based on the states
+% of the system.
+%% Controllability 
+% In order to apply our state-space controller design techniques we need to
+% first verify an important property, controllability.
+% The controllability property is necessary to guarantee that we have the
+% authority to drive the state of the system anywhere we like. This
+% corresponds to the ability to place the closed-loop poles of the system
+% anywhere in the complex _s_-plane. 
+%
+% For the system to be completely state controllable, the controllability matrix
+%
+% $$ \mathcal{C} = \left[ B\ AB\ A^2B\ \cdots\ A^{n-1}B \right] $$
+%
+% must have rank $n$. The rank of a matrix is the number of linearly
+% independent rows (or columns). The number $n$ corresponds to the number
+% of state variables of the system. Adding additional terms to the controllability
+% matrix with higher powers of the matrix $A$ will not increase the rank of
+% the controllability matrix since these additional terms will just be
+% linear combinations of the earlier terms.
+%
+% Since our controllability matrix is 3x3, the rank of the matrix must be 3. The MATLAB command
+% |rank| can give you the rank of this matrix. Create a new
+% < ?aux=Extras_Mfile
+% m-file> and enter the following commands. Running this m-file in the
+% MATLAB command window, will produce the following output.  
+
+A = [-0.313 56.7 0; -0.0139 -0.426 0; 0 56.7 0];
+B = [0.232; 0.0203; 0];
+C = [0 0 1];
+D = [0];
+
+co = ctrb(A,B);
+
+Controllability = rank(co)
+
+%%
+% Therefore, our system is completely state controllable since the controllability 
+% matrix has rank 3.
+%% Control design via pole placement
+% The schematic of a full-state feedback control system is shown below (with $D$ = 0). 
+%
+% <<Content/AircraftPitch/Control/StateSpace/figures/statefeedback_pitch2.png>>
+%
+% where
+%
+% * $K$ = control gain matrix
+%
+% * ${\bf x}$ = $[ \alpha,\ q,\ \theta ]'$ = state vector
+%
+% * $\theta_{des}$ = reference ($r$)
+%
+% * $\delta$ = $(\theta_{des} - K{\bf x})$ = control input ($u$)
+%
+% * $\theta$ = output ($y$)
+% 
+% Referring back to the state-space equations at the top
+% of the page, we see that substituting the state-feedback law $\delta =
+% (\theta_{des} - K{\bf x})$ for $\delta$ leads to the following.     
+%
+% $$ \dot{{\bf x}} = (A - BK){\bf x} + B\theta_{des} $$
+%
+% $$ \theta = C{\bf x} $$
+%
+% Based on the above, matrix $A - BK$ determines the closed-loop dynamics
+% of our system. Specfically, the roots of the determinant of the matrix $[sI
+% - (A - BK)]$ are the closed-loop poles of the system. Since the
+% determinant of $[sI - (A - BK)]$ is a third-order polynomial, there are
+% three poles we can place and since our system is completely state
+% controllable, we can place the poles anywhere we like. Recall from the
+% < ?example=Introduction&section=ControlStateSpace Introduction: State-Space Methods for Controller Design> page 
+% that a "pole-placement" technique can be used to find the control gain matrix 
+% $K$ to place the closed-loop poles in the desired locations. Note that
+% this feedback law presumes that all of the state variables in the
+% vector ${\bf x}$ are measured, even though $\theta$ is our only output. If this
+% is not the case, then an observer needs to be designed to estimate the
+% other state variables.
+%  
+% We know from the above that we can place the closed-loop poles of the system anywhere
+% we would like. The question then that is left is, where should we place
+% them? If we have a standard first- or second-order system, we then have
+% relationships that directly relate pole locations to characteristics of the step
+% response and can use these relations to place the poles in order to meet our
+% given requirements. This process becomes more difficult if we have a
+% higher-order system or zeros. With a higher-order system, one approach is
+% to place the higher-order poles 5-10 times farther to the left in the
+% complex plane than the dominant poles, thereby leading them to have
+% negligible contribution to the transient response. The effect of zeros is
+% more difficult to address using a pole-placement approach to control.
+% Another limitation of this pole-placement approach is that it doesn't
+% explicitly take into account other factors like the amount of required
+% control effort.
+%
+%% Linear quadratic regulation
+%
+% We will use a technique called the *Linear Quadratic Regulator
+% (LQR)* method to generate the "best" gain matrix $K$, without explicitly
+% choosing to place the closed-loop poles in particular locations. This type of 
+% control technique optimally balances the system error and the control
+% effort based on a cost that the designer specifies that defines the
+% relative importance of minimizing errors and minimimizing control effort.
+% In the case of the regulator problem, it is assumed that the reference is
+% zero. Therefore, in this case the magnitude of the error is equal to the
+% magnitude of the state. _Please 
+% consult your control textbook for details_. To use this LQR method, we
+% need to define two parameters: the state-cost weighted matrix ($Q$) and
+% the control weighted matrix ($R$). For simplicity, we will choose the
+% control weighted matrix equal to 1 ($R$ = 1), and the state-cost matrix
+% ($Q$) equal to $pC'C$. Employing the vector $C$ from the output equation
+% means that we will only consider those states in the output in defining
+% our cost. In this case, $\theta$ is the only state variable in the output. The
+% weighting factor ($p$) will be varied in order to modify the step
+% response. In this case, $R$ is a scalar since we have a single input
+% system.
+% 
+% Now we are ready to find the control matrix ($K$) employing the MATLAB
+% command |lqr|. We will first let the weighting factor ($p$) equal 2. Add the
+% following commands to your m-file and run it in the MATLAB command window. 
+
+p = 2;
+Q = p*C'*C
+R = 1;
+[K] = lqr(A,B,Q,R)
+
+%%
+% Note the structure of the weighting matrix $Q$ and the resulting gain
+% matrix $K$. Referring to the closed-loop state equations given above assuming a
+% control law with non-zero reference, $\delta = (\theta_{des} - K{\bf x})$, we can
+% then generate the closed-loop step response by adding the following
+% commands to your m-file and running it in the MATLAB command window. Note
+% that the response is scaled to model the fact that the pitch angle
+% reference is a 0.2 radian (11 degree) step. The step response shown below
+% should then be generated.  
+
+sys_cl = ss(A-B*K, B, C, D);
+step(0.2*sys_cl)
+ylabel('pitch angle (rad)');
+title('Closed-Loop Step Response: LQR');
+
+%%
+% Examination of the above demonstrates that the response is too slow. We
+% can tune the performance of our system to be faster by weighting the
+% importance of the error more heavily than the importance of the control
+% effort. More specifically, this can be done by increasing the weighting
+% factor $p$. After some trial and error, we settle on a value of $p$ = 50.
+% Modify the code of your m-file as follows and then run at the command
+% line to produce the following step response.
+
+p = 50;
+Q = p*C'*C;
+R = 1;
+[K] = lqr(A,B,Q,R)
+sys_cl = ss(A-B*K, B, C, D);
+step(0.2*sys_cl)
+ylabel('pitch angle (rad)');
+title('Closed-Loop Step Response: LQR');
+
+%%
+% Examination of the above demonstrates that the rise time, overshoot, and
+% settling time are satisfactory. However, there is a large steady-state
+% error. One way to correct this is by introducing a precompensator ($\overline{N}$) 
+% to scale the overall output. 
+
+%% Adding precompensation
+%
+% Unlike other design methods, the full-state feedback system does not compare the output 
+% to the reference; instead, it compares all states multiplied by the control matrix ($K{\bf x}$)
+% to the reference (see the schematic shown above). Thus, we should not expect the output 
+% to equal the commanded reference. To obtain the desired output, we can
+% scale the reference input so that the output does equal the reference in
+% steady state. This can be done by introducing a precompensator scaling
+% factor called $\overline{N}$. The basic schematic of our state-feedback system 
+% with scaling factor ($\overline{N}$) is shown below.
+%
+% <<Content/AircraftPitch/Control/StateSpace/figures/statefeedback_w_pre_pitch.png>>
+%
+% We can easily find $\overline{N}$ from the MATLAB function < ?aux=Extras_rscale
+% rscale.m>. Since |rscale.m| is a user-defined function, you need to copy and save the
+% function to your directory. For further assistance in using
+% user-defined functions, refer to the < ?aux=Extras_Function
+% function> page. After you have saved
+% the |rscale.m| file to your directory, modify the code of your
+% m-file as follows and run it in the MATLAB command window.
+
+p = 50;
+Q = p*C'*C;
+R = 1;
+[K] = lqr(A,B,Q,R);
+Nbar = rscale(A,B,C,D,K)
+
+%%
+% Adding the following code and rerunning your m-file will then generate the response shown below.
+
+sys_cl = ss(A-B*K,B*Nbar,C,D);
+step(0.2*sys_cl)
+ylabel('pitch angle (rad)');
+title('Closed-Loop Step Response: LQR with Precompensation');
+
+%%
+% Now the steady-state error has been eliminated and all design
+% requirements are satisfied. 
+%
+% Note that the precompensator $\overline{N}$ employed
+% above is calculated based on the model of the plant and further that the
+% precompensator is located outside of the feedback loop. Therefore, if
+% there are errors in the model (or unknown disturbances) the
+% precompensator will not correct for them and there will be steady-state
+% error. You may recall that the addition of integral control may also be
+% used to eliminate steady-state error, even in the presence of model
+% uncertainty and step disturbances. For an example of how to implement
+% integral control in the state space setting, see the
+% < ?example=MotorPosition&section=ControlStateSpace DC Motor Position: State-Space Methods for Controller Design> page. 
+% The tradeoff with using integral control is that
+% the error must first develop before it can be corrected for, therefore,
+% the system may be slow to respond. The precompensator on the other hand
+% is able to anticipitate the steady-state offset using knowledge of the
+% plant model. A useful technique is to combine the precompensator with
+% integral control to leverage the advantages of each approach.
+
+
+
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=AircraftPitch&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=AircraftPitch&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=AircraftPitch&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=AircraftPitch&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=AircraftPitch&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=AircraftPitch&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=AircraftPitch&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=AircraftPitch&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=AircraftPitch&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=AircraftPitch&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

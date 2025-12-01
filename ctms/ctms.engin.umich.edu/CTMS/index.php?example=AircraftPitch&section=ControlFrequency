@@ -1,0 +1,683 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: AircraftPitch	section: ControlFrequency	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "AircraftPitch";
+			var section = "ControlFrequency";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=AircraftPitch&section=ControlStateSpace";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Aircraft Pitch: Frequency Domain Methods for Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#15567a7b61677a794160617a677c747966587461797477467c7860797c7b7e557278747c793b767a78">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=AircraftPitch&section=ControlStateSpace">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlFrequency"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlFrequency"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlFrequency"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlFrequency"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlFrequency"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlFrequency"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlFrequency"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlFrequency"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Aircraft Pitch: Frequency Domain Methods for Controller Design</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/feedback.html"><tt>feedback</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/pole.html"><tt>pole</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/margin.html"><tt>margin</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/stepinfo.html"><tt>stepinfo</tt></a></p>
+      </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?example=Introduction&section=ControlFrequency">Intro to Freq Resp</a></li>
+        <li><a href="?aux=Activities_BoostcircuitC">Freq Resp Activity</a></li>
+        <li><a href="?aux=Extras_Leadlag">Lead/Lag Freq Resp</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/videos/using-bode-plots-lead-lag-pid-controllers-4-of-5-77061.html">Bode MATLAB Video</a></li>
+		<li><a href="https://www.youtube.com/watch?v=bkBMvGlAaho">Freq Resp Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#3">Open-loop response</a></li>
+            <li><a href="#5">Closed-loop response</a></li>
+            <li><a href="#10">Lead compensator</a></li>
+         </ul>
+      </div>
+      <p>From the main problem, the open-loop transfer function for the aircraft pitch dynamics is</p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq11086271845340660577.png" alt="$$ P(s) = \frac{\Theta(s)}{\Delta(s)} = \frac {1.151s+0.1774}{s^3+0.739s^2+0.921s} $$"></p>
+      <p>where the input is elevator deflection angle <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq06646721004341227832.png" alt="$\delta$"> and the output is the aircraft pitch angle <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq08288499342375314727.png" alt="$\theta$">.
+      </p>
+      <p>For the original problem setup and the derivation of the above transfer function please refer to the <a href="?example=AircraftPitch&amp;section=SystemModeling">Aircraft Pitch: System Modeling</a> page
+      </p>
+      <p>For a step reference of 0.2 radians, the design criteria are the following.</p>
+      <div>
+         <ul>
+            <li>Overshoot less than 10%</li>
+            <li>Rise time less than 2 seconds</li>
+            <li>Settling time less than 10 seconds</li>
+            <li>Steady-state error less than 2%</li>
+         </ul>
+      </div>
+      <h2>Open-loop response<a name="3"></a></h2>
+      <p>Let's first begin by examining the behavior of the open-loop plant. Specifically, create a new <a href="?aux=Extras_Mfile">m-file</a>, and enter the following commands. Note the scaling of the step response by 0.2 to account for the fact that the input is
+         a step of 0.2 radians (11 degrees). Running this m-file in the MATLAB command window should give you the step response plot
+         shown below.
+      </p><pre class="codeinput">t = [0:0.01:10];
+s = tf(<span class="string">'s'</span>);
+P_pitch = (1.151*s + 0.1774)/(s^3 + 0.739*s^2 + 0.921*s);
+step(0.2*P_pitch,t);
+axis([0 10 0 0.8]);
+ylabel(<span class="string">'pitch angle (rad)'</span>);
+title(<span class="string">'Open-loop Step Response'</span>);
+grid
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_01.png" alt=""> <p>Examination of the above plot indicates that the open-loop system is unstable for a step input, that is, its output grows
+         unbounded when given a step input. This is due to the fact that the transfer function has a pole at the origin.
+      </p>
+      <h2>Closed-loop response<a name="5"></a></h2>
+      <p>Let's now close the loop on our plant and see if that stabilizes the system. Consider the following unity feedback architecture
+         for our system.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/Frequency/figures/feedback_pitch2.png" alt=""> </p>
+      <p>The following code entered in the MATLAB command window generates the closed-loop transfer function assuming the unity-feedback
+         architecture above and a unity-gain controller, <i>C</i>(<i>s</i>) = 1.
+      </p><pre class="codeinput">sys_cl = feedback(P_pitch,1)
+</pre><pre class="codeoutput">
+sys_cl =
+ 
+           1.151 s + 0.1774
+  ----------------------------------
+  s^3 + 0.739 s^2 + 2.072 s + 0.1774
+ 
+Continuous-time transfer function.
+
+</pre><p>Examining the poles of this transfer function using the <tt>pole</tt> command as shown below, it can be seen that this closed-loop system is indeed stable since all of the poles have negative
+         real part.
+      </p><pre class="codeinput">pole(sys_cl)
+</pre><pre class="codeoutput">ans =
+  -0.3255 + 1.3816i
+  -0.3255 - 1.3816i
+  -0.0881 + 0.0000i
+</pre><p>Stability of this closed-loop system can also be determined using the frequency response of the open-loop system. The <tt>margin</tt> command generates the Bode plot for the given transfer function with annotations for the gain margin and phase margin of
+         the system when the loop is closed as demonstrated below.
+      </p><pre class="codeinput">margin(P_pitch), grid
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_02.png" alt=""> <p>Examination of the above demonstrates that the closed-loop system is indeed stable since the phase margin and gain margin
+         are both positive. Specifically, the phase margin equals 46.9 degrees and the gain margin is infinite. It is good that this
+         closed-loop system is stable, but does it meet our requirements? Add the following code to your m-file and re-run and you
+         will generate the step response plot shown below.
+      </p><pre class="codeinput">sys_cl = feedback(P_pitch,1);
+step(0.2*sys_cl), grid
+ylabel(<span class="string">'pitch angle (rad)'</span>);
+title(<span class="string">'Closed-loop Step Response'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_03.png" alt=""> <p>Examination of the above demonstrates that the settle time requirement of 10 seconds is not close to being met. One way to
+         address this is to make the system response faster, but then the overshoot shown above will likely become a problem. Therefore,
+         the overshoot must be reduced in conjunction with making the system response faster. We can accomplish these goals by adding
+         a compensator to reshape the Bode plot of the open-loop system. The Bode plot of the open-loop system indicates behavior of
+         the closed-loop system. More specifically,
+      </p>
+      <div>
+         <ul>
+            <li>the gain crossover frequency is directly related to the closed-loop system's speed of response, and</li>
+            <li>the phase margin is inversely related to the closed-loop system's overshoot.</li>
+         </ul>
+      </div>
+      <p>Therefore, we need to add a compensator that will increase the gain crossover frequency and increase the phase margin as indicated
+         in the Bode plot of the open-loop system.
+      </p>
+      <h2>Lead compensator<a name="10"></a></h2>
+      <p>A type of compensator that can accomplish both of our goals is a lead compensator. Referring to the <a href="?aux=Extras_Leadlag">Lead and Lag Compensators</a> page, a lead compensator adds positive phase to the system. Additional positive phase increases the phase margin, thus, increasing
+         the damping. The lead compensator also generally increases the magnitude of the open-loop frequency response at higher frequencies,
+         thereby, increasing the gain crossover frequency and overall speed of the system. Therefore, the settling time should decrease
+         as a result of the addition of a lead compensator. The general form of the transfer function of a lead compensator is the
+         following.
+      </p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq09449517877311078249.png" alt="$$ C(s)=K \frac{Ts + 1}{\alpha Ts+1} \ \ \ (\alpha < 1) $$"></p>
+      <p>We thus need to find <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14221827199139923399.png" alt="$\alpha$">, <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14047577632175690031.png" alt="$T$"> and <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$">. Typically, the gain <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$"> is set to satisfy requirements on steady-state error. Since our system is already type 1 (the plant has an integrator) the
+         steady-state error for a step input will be zero for any value of <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$">. Even though the steady-state error is zero, the slow tail on the response can be attributed to the fact the velocity-error
+         constant is too small. This deficiency can be addressed by employing a value of <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$"> that is greater than 1, in other words, a value of <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$"> that will shift the magnitude plot upward. Through some trial and error, we will somewhat arbitrarily choose <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$"> = 10. Running the following code in the MATLAB window will demonstrate the effect of adding this <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$">.
+      </p><pre class="codeinput">K = 10;
+margin(K*P_pitch), grid
+figure;
+sys_cl = feedback(K*P_pitch,1);
+step(0.2*sys_cl), grid
+title(<span class="string">'Closed-loop Step Response with K = 10'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_04.png" alt=""> <img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_05.png" alt=""> <p>From examination of the above Bode plot, we have increased the system's magnitude at all frequencies and have pushed the gain
+         crossover frequency higher. The effect of these changes are evident in the closed-loop step response shown above. Unfortunately,
+         the addition of the <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$"> has also reduced the system's phase margin as evidenced by the increased overshoot in the system's step response. As mentioned
+         previously, the lead compensator will help add damping to the system in order to reduce the overshoot in the step response.
+      </p>
+      <p>Continuing with the design of our compensator, we will next address the parameter <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14221827199139923399.png" alt="$\alpha$"> which is defined as the ratio between the zero and pole. The larger the separation between the zero and the pole the greater
+         the bump in phase where the maximum amount of phase that can be added with a single pole-zero pair is 90 degrees. The following
+         equation captures the maximum phase added by a lead compensator as a function of <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14221827199139923399.png" alt="$\alpha$">.
+      </p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03640863806401598676.png" alt="$$ \sin(\phi_m)=\frac{1 - \alpha}{1 + \alpha} $$"></p>
+      <p>Relationships between the time response and frequency response of a standard underdamped second-order system can be derived.
+         One such relationship that is a good approximation for damping ratios less than approximately 0.6 or 0.7 is the following.
+      </p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq11685232956263233098.png" alt="$$ \zeta \approx \frac{PM (degrees)}{100^{\circ}} $$"></p>
+      <p>While our system does not have the form of a standard second-order system, we can use the above relationship as a starting
+         point in our design. As we are required to have overshoot less than 10%, we need our damping ratio <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq13496487163394900197.png" alt="$\zeta$"> to be approximately larger than 0.59 and thus need a phase margin greater than about 59 degrees. Since our current phase
+         margin (with the addition of <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$">) is approximately 10.4 degrees, an additional 50 degrees of phase bump from the lead compensator should be sufficient. Since
+         it is known that the lead compensator will further increase the magnitude of the frequency response, we will need to add more
+         than 50 degrees of phase lead to account for the fact that the gain crossover frequency will increase to a point where the
+         system has more phase lag. We will somewhat arbitrarily add 5 degrees and aim for a total bump in phase of 50+5 = 55 degrees.
+      </p>
+      <p>We can then use this number to solve the above relationship for <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14221827199139923399.png" alt="$\alpha$"> as shown below.
+      </p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq17850771153810014822.png" alt="$$ \alpha = \frac{1 - \sin(55^{\circ})}{1 + \sin(55^{\circ})} \approx 0.10 $$"></p>
+      <p>From the above, we can calculate that <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14221827199139923399.png" alt="$\alpha$"> must be less than approximately 0.10. For this value of <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14221827199139923399.png" alt="$\alpha$">, the following relationship can be used to determine the amount of magnitude increase that will be supplied by the lead compensator
+         at the location of the maximum bump in phase.
+      </p>
+      <p><span class="eqn_num">(6)</span><img class="display_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq12938846478097945428.png" alt="$$ 20 \log \left( \frac{1}{\sqrt{\alpha}} \right) \approx 20 \log \left( \frac{1}{\sqrt{0.10}} \right) \approx 10\ \mathrm{dB} $$"></p>
+      <p>Examining the Bode plot shown above, the magnitude of the uncompensated system equals -10 dB at approximately 6.1 rad/sec.
+         Therefore, the addition of our lead compensator will move the gain crossover frequency from 3.49 rad/sec to approximately
+         6.1 rad/sec. Using this information, we can then calculate a value of <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14047577632175690031.png" alt="$T$"> from the following in order to center the maximum bump in phase at the new gain crossover frequency in order to maximize
+         the system's resulting phase margin.
+      </p>
+      <p><span class="eqn_num">(7)</span><img class="display_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq11919371169790203830.png" alt="$$ \omega_m = \frac{1}{T \sqrt{\alpha}} \Rightarrow T = \frac{1}{6.1\sqrt{.10}} \approx 0.52 $$"></p>
+      <p>With the values <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$"> = 10, <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14221827199139923399.png" alt="$\alpha$"> = 0.10, and <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14047577632175690031.png" alt="$T$"> = 0.52 calculated above, we now have a first attempt at our lead compensator. Adding the following lines to your m-file and
+         running at the command line will generate the plot shown below demonstrating the effect of your lead compensator on the system's
+         frequency response.
+      </p><pre class="codeinput">K = 10;
+alpha = 0.10;
+T = 0.52;
+C_lead = K*(T*s + 1) / (alpha*T*s + 1);
+margin(C_lead*P_pitch), grid
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_06.png" alt=""> <p>Examination of the above demonstrates that the lead compensator increased the system's phase margin and gain crossover frequency
+         as desired. We now need to look at the actual closed-loop step response in order to determine if we are close to meeting our
+         requirements. Replace the step response code in your m-file with the following and re-run in the MATLAB command window.
+      </p><pre class="codeinput">sys_cl = feedback(C_lead*P_pitch,1);
+step(0.2*sys_cl), grid
+title(<span class="string">'Closed-loop Step Response with K = 10, \alpha = 0.10, and T = 0.52'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_07.png" alt=""> <p>Examination of the above demonstrates that we are close to meeting our requirements. Using the MATLAB command <tt>stepinfo</tt> as shown below we can see precisely the characteristics of the closed-loop step response.
+      </p><pre class="codeinput">stepinfo(0.2*sys_cl)
+</pre><pre class="codeoutput">ans = 
+  struct with fields:
+
+        RiseTime: 0.2074
+    SettlingTime: 8.9835
+     SettlingMin: 0.1801
+     SettlingMax: 0.2240
+       Overshoot: 11.9792
+      Undershoot: 0
+            Peak: 0.2240
+        PeakTime: 0.4886
+</pre><p>From the above, all of our requirements are met except for the overshoot which is a bit larger than the requirement of 10%.
+         Iterating on the above design process, we arrive at the parameters <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq03845174387838694102.png" alt="$K$"> = 10, <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14221827199139923399.png" alt="$\alpha$"> = 0.04, and <img class="inline_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq14047577632175690031.png" alt="$T$"> = 0.55. The performance achieved with this controller can then be verified by modifying the code in your m-file as follows.
+      </p><pre class="codeinput">K = 10;
+alpha = 0.04;
+T = 0.55;
+C_lead = K*(T*s + 1) / (alpha*T*s + 1);
+sys_cl = feedback(C_lead*P_pitch,1);
+step(0.2*sys_cl), grid
+title(<span class="string">'Closed-loop Step Response with K = 10, \alpha = 0.04, and T = 0.55'</span>)
+</pre><img class="figure"vspace="5" hspace="5" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_08.png" alt=""> <p>Examination of the above step response demonstrates that the requirements are now met. Using the <tt>stepinfo</tt> command again more clearly demonstrates that the requirements are met.
+      </p><pre class="codeinput">stepinfo(0.2*sys_cl)
+</pre><pre class="codeoutput">ans = 
+  struct with fields:
+
+        RiseTime: 0.2203
+    SettlingTime: 9.0427
+     SettlingMin: 0.1805
+     SettlingMax: 0.2137
+       Overshoot: 6.8478
+      Undershoot: 0
+            Peak: 0.2137
+        PeakTime: 0.5394
+</pre><p>Therefore, the following lead compensator is able to satisfy all of our design requirements.</p>
+      <p><span class="eqn_num">(8)</span><img class="display_eqn" src="Content/AircraftPitch/Control/Frequency/html/AircraftPitch_ControlFrequency_eq11565339084492775403.png" alt="$$ C(s)=10 \frac{0.55s + 1}{0.022s+1} $$"></p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Aircraft Pitch: Frequency Domain Methods for Controller Design
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/pole.html |pole|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/margin.html |margin|> ,
+% <http://www.mathworks.com/help/toolbox/control/ref/stepinfo.html |stepinfo|>
+%
+%%
+% From the main problem, the open-loop transfer function for the aircraft pitch dynamics is
+%
+% $$ P(s) = \frac{\Theta(s)}{\Delta(s)} = \frac {1.151s+0.1774}{s^3+0.739s^2+0.921s} $$
+%
+% where the input is elevator deflection angle $\delta$ and the output is
+% the aircraft pitch angle $\theta$.
+%%
+% For the original problem setup and the derivation of the above transfer function please refer to the
+% < ?example=AircraftPitch&section=SystemModeling Aircraft Pitch: System Modeling> page 
+%
+% For a step reference of 0.2 radians, the design criteria are the
+% following.
+%
+% * Overshoot less than 10%
+% * Rise time less than 2 seconds
+% * Settling time less than 10 seconds
+% * Steady-state error less than 2% 
+%
+%% Open-loop response
+% Let's first begin by examining the behavior of the open-loop plant.
+% Specifically, create a new < ?aux=Extras_Mfile
+% m-file>, and enter the following commands. Note the scaling of the step response
+% by 0.2 to account for the fact that the input is a step of 0.2 radians
+% (11 degrees). Running this m-file in the MATLAB command window should
+% give you the step response plot shown below.   
+
+t = [0:0.01:10];
+s = tf('s');
+P_pitch = (1.151*s + 0.1774)/(s^3 + 0.739*s^2 + 0.921*s);
+step(0.2*P_pitch,t);
+axis([0 10 0 0.8]);
+ylabel('pitch angle (rad)');
+title('Open-loop Step Response');
+grid
+
+%%
+% Examination of the above plot indicates that the open-loop system is
+% unstable for a step input, that is, its output grows unbounded when given
+% a step input. This is due to the fact that the transfer function has a
+% pole at the origin. 
+%% Closed-loop response
+% Let's now close the loop on our plant and see if that stabilizes the
+% system. Consider the following unity feedback architecture for our
+% system.
+%
+% <<Content/AircraftPitch/Control/Frequency/figures/feedback_pitch2.png>>
+%
+% The following code entered in the MATLAB command window generates the
+% closed-loop transfer function assuming the unity-feedback architecture
+% above and a unity-gain controller, _C_(_s_) = 1.
+
+sys_cl = feedback(P_pitch,1)
+
+%%
+% Examining the poles of this transfer function using the |pole| command as
+% shown below, it can be seen that this closed-loop system is indeed stable
+% since all of the poles have negative real part.
+ 
+pole(sys_cl)
+
+%%
+% Stability of this closed-loop system can also be determined using the
+% frequency response of the open-loop system. The |margin| command
+% generates the Bode plot for the given transfer function with
+% annotations for the gain margin and phase margin of the
+% system when the loop is closed as demonstrated below.
+
+margin(P_pitch), grid
+
+%%
+% Examination of the above demonstrates that the closed-loop system is
+% indeed stable since the phase margin and gain margin are both positive.
+% Specifically, the phase margin equals 46.9 degrees and the gain margin is
+% infinite. It is good that this closed-loop system is stable, but does
+% it meet our requirements? Add the following code to your m-file and
+% re-run and you will generate the step response plot shown below.
+
+sys_cl = feedback(P_pitch,1);
+step(0.2*sys_cl), grid
+ylabel('pitch angle (rad)');
+title('Closed-loop Step Response')
+
+%%
+% Examination of the above demonstrates that the settle time requirement of 10
+% seconds is not close to being met. One way to address this is to make the
+% system response faster, but then the overshoot shown above will likely
+% become a problem. Therefore, the overshoot must be reduced in conjunction
+% with making the system response faster. We can accomplish these goals by
+% adding a compensator to reshape the Bode plot of the open-loop system.
+% The Bode plot of the open-loop system indicates behavior of the
+% closed-loop system. More specifically,
+%
+% * the gain crossover frequency is directly related to the closed-loop system's speed of
+% response, and
+% * the phase margin is inversely related to the closed-loop system's
+% overshoot.
+%
+% Therefore, we need to add a compensator that will increase the gain
+% crossover frequency and increase the phase margin as indicated in the
+% Bode plot of the open-loop system.
+%% Lead compensator
+% A type of compensator that can accomplish both of our goals is a lead
+% compensator. Referring to the < ?aux=Extras_Leadlag Lead and Lag Compensators> 
+% page, a lead compensator adds positive phase to the
+% system. Additional positive phase increases the phase margin, thus,
+% increasing the damping. The lead compensator also generally increases the
+% magnitude of the open-loop frequency response at higher frequencies,
+% thereby, increasing the gain crossover frequency and overall speed of the
+% system. Therefore, the settling time should decrease as a result of the
+% addition of a lead compensator. The general form of the transfer function of a
+% lead compensator is the following. 
+%
+% $$ C(s)=K \frac{Ts + 1}{\alpha Ts+1} \ \ \ (\alpha < 1) $$ 
+%
+% We thus need to find $\alpha$, $T$ and $K$. Typically, the gain $K$ is
+% set to satisfy requirements on steady-state error. Since our system is
+% already type 1 (the plant has an integrator) the steady-state error for a
+% step input will be zero for any value of $K$. Even though the
+% steady-state error is zero, the slow tail on the response can be
+% attributed to the fact the velocity-error constant is too small. This
+% deficiency can be addressed by employing a value of $K$ that is greater
+% than 1, in other words, a value of $K$ that will shift the magnitude plot
+% upward. Through some trial and error, we will somewhat arbitrarily choose
+% $K$ = 10. Running the following code in the MATLAB window will
+% demonstrate the effect of adding this $K$.
+
+K = 10;
+margin(K*P_pitch), grid
+figure;
+sys_cl = feedback(K*P_pitch,1);
+step(0.2*sys_cl), grid
+title('Closed-loop Step Response with K = 10')
+
+%%
+% From examination of the above Bode plot, we have increased the system's
+% magnitude at all frequencies and have pushed the gain crossover frequency
+% higher. The effect of these changes are evident in the closed-loop step
+% response shown above. Unfortunately, the addition of the $K$ has also
+% reduced the system's phase margin as evidenced by the increased overshoot
+% in the system's step response. As mentioned previously, the lead
+% compensator will help add damping to the system in order to reduce the
+% overshoot in the step response.
+%
+% Continuing with the design of our compensator, we will next address the
+% parameter $\alpha$ which is defined as the ratio between the zero and pole. The larger the
+% separation between the zero and the pole the greater the bump in phase
+% where the maximum amount of phase that can be added with a single pole-zero
+% pair is 90 degrees. The following equation captures the maximum phase
+% added by a lead compensator as a function of $\alpha$.
+%
+% $$ \sin(\phi_m)=\frac{1 - \alpha}{1 + \alpha} $$
+%
+% Relationships between the time response and frequency response of a
+% standard underdamped second-order system can be derived. One such
+% relationship that is a good approximation for damping ratios less than
+% approximately 0.6 or 0.7 is the following.
+%
+% $$ \zeta \approx \frac{PM (degrees)}{100^{\circ}} $$
+%
+% While our system does not have the form of a standard second-order
+% system, we can use the above relationship as a starting point in our
+% design. As we are required to have overshoot less than 10%, we need
+% our damping ratio $\zeta$ to be approximately larger than 0.59 and thus
+% need a phase margin greater than about 59 degrees. Since our
+% current phase margin (with the addition of $K$) is approximately 10.4
+% degrees, an additional 50 degrees of phase bump from the lead compensator
+% should be sufficient. Since it is known that the lead compensator will
+% further increase the magnitude of the frequency response, we will need to add
+% more than 50 degrees of phase lead to account for the fact that the gain
+% crossover frequency will increase to a point where the system has more
+% phase lag. We will somewhat arbitrarily add 5 degrees and aim for a
+% total bump in phase of 50+5 = 55 degrees. 
+%
+% We can then use this number to solve the above relationship for $\alpha$ as shown below. 
+%
+% $$ \alpha = \frac{1 - \sin(55^{\circ})}{1 + \sin(55^{\circ})} \approx 0.10 $$ 
+%
+% From the above, we can calculate that $\alpha$ must be less than
+% approximately 0.10. For this value of $\alpha$, the following
+% relationship can be used to determine the amount of magnitude increase
+% that will be supplied by the lead compensator at the location of the
+% maximum bump in phase.
+%
+% $$ 20 \log \left( \frac{1}{\sqrt{\alpha}} \right) \approx 20 \log \left( \frac{1}{\sqrt{0.10}} \right) \approx 10\ \mathrm{dB} $$
+% 
+% Examining the Bode plot shown above, the magnitude of the uncompensated
+% system equals -10 dB at approximately 6.1 rad/sec. Therefore, the
+% addition of our lead compensator will move the gain crossover frequency
+% from 3.49 rad/sec to approximately 6.1 rad/sec. Using this information,
+% we can then calculate a value of $T$ from the following in order to
+% center the maximum bump in phase at the new gain crossover frequency in
+% order to maximize the system's resulting phase margin.
+%
+% $$ \omega_m = \frac{1}{T \sqrt{\alpha}} \Rightarrow T = \frac{1}{6.1\sqrt{.10}} \approx 0.52 $$
+%
+% With the values $K$ = 10, $\alpha$ = 0.10, and $T$ = 0.52 calculated above, we
+% now have a first attempt at our lead compensator. Adding the following
+% lines to your m-file and running at the command line will generate the
+% plot shown below demonstrating the effect of your lead compensator on the
+% system's frequency response. 
+
+K = 10;
+alpha = 0.10;
+T = 0.52;
+C_lead = K*(T*s + 1) / (alpha*T*s + 1);
+margin(C_lead*P_pitch), grid
+
+%%
+% Examination of the above demonstrates that the lead compensator increased
+% the system's phase margin and gain crossover frequency as desired. We
+% now need to look at the actual closed-loop step response in order to
+% determine if we are close to meeting our requirements. Replace the step
+% response code in your m-file with the following and re-run in the MATLAB
+% command window.
+
+sys_cl = feedback(C_lead*P_pitch,1);
+step(0.2*sys_cl), grid
+title('Closed-loop Step Response with K = 10, \alpha = 0.10, and T = 0.52')
+
+%%
+% Examination of the above demonstrates that we are close to
+% meeting our requirements. Using the MATLAB command |stepinfo| as shown
+% below we can see precisely the characteristics of the closed-loop step
+% response.  
+
+stepinfo(0.2*sys_cl)
+
+%%
+% From the above, all of our requirements are met except for the overshoot
+% which is a bit larger than the requirement of 10%. Iterating on the above
+% design process, we arrive at the parameters $K$ = 10, $\alpha$ = 0.04, and
+% $T$ = 0.55. The performance achieved with this controller can then be
+% verified by modifying the code in your m-file as follows.
+
+K = 10;
+alpha = 0.04;
+T = 0.55;
+C_lead = K*(T*s + 1) / (alpha*T*s + 1);
+sys_cl = feedback(C_lead*P_pitch,1);
+step(0.2*sys_cl), grid
+title('Closed-loop Step Response with K = 10, \alpha = 0.04, and T = 0.55')
+
+%%
+% Examination of the above step response demonstrates that the requirements
+% are now met. Using the |stepinfo| command again more clearly demonstrates
+% that the requirements are met. 
+
+stepinfo(0.2*sys_cl)
+
+%%
+% Therefore, the following lead compensator is able to satisfy all of our
+% design requirements.
+%
+% $$ C(s)=10 \frac{0.55s + 1}{0.022s+1} $$ 
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=AircraftPitch&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=AircraftPitch&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=AircraftPitch&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=AircraftPitch&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=AircraftPitch&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=AircraftPitch&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=AircraftPitch&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=AircraftPitch&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=AircraftPitch&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=AircraftPitch&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

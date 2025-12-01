@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: CruiseControl	section: SystemModeling	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "CruiseControl";
+			var section = "SystemModeling";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=CruiseControl&section=SystemAnalysis";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Cruise Control: System Modeling</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#a6e5c9c8d2d4c9caf2d3d2c9d4cfc7cad5ebc7d2cac7c4f5cfcbd3cacfc8cde6c1cbc7cfca88c5c9cb">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=CruiseControl&section=SystemAnalysis">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SystemModeling"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SystemModeling"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SystemModeling"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SystemModeling"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SystemModeling"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SystemModeling"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SystemModeling"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SystemModeling"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+    <div class="introduction">
+      <h1>Cruise Control: System Modeling</h1>
+      <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/ss.html"><tt>ss</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a></p>
+      </div>
+	  <div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+        <li><a href="?example=Introduction&section=SystemModeling">Intro to Modeling</a></li>
+		<li><a href="?aux=Activities_Pendulum">Mech System Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+		<li><a href="https://www.mathworks.com/academia/student_center/tutorials/source/controls/System_Representation/player.html">System Rep in MATLAB Video</a></li>
+		<li><a href="https://www.mathworks.com/videos/understanding-control-systems-part-3-components-of-a-feedback-control-system-123645.html">Cruise Control Video</a></li>
+		<li><a href="https://www.youtube.com/watch?v=vwso-xHLNGc">Modeling Intro Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+	  <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Physical setup</a></li>
+            <li><a href="#2">System equations</a></li>
+            <li><a href="#3">System parameters</a></li>
+            <li><a href="#4">State-space model</a></li>
+            <li><a href="#6">Transfer function model</a></li>
+         </ul>
+      </div>
+      <h2>Physical setup<a name="1"></a></h2>
+      <p>Automatic <b>cruise control</b> is an excellent example of a feedback control system found in many modern vehicles. The purpose of the cruise control system
+         is to maintain a constant vehicle speed despite external <b>disturbances</b>, such as changes in wind or road grade. This is accomplished by measuring the vehicle speed, comparing it to the desired
+         or <b>reference</b> speed, and automatically adjusting the throttle according to a <b>control law</b>.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/System/Modeling/figures/cruise_control_schematic.png" alt=""> </p>
+      <p>We consider here a simple model of the vehicle dynamics, shown in the free-body diagram (FBD) above.  The vehicle, of mass
+         m, is acted on by a control force, u. The force u represents the force generated at the road/tire interface. For this simplified
+         model we will assume that we can control this force directly and will neglect the dynamics of the powertrain, tires, etc.,
+         that go into generating the force. The resistive forces, bv, due to rolling resistance and wind drag, are assumed to vary
+         linearly with the vehicle velocity, v, and act in the direction opposite the vehicle's motion.
+      </p>
+      <h2>System equations<a name="2"></a></h2>
+      <p>With these assumptions we are left with a <a href="?example=Introduction&amp;section=SystemAnalysis#8">first-order</a> mass-damper system. Summing forces in the x-direction and applying Newton's 2nd law, we arrive at the following system equation:
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/CruiseControl/System/Modeling/html/CruiseControl_SystemModeling_eq01136295513565711013.png" alt="$$&#xA;m \dot{v} + b v = u&#xA;$$"></p>
+      <p>Since we are interested in controlling the speed of the vehicle, the output equation is chosen as follows</p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/CruiseControl/System/Modeling/html/CruiseControl_SystemModeling_eq09256437037951067293.png" alt="$$&#xA;y = v&#xA;$$"></p>
+      <h2>System parameters<a name="3"></a></h2>
+      <p>For this example, let's assume that the parameters of the system are:</p><pre>(m)   vehicle mass          1000 kg</pre><pre>(b)   damping coefficient   50 N.s/m</pre><h2>State-space model<a name="4"></a></h2>
+      <p>First-order systems have only a single energy storage mode, in this case the kinetic energy of the car, and therefore only
+         one state variable is needed, the velocity.  The state-space representation is therefore:
+      </p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/CruiseControl/System/Modeling/html/CruiseControl_SystemModeling_eq00849963771045727149.png" alt="$$&#xA;\dot{\mathbf{x}}=[\dot{v}]=\left[\frac{-b}{m}\right][v]+\left[\frac{1}{m}\right][u]&#xA;$$"></p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/CruiseControl/System/Modeling/html/CruiseControl_SystemModeling_eq09072518588079279466.png" alt="$$&#xA;y=[1][v]&#xA;$$"></p>
+      <p>We enter this state-space model into MATLAB using the following commands:</p><pre class="codeinput">m = 1000;
+b = 50;
+
+A = -b/m;
+B = 1/m;
+C = 1;
+D = 0;
+
+cruise_ss = ss(A,B,C,D);
+</pre><h2>Transfer function model<a name="6"></a></h2>
+      <p>Taking the Laplace transform of the governing differential equation and assuming zero initial conditions, we find the transfer
+         function of the cruise control system to be:
+      </p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/CruiseControl/System/Modeling/html/CruiseControl_SystemModeling_eq12436895136833143878.png" alt="$$&#xA;P(s) = \frac{V(s)}{U(s)} = \frac{1}{ms+b}  \qquad  [ \frac{m/s}{N} ]&#xA;$$"></p>
+      <p>We enter the transfer function model into MATLAB using the following commands:</p><pre class="codeinput">s = tf(<span class="string">'s'</span>);
+P_cruise = 1/(m*s+b);
+</pre><p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Cruise Control: System Modeling
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/ss.html |ss|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|>
+%
+%% Physical setup
+%
+% Automatic *cruise control* is an excellent example of a feedback control 
+% system found in many modern vehicles. The purpose of the cruise control 
+% system is to maintain a constant vehicle speed despite external *disturbances*, 
+% such as changes in wind or road grade. This is accomplished by 
+% measuring the vehicle speed, comparing it to the desired or *reference* speed, 
+% and automatically adjusting the throttle according to a *control law*.
+%
+% <<Content/CruiseControl/System/Modeling/figures/cruise_control_schematic.png>>
+%
+% We consider here a simple model of the vehicle dynamics, shown in the
+% free-body diagram (FBD) above.  The vehicle, of mass m, is acted on by a
+% control force, u. The force u represents the force generated at the
+% road/tire interface. For this simplified model we will assume that we can
+% control this force directly and will neglect the dynamics of the
+% powertrain, tires, etc., that go into generating the force. The resistive 
+% forces, bv, due to rolling resistance and wind 
+% drag, are assumed to vary linearly with the vehicle velocity, v, and act 
+% in the direction opposite the vehicle's motion.  
+%% System equations
+%
+% With these assumptions we are left with a
+% < ?example=Introduction&section=SystemAnalysis#8 first-order>
+% mass-damper system. Summing forces in the x-direction and applying Newton's 2nd law, we
+% arrive at the following system equation:
+%
+% $$
+% m \dot{v} + b v = u 
+% $$
+%
+% Since we are interested in controlling the speed of the vehicle, the output 
+% equation is chosen as follows
+%
+% $$ 
+% y = v
+% $$
+%
+%% System parameters
+%
+% For this example, let's assume that the parameters of the system are:
+%  
+%  (m)   vehicle mass          1000 kg
+%
+%  (b)   damping coefficient   50 N.s/m
+%
+%% State-space model
+%
+% First-order systems have only a single energy storage mode, in this case the
+% kinetic energy of the car, and therefore only one state variable is
+% needed, the velocity.  The state-space representation is therefore:
+%
+% $$
+% \dot{\mathbf{x}}=[\dot{v}]=\left[\frac{-b}{m}\right][v]+\left[\frac{1}{m}\right][u]
+% $$
+%
+% $$
+% y=[1][v]
+% $$
+%
+% We enter this state-space model into MATLAB using the following
+% commands:
+%
+%%
+
+m = 1000;
+b = 50;
+
+A = -b/m;
+B = 1/m;
+C = 1;
+D = 0;
+
+cruise_ss = ss(A,B,C,D);
+
+%% Transfer function model
+%
+% Taking the Laplace transform of the governing differential equation and
+% assuming zero initial conditions, we find the transfer function of the
+% cruise control system to be:
+%
+% $$
+% P(s) = \frac{V(s)}{U(s)} = \frac{1}{ms+b}  \qquad  [ \frac{m/s}{N} ]
+% $$
+%
+% We enter the transfer function model into MATLAB using the following
+% commands:
+%
+%%
+
+s = tf('s');
+P_cruise = 1/(m*s+b);
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=CruiseControl&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=CruiseControl&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=CruiseControl&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=CruiseControl&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=CruiseControl&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=CruiseControl&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=CruiseControl&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=CruiseControl&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=CruiseControl&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=CruiseControl&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

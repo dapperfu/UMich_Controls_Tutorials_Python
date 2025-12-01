@@ -1,0 +1,395 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: 	section: 	aux: Index_Commands	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "";
+			var section = "";
+			var aux = "Index_Commands";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?aux=Index_Animations";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Index: MATLAB Commands List</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#2d6e4243595f4241795859425f444c415e604c59414c4f7e444058414443466d4a404c4441034e4240">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?aux=Index_Animations">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SystemModeling"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SystemModeling"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SystemModeling"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SystemModeling"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SystemModeling"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SystemModeling"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SystemModeling"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SystemModeling"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+      <h1>Index: MATLAB Commands List</h1>
+      <p>Following is a list of commands used in the Control Tutorials for MATLAB and Simulink. Use <tt>help</tt> in MATLAB for more information on how to use any of these commands.
+      </p>
+      <p>In these tutorials, we use commands/functions from MATLAB, from the Control Systems Toolbox, as well as some functions which
+         we wrote ourselves. For those functions which are not standard in MATLAB, we give links to their descriptions. For more information
+         on writing MATLAB functions, see the function page.
+      </p>
+      <p>
+         <table style='border: none;'>
+         <tr style='background-color:#EEEEEE'><td><b>Command</b></td><td><b>Description</b></td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>abs</b></td><td>Absolute value</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>acker</b></td><td>Compute the K matrix to place the poles of A-BK, see also place</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>axis</b></td><td>Set the scale of the current plot, see also plot, figure</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>bode</b></td><td>Draw the Bode plot, see also logspace, margin, nyquist1</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>c2d</b></td><td>Continuous system to discrete system</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>clf</b></td><td>Clear figure </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>conv</b></td><td>Convolution (useful for multiplying polynomials), see also deconv</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>ctrb</b></td><td>The controllability matrix, see also obsv</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>deconv</b></td><td>Deconvolution and polynomial division, see also conv</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>det</b></td><td>Find the determinant of a matrix</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>dlqr</b></td><td>Linear-quadratic regulator design for discrete-time systems,
+         see also lqr</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>eig</b></td><td>Compute the eigenvalues of a matrix</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>eps</b></td><td>MATLAB's numerical tolerance</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>feedback</b></td><td>Connect linear systems in a feedback loop </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>figure</b></td><td>Create a new figure or redefine the current figure, see also
+         subplot, axis</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>for</b></td><td>For loop</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>format</b></td><td>Number format (significant digits, exponents)</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>function</b></td><td>Creates function m-files</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>grid</b></td><td>Draw the grid lines on the current plot </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>gtext</b></td><td>Add a piece of text to the current plot, see also text</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>help</b></td><td>Matlab help documentation</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>hold</b></td><td>Hold the current graph, see also figure </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>if</b></td><td>Conditionally execute statements</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>imag</b></td><td>Returns the imaginary part of a complex number, see also real</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>impulse</b></td><td>Impulse response of linear systems, see also step, lsim </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>input</b></td><td>Prompt for user input</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>inv</b></td><td>Find the inverse of a matrix</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>legend</b></td><td>Graph legend</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>length</b></td><td>Length of a vector, see also size </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>linspace</b></td><td>Returns a linearly spaced vector</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>lnyquist</b></td><td>Produce a Nyquist plot on a logarithmic scale, see also nyquist1</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>log</b></td><td>Natural logarithm, also log10: common logarithm </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>loglog</b></td><td>Plot using log-log scale, also semilogx/semilogy </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>logspace</b></td><td>Returns a logarithmically spaced vector</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>lqr</b></td><td>Linear quadratic regulator design for continuous systems, see
+         also dlqr</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>lsim</b></td><td>Simulate a linear system, see also step, impulse</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>margin</b></td><td>Returns the gain margin, phase margin, and crossover frequencies,
+         see also bode</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>minreal</b></td><td>Produces a minimal realization of a system (forces pole/zero
+         cancellations) </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>norm</b></td><td>Norm of a vector</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>nyquist1</b></td><td>Draw the Nyquist plot, see also lnyquist. Note this command
+         was written to replace the MATLAB standard command nyquist to get more accurate Nyquist plots.</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>obsv</b></td><td>The observability matrix, see also ctrb</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>ones</b></td><td>Returns a vector or matrix of ones, see also zeros</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>place</b></td><td>Compute the K matrix to place the poles of A-BK, see also acker</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>plot</b></td><td>Draw a plot, see also figure, axis, subplot.</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>poly</b></td><td>Returns the characteristic polynomial </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>polyval</b></td><td>Polynomial evaluation </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>print</b></td><td>Print the current plot (to a printer or postscript file)</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>pzmap</b></td><td>Pole-zero map of linear systems</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>rank</b></td><td>Find the number of linearly independent rows or columns of a
+         matrix </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>real</b></td><td>Returns the real part of a complex number, see also imag</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>rlocfind</b></td><td>Find the value of k and the poles at the selected point</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>rlocus</b></td><td>Draw the root locus</td></tr
+         <tr><td style='background-color:#EEEEEE'><b>roots</b></td><td>Find the roots of a polynomial</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>rscale</b></td><td>Find the scale factor for a full-state feedback system</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>set</b></td><td>Set(gca,'Xtick',xticks,'Ytick',yticks) to control the number and
+         spacing of tick marks on the axes</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>sgrid</b></td><td>Generate grid lines of constant damping ratio (zeta) and natural
+         frequency (Wn), see also sigrid, zgrid</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>size</b></td><td>Gives the dimension of a vector or matrix, see also length</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>sqrt</b></td><td>Square root</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>ss</b></td><td>Create state-space models or convert LTI model to state space,
+         see also tf</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>ssdata</b></td><td>Access to state-space data. See also tfdata</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>stairs</b></td><td>Stairstep plot for discrete response </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>step</b></td><td>Plot the step response, see also impulse, lsim </td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>subplot</b></td><td>Divide the plot window up into pieces, see also plot, figure</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>text</b></td><td>Add a piece of text to the current plot, see also title, xlabel,
+         ylabel, gtext</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>tf</b></td><td>Creation of transfer functions or conversion to transfer function,
+         see also ss</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>tfdata</b></td><td>Access to transfer function data, see also ssdata</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>title</b></td><td>Add a title to the current plot</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>wbw</b></td><td>Returns the bandwidth frequency given the damping ratio and the
+         rise or settling time.</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>xlabel/ylabel</b></td><td>Add a label to the horizontal/vertical axis of the current
+         plot, see also title, text, gtext</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>zeros</b></td><td>Returns a vector or matrix of zeros</td></tr>
+         <tr><td style='background-color:#EEEEEE'><b>zgrid</b></td><td>Generates grid lines of constant damping ratio (zeta) and natural
+         frequency (Wn), see also sgrid, sigrid </td></tr>
+         </table>
+         
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 8.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Index: MATLAB Commands List
+%
+% Following is a list of commands used in the Control Tutorials for MATLAB and 
+% Simulink. Use |help| in MATLAB for more information on how to use any of these commands.
+%
+% In these tutorials, we use commands/functions from MATLAB, from the Control
+% Systems Toolbox, as well as some functions which we wrote ourselves. 
+% For those functions which are not standard in MATLAB, we give links 
+% to their descriptions. For more information on writing MATLAB functions, 
+% see the function page.
+%
+% <html>
+% <table style='border: none;'>
+% <tr style='background-color:#EEEEEE'><td><b>Command</b></td><td><b>Description</b></td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>abs</b></td><td>Absolute value</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>acker</b></td><td>Compute the K matrix to place the poles of A-BK, see also place</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>axis</b></td><td>Set the scale of the current plot, see also plot, figure</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>bode</b></td><td>Draw the Bode plot, see also logspace, margin, nyquist1</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>c2d</b></td><td>Continuous system to discrete system</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>clf</b></td><td>Clear figure </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>conv</b></td><td>Convolution (useful for multiplying polynomials), see also deconv</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>ctrb</b></td><td>The controllability matrix, see also obsv</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>deconv</b></td><td>Deconvolution and polynomial division, see also conv</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>det</b></td><td>Find the determinant of a matrix</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>dlqr</b></td><td>Linear-quadratic regulator design for discrete-time systems, see also lqr</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>eig</b></td><td>Compute the eigenvalues of a matrix</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>eps</b></td><td>MATLAB's numerical tolerance</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>feedback</b></td><td>Connect linear systems in a feedback loop </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>figure</b></td><td>Create a new figure or redefine the current figure, see also subplot, axis</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>for</b></td><td>For loop</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>format</b></td><td>Number format (significant digits, exponents)</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>function</b></td><td>Creates function m-files</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>grid</b></td><td>Draw the grid lines on the current plot </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>gtext</b></td><td>Add a piece of text to the current plot, see also text</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>help</b></td><td>Matlab help documentation</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>hold</b></td><td>Hold the current graph, see also figure </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>if</b></td><td>Conditionally execute statements</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>imag</b></td><td>Returns the imaginary part of a complex number, see also real</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>impulse</b></td><td>Impulse response of linear systems, see also step, lsim </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>input</b></td><td>Prompt for user input</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>inv</b></td><td>Find the inverse of a matrix</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>legend</b></td><td>Graph legend</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>length</b></td><td>Length of a vector, see also size </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>linspace</b></td><td>Returns a linearly spaced vector</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>lnyquist</b></td><td>Produce a Nyquist plot on a logarithmic scale, see also nyquist1</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>log</b></td><td>Natural logarithm, also log10: common logarithm </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>loglog</b></td><td>Plot using log-log scale, also semilogx/semilogy </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>logspace</b></td><td>Returns a logarithmically spaced vector</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>lqr</b></td><td>Linear quadratic regulator design for continuous systems, see also dlqr</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>lsim</b></td><td>Simulate a linear system, see also step, impulse</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>margin</b></td><td>Returns the gain margin, phase margin, and crossover frequencies, see also bode</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>minreal</b></td><td>Produces a minimal realization of a system (forces pole/zero cancellations) </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>norm</b></td><td>Norm of a vector</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>nyquist1</b></td><td>Draw the Nyquist plot, see also lnyquist. Note this command was written to replace the MATLAB standard command nyquist to get more accurate Nyquist plots.</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>obsv</b></td><td>The observability matrix, see also ctrb</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>ones</b></td><td>Returns a vector or matrix of ones, see also zeros</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>place</b></td><td>Compute the K matrix to place the poles of A-BK, see also acker</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>plot</b></td><td>Draw a plot, see also figure, axis, subplot.</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>poly</b></td><td>Returns the characteristic polynomial </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>polyval</b></td><td>Polynomial evaluation </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>print</b></td><td>Print the current plot (to a printer or postscript file)</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>pzmap</b></td><td>Pole-zero map of linear systems</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>rank</b></td><td>Find the number of linearly independent rows or columns of a matrix </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>real</b></td><td>Returns the real part of a complex number, see also imag</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>rlocfind</b></td><td>Find the value of k and the poles at the selected point</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>rlocus</b></td><td>Draw the root locus</td></tr
+% <tr><td style='background-color:#EEEEEE'><b>roots</b></td><td>Find the roots of a polynomial</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>rscale</b></td><td>Find the scale factor for a full-state feedback system</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>set</b></td><td>Set(gca,'Xtick',xticks,'Ytick',yticks) to control the number and spacing of tick marks on the axes</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>sgrid</b></td><td>Generate grid lines of constant damping ratio (zeta) and natural frequency (Wn), see also sigrid, zgrid</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>size</b></td><td>Gives the dimension of a vector or matrix, see also length</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>sqrt</b></td><td>Square root</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>ss</b></td><td>Create state-space models or convert LTI model to state space, see also tf</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>ssdata</b></td><td>Access to state-space data. See also tfdata</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>stairs</b></td><td>Stairstep plot for discrete response </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>step</b></td><td>Plot the step response, see also impulse, lsim </td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>subplot</b></td><td>Divide the plot window up into pieces, see also plot, figure</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>text</b></td><td>Add a piece of text to the current plot, see also title, xlabel, ylabel, gtext</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>tf</b></td><td>Creation of transfer functions or conversion to transfer function, see also ss</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>tfdata</b></td><td>Access to transfer function data, see also ssdata</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>title</b></td><td>Add a title to the current plot</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>wbw</b></td><td>Returns the bandwidth frequency given the damping ratio and the rise or settling time.</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>xlabel/ylabel</b></td><td>Add a label to the horizontal/vertical axis of the current plot, see also title, text, gtext</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>zeros</b></td><td>Returns a vector or matrix of zeros</td></tr>
+% <tr><td style='background-color:#EEEEEE'><b>zgrid</b></td><td>Generates grid lines of constant damping ratio (zeta) and natural frequency (Wn), see also sgrid, sigrid </td></tr>
+% </table>
+% </html>
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Introduction&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Introduction&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Introduction&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Introduction&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Introduction&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Introduction&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Introduction&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Introduction&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Introduction&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Introduction&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

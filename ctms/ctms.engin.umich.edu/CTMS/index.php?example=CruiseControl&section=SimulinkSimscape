@@ -1,0 +1,629 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: CruiseControl	section: SimulinkSimscape	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "CruiseControl";
+			var section = "SimulinkSimscape";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=MotorSpeed&section=SystemModeling";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Cruise Control: Simulink Simscape</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#6b2804051f1904073f1e1f0419020a0718260a1f070a093802061e070205002b0c060a020745080406">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=MotorSpeed&section=SystemModeling">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SimulinkSimscape"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SimulinkSimscape"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SimulinkSimscape"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SimulinkSimscape"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SimulinkSimscape"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SimulinkSimscape"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SimulinkSimscape"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SimulinkSimscape"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Cruise Control: Simscape Modeling</h1>
+      <!--introduction-->
+	  </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+		<li><a href="?aux=Basics_Simulink">Simulink Basics</a></li>
+		<li><a href="?example=Introduction&section=SimulinkModeling">Modeling w/ Simulink</a></li>
+		<li><a href="?aux=Activities_RCcircuitA">Circuit Sim Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	  	<li><a href="https://www.mathworks.com/help/physmod/sm/index.html">Simscape Multibody Intro</a></li>
+	    <li><a href="https://www.mathworks.com/videos/multibody-simulation-with-simmechanics-81877.html?s_tid=srchtitle">Simscape Multibody Video</a></li>
+		<li><a href="https://www.mathworks.com/videos/matlab-and-simulink-racing-lounge-vehicle-modeling-part-3-simscape-1506716231952.html?s_tid=srchtitle">Simscape Vehicle Modeling</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Physical setup</a></li>
+            <li><a href="#2">Create a new model</a></li>
+            <li><a href="#4">Define vehicle and degree of freedom</a></li>
+            <li><a href="#5">Create a subsystem for the vehicle</a></li>
+            <li><a href="#6">Controller design</a></li>
+            <li><a href="#7">Open-loop response</a></li>
+            <li><a href="#8">Controlled-system response</a></li>
+         </ul>
+      </div>
+      <h2>Physical setup<a name="1"></a></h2>
+      <p>In this section we alternatively show how to build the cruise control model using physical modeling blocks of Simscape Multibody.
+         The blocks in the Simscape library represent actual physical components; therefore, complex multi-body dynamic models can
+         be built without the need to build mathematical equations from physical principles as was done by applying Newton's laws in
+         <a href="?example=CruiseControl&amp;section=SimulinkModeling">Cruise Control: Simulink Modeling</a>.
+      </p>
+      <p>The following figure shows the vehicle schematic along with the forces that are acting on it.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_schematic.png" alt=""> </p><pre>The system parameters are as follows:</pre><pre>(m)    vehicle mass                         1000 kg</pre><pre>(b)    damping coefficent                   50 N.s/m</pre><pre>(u)    Force on the vehicle                 500 N</pre><pre>(r)    Desired speed                        10 m/s</pre><pre>(Kp)   Proportional control gain            800</pre><pre>(Ki)   Integral control gain                40</pre><h2>Create a new model<a name="2"></a></h2>
+      <p>Open a new Simscape Multibody model by typing <tt>smnew</tt> in the MATLAB command window. A new model, shown below, will open with a few commonly used blocks already in the model. The
+         PS-Simulink and Simulink-PS blocks define the boundary between Simulink input/output models where the blocks are evaluated
+         sequentially and Simscape models where the equations are evaluated simultaneously.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_01.png" alt=""> </p>
+      <p>To configure the basic settings in the model:</p>
+      <div>
+         <ul>
+            <li>Double-click on the Mechanism Configuration block and set <b>Gravity</b> to "[0, 0, -9.81]". This represents an acceleration due to gravity of <img class="inline_eqn" src="Content/CruiseControl/Simulink/Simscape/html/CruiseControl_SimulinkSimscape_eq12764556104877078342.png" alt="$9.81\ m/s^2$"> acting along the global -Z direction. This is good practice, but in this simulation is not essential.
+            </li>
+            <li>Open the Solver Configuration block and ensure that the <b>Use local solver</b> checkbox is not selected
+            </li>
+            <li>Type <b>CTRL-E</b> to open the <b>Configuration Parameters</b> dialog
+            </li>
+            <li>Ensure that the <b>Solver</b> uses the default "auto" setting, the <b>Type</b> is set to "Variable-step", and the <b>Stop time</b> to "120"
+            </li>
+         </ul>
+      </div>
+      <h2>Define vehicle and degree of freedom<a name="4"></a></h2>
+      <p>We will model the vehicle as a point mass moving along an axis. We use the World Frame to define the axis along which the
+         vehicle will travel.
+      </p>
+      <div>
+         <ul>
+            <li>Connect the B port of the Rigid Transform block to the W port of the World Frame</li>
+            <li>Double-click on the Rigid Transform block</li>
+            <li>In group <b>Rotation</b>, set <b>Method</b> to "Standard Axis", <b>Axis</b> to "+Y" and <b>Angle</b> to "90 deg"
+            </li>
+            <li>Rename the Rigid Transform block to "Transform Vehicle Axis"</li>
+         </ul>
+      </div>
+      <p><b>Tips for adding blocks:</b></p>
+      <div>
+         <ol>
+            <li>Use Quick Insert to add the blocks. Click in the diagram and type the name of the block (use the letters in <b>bold</b> below).  A list of blocks will appear and you can select the block you want from the list.
+            </li>
+            <li>After the block is entered, a prompt will appear for you to enter a parameter.</li>
+            <li>To rotate a block or flip blocks, right-click on the block and select the desired option from the <b>Rotate &amp; Flip</b> menu.
+            </li>
+            <li>To show the parameter below the block name, see <a href="https://www.mathworks.com/help/simulink/ug/block-properties-dialog-box.html#bvcdzkl-1">Set Block Annotation Properties</a> in the Simulink documentation.
+            </li>
+         </ol>
+      </div>
+      <p>Add the following blocks:</p>
+      <p>
+         * <b>Pris</b>matic Joint<br>
+         * <b>Step</b><br>
+         
+      </p>
+      <p>The Prismatic Joint allows only one translational degree of freedom. The Prismatic Joint will be actuated by a force input.</p>
+      <div>
+         <ul>
+            <li>Double-click on the Prismatic Joint to open the dialog box</li>
+            <li>In group <b>Internal Mechanics</b>, set <b>Damping Coefficient</b> to "50 N/(m/s)"
+            </li>
+            <li>Under group <b>Actuation</b>, set the <b>Force</b> to "Provided by Input"
+            </li>
+            <li>In group <b>Sensing</b>, select <b>Position</b> and <b>Velocity</b></li>
+            <li>Rename the Prismatic Joint to "Prismatic Vehicle"</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_01a_prismatic_vehicle.png" alt=""> </p>
+      <p>The Prismatic Joint then needs to be connected to the rest of the model.</p>
+      <div>
+         <ul>
+            <li>Connect the B port of Prismatic Vehicle to the F port of block Transform Vehicle Axis</li>
+            <li>Connect the F port of Prismatic Vehicle to the R port of the Solid block</li>
+            <li>Rename the Step block to "Force" and connect the output to the Simulink-PS Converter block that is already in the diagram</li>
+            <li>Connect the output of the Simulink-PS Converter block to the force input of Prismatic Vehicle</li>
+            <li>Double-click on the Simulink-PS Converter block and set <b>Input signal unit</b> to "N" for Newtons
+            </li>
+            <li>Make a copy of the PS-Simulink block</li>
+            <li>Double-click on one PS-Simulink block and set <b>Output signal unit</b> to "m", and connect that block to the p port of the Prismatic Vehicle block
+            </li>
+            <li>Double-click on the other PS-Simulink block, set the <b>Output signal unit</b> to "m/s" and connect it to the v port of the Prismatic Vehicle block
+            </li>
+            <li>Connect both PS-Simulink blocks to the Scope</li>
+         </ul>
+      </div>
+      <p>Since we are modeling the vehicle as a point mass, only the vehicle mass will affect the simulation results.</p>
+      <div>
+         <ul>
+            <li>Double-click on the Solid block</li>
+            <li>Set parameter <b>Dimensions</b> to "[0.2,0.2,0.4]" so that the longest dimension points along the direction of travel
+            </li>
+            <li>In group <b>Inertia</b>, set <b>Type</b> to "Point Mass" and <b>Mass</b> to "1000 kg"
+            </li>
+            <li>Rename the block to "Vehicle"</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_01b_vehicle.png" alt=""> </p>
+      <p>Your model should now appear as follows.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_02.png" alt=""> </p>
+      <p>Then run the simulation (type <b>CTRL-T</b> or press the green arrow run button). The plot shows both the distance traveled by the vehicle and its speed.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_03.png" alt=""> </p>
+      <h2>Create a subsystem for the vehicle<a name="5"></a></h2>
+      <p>We will put everything except the Force input and the Scope into a subsystem.</p>
+      <div>
+         <ul>
+            <li>Click once in the diagram (but not on a block) and press <b>CTRL-A</b> to select all blocks
+            </li>
+            <li>Hold the <b>Shift</b> key and click on the Force block and Scope to unselect those blocks
+            </li>
+            <li>Press <b>CTRL-G</b> to create a subsystem
+            </li>
+            <li>Rename the subsystem "Vehicle Subsystem"</li>
+            <li>Double-click on the subsystem to enter it</li>
+            <li>Rename the input port "Force" and the output ports "Position" and "Speed"</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_04.png" alt=""> </p>
+      <h2>Controller design<a name="6"></a></h2>
+      <p>Design a control loop for this model to simulate the cruise control system. The control task is to ensure the vehicle travels
+         at a constant speed.
+      </p>
+      <p>Add the following Simulink blocks:</p>
+      <div>
+         <ul>
+            <li>Step (you can copy/paste the Force block)</li>
+            <li>Subtract</li>
+            <li>PID Controller</li>
+            <li>Manual Switch</li>
+            <li>Scope</li>
+         </ul>
+      </div>
+      <p>The switch lets you configure the model for closed-loop and open-loop operation.  The goal of the controller is to hold the
+         speed steady at 10 m/s.
+      </p>
+      <div>
+         <ul>
+            <li>Rename the new Step block "Desired Speed"</li>
+            <li>Set the <b>Step time</b> to "0", <b>Initial value</b> to "0" and <b>Final value</b> to "10"
+            </li>
+            <li>Open the PID Controller and choose the option to make it a PI controller</li>
+            <li>Set the <b>Proportional (P)</b> gain to "800" and the <b>Integral (I)</b> gain to "40"
+            </li>
+         </ul>
+      </div>
+      <p>To close the loop:</p>
+      <div>
+         <ul>
+            <li>Connect the Desired Speed output to the + port of the Subtract block</li>
+            <li>Connect the Speed output of Vehicle Subsystem to the - port of the Subtract block</li>
+            <li>Connect the output of the Subtract block to the PI controller</li>
+            <li>Connect the output of the PI block to one of the inputs of the manual switch</li>
+            <li>Connect the Force (step input) to the other input of the switch</li>
+            <li>Connect the switch output to the Force input of Vehicle Subsystem</li>
+            <li>Connect the new Scope to the Position output and rename the Scope "Vehicle Position"</li>
+            <li>Connect the Speed output and Desired Speed output to the original scope and rename it "Vehicle Speed"</li>
+         </ul>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_05.png" alt=""> </p>
+      <h2>Open-loop response<a name="7"></a></h2>
+      <p>Double-click on the switch until the Force block is the selected input.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_06.png" alt=""> </p>
+      <p>Run a simulation (type <b>CTRL-T</b> or press the green arrow run button).  The vehicle speed rises from zero and eventually reaches a steady speed of 10 m/s.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_07.png" alt=""> </p>
+      <h2>Controlled-system response<a name="8"></a></h2>
+      <p>With the switch connected to the PI output, run the simulation (type <b>CTRL-T</b> or press the green arrow run button). The plot shows the controlled response of the system.  The steady-state speed of 10
+         m/s is reached in a few seconds.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Simulink/Simscape/figures/cruise_control_09.png" alt=""> </p>
+      <p>You can download the final Simscape model created here by right-clicking <a href="Content/CruiseControl/Simulink/Simscape/cruise_control_05.slx">here</a> and then selecting <b>Save link as ...</b>.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.7<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Cruise Control: Simscape Modeling
+
+%% Physical setup
+%
+% In this section we alternatively show how to build the cruise control
+% model using physical modeling blocks of Simscape Multibody.  The
+% blocks in the Simscape library represent actual physical components;
+% therefore, complex multi-body dynamic models can be built without the
+% need to build mathematical equations from physical principles as was done
+% by applying Newton's laws in
+% < ?example=CruiseControl&section=SimulinkModeling Cruise Control: Simulink Modeling >. 
+%
+% The following figure shows the vehicle schematic along with the forces that are 
+% acting on it.
+%
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_schematic.png>>
+%
+%  The system parameters are as follows:                          
+%
+%  (m)    vehicle mass                         1000 kg
+%
+%  (b)    damping coefficent                   50 N.s/m
+%
+%  (u)    Force on the vehicle                 500 N
+% 
+%  (r)    Desired speed                        10 m/s
+% 
+%  (Kp)   Proportional control gain            800
+% 
+%  (Ki)   Integral control gain                40
+
+%% Create a new model
+%
+% Open a new Simscape Multibody model by typing |smnew| in the MATLAB 
+% command window. A new model, shown below, will open with a few commonly used blocks 
+% already in the model. The PS-Simulink and Simulink-PS blocks define the
+% boundary between Simulink input/output models where the blocks are
+% evaluated sequentially and Simscape models where the equations are
+% evaluated simultaneously.   
+%
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_01.png>>
+%
+%%
+% To configure the basic settings in the model:
+% 
+% * Double-click on the Mechanism Configuration block and set *Gravity* to
+% "[0, 0, -9.81]". This represents an acceleration due to gravity of $9.81\
+% m/s^2$ acting along the global -Z 
+% direction. This is good practice, but in this simulation is not essential.  
+% * Open the Solver Configuration block and ensure that the *Use local
+% solver* checkbox is not selected 
+% * Type *CTRL-E* to open the *Configuration Parameters* dialog
+% * Ensure that the *Solver* uses the default "auto" setting, the *Type* is
+% set to "Variable-step", and the *Stop time* to "120"
+%
+%% Define vehicle and degree of freedom
+% 
+% We will model the vehicle as a point mass moving along an axis. We use
+% the World Frame to define the axis along which the vehicle will travel.
+%
+% * Connect the B port of the Rigid Transform block to the W port of the World Frame 
+% * Double-click on the Rigid Transform block
+% * In group *Rotation*, set *Method* to "Standard Axis", *Axis* to "+Y" and
+% *Angle* to "90 deg"
+% * Rename the Rigid Transform block to "Transform Vehicle Axis" 
+%  
+% *Tips for adding blocks:* 
+%
+% # Use Quick Insert to add the blocks. Click in the diagram and type the
+% name of the block (use the letters in *bold* below).  A list of
+% blocks will appear and you can select the block you want from the list.
+% # After the block is entered, a prompt will appear for you to enter a
+% parameter.
+% # To rotate a block or flip blocks, right-click on the block and select
+% the desired option from the *Rotate & Flip* menu.
+% # To show the parameter below the block name, see
+% <https://www.mathworks.com/help/simulink/ug/block-properties-dialog-box.html#bvcdzkl-1
+% Set Block Annotation Properties> in the Simulink documentation.
+% 
+% Add the following blocks:
+% 
+% <html>
+% * <b>Pris</b>matic Joint<br>
+% * <b>Step</b><br>
+% </html>
+%
+% The Prismatic Joint allows only one translational degree of freedom. The
+% Prismatic Joint will be actuated by a force input. 
+% 
+% * Double-click on the Prismatic Joint to open the dialog box
+% * In group *Internal Mechanics*, set *Damping Coefficient* to "50
+% N/(m/s)"
+% * Under group *Actuation*, set the *Force* to "Provided by Input"
+% * In group *Sensing*, select *Position* and *Velocity* 
+% * Rename the Prismatic Joint to "Prismatic Vehicle"
+% 
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_01a_prismatic_vehicle.png>>
+%
+% The Prismatic Joint then needs to be connected to the rest of the model.
+%
+% * Connect the B port of Prismatic Vehicle to the F port of block
+% Transform Vehicle Axis
+% * Connect the F port of Prismatic Vehicle to the R port of the Solid
+% block
+% * Rename the Step block to "Force" and connect the output 
+% to the Simulink-PS Converter block that is already in the diagram 
+% * Connect the output of the Simulink-PS Converter block to the force
+% input of Prismatic Vehicle 
+% * Double-click on the Simulink-PS Converter block and set *Input signal
+% unit* to "N" for Newtons 
+% * Make a copy of the PS-Simulink block 
+% * Double-click on one PS-Simulink block and set *Output signal unit* to
+% "m", and connect that block to the p port of the Prismatic Vehicle block  
+% * Double-click on the other PS-Simulink block, set the *Output signal
+% unit* to "m/s" and connect it to the v port of the Prismatic Vehicle block 
+% * Connect both PS-Simulink blocks to the Scope
+% 
+% Since we are modeling the vehicle as a point mass, only the vehicle mass
+% will affect the simulation results. 
+%
+% * Double-click on the Solid block
+% * Set parameter *Dimensions* to "[0.2,0.2,0.4]" so that the longest dimension
+% points along the direction of travel
+% * In group *Inertia*, set *Type* to "Point Mass" and *Mass* to "1000 kg"
+% * Rename the block to "Vehicle"
+%
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_01b_vehicle.png>>
+%
+% Your model should now appear as follows.
+% 
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_02.png>>
+% 
+% Then run the simulation (type *CTRL-T* or press the green arrow run button). The
+% plot shows both the distance traveled by the vehicle and its speed.
+% 
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_03.png>>
+% 
+%% Create a subsystem for the vehicle
+%   
+% We will put everything except the Force input and the Scope into a
+% subsystem. 
+%
+% * Click once in the diagram (but not on a block) and press *CTRL-A* to
+% select all blocks
+% * Hold the *Shift* key and click on the Force block and Scope to unselect
+% those blocks
+% * Press *CTRL-G* to create a subsystem
+% * Rename the subsystem "Vehicle Subsystem"
+% * Double-click on the subsystem to enter it  
+% * Rename the input port "Force" and the output ports "Position" and "Speed"
+% 
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_04.png>>
+%
+%% Controller design
+% 
+% Design a control loop for this model to simulate the cruise control system.   
+% The control task is to ensure the vehicle travels at a constant 
+% speed.
+% 
+% Add the following Simulink blocks:
+% 
+% * Step (you can copy/paste the Force block)
+% * Subtract
+% * PID Controller
+% * Manual Switch
+% * Scope
+%  
+% The switch lets you configure the model for closed-loop and open-loop
+% operation.  The goal of the controller is to hold the speed steady at
+% 10 m/s.
+%
+% * Rename the new Step block "Desired Speed"
+% * Set the *Step time* to "0", *Initial value* to "0" and *Final value* to
+% "10"
+% * Open the PID Controller and choose the option to make it a PI controller    
+% * Set the *Proportional (P)* gain to "800" and the *Integral (I)* gain to
+% "40"
+%
+% To close the loop:
+%
+% * Connect the Desired Speed output to the + port of the Subtract block
+% * Connect the Speed output of Vehicle Subsystem to the - port of the Subtract block 
+% * Connect the output of the Subtract block to the PI controller
+% * Connect the output of the PI block to one of the inputs of the manual switch
+% * Connect the Force (step input) to the other input of the switch
+% * Connect the switch output to the Force input of Vehicle Subsystem  
+% * Connect the new Scope to the Position output and rename the Scope "Vehicle
+% Position"
+% * Connect the Speed output and Desired Speed output to the original scope and rename it
+% "Vehicle Speed"
+% 
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_05.png>>
+%
+%% Open-loop response
+%
+% Double-click on the switch until the Force block is the selected input. 
+% 
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_06.png>>
+%
+% Run a simulation (type *CTRL-T* 
+% or press the green arrow run button).  The vehicle speed rises from zero and eventually reaches a steady speed of 10 m/s.
+% 
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_07.png>>
+% 
+%% Controlled-system response
+% With the switch connected to the PI output, run the simulation 
+% (type *CTRL-T* or press the green arrow run button).
+% The plot shows the controlled response of the system.  The steady-state
+% speed of 10 m/s is reached in a few seconds. 
+%
+% <<Content/CruiseControl/Simulink/Simscape/figures/cruise_control_09.png>>
+%
+%%
+% You can download the final Simscape model created here by right-clicking <Content/CruiseControl/Simulink/Simscape/cruise_control_05.slx here>
+% and then selecting *Save link as ...*.
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=CruiseControl&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=CruiseControl&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=CruiseControl&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=CruiseControl&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=CruiseControl&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=CruiseControl&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=CruiseControl&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=CruiseControl&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=CruiseControl&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=CruiseControl&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

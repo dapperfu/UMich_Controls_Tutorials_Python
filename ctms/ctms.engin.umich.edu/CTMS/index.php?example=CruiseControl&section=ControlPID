@@ -1,0 +1,600 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: CruiseControl	section: ControlPID	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "CruiseControl";
+			var section = "ControlPID";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=CruiseControl&section=ControlRootLocus";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Cruise Control: PID Controller Design</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#34775b5a40465b586041405b465d555847795540585556675d5941585d5a5f745359555d581a575b59">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=CruiseControl&section=ControlRootLocus">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=ControlPID"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=ControlPID"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=ControlPID"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=ControlPID"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=ControlPID"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=ControlPID"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=ControlPID"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=ControlPID"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Cruise Control: PID Controller Design</h1>
+	  <!--introduction-->
+      <p>Key MATLAB commands used in this tutorial are: <a href="http://www.mathworks.com/help/toolbox/control/ref/tf.html"><tt>tf</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/step.html"><tt>step</tt></a> , <a href="http://www.mathworks.com/help/toolbox/control/ref/feedback.html"><tt>feedback</tt></a></p>
+      </div>
+	  <div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+	    <li><a href="?example=Introduction&section=ControlPID">Intro to PID Control</a></li>
+        <li><a href="?aux=Activities_RCcircuitC">First-Order Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/videos/pid-control-made-easy-81646.html">MATLAB PID Video</a></li>
+	  		<li><a href="https://www.youtube.com/watch?v=RYWPqb2hAEM">PID Intro Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">System model and parameters</a></li>
+            <li><a href="#2">Performance specifications</a></li>
+            <li><a href="#3">PID overview</a></li>
+            <li><a href="#5">Proportional control</a></li>
+            <li><a href="#9">PI control</a></li>
+            <li><a href="#13">PID control</a></li>
+         </ul>
+      </div>
+      <h2>System model and parameters<a name="1"></a></h2>
+      <p>The transfer function model for the cruise control problem is given below.  Please see the <a href="?example=CruiseControl&amp;section=SystemModeling">Cruise Control: System Modeling</a> page for the derivation.
+      </p>
+      <p><span class="eqn_num">(1)</span><img class="display_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq15895515400129359059.png" alt="$$&#xA;P(s) = \frac{V(s)}{U(s)} = \frac{1}{ms+b} \qquad  [ \frac{m/s}{N} ]&#xA;$$"></p>
+      <p>The parameters used in this example are as follows:</p><pre>(m)   vehicle mass            1000 kg</pre><pre>(b)   damping coefficient     50 N.s/m</pre><pre>(r)   reference speed         10 m/s</pre><h2>Performance specifications<a name="2"></a></h2>
+      <div>
+         <ul>
+            <li>Rise time &lt; 5 s</li>
+            <li>Overshoot &lt; 10%</li>
+            <li>Steady-state error &lt; 2%</li>
+         </ul>
+      </div>
+      <h2>PID overview<a name="3"></a></h2>
+      <p>The block diagram of a typical unity feedback system is shown below.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Control/PID/figures/feedback_cruise.png" alt=""> </p>
+      <p>Recall from the <a href="?example=Introduction&amp;section=ControlPID">Introduction: PID Controller Design</a> page, the transfer function of a PID controller is
+      </p>
+      <p><span class="eqn_num">(2)</span><img class="display_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq11897768554051223649.png" alt="$$&#xA;C(s) = K_p + \frac{K_i}{s} + K_d s = \frac{K_d s^2 +K_p s + K_i}{s}&#xA;$$"></p>
+      <p>We can define a PID controller in MATLAB using the transfer function directly:</p><pre class="codeinput">Kp = 1;
+Ki = 1;
+Kd = 1;
+
+s = tf(<span class="string">'s'</span>);
+C = Kp + Ki/s + Kd*s
+</pre><pre class="codeoutput">
+C =
+ 
+  s^2 + s + 1
+  -----------
+       s
+ 
+Continuous-time transfer function.
+
+</pre><p>Alternatively, we may use MATLAB's <b>pid controller object</b> to generate an equivalent continuous time controller as follows:
+      </p><pre class="codeinput">C = pid(Kp,Ki,Kd)
+</pre><pre class="codeoutput">
+C =
+ 
+             1          
+  Kp + Ki * --- + Kd * s
+             s          
+
+  with Kp = 1, Ki = 1, Kd = 1
+ 
+Continuous-time PID controller in parallel form.
+
+</pre><h2>Proportional control<a name="5"></a></h2>
+      <p>The first thing to do in this problem is to find a closed-loop transfer function with a proportional control (<img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq09841682217217752155.png" alt="$C = K_p$">) added.
+      </p>
+      <p>By reducing the unity feedback block diagram, the closed-loop transfer function with a proportional controller becomes:</p>
+      <p><span class="eqn_num">(3)</span><img class="display_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq15591949496804757220.png" alt="$$&#xA;T(s) = \frac{Y(s)}{R(s)} = \frac{P(s)C(s)}{1+P(s)C(s)} = \frac{K_p}{m s+b+K_p}&#xA;$$"></p>
+      <p>Recall from the <a href="?example=Introduction&amp;section=ControlPID">Introduction: PID Controller Design</a> page, a proportional controller, <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$">, decreases the rise time, which is desirable in this case.
+      </p>
+      <p>For now, use <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$"> equal to 100 and a reference speed of 10 m/s. Create a new <a href="?aux=Extras_Mfile">m-file</a> and enter the following commands.
+      </p><pre class="codeinput">m = 1000;
+b = 50;
+r = 10;
+
+s = tf(<span class="string">'s'</span>);
+P_cruise = 1/(m*s + b);
+
+Kp = 100;
+C = pid(Kp);
+
+T = feedback(C*P_cruise,1)
+
+t = 0:0.1:20;
+step(r*T,t)
+axis([0 20 0 10])
+</pre><pre class="codeoutput">
+T =
+ 
+      100
+  ------------
+  1000 s + 150
+ 
+Continuous-time transfer function.
+
+</pre><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_01.png" alt=""> <p>Note that we have used the MATLAB <tt>feedback</tt> command to simplify the block diagram reduction of the closed-loop system.  Please verify for yourself that the result agrees
+         with the closed-loop transfer function, T, derived above.
+      </p>
+      <p>Running the m-file in MATLAB should give you the step response above. As you can see from the plot, neither the steady-state
+         error nor the rise time satisfy our design criteria.
+      </p>
+      <p>You can increase the proportional gain, <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$">, to reduce the rise time and the steady-state error. Change the existing m-file so that <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$"> equals 5000 and rerun it in the MATLAB command window. You should see the following plot.
+      </p><pre class="codeinput">Kp = 5000;
+C = pid(Kp);
+T = feedback(C*P_cruise,1);
+
+step(r*T,t)
+axis([0 20 0 10])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_02.png" alt=""> <p>The steady-state error is now essentially zero, and the rise time has been reduced substantially. However, this response is
+         unrealistic because a real cruise control system generally can not change the speed of the vehicle from 0 to 10 m/s in less
+         than 0.5 seconds due to power limitations of the engine and drivetrain.
+      </p>
+      <p><b>Actuator limitations</b> are very frequently encountered in practice in control systems engineering, and consequently, the required control action
+         must always be considered when proposing a new controller. We will discuss this issue much more in subsequent tutorials.
+      </p>
+      <p>The solution to this problem in this case is to choose a lower proportional gain, <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$">, that will give a reasonable rise time, and add an integral controller to eliminate the steady-state error.
+      </p>
+      <h2>PI control<a name="9"></a></h2>
+      <p>The closed-loop transfer function of this cruise control system with a PI controller (<img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq14591384254402215256.png" alt="$C = K_p + K_i/s$">) is:
+      </p>
+      <p><span class="eqn_num">(4)</span><img class="display_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq16887270932324149237.png" alt="$$&#xA;T(s) = \frac{Y(s)}{R(s)} = \frac{P(s)C(s)}{1+P(s)C(s)} = \frac{K_p s + K_i}{m s^2+(b+K_p)s + K_i}&#xA;$$"></p>
+      <p>Recall from the <a href="?example=Introduction&amp;section=ControlPID">Introduction: PID Controller Design</a> page, an addition of an integral controller to the system eliminates the steady-state error. For now, let <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$"> equal 600 and <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq12979110429562330213.png" alt="$K_i$"> equal 1 and see what happens to the response. Change your m-file to the following.
+      </p><pre class="codeinput">Kp = 600;
+Ki = 1;
+C = pid(Kp,Ki);
+
+T = feedback(C*P_cruise,1);
+
+step(r*T,t)
+axis([0 20 0 10])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_03.png" alt=""> <p>Now adjust both the proportional gain, <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$">, and the integral gain, <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq12979110429562330213.png" alt="$K_i$">, to obtain the desired response. When you adjust the integral gain, <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq12979110429562330213.png" alt="$K_i$">, we suggest you to start with a small value since a large <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq12979110429562330213.png" alt="$K_i$"> can de-stabilize the response. When <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$"> equals 800 and <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq12979110429562330213.png" alt="$K_i$"> equals 40, the step response will look like the following:
+      </p><pre class="codeinput">Kp = 800;
+Ki = 40;
+C = pid(Kp,Ki);
+
+T = feedback(C*P_cruise,1);
+
+step(r*T,t)
+axis([0 20 0 10])
+</pre><img class="figure"vspace="5" hspace="5" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_04.png" alt=""> <h2>PID control<a name="13"></a></h2>
+      <p>For this particular example, no implementation of a derivative controller was needed to obtain the required output. However,
+         you might want to see how to work with a PID control for the future reference. The closed-loop transfer function for this
+         cruise control system with a PID controller (<img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq03341555919333422883.png" alt="$C = K_p + K_i/s + K_d s$">) is:
+      </p>
+      <p><span class="eqn_num">(5)</span><img class="display_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq09355341081852456038.png" alt="$$&#xA;T(s) = \frac{Y(s)}{R(s)} = \frac{P(s)C(s)}{1+P(s)C(s)} = \frac{K_d s^2 + K_p s + K_i}{(m + K_d) s^2 +(b+K_p)s + K_i}&#xA;$$"></p>
+      <p>Let <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$"> equal 1, <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq12979110429562330213.png" alt="$K_i$"> equal 1, and <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq14222518565320121796.png" alt="$K_d$"> equal 1 and enter the following commands into a new m-file.
+      </p><pre class="codeinput">Kp = 1;
+Ki = 1;
+Kd = 1;
+C = pid(Kp,Ki,Kd);
+
+T = feedback(C*P_cruise,1);
+</pre><p>Plot the step response and adjust all of <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$">, <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq14222518565320121796.png" alt="$K_d$">, and <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq12979110429562330213.png" alt="$K_i$"> until you obtain satisfactory results. We will leave this as an exercise for you to work on.
+      </p>
+      <p><b>Suggestion:</b> Usually choosing appropriate gains requires a trial and error process. The best way to attack this tedious process is to
+         adjust one variable (<img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$">, <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq12979110429562330213.png" alt="$K_i$">, or <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq14222518565320121796.png" alt="$K_d$">) at a time and observe how changing one variable influences the system output. The characteristics of <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq04301653670133881862.png" alt="$K_p$">, <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq12979110429562330213.png" alt="$K_i$">, and <img class="inline_eqn" src="Content/CruiseControl/Control/PID/html/CruiseControl_ControlPID_eq14222518565320121796.png" alt="$K_d$"> are summarized in the <a href="?example=Introduction&amp;section=ControlPID">Introduction: PID Controller Design</a> page.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.2<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Cruise Control: PID Controller Design
+%
+% Key MATLAB commands used in this tutorial are:
+% <http://www.mathworks.com/help/toolbox/control/ref/tf.html |tf|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/step.html |step|> , 
+% <http://www.mathworks.com/help/toolbox/control/ref/feedback.html |feedback|>
+%
+%% System model and parameters
+%
+% The transfer function model for the cruise control problem is given
+% below.  Please see the
+% < ?example=CruiseControl&section=SystemModeling Cruise Control: System Modeling> 
+% page for the derivation.
+%
+% $$
+% P(s) = \frac{V(s)}{U(s)} = \frac{1}{ms+b} \qquad  [ \frac{m/s}{N} ]
+% $$
+% 
+% The parameters used in this example are as follows: 
+%
+%  (m)   vehicle mass            1000 kg
+%
+%  (b)   damping coefficient     50 N.s/m
+%
+%  (r)   reference speed         10 m/s
+%
+%% Performance specifications
+%
+% * Rise time < 5 s
+% * Overshoot < 10%
+% * Steady-state error < 2%
+%
+%% PID overview
+%
+% The block diagram of a typical unity feedback system is shown below.
+% 
+% <<Content/CruiseControl/Control/PID/figures/feedback_cruise.png>>
+%
+% Recall from the 
+% < ?example=Introduction&section=ControlPID Introduction: PID Controller Design> page,
+% the transfer function of a PID controller is 
+%
+% $$
+% C(s) = K_p + \frac{K_i}{s} + K_d s = \frac{K_d s^2 +K_p s + K_i}{s}
+% $$
+%
+% We can define a PID controller in MATLAB using the transfer
+% function directly:
+
+Kp = 1;
+Ki = 1;
+Kd = 1;
+
+s = tf('s');
+C = Kp + Ki/s + Kd*s
+
+%%
+%
+% Alternatively, we may use MATLAB's *pid controller object* to generate an
+% equivalent continuous time controller as follows:
+
+C = pid(Kp,Ki,Kd)
+
+
+%% Proportional control
+%
+% The first thing to do in this problem is to find a closed-loop transfer
+% function with a proportional control ($C = K_p$) added. 
+%
+% By reducing the unity feedback block diagram, the closed-loop transfer 
+% function with a proportional controller becomes: 
+%
+% $$
+% T(s) = \frac{Y(s)}{R(s)} = \frac{P(s)C(s)}{1+P(s)C(s)} = \frac{K_p}{m s+b+K_p}
+% $$
+%
+% Recall from the 
+% < ?example=Introduction&section=ControlPID Introduction: PID Controller Design> page,
+% a proportional controller, $K_p$, decreases the rise time, which is
+% desirable in this case.
+%
+% For now, use $K_p$ equal to 100 and a reference speed of 10 m/s. Create a
+% new < ?aux=Extras_Mfile m-file> and enter the following commands. 
+
+m = 1000;
+b = 50;
+r = 10;
+
+s = tf('s');
+P_cruise = 1/(m*s + b);
+
+Kp = 100;
+C = pid(Kp);
+
+T = feedback(C*P_cruise,1)
+
+t = 0:0.1:20;
+step(r*T,t)
+axis([0 20 0 10])
+
+%%
+% Note that we have used the MATLAB |feedback| command to simplify the
+% block diagram reduction of the closed-loop system.  Please verify for
+% yourself that the result agrees with the closed-loop transfer function,
+% T, derived above.
+%
+% Running the m-file in MATLAB should give you the
+% step response above. As you can see from the plot, neither the
+% steady-state error nor the rise time satisfy our design criteria.
+%
+% You can increase the proportional gain, $K_p$, to reduce the rise time and the steady-state error. 
+% Change the existing m-file so that $K_p$ equals 5000 and rerun it in the MATLAB 
+% command window. You should see the following plot. 
+%
+%% 
+
+Kp = 5000;
+C = pid(Kp);
+T = feedback(C*P_cruise,1);
+
+step(r*T,t)
+axis([0 20 0 10])
+
+%%
+% The steady-state error is now essentially zero, and the rise time has been reduced substantially.
+% However, this response is unrealistic because a real cruise control system generally can not change the speed 
+% of the vehicle from 0 to 10 m/s in less than 0.5 seconds due to power
+% limitations of the engine and drivetrain.  
+%
+% *Actuator limitations* are
+% very frequently encountered in practice in control systems engineering, and
+% consequently, the required control action must always be considered when
+% proposing a new controller. We will discuss this issue much more in
+% subsequent tutorials.
+%
+% The solution to this problem in this case is to choose a lower proportional gain, $K_p$, that
+% will give a reasonable rise time, and add an integral controller to eliminate 
+% the steady-state error.
+%
+%% PI control
+%
+% The closed-loop transfer function of this cruise control system with a PI
+% controller ($C = K_p + K_i/s$) is: 
+%
+% $$
+% T(s) = \frac{Y(s)}{R(s)} = \frac{P(s)C(s)}{1+P(s)C(s)} = \frac{K_p s + K_i}{m s^2+(b+K_p)s + K_i}
+% $$
+%
+% Recall from the 
+% < ?example=Introduction&section=ControlPID Introduction: PID Controller Design> page,
+% an addition of an integral controller
+% to the system eliminates the steady-state error. For now, let $K_p$ equal 
+% 600 and $K_i$ equal 1 and see what happens to the response. Change your m-file 
+% to the following. 
+%
+%%
+
+Kp = 600;
+Ki = 1;
+C = pid(Kp,Ki);
+
+T = feedback(C*P_cruise,1);
+
+step(r*T,t)
+axis([0 20 0 10])
+
+%%
+%
+% Now adjust both the proportional gain, $K_p$, and the integral gain, $K_i$, to
+% obtain the desired response. When you adjust the integral gain, $K_i$, we 
+% suggest you to start with a small value since a large $K_i$ can de-stabilize 
+% the response. When $K_p$ equals 800 and $K_i$ equals 40, the step response will 
+% look like the following:  
+%
+%%
+
+Kp = 800;
+Ki = 40;
+C = pid(Kp,Ki);
+
+T = feedback(C*P_cruise,1);
+
+step(r*T,t)
+axis([0 20 0 10])
+
+%% PID control
+%
+% For this particular example, no implementation of a derivative controller
+% was needed to obtain the required output. However, you might want to see how 
+% to work with a PID control for the future reference. The closed-loop transfer 
+% function for this cruise control system with a PID controller ($C = K_p +
+% K_i/s + K_d s$) is:
+%
+% $$
+% T(s) = \frac{Y(s)}{R(s)} = \frac{P(s)C(s)}{1+P(s)C(s)} = \frac{K_d s^2 + K_p s + K_i}{(m + K_d) s^2 +(b+K_p)s + K_i}
+% $$
+%
+% Let $K_p$ equal 1, $K_i$ equal 1, and $K_d$ equal 1 and enter the following
+% commands into a new m-file. 
+%
+%%
+
+Kp = 1;
+Ki = 1;
+Kd = 1;
+C = pid(Kp,Ki,Kd);
+
+T = feedback(C*P_cruise,1);
+
+%%
+% Plot the step response and adjust all of $K_p$, $K_d$, and $K_i$ until you 
+% obtain satisfactory results. We will leave this as an exercise for you to work on.
+%
+% *Suggestion:* Usually choosing appropriate gains requires a trial and error 
+% process. The best way to attack this tedious process is to adjust one 
+% variable ($K_p$, $K_i$, or $K_d$) at a time and observe how changing one variable 
+% influences the system output. The characteristics of $K_p$, $K_i$, and $K_d$ are 
+% summarized in the 
+% < ?example=Introduction&section=ControlPID Introduction: PID Controller Design> page.
+
+
+
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=CruiseControl&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=CruiseControl&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=CruiseControl&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=CruiseControl&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=CruiseControl&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=CruiseControl&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=CruiseControl&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=CruiseControl&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=CruiseControl&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=CruiseControl&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+

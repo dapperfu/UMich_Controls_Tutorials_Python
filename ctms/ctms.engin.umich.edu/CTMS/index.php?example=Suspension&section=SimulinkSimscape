@@ -1,0 +1,605 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+
+		<link rel='stylesheet' type='text/css' href='style.css' /><script>console.log('example: Suspension	section: SimulinkSimscape	aux: 	q: ');</script>
+		<script type="text/javascript">
+
+			var example = "Suspension";
+			var section = "SimulinkSimscape";
+			var aux = "";
+			var effects = Boolean();
+			var tips = Boolean();
+			$.fx.off = !effects;
+
+			$(document).keydown(function(e){
+				if (!$("#search_field").is(":focus")){
+					if (e.keyCode == 39) {
+						window.location = "?example=InvertedPendulum&section=SystemModeling";
+					}
+					if (e.keyCode == 37) {
+						window.history.back()
+					}
+				}
+			});
+
+		</script>
+
+		<meta http-equiv="Content-Type" Content="text/html; charset=utf-8" />
+		<meta http-equiv="PRAGMA" Content="NO-CACHE" />
+
+		<title>Control Tutorials for MATLAB and Simulink - Suspension: Simulink Simscape</title>
+
+	</head>
+
+	<body>
+		<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LYF7BJYQHT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LYF7BJYQHT');
+  
+  
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-44773621-2', 'auto');
+  ga('send', 'pageview');
+</script>
+		<div id="container">
+
+			<form id="search_form"><input id="search_field" type="text" name="q" placeholder="Search Control Tutorials"/></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Effects</div><input type="hidden" name="effects" value="0"/><input type="checkbox" name="effects" value="1"  /></form>
+			<form class="option_form" method="post" onclick="submit()"><div>Tips</div><input type="hidden" name="tips" value="0"/><input type="checkbox" name="tips" value="1"  /></form>
+
+			<div style="clear:both"></div>
+
+			<div id="header">
+
+				<div id="logo_container">
+					<a href="http://www.umich.edu/" title="University of Michigan"><img class="logo" src="Images/UMich.png"></a><a href="http://www.cmu.edu/" title="Carnegie Mellon University"><img class="logo" src="Images/CMU.png"></a><a href="http://www.udmercy.edu/" title="University of Detroit Mercy"><img class="logo" src="Images/UDMercy_new.png"></a>
+				</div>
+
+				<div id="menu_container">
+
+					<ul class="menu">
+						<li class="heading" id="Tips"><a href="?aux=Extras_Tips">TIPS</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="About"><a>ABOUT</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="About_Tutorials"><a href="?aux=About_Tutorials">Tutorials</a></li>
+							<li class="item" id="About_Contact"><a href="/cdn-cgi/l/email-protection#1e5d71706a6c71724a6b6a716c777f726d537f6a727f7c4d77736b727770755e79737f7772307d7173">Contact</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Basics"><a>BASICS</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Basics_Matlab"><a href="?aux=Basics_Matlab">MATLAB</a></li>
+							<li class="item" id="Basics_Simulink"><a href="?aux=Basics_Simulink">Simulink</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>HARDWARE</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Activities"><a href="?aux=Index_Activities">Overview</a></li>
+							<li class="item" id="Activities_RCcircuitA"><a href="?aux=Activities_RCcircuitA">RC circuit</a></li>
+							<li class="item" id="Activities_LRCcircuitA"><a href="?aux=Activities_LRCcircuitA">LRC circuit</a></li>
+							<li class="item" id="Activities_Pendulum"><a href="?aux=Activities_Pendulum">Pendulum</a></li>
+							<li class="item" id="Activities_Lightbulb"><a href="?aux=Activities_Lightbulb">Lightbulb</a></li>
+							<li class="item" id="Activities_BoostcircuitA"><a href="?aux=Activities_BoostcircuitA">BoostConverter</a></li>
+							<li class="item" id="Activities_DCmotorA"><a href="?aux=Activities_DCmotorA">DC motor</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Index"><a>INDEX</a></li>
+						<div class="collapse"><div class="expand">
+							<li class="item" id="Index_Tutorials"><a href="?aux=Index_Tutorials">Tutorials</a></li>
+							<li class="item" id="Index_Commands"><a href="?aux=Index_Commands">Commands</a></li>
+							<li class="item" id="Index_Animations"><a href="?aux=Index_Animations">Animations</a></li>
+							<li class="item" id="Index_Extras"><a href="?aux=Index_Extras">Extras</a></li>
+						</div></div>
+					</ul>
+
+					<ul class="menu">
+						<li class="heading" id="Next"><a href="?example=InvertedPendulum&section=SystemModeling">NEXT&nbsp;&#x25BA;</a></li>
+						<div class="collapse"><div class="expand">
+						</div></div>
+					</ul>
+
+				</div>
+
+			</div>
+
+			<div id="body_container">
+
+				<div id="gradient_container"></div>
+
+				<div id="top">
+
+					<a href="?aux=Home"><img id="CTMS_logo" src="Images/CTMS_logo.png"></a>
+
+					<ul class="example">
+
+						<li class="item" id="Introduction"><a href="?example=Introduction&section=SimulinkSimscape"><img class="icon" src="Images/Introduction_Icon.png"><div class="tab">INTRODUCTION</div></a></li>
+						<li class="item" id="CruiseControl"><a href="?example=CruiseControl&section=SimulinkSimscape"><img class="icon" src="Images/CruiseControl_Icon.png"><div class="tab">CRUISE&nbsp;CONTROL</div></a></li>
+						<li class="item" id="MotorSpeed"><a href="?example=MotorSpeed&section=SimulinkSimscape"><img class="icon" src="Images/MotorSpeed_Icon.png"><div class="tab">MOTOR&nbsp;SPEED</div></a></li>
+						<li class="item" id="MotorPosition"><a href="?example=MotorPosition&section=SimulinkSimscape"><img class="icon" src="Images/MotorPosition_Icon.png"><div class="tab">MOTOR&nbsp;POSITION</div></a></li>
+						<li class="item" id="Suspension"><a href="?example=Suspension&section=SimulinkSimscape"><img class="icon" src="Images/Suspension_Icon.png"><div class="tab">SUSPENSION</div></a></li>
+						<li class="item" id="InvertedPendulum"><a href="?example=InvertedPendulum&section=SimulinkSimscape"><img class="icon" src="Images/InvertedPendulum_Icon.png"><div class="tab">INVERTED&nbsp;PENDULUM</div></a></li>
+						<li class="item" id="AircraftPitch"><a href="?example=AircraftPitch&section=SimulinkSimscape"><img class="icon" src="Images/AircraftPitch_Icon.png"><div class="tab">AIRCRAFT&nbsp;PITCH</div></a></li>
+						<li class="item" id="BallBeam"><a href="?example=BallBeam&section=SimulinkSimscape"><img class="icon" src="Images/BallBeam_Icon.png"><div class="tab">BALL&nbsp;&amp;&nbsp;BEAM</div></a></li>
+
+					</ul>
+
+				</div>
+
+				<div id="content_container">
+					<div class="content">
+   <div class="content_fx">
+   <div class="introduction">
+      <h1>Suspension: Simscape Modeling</h1>
+      <!--introduction-->
+	  </div>
+	<div class="related_links">
+      <h3>Related Tutorial Links</h3>
+      <ul>
+		<li><a href="?aux=Basics_Simulink">Simulink Basics</a></li>
+		<li><a href="?example=Introduction&section=SimulinkModeling">Modeling w/ Simulink</a></li>
+		<li><a href="?aux=Activities_RCcircuitA">Circuit Sim Activity</a></li>
+      </ul>
+	  <h3>Related External Links</h3>
+      <ul>
+	    <li><a href="https://www.mathworks.com/help/physmod/sm/index.html">Simscape Multibody Intro</a></li>
+		<li><a href="https://www.mathworks.com/help/physmod/sdl/examples/suspension-system-comparison.html?s_tid=srchtitle">Suspension in Simscape</a></li>
+	    <li><a href="https://www.mathworks.com/videos/importing-a-cad-suspension-assembly-into-simmechanics-89612.html">Importing CAD Video</a></li>
+      </ul>
+    </div>
+    <div class="clearboth"></div>
+      <!--/introduction-->
+      <h2>Contents</h2>
+      <div>
+         <ul>
+            <li><a href="#1">Physical setup</a></li>
+            <li><a href="#2">Design requirements</a></li>
+            <li><a href="#3">Open a new model</a></li>
+            <li><a href="#4">Assemble system to represent tire and road inputs</a></li>
+            <li><a href="#5">Sense key values and simulate</a></li>
+            <li><a href="#6">Define vehicle system</a></li>
+            <li><a href="#7">Define control input and measure additional states</a></li>
+            <li><a href="#8">Create closed-loop control</a></li>
+         </ul>
+      </div>
+      <h2>Physical setup<a name="1"></a></h2>
+      <p>In this section, we show how to build the suspension model using Simscape. The blocks in Simscape represent actual physical
+         components, enabling the user to create complex multi-domain models without deriving and implementing mathematical equations
+         from first principles.
+      </p>
+      <p>Specifically, we will replicate the Simulink model developed in the <a href="?example=Suspension&amp;section=SimulinkModeling">Suspension: Simulink Modeling</a> page using Simscape and will additionally implement the closed-loop control described in <a href="?example=Suspension&amp;section=SimulinkControl">Suspension: Simulink Controller Design</a>. The suspension representation is repeated below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/susp1.PNG" alt=""> </p>
+      <p>Recall, the system parameters are as follows.</p><pre>(m1)    body mass                                2500 kg</pre><pre>(m2)    suspension mass                          320 kg</pre><pre>(k1)    spring constant of suspension system     80,000 N/m</pre><pre>(k2)    spring constant of wheel and tire        500,000 N/m</pre><pre>(b1)    damping constant of suspension system    350 N.s/m</pre><pre>(b2)    damping constant of wheel and tire       15,020 N.s/m</pre><pre>(u)     control force = force from the controller we are going to design</pre><h2>Design requirements<a name="2"></a></h2>
+      <p>The design requirements are also the same as previously defined. We aim to design a feedback controller so that the output
+         (X1-X2) has an overshoot less than 5% and a settling time shorter than 5 seconds.
+      </p>
+      <h2>Open a new model<a name="3"></a></h2>
+      <p>Open a new Simscape model by typing <tt>ssc_new</tt> in the MATLAB command window. A new model opens up with a few commonly used blocks already in the model. Furthermore, you
+         will need to define the associated suspension model parameters in the MATLAB workspace. This can be accomplished by running
+         the file <a href="Content/Suspension/Simulink/Simscape/suspension_parameters.m">suspension_parameters.m</a> which can be downloaded by right-clicking and selecting <b>Save link as ...</b>.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_01.png" alt=""> </p>
+      <h2>Assemble system to represent tire and road inputs<a name="4"></a></h2>
+      <p>Below are the blocks to add. Tips:</p>
+      <div>
+         <ol>
+            <li>Use Quick Insert to add the blocks. Click in the diagram and type the name of the block (use the letters in <b>bold</b> below).  A list of blocks will appear and you can select the block you want from the list.
+            </li>
+            <li>After the block is entered, a prompt will appear for you to enter the parameter. Enter the variable names as shown below.</li>
+            <li>To rotate a block or flip blocks, right-click on the block and select the desired option from the <b>Rotate &amp; Flip</b> menu.
+            </li>
+            <li>To show the parameter below the block name, see <a href="https://www.mathworks.com/help/simulink/ug/block-properties-dialog-box.html#bvcdzkl-1">Set Block Annotation Properties</a> in the Simulink documentation
+            </li>
+         </ol>
+      </div>
+      <p>
+         <div>
+         <ul>
+         <li> Mechanical Translational <b>Ref</b>erence</li>
+         <li> Ideal Translational <b>Vel</b>ocity Source</li>
+         <li> Translational <b>Spr</b>ing (Spring rate = "k2")</li>
+         <li> Translational <b>Dam</b>per (Damping coefficient = "b2")</li>
+         <li> <b>Mas</b>s (Mass = "m2")</li>
+         <li> <b>Pul</b>se Generator (Amplitude = "1")</li>
+         </ul>
+         </div>
+         
+      </p>
+      <p>For the Pulse Generator block, double-click on the block and set <b>Period</b> to "100" and <b>Pulse Width</b> to "0.1".
+      </p>
+      <p>Connect the blocks as shown below.  Connect the output of the Pulse Generator to the Simulink-PS Converter block that is already
+         in the diagram in the upper left corner (two triangles with a Simulink input), and connect the output of that block to the
+         Ideal Translational Velocity Source.
+      </p>
+      <p>You can give the blocks meaningful names by clicking on the blocks, then clicking on the name and editing it.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_02.png" alt=""> </p>
+      <h2>Sense key values and simulate<a name="5"></a></h2>
+      <p>The following steps will allow the display of the simulation results on the Scope.</p>
+      <div>
+         <ol>
+            <li>Connect the R port of the Ideal Translational Motion Sensor as shown below.</li>
+            <li>Make a copy of the Mechanical Translational Reference block to connect to the C port of the sensor.</li>
+            <li>Connect the v port of the sensor to the PS-Simulink converter already in the diagram (white trangle and black triangle which
+               is connected to the Scope)
+            </li>
+            <li>Make a copy of the PS-Simulink converter, and connect the p port to the Scope via the converter block as shown below.</li>
+         </ol>
+      </div>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_03.png" alt=""> </p>
+      <p>Before running the simulation, set the maximum step size to 1e-2 using the following steps.</p>
+      <div>
+         <ol>
+            <li>Type <b>CTRL-E</b> to open the Configuration Parameters dialog
+            </li>
+            <li>Click on the Solver Pane</li>
+            <li>Expand the Solver details section</li>
+            <li>Set <b>Max step size</b> to "1e-2"
+            </li>
+         </ol>
+      </div>
+      <p>Then run the simulation (<b>CTRL-T</b> or press the green arrow run button). You will see the response of the bus (one wheel) as it encounters a 0.1 m bump as shown
+         in the Scope.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_04.png" alt=""> </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_05.png" alt=""> </p>
+      <h2>Define vehicle system<a name="6"></a></h2>
+      <p>You can copy and paste the spring, damper, mass, and sensor blocks to model more of the vehicle with a second mass-spring-damper.
+         Click and drag to select the blocks, then right-click on one of the selected blocks and drag to copy them.
+      </p>
+      <p>You will need to set the parameters to m1, b1, and k1, and we recommend giving the blocks meaningful names. The resulting
+         model is shown below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_06.png" alt=""> </p>
+      <p>Then run the simulation (type <b>CTRL-T</b>). You will see the vehicle body oscillates for a long time. Set the stop time to 50 seconds to see for how long it oscillates.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_07.png" alt=""> </p>
+      <h2>Define control input and measure additional states<a name="7"></a></h2>
+      <p>Now we add an Ideal Force Source as shown below so that our control system can apply a force to quickly damp out the oscillations
+         from the bump. To perform an open-loop test of the actuator, add a Step block and set the Step Time to "0". Turn off the road
+         input by setting the Amplitude of the Pulse Generator to "0".
+      </p>
+      <p>To measure the suspension deflection, add two Subtract blocks to calculate the difference between the relative positions and
+         velocities of the vehicle and the suspension. Then add an integrator to integrate the difference in relative motion of the
+         vehicle and suspension.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_08.png" alt=""> </p>
+      <p>Running the simulation, the resulting suspension response on the Suspension Deflection Scope should appear as follows.</p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_09.png" alt=""> </p>
+      <h2>Create closed-loop control<a name="8"></a></h2>
+      <p>For clarity, place the suspension model in a subsystem following the steps below.</p>
+      <div>
+         <ol>
+            <li>Replace the Scope blocks with Out1 blocks and the two inputs with In1 blocks</li>
+            <li>Click and drag to select all blocks except the Step, Pulse Generator, Scope Vehicle, and Scope Suspension Deflection blocks</li>
+            <li>Type <b>CTRL-G</b> (or right-click and choose) to create the subsystem
+            </li>
+            <li>Resize the subsystem so that all ports can be seen</li>
+         </ol>
+      </div>
+      <p>The outputs of this system are the states that will be used by the controller (see the <a href="?example=Suspension&amp;section=ControlStateSpace">Suspension: State-Space Controller Design</a> page for details). We wish to label them and order them the same as used for the control design steps. Rename and re-order
+         the outputs as shown in the screenshot below.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_10.png" alt=""> </p>
+      <p>Back at the top level, delete the output connections and connect the subsystem outputs to a Mux block as shown below.  When
+         you add the Mux block, you can set the parameter <b>Number of inputs</b> to "5". The output of the Mux block is the state vector that will be used by the controller.
+      </p>
+      <p>To use the control gains, add a Gain block and set parameter <b>Gain</b> to "K". Double-click on the block and set the <b>Multiplication parameter</b> to "Matrix (K*u)".  Connect the output of the Mux block to the input of the Gain block.  The output of this block will be
+         subtracted from the command signal to generate the actuator command.
+      </p>
+      <p>Add a Subtract block, and connect the Gain and Step blocks as shown below.  Connect the output of the subtract block to the
+         input that connects to the Ideal Force Source in the suspension subsystem.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_11.png" alt=""> </p>
+      <p>Before running the simulation, set the inputs to model the case of the bus going over a bump. Also note that the feedback
+         gain matrix K is defined in the file suspension_parameters.m, where K = [ 0  2.3E6  5E8  0  8E6 ].
+      </p>
+      <div>
+         <ol>
+            <li>In the Step block, set the <b>Final value</b> parameter to "0".
+            </li>
+            <li>In the Pulse Generator block, set the <b>Amplitude</b> to "1".
+            </li>
+         </ol>
+      </div>
+      <p>Then run the simulation (<b>CTRL-T</b> or press the green arrow run button). The Scope shows that the displacement of the vehicle is much smaller than before due
+         to the control system. You can set the stop time to 2 seconds to see the oscillations in more detail.
+      </p>
+      <p><img class="figure"vspace="5" hspace="5" src="Content/Suspension/Simulink/Simscape/figures/suspension_model_12.png" alt=""> </p>
+      <p>You can download the final Simscape model created here by right-clicking <a href="Content/Suspension/Simulink/Simscape/suspension_control_final.slx">here</a> and then selecting <b>Save link as ...</b>.
+      </p>
+      <p class="footer"><br>
+         Published with MATLAB&reg; 9.7<br></p>
+   </div>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Suspension: Simscape Modeling
+% 
+%% Physical setup
+%
+% In this section, we show how to build the suspension model using
+% Simscape. The blocks in Simscape represent actual physical components,
+% enabling the user to create complex multi-domain models without deriving and
+% implementing mathematical equations from first principles.
+%
+% Specifically, we will replicate the Simulink model developed in the 
+% < ?example=Suspension&section=SimulinkModeling Suspension: Simulink Modeling > 
+% page using Simscape and will additionally implement the closed-loop
+% control described in < ?example=Suspension&section=SimulinkControl
+% Suspension: Simulink Controller Design >. The
+% suspension representation is repeated below. 
+%
+% <<Content/Suspension/Simulink/Simscape/figures/susp1.PNG>>
+% 
+% Recall, the system parameters are as follows.
+%
+%  (m1)    body mass                                2500 kg
+%
+%  (m2)    suspension mass                          320 kg
+%  
+%  (k1)    spring constant of suspension system     80,000 N/m
+%
+%  (k2)    spring constant of wheel and tire        500,000 N/m
+%
+%  (b1)    damping constant of suspension system    350 N.s/m
+% 
+%  (b2)    damping constant of wheel and tire       15,020 N.s/m
+%
+%  (u)     control force = force from the controller we are going to design
+%
+%% Design requirements
+% The design requirements are also the same as previously defined. We
+% aim to design a feedback controller so that the output (X1-X2) has an
+% overshoot less than 5% and a settling time shorter than 5 seconds. 
+%
+%% Open a new model 
+%
+% Open a new Simscape model by typing |ssc_new| in the MATLAB command
+% window. A new model opens up with a few commonly used blocks already in
+% the model. Furthermore, you will need to define the associated suspension
+% model parameters in the MATLAB workspace. This can be accomplished by
+% running the file <Content/Suspension/Simulink/Simscape/suspension_parameters.m suspension_parameters.m>
+% which can be downloaded by right-clicking and selecting *Save link as ...*.
+%
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_01.png>>
+%
+%% Assemble system to represent tire and road inputs 
+%
+% Below are the blocks to add. Tips: 
+%
+% # Use Quick Insert to add the blocks. Click in the diagram and type the
+% name of the block (use the letters in *bold* below).  A list of
+% blocks will appear and you can select the block you want from the list.
+% # After the block is entered, a prompt will appear for you to enter the
+% parameter. Enter the variable names as shown below.
+% # To rotate a block or flip blocks, right-click on the block and select
+% the desired option from the *Rotate & Flip* menu.
+% # To show the parameter below the block name, see
+% <https://www.mathworks.com/help/simulink/ug/block-properties-dialog-box.html#bvcdzkl-1
+% Set Block Annotation Properties> in the Simulink documentation
+%
+% <html>
+% <div>
+%    <ul>
+%       <li> Mechanical Translational <b>Ref</b>erence</li>
+%       <li> Ideal Translational <b>Vel</b>ocity Source</li>
+%       <li> Translational <b>Spr</b>ing (Spring rate = "k2")</li>
+%       <li> Translational <b>Dam</b>per (Damping coefficient = "b2")</li> 
+%       <li> <b>Mas</b>s (Mass = "m2")</li>
+%       <li> <b>Pul</b>se Generator (Amplitude = "1")</li>
+%   </ul>
+% </div>
+% </html>
+%
+% For the Pulse Generator block, double-click on the block and set
+% *Period* to "100" and *Pulse Width* to "0.1".
+%
+% Connect the blocks as shown below.  Connect the output of the Pulse Generator
+% to the Simulink-PS Converter block that is already in the diagram in the
+% upper left corner (two triangles with a Simulink input), and connect the
+% output of that block to the Ideal Translational Velocity Source.
+%
+% You can give the blocks meaningful names by clicking on the blocks, then
+% clicking on the name and editing it.
+% 
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_02.png>>
+%
+%% Sense key values and simulate
+%
+% The following steps will allow the display of the simulation results on
+% the Scope. 
+%
+% # Connect the R port of the Ideal Translational Motion Sensor as shown
+% below.
+% # Make a copy of the Mechanical Translational Reference block to connect
+% to the C port of the sensor.
+% # Connect the v port of the sensor to the PS-Simulink converter already
+% in the diagram (white trangle and black triangle which is connected to
+% the Scope)
+% # Make a copy of the PS-Simulink converter, and connect the p port to
+% the Scope via the converter block as shown below.
+% 
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_03.png>>
+%
+% Before running the simulation, set the maximum step size to 1e-2 using
+% the following steps.  
+%
+% # Type *CTRL-E* to open the Configuration Parameters dialog
+% # Click on the Solver Pane
+% # Expand the Solver details section 
+% # Set *Max step size* to "1e-2"
+%
+% Then run the simulation (*CTRL-T* or press the green arrow run button). You
+% will see the response of the bus (one wheel) as it encounters a 0.1 m bump as shown
+% in the Scope.
+% 
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_04.png>>
+%
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_05.png>>
+%
+%% Define vehicle system
+%
+% You can copy and paste the spring, damper, mass, and sensor blocks to
+% model more of the vehicle with a second mass-spring-damper. Click and drag to
+% select the blocks, then right-click on one of the selected blocks and
+% drag to copy them.
+%
+% You will need to set the parameters to m1, b1, and k1, and we recommend
+% giving the blocks meaningful names. The resulting model is shown below.
+% 
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_06.png>>
+%
+% Then run the simulation (type *CTRL-T*). You will see the vehicle body
+% oscillates for a long time. Set the stop time to 50 seconds to see for how
+% long it oscillates.
+% 
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_07.png>>
+%
+%% Define control input and measure additional states
+%
+% Now we add an Ideal Force Source as shown below so that our control system can
+% apply a force to quickly damp out the oscillations from the bump. To
+% perform an open-loop test of the actuator, add a Step block and set the
+% Step Time to "0". Turn off the road input by setting the Amplitude of the
+% Pulse Generator to "0".
+%
+% To measure the suspension deflection, add two Subtract blocks to
+% calculate the difference between the relative positions and velocities of
+% the vehicle and the suspension. Then add an integrator to integrate the
+% difference in relative motion of the vehicle and suspension.
+% 
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_08.png>>
+%
+% Running the simulation, the resulting suspension response on the
+% Suspension Deflection Scope should appear as follows. 
+% 
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_09.png>>
+%
+%% Create closed-loop control
+%
+% For clarity, place the suspension model in a subsystem following the
+% steps below. 
+%
+% # Replace the Scope blocks with Out1 blocks and the two inputs with In1 blocks
+% # Click and drag to select all blocks except the Step, Pulse
+% Generator, Scope Vehicle, and Scope Suspension Deflection blocks
+% # Type *CTRL-G* (or right-click and choose) to create the subsystem
+% # Resize the subsystem so that all ports can be seen
+%
+% The outputs of this system are the states that will be used by the
+% controller (see the < ?example=Suspension&section=ControlStateSpace Suspension:
+% State-Space Controller Design > page for details). We wish to label them and order them the same as used
+% for the control design steps. Rename and re-order the outputs as shown
+% in the screenshot below.
+% 
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_10.png>>
+%
+%% 
+% 
+% Back at the top level, delete the output connections and connect the
+% subsystem outputs to a Mux block as shown below.  When you add the Mux
+% block, you can set the parameter *Number of inputs* to "5". The output of the
+% Mux block is the state vector that will be used by the controller.
+%
+% To use the control gains, add a Gain block and set parameter *Gain* to "K".
+% Double-click on the block and set the *Multiplication parameter* to "Matrix
+% (K*u)".  Connect the output of the Mux block to the input of the Gain
+% block.  The output of this block will be subtracted from the command
+% signal to generate the actuator command.
+%
+% Add a Subtract block, and connect the Gain and Step blocks as shown
+% below.  Connect the output of the subtract block to the input that
+% connects to the Ideal Force Source in the suspension subsystem.
+% 
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_11.png>>
+%
+%%
+% Before running the simulation, set the inputs to model the case of the
+% bus going over a bump. Also note that the feedback gain matrix K is defined
+% in the file suspension_parameters.m, where K = [ 0  2.3E6  5E8  0  8E6 ].
+%
+% # In the Step block, set the *Final value* parameter to "0".
+% # In the Pulse Generator block, set the *Amplitude* to "1".
+%
+% Then run the simulation (*CTRL-T* or press the green arrow run button).  
+% The Scope shows that the displacement of the vehicle is much smaller 
+% than before due to the control system. You can set the stop time to 2 seconds to see the oscillations in more
+% detail.
+% 
+% <<Content/Suspension/Simulink/Simscape/figures/suspension_model_12.png>>
+%
+%%
+% You can download the final Simscape model created here by right-clicking <Content/Suspension/Simulink/Simscape/suspension_control_final.slx here>
+% and then selecting *Save link as ...*.
+##### SOURCE END #####
+-->				</div>
+
+				<div id="left">
+
+					<ul class="section">
+						<li class="heading" id="System">SYSTEM<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SystemModeling"><a href="?example=Suspension&section=SystemModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SystemAnalysis"><a href="?example=Suspension&section=SystemAnalysis">ANALYSIS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Control">CONTROL<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="ControlPID"><a href="?example=Suspension&section=ControlPID">PID<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlRootLocus"><a href="?example=Suspension&section=ControlRootLocus">ROOT&nbsp;LOCUS<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlFrequency"><a href="?example=Suspension&section=ControlFrequency">FREQUENCY<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlStateSpace"><a href="?example=Suspension&section=ControlStateSpace">STATE-SPACE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="ControlDigital"><a href="?example=Suspension&section=ControlDigital">DIGITAL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+					<div class="section_break"></div>
+
+					<ul class="section">
+						<li class="heading" id="Simulink">SIMULINK<img class="section_heading_arrow" src="Images/section_heading_arrow.png"/></li>
+						<li class="item" id="SimulinkModeling"><a href="?example=Suspension&section=SimulinkModeling">MODELING<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkControl"><a href="?example=Suspension&section=SimulinkControl">CONTROL<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+						<li class="item" id="SimulinkSimscape"><a href="?example=Suspension&section=SimulinkSimscape">SIMSCAPE<img class="section_arrow" src="Images/section_arrow.png"/></a></li>
+					</ul>
+
+				</div>
+
+				<div style="clear:both"></div>
+
+				<div id="bottombar">
+					<a id="commons" href="http://www.creativecommons.org/" title="creative commons"><img src="Images/CCBYSA.png"></a>
+					<div id="copyright">All contents licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</div>
+			</div>
+
+		</div>
+
+		<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/javascript" src="script.js"></script>
+
+	</body>
+
+</html>
+
+
