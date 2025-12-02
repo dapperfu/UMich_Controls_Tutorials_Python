@@ -7,6 +7,8 @@ Based entirely on University of Michigan's [Controls Tutorials for MATLAB & Simu
 
 # Introduction
 
+This section introduces fundamental control theory concepts including system modeling, analysis techniques, and various control design methods (PID, root locus, frequency response, state-space, and digital control). Examples include mass-spring-damper systems and magnetically suspended ball systems.
+
 | Section | mybinder.org| nbviewer.org|
 | - | - | - |
 | System Modeling | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_SystemModeling.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_SystemModeling.ipynb) |
@@ -18,6 +20,8 @@ Based entirely on University of Michigan's [Controls Tutorials for MATLAB & Simu
 | Control: Digital | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Introduction%2FIntroduction_ControlDigital.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Introduction/Introduction_ControlDigital.ipynb) |
 
 # Cruise Control
+
+An automatic vehicle speed control system that maintains a constant speed despite external disturbances such as changes in wind or road grade. This example demonstrates a first-order system with a single state variable (velocity) and provides a practical introduction to feedback control.
 
 | Section | mybinder.org| nbviewer.org|
 | - | - | - |
@@ -31,6 +35,8 @@ Based entirely on University of Michigan's [Controls Tutorials for MATLAB & Simu
 
 # Motor Speed
 
+A DC motor speed control system that regulates the rotational speed of a motor shaft. This example combines electrical dynamics (armature circuit) with mechanical dynamics (rotor inertia and friction) to create a second-order system, demonstrating control of electromechanical systems.
+
 | Section | mybinder.org| nbviewer.org|
 | - | - | - |
 | System Modeling | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=MotorSpeed%2FMotorSpeed_SystemModeling.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/MotorSpeed/MotorSpeed_SystemModeling.ipynb) |
@@ -42,6 +48,8 @@ Based entirely on University of Michigan's [Controls Tutorials for MATLAB & Simu
 | Control: Digital | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=MotorSpeed%2FMotorSpeed_ControlDigital.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/MotorSpeed/MotorSpeed_ControlDigital.ipynb) |
 
 # Motor Position
+
+A DC motor position control system that regulates the angular position of a motor shaft. Similar to the motor speed example but with position as the output, this system requires an integrator and demonstrates control of systems with higher-order dynamics.
 
 | Section | mybinder.org| nbviewer.org|
 | - | - | - |
@@ -55,6 +63,8 @@ Based entirely on University of Michigan's [Controls Tutorials for MATLAB & Simu
 
 # Suspension
 
+An automotive active suspension system using a quarter-car (1/4 bus) model. This example demonstrates control of a multi-mass, multi-spring-damper system to minimize body motion when encountering road disturbances, showcasing control design for multi-input, multi-output (MIMO) systems.
+
 | Section | mybinder.org| nbviewer.org|
 | - | - | - |
 | System Modeling | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Suspension%2FSuspension_SystemModeling.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Suspension/Suspension_SystemModeling.ipynb) |
@@ -66,6 +76,8 @@ Based entirely on University of Michigan's [Controls Tutorials for MATLAB & Simu
 | Control: Digital | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=Suspension%2FSuspension_ControlDigital.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/Suspension/Suspension_ControlDigital.ipynb) |
 
 # Inverted Pendulum
+
+A classic control problem involving an inverted pendulum mounted on a motorized cart. This unstable, nonlinear system requires active control to maintain the pendulum in an upright position. The problem is analogous to attitude control of a booster rocket at takeoff and demonstrates control of unstable systems.
 
 | Section | mybinder.org| nbviewer.org|
 | - | - | - |
@@ -79,6 +91,8 @@ Based entirely on University of Michigan's [Controls Tutorials for MATLAB & Simu
 
 # Aircraft Pitch
 
+An aircraft autopilot system that controls the pitch angle of an aircraft using elevator deflection. Based on linearized longitudinal dynamics from Boeing commercial aircraft data, this example demonstrates control design for aerospace applications with multiple state variables.
+
 | Section | mybinder.org| nbviewer.org|
 | - | - | - |
 | System Modeling | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=AircraftPitch%2FAircraftPitch_SystemModeling.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/AircraftPitch/AircraftPitch_SystemModeling.ipynb) |
@@ -90,6 +104,8 @@ Based entirely on University of Michigan's [Controls Tutorials for MATLAB & Simu
 | Control: Digital | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/main?filepath=AircraftPitch%2FAircraftPitch_ControlDigital.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.jupyter.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/main/AircraftPitch/AircraftPitch_ControlDigital.ipynb) |
 
 # Ball & Beam
+
+A ball position control system where a ball rolls along a beam, and the beam angle is controlled by a servo motor. This system features a double integrator plant (marginally stable) and demonstrates control of systems with challenging dynamics, requiring careful controller design to achieve stability.
 
 | Section | mybinder.org| nbviewer.org|
 | - | - | - |
