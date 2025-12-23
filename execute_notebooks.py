@@ -27,11 +27,17 @@ def execute_notebook(notebook_path: Path) -> tuple[bool, str]:
         import sys
         venv_python = Path(__file__).parent / 'venv_UMich_Controls_Tutorials_Python' / 'bin' / 'python3'
         if venv_python.exists():
-            kernel_name = 'python3'
+            # Use venv Python executable
+            ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
+            # Set Python path to venv
+            import os
+            venv_path = str(venv_python.parent.parent / 'lib' / 'python3.12' / 'site-packages')
+            if 'PYTHONPATH' in os.environ:
+                os.environ['PYTHONPATH'] = venv_path + ':' + os.environ['PYTHONPATH']
+            else:
+                os.environ['PYTHONPATH'] = venv_path
         else:
-            kernel_name = 'python3'
-        
-        ep = ExecutePreprocessor(timeout=600, kernel_name=kernel_name)
+            ep = ExecutePreprocessor(timeout=600, kernel_name='python3')
         ep.preprocess(nb, {'metadata': {'path': str(notebook_path.parent)}})
         
         # Save executed notebook
