@@ -1,2 +1,19 @@
-include versioneer.py
-include umich_controls_python/__version__.py
+# Include README and license
+include README.md
+include LICENSE
+
+# Include all Jupyter notebooks
+recursive-include *.ipynb
+
+# Include all figures
+recursive-include figures *.png *.jpg *.jpeg *.gif *.svg
+
+# Include Modelica files
+recursive-include Modelica *.mo *.sh *.py
+recursive-include Modelica *.md
+
+# Include badges
+include *.svg
+
+# Include environment and requirements files for reference
+include environment.yml
