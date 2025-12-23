@@ -1,3 +1,88 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "umich-controls-tutorials-python"
+version = "1.0.0"
+description = "Control system tutorials for Python based on University of Michigan Controls Tutorials for MATLAB & Simulink"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "CC-BY-SA-4.0"}
+authors = [
+    {name = "UMich Controls Tutorials Python Contributors"}
+]
+keywords = [
+    "control-systems",
+    "tutorials",
+    "jupyter",
+    "modelica",
+    "simulink",
+    "python-control",
+    "control-theory",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Creative Commons Attribution Share Alike 4.0 International",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+    "Topic :: Scientific/Engineering",
+]
+
+# Core dependencies
+dependencies = [
+    # Core control systems library
+    "control>=0.10.0",
+    # Scientific computing
+    "numpy>=1.20.0",
+    "scipy>=1.7.0",
+    # Plotting
+    "matplotlib>=3.5.0",
+    "seaborn>=0.12.0",
+    # Jupyter and interactive widgets
+    "jupyter>=1.0.0",
+    "ipywidgets>=8.0.0",
+]
+
+[project.optional-dependencies]
+# Modelica integration dependencies
+modelica = [
+    "OMPython>=3.3.0",
+    "opencv-python>=4.8.0",
+    "pytesseract>=0.3.10",
+    "Pillow>=10.0.0",
+]
+# Development dependencies
+dev = [
+    "ruff>=0.1.0",
+    "pytest>=7.0.0",
+    "pytest-nbval>=0.10.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/dapperfu/UMich_Controls_Tutorials_Python"
+Documentation = "https://github.com/dapperfu/UMich_Controls_Tutorials_Python"
+Repository = "https://github.com/dapperfu/UMich_Controls_Tutorials_Python"
+"Bug Tracker" = "https://github.com/dapperfu/UMich_Controls_Tutorials_Python/issues"
+
+[tool.setuptools]
+packages = []
+include-package-data = true
+
+[tool.setuptools.package-data]
+"*" = [
+    "*.ipynb",
+    "figures/**/*",
+    "Modelica/**/*.mo",
+    "Modelica/**/*.sh",
+    "Modelica/**/*.py",
+]
+
 [tool.ruff]
 # Enable pyproject.toml support
 target-version = "py37"
@@ -47,3 +132,10 @@ line-ending = "auto"
 # Allow uppercase variables in notebooks (common in control systems: K, Kp, Ki, Kd, C, etc.)
 "*.ipynb" = ["E501", "N803", "N806"]
 
+[tool.pytest.ini_options]
+addopts = [
+    "--tb=long",
+    "-rapP",
+]
+norecursedirs = []
+testpaths = ["tests"]
