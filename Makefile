@@ -23,9 +23,9 @@ ${VENV}:
 	python3 -m venv ${VENV}
 	${PIP} install --upgrade pip
 
-# Install dependencies
+# Install dependencies (editable install from pyproject.toml)
 install: ${VENV}
-	${PIP} install -r requirements.txt
+	${PIP} install -e .
 
 # Run all notebooks to verify they work
 test: ${VENV}

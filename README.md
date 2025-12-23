@@ -5,6 +5,29 @@ Based entirely on University of Michigan's [Controls Tutorials for MATLAB & Simu
 - Interactive online notebooks is provided by [Binder](https://mybinder.org/).
 - Static rendered notebooks is provided by [nbviewer](https://nbviewer.jupyter.org/)
 
+## Installation
+
+Install the package in editable mode with all dependencies:
+
+```bash
+pip install -e .
+```
+
+Or install with optional dependencies:
+
+```bash
+# With Modelica support
+pip install -e ".[modelica]"
+
+# With development tools
+pip install -e ".[dev]"
+
+# With both
+pip install -e ".[modelica,dev]"
+```
+
+The project uses modern Python packaging with `pyproject.toml`. All dependencies are specified in the project configuration.
+
 # Introduction
 
 This section introduces fundamental control theory concepts including system modeling, analysis techniques, and various control design methods (PID, root locus, frequency response, state-space, and digital control). Examples include mass-spring-damper systems and magnetically suspended ball systems.
