@@ -10,11 +10,11 @@ model MotorPosition_System "DC motor position control system"
   import Modelica.SIunits;
   
   // Parameters (same as MotorSpeed)
-  parameter SIunits.MomentOfInertia J = 0.01 "Moment of inertia of rotor (kg.m^2)";
+  parameter SIunits.MomentOfInertia J = 3.2284e-06 "Moment of inertia of rotor (kg.m^2)";
   parameter SIunits.RotationalDampingConstant b = 0.1 "Motor viscous friction constant (N.m.s)";
   parameter SIunits.Voltage K = 0.01 "Motor torque constant = back emf constant (N.m/A = V.s/rad)";
   parameter SIunits.Resistance R = 1.0 "Electric resistance (Ohm)";
-  parameter SIunits.Inductance L = 0.5 "Electric inductance (H)";
+  parameter SIunits.Inductance L = 2.75e-06 "Electric inductance (H)";
   
   // State variables
   SIunits.Angle theta(start = 0.0) "Angular position (rad)";
