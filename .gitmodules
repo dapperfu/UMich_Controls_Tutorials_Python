@@ -1,0 +1,3 @@
+[submodule ".cursor/rules"]
+	path = .cursor/rules
+	url = https://github.com/dapperfu/cursor_rules.git
