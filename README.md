@@ -117,6 +117,46 @@ A ball position control system where a ball rolls along a beam, and the beam ang
 | Control: State Space | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/vibe_updates?filepath=BallBeam%2FBallBeam_ControlStateSpace.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/vibe_updates/BallBeam/BallBeam_ControlStateSpace.ipynb) |
 | Control: Digital | [![Binder](binder_badge.svg)](https://mybinder.org/v2/gh/dapperfu/UMich_Controls_Tutorials_Python/vibe_updates?filepath=BallBeam%2FBallBeam_ControlDigital.ipynb) | [![nbviewer](nbviewer_badge.svg)](https://nbviewer.org/github/dapperfu/UMich_Controls_Tutorials_Python/blob/vibe_updates/BallBeam/BallBeam_ControlDigital.ipynb) |
 
+# Modelica Models
+
+This repository now includes Modelica models converted from the original Simulink examples. The Modelica models provide an alternative implementation using the Modelica language and can be simulated using OpenModelica.
+
+## Quick Start
+
+1. **Install OpenModelica** (Linux):
+   ```bash
+   bash Modelica/scripts/install_modelica.sh
+   ```
+
+2. **Install Python dependencies**:
+   ```bash
+   pip install OMPython
+   ```
+
+3. **Use in Python**:
+   ```python
+   from OMPython import ModelicaSystem
+   model = ModelicaSystem("Modelica/UMichControls/CruiseControl/CruiseControl_System.mo", "CruiseControl_System")
+   model.simulate()
+   ```
+
+For detailed documentation, see [Modelica/README.md](Modelica/README.md).
+
+## Available Modelica Models
+
+All 8 example systems have been converted to Modelica:
+
+- **Introduction**: Mass-spring-damper, magnetic suspension
+- **CruiseControl**: Vehicle speed control
+- **MotorSpeed**: DC motor speed control
+- **MotorPosition**: DC motor position control
+- **Suspension**: Quarter-car active suspension
+- **InvertedPendulum**: Cart-pendulum system
+- **AircraftPitch**: Aircraft pitch control
+- **BallBeam**: Ball and beam position control
+
+The models are organized in the `Modelica/UMichControls/` package following Modelica Standard Library conventions.
+
 # Copyright
 
 The Control Tutorials for Python are licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/). This means that the contents of this website may be copied and adapted for other uses as long as the user provides credit to the original authors (Attribution) and distributes their materials under the same license as we use here (ShareAlike).
