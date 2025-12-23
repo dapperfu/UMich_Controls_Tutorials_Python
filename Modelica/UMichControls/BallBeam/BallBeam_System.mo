@@ -7,9 +7,9 @@ model BallBeam_System "Ball and beam position control system"
   import Modelica.SIunits;
   
   // Parameters
-  parameter SIunits.Mass m = 0.11 "Mass of the ball (kg)";
+  parameter SIunits.Mass m = 0.111 "Mass of the ball (kg)";
   parameter SIunits.Length R = 0.015 "Radius of the ball (m)";
-  parameter SIunits.MomentOfInertia J = 9.99e-6 "Moment of inertia of the ball (kg.m^2)";
+  parameter SIunits.MomentOfInertia J = 9.99e-06 "Moment of inertia of the ball (kg.m^2)";
   parameter SIunits.Acceleration g = 9.81 "Gravitational acceleration (m/s^2)";
   parameter Real d = 0.03 "Lever arm offset (m)";
   parameter SIunits.Length L = 0.4 "Length of the beam (m)";
