@@ -190,10 +190,33 @@ class ModelicaGenerator:
         else:
             return self._generate_generic()
 
+    def _format_param(self, value: float) -> str:
+        """Format parameter value as integer if whole number, otherwise as float.
+        
+        Parameters
+        ----------
+        value : float
+            Parameter value to format
+            
+        Returns
+        -------
+        str
+            Formatted parameter value string
+        """
+        if isinstance(value, float) and value.is_integer():
+            return str(int(value))
+        return str(value)
+    
     def _generate_cruise_control(self) -> str:
         """Generate CruiseControl Modelica model."""
         m = self.system_info['parameters'].get('m', 1000)
         b = self.system_info['parameters'].get('b', 50)
+        
+        # Icon graphics string (avoid f-string brace issues)
+        icon_graphics = """{
+      Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,0}, fillColor={255,255,255}),
+      Text(extent={{-50,30},{50,-30}}, textString="Cruise")
+    }"""
         
         return f"""within UMichControls.CruiseControl;
 model {self.model_name} "Cruise control system: vehicle speed control"
@@ -206,8 +229,8 @@ model {self.model_name} "Cruise control system: vehicle speed control"
   import Modelica.SIunits;
   
   // Parameters
-  parameter SIunits.Mass m = {m} "Vehicle mass (kg)";
-  parameter SIunits.TranslationalDampingConstant b = {b} "Damping coefficient (N.s/m)";
+  parameter SIunits.Mass m = {self._format_param(m)} "Vehicle mass (kg)";
+  parameter SIunits.TranslationalDampingConstant b = {self._format_param(b)} "Damping coefficient (N.s/m)";
   
   // State variable
   SIunits.Velocity v(start = 0.0) "Vehicle velocity (m/s)";
@@ -228,8 +251,8 @@ equation
     <p>This model represents a cruise control system for maintaining constant
     vehicle speed. The system is a first-order mass-damper system where:</p>
     <ul>
-      <li>m is the vehicle mass ({m} kg)</li>
-      <li>b is the damping coefficient representing rolling resistance and wind drag ({b} N.s/m)</li>
+      <li>m is the vehicle mass ({self._format_param(m)} kg)</li>
+      <li>b is the damping coefficient representing rolling resistance and wind drag ({self._format_param(b)} N.s/m)</li>
       <li>u is the control force at the road/tire interface (N)</li>
       <li>v is the vehicle velocity (m/s)</li>
     </ul>
@@ -240,10 +263,7 @@ equation
     <p>y = v</p>
     <p>This is a first-order system with a single state variable (velocity).</p>
     </html>"),
-    Icon(graphics={{
-      Rectangle(extent={{{{-60,60}},{{{60,-60}}}}, lineColor={{{0,0,0}}}, fillColor={{{255,255,255}}}}),
-      Text(extent={{{{-50,30}},{{{50,-30}}}}, textString="Cruise")
-    }}));
+    Icon(graphics={icon_graphics}));
 end {self.model_name};
 
 """
@@ -255,6 +275,11 @@ end {self.model_name};
         K = self.system_info['parameters'].get('K', 0.01)
         R = self.system_info['parameters'].get('R', 1.0)
         L = self.system_info['parameters'].get('L', 0.5)
+        
+        icon_graphics = """{
+      Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,0}, fillColor={255,255,255}),
+      Text(extent={{-50,30},{50,-30}}, textString="MotorSpd")
+    }"""
         
         return f"""within UMichControls.MotorSpeed;
 model {self.model_name} "DC motor speed control system"
@@ -313,10 +338,7 @@ equation
       <li>V is the input voltage (V)</li>
     </ul>
     </html>"),
-    Icon(graphics={{
-      Rectangle(extent={{{{-60,60}},{{{60,-60}}}}, lineColor={{{0,0,0}}}, fillColor={{{255,255,255}}}}),
-      Text(extent={{{{-50,30}},{{{50,-30}}}}, textString="MotorSpd")
-    }}));
+    Icon(graphics={icon_graphics}));
 end {self.model_name};
 
 """
@@ -328,6 +350,11 @@ end {self.model_name};
         K = self.system_info['parameters'].get('K', 0.01)
         R = self.system_info['parameters'].get('R', 1.0)
         L = self.system_info['parameters'].get('L', 0.5)
+        
+        icon_graphics = """{
+      Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,0}, fillColor={255,255,255}),
+      Text(extent={{-50,30},{50,-30}}, textString="MotorPos")
+    }"""
         
         return f"""within UMichControls.MotorPosition;
 model {self.model_name} "DC motor position control system"
@@ -375,17 +402,19 @@ equation
     and demonstrating control of systems with higher-order dynamics.</p>
     <p>The system has three state variables: position, velocity, and current.</p>
     </html>"),
-    Icon(graphics={{
-      Rectangle(extent={{{{-60,60}},{{{60,-60}}}}, lineColor={{{0,0,0}}}, fillColor={{{255,255,255}}}}),
-      Text(extent={{{{-50,30}},{{{50,-30}}}}, textString="MotorPos")
-    }}));
+    Icon(graphics={icon_graphics}));
 end {self.model_name};
 
 """
 
     def _generate_aircraft_pitch(self) -> str:
         """Generate AircraftPitch Modelica model."""
-        return """within UMichControls.AircraftPitch;
+        icon_graphics = """{
+      Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,0}, fillColor={255,255,255}),
+      Text(extent={{-50,30},{50,-30}}, textString="Aircraft")
+    }"""
+        
+        return f"""within UMichControls.AircraftPitch;
 model AircraftPitch_System "Aircraft pitch control system"
   "An aircraft autopilot system that controls the pitch angle using elevator deflection.
    Based on linearized longitudinal dynamics from Boeing commercial aircraft data.
@@ -427,17 +456,19 @@ equation
     </ul>
     <p>The input is the elevator deflection angle delta, and the output is the pitch angle theta.</p>
     </html>"),
-    Icon(graphics={{
-      Rectangle(extent={{{{-60,60}},{{{60,-60}}}}, lineColor={{{0,0,0}}}, fillColor={{{255,255,255}}}}),
-      Text(extent={{{{-50,30}},{{{50,-30}}}}, textString="Aircraft")
-    }}));
+    Icon(graphics={icon_graphics}));
 end AircraftPitch_System;
 
 """
 
     def _generate_suspension(self) -> str:
         """Generate Suspension Modelica model."""
-        return """within UMichControls.Suspension;
+        icon_graphics = """{
+      Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,0}, fillColor={255,255,255}),
+      Text(extent={{-50,30},{50,-30}}, textString="Susp")
+    }"""
+        
+        return f"""within UMichControls.Suspension;
 model Suspension_System "Quarter-car active suspension system"
   "A multi-mass, multi-spring-damper system for automotive suspension.
    Demonstrates control design for multi-input, multi-output (MIMO) systems.
@@ -489,10 +520,7 @@ equation
     to minimize body motion when encountering road disturbances.</p>
     <p>The system has two masses (body and suspension) connected by springs and dampers.</p>
     </html>"),
-    Icon(graphics={{
-      Rectangle(extent={{{{-60,60}},{{{60,-60}}}}, lineColor={{{0,0,0}}}, fillColor={{{255,255,255}}}}),
-      Text(extent={{{{-50,30}},{{{50,-30}}}}, textString="Susp")
-    }}));
+    Icon(graphics={icon_graphics}));
 end Suspension_System;
 
 """
@@ -504,6 +532,11 @@ end Suspension_System;
         b = self.system_info['parameters'].get('b', 0.1)
         l = self.system_info['parameters'].get('l', 0.3)
         I = self.system_info['parameters'].get('I', 0.006)
+        
+        icon_graphics = """{
+      Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,0}, fillColor={255,255,255}),
+      Text(extent={{-50,30},{50,-30}}, textString="InvPend")
+    }"""
         
         return f"""within UMichControls.InvertedPendulum;
 model {self.model_name} "Inverted pendulum on cart system"
@@ -555,10 +588,7 @@ equation
     <p>Note: This is a simplified linearized model. For full nonlinear dynamics,
     the equations would include more complex coupling terms.</p>
     </html>"),
-    Icon(graphics={{
-      Rectangle(extent={{{{-60,60}},{{{60,-60}}}}, lineColor={{{0,0,0}}}, fillColor={{{255,255,255}}}}),
-      Text(extent={{{{-50,30}},{{{50,-30}}}}, textString="InvPend")
-    }}));
+    Icon(graphics={icon_graphics}));
 end {self.model_name};
 
 """
@@ -570,6 +600,11 @@ end {self.model_name};
         J = self.system_info['parameters'].get('J', 9.99e-6)
         d = self.system_info['parameters'].get('d', 0.03)
         L = self.system_info['parameters'].get('L', 0.4)
+        
+        icon_graphics = """{
+      Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,0}, fillColor={255,255,255}),
+      Text(extent={{-50,30},{50,-30}}, textString="BallBeam")
+    }"""
         
         return f"""within UMichControls.BallBeam;
 model {self.model_name} "Ball and beam position control system"
@@ -623,10 +658,7 @@ equation
     <p>(J/R^2 + m)*ddr = -m*g*alpha</p>
     <p>where alpha = (d/L)*theta</p>
     </html>"),
-    Icon(graphics={{
-      Rectangle(extent={{{{-60,60}},{{{60,-60}}}}, lineColor={{{0,0,0}}}, fillColor={{{255,255,255}}}}),
-      Text(extent={{{{-50,30}},{{{50,-30}}}}, textString="BallBeam")
-    }}));
+    Icon(graphics={icon_graphics}));
 end {self.model_name};
 
 """
@@ -637,6 +669,11 @@ end {self.model_name};
         m = self.system_info['parameters'].get('m', 1.0)
         k = self.system_info['parameters'].get('k', 1.0)
         b = self.system_info['parameters'].get('b', 0.5)
+        
+        icon_graphics = """{
+      Rectangle(extent={{-60,60},{60,-60}}, lineColor={0,0,0}, fillColor={255,255,255}),
+      Text(extent={{-50,30},{50,-30}}, textString="MSD")
+    }"""
         
         return f"""within UMichControls.Introduction;
 model MassSpringDamper "Mass-spring-damper system model"
@@ -682,10 +719,7 @@ equation
     <p>where F(t) is the external force input.</p>
     <p>The state-space representation uses position x and velocity dx as state variables.</p>
     </html>"),
-    Icon(graphics={{
-      Rectangle(extent={{{{-60,60}},{{{60,-60}}}}, lineColor={{{0,0,0}}}, fillColor={{{255,255,255}}}}),
-      Text(extent={{{{-50,30}},{{{50,-30}}}}, textString="MSD")
-    }}));
+    Icon(graphics={icon_graphics}));
 end MassSpringDamper;
 
 """
@@ -737,7 +771,7 @@ def main() -> int:
     parser.add_argument(
         '--project-root',
         type=Path,
-        default=Path(__file__).parent.parent.parent.parent,
+        default=Path(__file__).parent.parent.parent,
         help='Project root directory (default: auto-detect)'
     )
     
@@ -778,7 +812,12 @@ def main() -> int:
         output_dir = args.output_dir / system_name
         output_dir.mkdir(parents=True, exist_ok=True)
         
-        output_file = output_dir / f"{system_name}_System.mo"
+        # Introduction is special - it generates MassSpringDamper.mo, not Introduction_System.mo
+        if system_name == 'Introduction':
+            output_file = output_dir / "MassSpringDamper.mo"
+        else:
+            output_file = output_dir / f"{system_name}_System.mo"
+        
         output_file.write_text(modelica_code, encoding='utf-8')
         
         print(f"Generated: {output_file}")
