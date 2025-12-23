@@ -11,7 +11,7 @@ model MassSpringDamper "Mass-spring-damper system model"
   // Parameters
   parameter SIunits.Mass m = 1.0 "Mass of the system (kg)";
   parameter SIunits.TranslationalSpringConstant k = 1.0 "Spring constant (N/m)";
-  parameter SIunits.TranslationalDampingConstant b = 0.5 "Damping constant (N.s/m)";
+  parameter SIunits.TranslationalDampingConstant b = 0.2 "Damping constant (N.s/m)";
   
   // State variables
   SIunits.Position x(start = 0.0) "Position of mass (m)";
